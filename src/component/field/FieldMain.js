@@ -361,7 +361,6 @@ export default function FieldMain({
   return (
     <div>
         <main className="">
-          <CardMain>
             <section className="">
               {fieldmainrender?.map(data => (<>
 
@@ -393,7 +392,6 @@ export default function FieldMain({
 
               </>))}
             </section>
-          </CardMain>
         </main>
     </div>
   )

@@ -6,7 +6,7 @@
 
 
     body {
-        @apply text-sm bg-white text-black font-mono;
+        @apply text-sm bg-white text-black;
     }
 
     article {
@@ -14,7 +14,7 @@
     }
 
     button {
-        @apply cursor-pointer font-serif;
+        @apply cursor-pointer rounded-full;
     }
 
     a {
@@ -22,7 +22,7 @@
     }
 
     input, textarea {
-        @apply bg-transparent border-[1.5px] border-gray-200 focus:border-black font-extralight focus:outline-none font-serif duration-100;
+        @apply w-full  focus:border-black font-extralight focus:outline-none duration-100 rounded-full;
     }
 
     .m-section {
@@ -38,15 +38,15 @@
     }
 
     .m-input {
-        @apply text-base p-[10px];
+        @apply text-base p-[10px] bg-slate-100;
     }
 
     .l-input {
-        @apply text-base p-[20px];
+        @apply text-base p-[20px] bg-slate-100;
     }
 
     .m-h1 {
-        @apply text-[10px] font-medium font-mono;
+        @apply text-[10px] font-medium;
     }
 
     .l-h1 {
@@ -54,7 +54,7 @@
     }
 
     .m-h2 {
-        @apply text-[12px] font-medium font-mono;
+        @apply text-[12px] font-medium;
     }
 
     .l-h2 {
@@ -62,7 +62,7 @@
     }
 
     .m-h3 {
-        @apply text-[11px] md:text-[14px] font-medium font-mono;
+        @apply text-[11px] md:text-[14px] font-medium;
     }
 
     .l-h3 {
@@ -70,7 +70,7 @@
     }
 
     .m-h4 {
-        @apply text-[13px] md:text-[16px] font-medium font-mono;
+        @apply text-[13px] md:text-[16px] font-medium;
     }
 
     .l-h4 {
@@ -78,7 +78,7 @@
     }
 
     .m-h5 {
-        @apply text-[16px] md:text-[18px] font-medium font-mono;
+        @apply text-[16px] md:text-[18px] font-medium;
     }
 
     .l-h5 {
@@ -86,7 +86,7 @@
     }
 
     .m-h6 {
-        @apply text-[19px] md:text-[22px]  font-medium font-mono;
+        @apply text-[19px] md:text-[22px]  font-medium;
     }
 
     .l-h6 {

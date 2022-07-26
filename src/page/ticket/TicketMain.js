@@ -1,14 +1,12 @@
 import React from 'react'
 
-export default function CardMain({
-    children
-}) {
-
+export default function TicketMain() {
+    
   return (
     <div>
         <main className="">
-            <section className="p-[20px]">
-                {children}
+            <section className="">
+
             </section>
         </main>
     </div>

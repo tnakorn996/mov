@@ -8,7 +8,7 @@ export default function TopMain({
     const location = useLocation()
 
     useEffect(() => {
-      if(location && location.pathname){
+      if(location){
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth'})
       }
     }, [location])

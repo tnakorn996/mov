@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { appul } from '../../content/content'
@@ -29,13 +30,17 @@ export default function NavbarMain({
       navmainrender: 
         <CardMain>
           <div className="flex flex-row justify-around items-center ">
-          {appul?.map(data => (<>
             <article onClick={() => {
-              navigate(data?.breadaction)
+              navigate(appul[1]?.breadaction)
             }} className="">
-              {data?.breadtitle}
+              {appul[1]?.breadtitle}
             </article>
-          </>))}
+
+            <article onClick={() => {
+              navigate(appul[2]?.breadaction)
+            }} className="">
+              {appul[2]?.breadtitle}
+            </article>
           </div>
         </CardMain>
         ,
@@ -46,16 +51,22 @@ export default function NavbarMain({
   const workouttbody = [
     {
       navmainindex: 0,
-      // navmainrender: <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />,
-      navmainrender: (taskdl[0]?.spreaddata?.filter(data => data.workoutid === split[3])).length === 0 ? <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} /> : null,
+      navmainrender: (taskdl[0]?.spreaddata && (taskdl[0]?.spreaddata?.filter(data => data?.workoutid === split[3])).length === 0) ?  
+      <CardMain>
+        <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className=""><FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} /></motion.div> 
+      </CardMain>
+      : null,
     }
   ]
 
   const clubtbody = [
     {
       navmainindex: 0,
-      // navmainrender: <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />,
-      navmainrender: (ticketdl[0]?.spreaddata?.filter(data => data.clubid === split[3])).length === 0 ? <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} /> : null,
+      navmainrender: (ticketdl[0]?.spreaddata && (ticketdl[0]?.spreaddata?.filter(data => data?.clubid === split[3])).length === 0) ?  
+      <CardMain>
+        <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className=""><FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} /></motion.div> 
+      </CardMain>
+      : null,
     },
   ]
 
@@ -89,6 +100,10 @@ export default function NavbarMain({
   const navmainrender = appstatic && appstatic
 
   useEffect(() => {
+    navigate(`/auth/authform`)
+  }, [])
+  
+  useEffect(() => {
     if((location.pathname.includes('main') || location.pathname.includes(''))) {
       setnavmainstate({navmainid: 'apptbody', navmainindex: 0})
     }
@@ -96,25 +111,12 @@ export default function NavbarMain({
       const split = location.pathname.split('/');
       setnavmainstate({navmainid: `${split[1]}tbody`, navmainindex: 0})
     }
-    
-  //   if(location.pathname.includes('/club/clubindex')) {
-  //     const split = location.pathname.split('/');
-  //     setnavmainstate({navmainid: `${split[1]}tbody`, navmainindex: 0})
-  //   }
-  //   if(location.pathname.includes('/club/clubmain')) {
-  //     if(ticketdl && ticketdl[0]?.spreaddata?.length > 0) {
-  //       navigate(`/club/clubindex/${ticketdl[0]?.spreaddata[0]?.clubid}`)
-  //     }
-  //   }
-  //   else {
-  //     setnavmainstate({navmainid: 'apptbody', navmainindex: 0})
-  //   }
   }, [location])
   
   return (
     <div>
         <main className="">
-        <section className="fixed bottom-0 left-0 w-screen h-[10vh] flex items-center">
+        <section className="fixed bottom-0 left-0 w-screen flex items-center">
             {navmainrender?.map(data => (<>
             <div className="w-full">
               {data?.navmainrender}

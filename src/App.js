@@ -1,6 +1,7 @@
 
 import React, {useState, useRef, useEffect, useContext} from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {AnimatePresence} from 'framer-motion'
 
 import './App.css';
 import { Context } from './context/context';
@@ -20,26 +21,31 @@ import TicketIndex from './page/ticket/TicketIndex';
 import WorkoutMain from './page/workout/WorkoutMain'
 import WorkoutIndex from './page/workout/WorkoutIndex';
 import TaskIndex from './page/task/TaskIndex';
+import TicketMain from './page/ticket/TicketMain';
+import FavouriteMain from './page/favourite/FavouriteMain';
 
 export default function App() {
   const {
     statmainstate,
     navmainstate,
+
+    authstate,
     
 
   } = useContext(Context)
+  const location = useLocation()
 
   return (
       <div className="App">
-        <TopMain >
         <OverlayMain>
         <main className="relative">
           <section className="sticky top-0 left-0 w-screen min-h-[10vh]">
-            <StatMain />
+            {authstate && <StatMain />}
           </section>
           <section className="w-screen min-h-screen">
-            <Routes>
-              <Route path='/' element={<TaskMain />} /> 
+            <TopMain />
+            <Routes location={location} key={location.pathname}>
+              <Route path='/' element={<AuthForm />} /> 
 
               <Route path='/auth/authform' element={<AuthForm />} /> 
 
@@ -57,17 +63,18 @@ export default function App() {
               <Route path='/club/clubform' element={<ClubForm />} /> 
               <Route path='/club/clubindex/:clubid' element={<ClubIndex />} /> 
 
+              <Route path='/ticket/ticketmain' element={<TicketMain />} /> 
               <Route path='/ticket/ticketform/:ticketid' element={<TicketForm />} /> 
               <Route path='/ticket/ticketindex/:ticketid' element={<TicketIndex />} /> 
 
+              <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
             </Routes> 
           </section>
           <section className="w-screen min-h-[10vh]">
-            <NavMain />
+            {authstate && <NavMain />}
           </section>
         </main>
         </OverlayMain>
-        </TopMain>
       </div>
 
     );

@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import FeedMain from '../../component/feed/FeedMain';
 
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain';
 
 export default function TaskMain() {
   const {
-    taskdl,
+    // taskdl,
 
   } = useContext(Context)
 
@@ -14,6 +15,11 @@ export default function TaskMain() {
 
   return (
     <div>
+      <main className="">
+        <section className="">
+          <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: null}} />
+        </section>
+      </main>
         
     </div>
   )

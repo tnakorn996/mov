@@ -59,7 +59,7 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: 'All club',
+                    feedmaintitle: 'Join a Challenge',
                     feedmainrender: clubdl[0].spreaddata,
                 },
             ],
@@ -72,7 +72,7 @@ export default function FeedMain({
             feedmainslice: 3,
             feedmaindata: [
                 {
-                    feedmaintitle: 'All tickets',
+                    feedmaintitle: 'My Challenges',
                     // feedmainaction: `/ticket/ticketmain/`,
                     feedmainrender: ticketdl[0].spreaddata,
                 },
@@ -89,12 +89,18 @@ export default function FeedMain({
                     feedmaintitle: 'Favourite workouts',
                     feedmainrender: favouritedl[0].spreaddata,
                 },
-                // {
-                //     feedmaintitle: 'Favourite clubs',
-                //     feedmainrender: favouritedl[1].spreaddata,
-                // },
             ],
-        }
+        },
+        {
+            feedmainindex: 1,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: 'Favourite clubs',
+                    feedmainrender: favouritedl[1].spreaddata,
+                },
+            ],
+        },
     ]
 
 
@@ -121,7 +127,7 @@ export default function FeedMain({
         },
     ]
 
-    const [appstatic, setappstatic] = useApp(feedmain, feedmainstatic.feedmainid, feedmainstate.feedmainindex, fieldmainstate)
+    const [appstatic, setappstatic] = useApp(feedmain, feedmainstatic.feedmainid, feedmainstatic.feedmainindex, fieldmainstate)
 // {Object.values(dat).find(value => dat[value].match('title'))}
 
     function ll(first= this.props.first, second= this.props.second) {
@@ -131,10 +137,10 @@ export default function FeedMain({
   return (
     <div>
         <main className="">
-            <section className="w-screen flex flex-row justify-end">
+            {/* <section className="w-screen flex flex-row justify-end">
                 <button onClick={() => setpostmainstate(!postmainstate)} className="l-button"><RiGridFill /></button>
                 <button onClick={() => setpostmainstate(!postmainstate)} className="l-button"><RiLayoutGridFill /></button>
-            </section>
+            </section> */}
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.feedmaindata?.map(dat => (<>
@@ -143,11 +149,12 @@ export default function FeedMain({
                         </CardMain>
                         <figure className="">
                             {dat?.feedmainrender?.map(post => (<>
-                                {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: null}} />}
-                                {feedmainstatic.feedmainid === 'taskarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
-                                {feedmainstatic.feedmainid === 'clubarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
-                                {feedmainstatic.feedmainid === 'ticketarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
-                                {feedmainstatic.feedmainid === 'favouritearea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: null}} />}
+                                {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
+                                {feedmainstatic.feedmainid === 'taskarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: 0}} />}
+                                {feedmainstatic.feedmainid === 'clubarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
+                                {feedmainstatic.feedmainid === 'ticketarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: 0}} />}
+                                {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
+                                {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
                             </>))}
                         </figure>
                     </>))}

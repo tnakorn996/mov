@@ -1,12 +1,13 @@
 import React from 'react'
 import CtaMain from '../../component/cta/CtaMain'
+import PostMain from '../../layout/post/PostMain'
 
 export default function TaskIndex() {
   return (
     <div>
       <main className="">
         <section className="">
-          <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
+          <PostMain postmainstatic={{postmainid: 'taskaddress', postmainindex: 1}} />
         </section>
       </main>
     </div>

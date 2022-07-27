@@ -27,8 +27,8 @@ export default function TabMain({
             tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'taskarea'}} />
-                <FeedMain feedmainstatic={{feedmainid: 'workoutarea'}} />
+                <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: 0}} />
+                <FeedMain feedmainstatic={{feedmainid: 'workoutarea', feedmainindex: 0}} />
             </section>
         },
         {
@@ -45,8 +45,8 @@ export default function TabMain({
             tabmainindex : 0,
             tabmaintitle: 'Challenges',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'ticketarea'}} />
-                <FeedMain feedmainstatic={{feedmainid: 'clubarea'}} />
+                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
+                <FeedMain feedmainstatic={{feedmainid: 'clubarea', feedmainindex: 0}} />
             </section>
         },
         {
@@ -100,7 +100,6 @@ export default function TabMain({
 
     function ll(first=this.props.first){
         settabmaintouchstart(first.targetTouches[0].clientX)
-        console.log('ll', )
     }
     function kk(first=this.props.first){
         settabmaintouchend(first.targetTouches[0].clientX)
@@ -112,7 +111,6 @@ export default function TabMain({
         if(tabmaintouchstart - tabmaintouchend < - 75){
             settabmainstate({tabmainindex: 0})
         }
-        console.log('ref.current.scrollLeft :>> ', ref.current.scrollLeft);
     }
 
     // if(tabmainref === undefined) return null

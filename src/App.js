@@ -23,6 +23,8 @@ import WorkoutIndex from './page/workout/WorkoutIndex';
 import TaskIndex from './page/task/TaskIndex';
 import TicketMain from './page/ticket/TicketMain';
 import FavouriteMain from './page/favourite/FavouriteMain';
+import BackdropMain from './layout/backdrop/BackdropMain';
+import UserIndex from './page/user/UserIndex';
 
 export default function App() {
   const {
@@ -34,22 +36,26 @@ export default function App() {
 
   } = useContext(Context)
   const location = useLocation()
+  const navigate = useNavigate()
+
 
   return (
       <div className="App">
+        <BackdropMain>
         <OverlayMain>
+        <TopMain >
         <main className="relative">
-          <section className="sticky top-0 left-0 w-screen min-h-[10vh]">
+          <section className="z-30 sticky top-0 left-0 w-screen h-[10vh]">
             {authstate && <StatMain />}
           </section>
-          <section className="w-screen min-h-screen">
-            <TopMain />
+          <section className="w-screen min-h-[80vh]">
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthForm />} /> 
 
               <Route path='/auth/authform' element={<AuthForm />} /> 
 
-              <Route path='/user/userform' element={<UserForm />} /> 
+              <Route path='/user/userindex/:userid' element={<UserIndex />} /> 
+              <Route path='/user/userform/:userid' element={<UserForm />} /> 
 
               <Route path='/workout/workoutmain' element={<WorkoutMain />} /> 
               <Route path='/workout/workoutindex/:workoutid' element={<WorkoutIndex />} /> 
@@ -70,11 +76,13 @@ export default function App() {
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
             </Routes> 
           </section>
-          <section className="w-screen min-h-[10vh]">
+          <section className="z-30 w-screen h-[10vh]">
             {authstate && <NavMain />}
           </section>
         </main>
+        </TopMain>
         </OverlayMain>
+        </BackdropMain>
       </div>
 
     );

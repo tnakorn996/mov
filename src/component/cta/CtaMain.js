@@ -16,6 +16,14 @@ export default function CtaMain({
     const navigate = useNavigate()
     const param = useParams()
 
+    const userembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'Edit profile',
+            ctamainaction: `/user/userform/${param?.userid}`,
+        },
+    ]
+
     const taskembed = [
         {
             ctamainindex: 0,
@@ -42,6 +50,10 @@ export default function CtaMain({
 
     const ctamain = [
         {
+            ctamainid: 'userembed',
+            ctamainref: userembed,
+        },
+        {
             ctamainid: 'taskembed',
             ctamainref: taskembed
         },
@@ -65,7 +77,7 @@ export default function CtaMain({
                 {ctamainrender?.map(data => (<>
                 <button onClick={() => {
                     navigate(data?.ctamainaction)
-                }} className="w-full  m-button">{data?.ctamainentitle}</button>
+                }} className="w-full  m-button uppercase">{data?.ctamainentitle}</button>
                 </>))}
             </section>
         </main>

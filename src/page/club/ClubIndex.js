@@ -1,5 +1,6 @@
 import React from 'react'
 import CtaMain from '../../component/cta/CtaMain'
+import PostMain from '../../layout/post/PostMain'
 
 export default function ClubIndex() {
     
@@ -7,7 +8,7 @@ export default function ClubIndex() {
     <div>
         <main className="">
             <section className="">
-                club index
+                <PostMain postmainstatic={{postmainid: 'clubaddress', postmainindex: 1}} />
             </section>
         </main>
     </div>

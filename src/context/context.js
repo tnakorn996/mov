@@ -1,16 +1,17 @@
 
 import React, { createContext, useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { clubul, workoutul } from '../content/content'
 
+import { clubul, workoutul } from '../content/content'
 import {supabase} from '../lib/supabase'
+import SplashMain from '../layout/splash/SplashMain'
 
 export const Context = createContext()
 
 export const Provider = ({ 
     children 
 }) => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     // const location = useLocation()
     // const param = useParams()
     const [appstate, setappstate] = useState('')
@@ -34,6 +35,10 @@ export const Provider = ({
     if(!parseclub) {window.localStorage.setItem("mov.clubiframe", JSON.stringify([]))}
     if(!parsefavourite) {window.localStorage.setItem("mov.favouriteiframe", JSON.stringify([]))}
 
+    useEffect(() => {
+       navigate(`/auth/authform`)
+    }, [])
+    
     useEffect(() => {
         setauthstate(supabase.auth.session())
         supabase.auth.onAuthStateChange((_event, session) => {
@@ -131,7 +136,6 @@ export const Provider = ({
         {
             spreadid: 'my',
             spreadtitle: 'Your challenges',
-            // spreaddata: parseticketuserid && parseticketuserid,
             spreaddata: ticketuserid,
         },
     ]
@@ -142,14 +146,14 @@ export const Provider = ({
             spreadtitle: 'Favourite workouts',
             spreaddata: parseworkout && parseworkout,
         },
-        // {
-        //     spreadid: 'campaign',
-        //     spreadtitle: 'Favourite camp',
-        //     spreaddata: parseclub && parseclub,
-        // },
+        {
+            spreadid: 'club',
+            spreadtitle: 'Favourite camp',
+            spreaddata: parseclub && parseclub,
+        },
     ]
 
-    if(!useruserid && !taskuserid && !task && !ticketuserid) return null
+    // if(!useruserid && !taskuserid && !task && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
     ////////////////////////////////////////////////
 

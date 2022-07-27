@@ -380,7 +380,7 @@ export default function FieldMain({
               <figure className="grid grid-flow-col">
                 <button onClick={() => {
                   (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : data?.fieldmainaction()
-                }} className="w-full  m-button">
+                }} className="w-full  m-button uppercase">
                   {data?.fieldmainentitle}
                 </button>
                 {data?.fieldmaindatatwo?.map(dat => (<>

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import CtaMain from '../../component/cta/CtaMain'
 import { clubul } from '../../content/content'
 import { Context } from '../../context/context'
+import PostMain from '../../layout/post/PostMain'
 
 export default function TicketIndex() {
   const {
@@ -11,35 +12,30 @@ export default function TicketIndex() {
     ticketdl,
 
   } = useContext(Context)
-  const [ticketindexrender, setticketindexrender] = useState()
+  // const [ticketindexrender, setticketindexrender] = useState()
 
-  useEffect(() => {
-    if(clubul && taskdl){
-      for(const data of clubul){
-        const filter = taskdl[1].spreaddata.filter(dat => dat.workoutid === data.breadid)
-        setticketindexrender(filter)
-      }
-    }
-  }, [ticketdl])
-
-  // console.log('taskdl[1]', taskdl[1])
+  // useEffect(() => {
+  //   if(clubul && taskdl){
+  //     for(const data of clubul){
+  //       const filter = taskdl[1].spreaddata.filter(dat => dat.workoutid === data.breadid)
+  //       setticketindexrender(filter)
+  //     }
+  //   }
+  // }, [ticketdl])
 
   return (
     <div>
         <main className="">
             <section className="">
-                tick index
+              <PostMain postmainstatic={{postmainid:'ticketaddress', postmainindex: 1}} />
             </section>
-            <section className="">
-              <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
-            </section>
-            <section className="">
+            {/* <section className="">
               {ticketindexrender?.map(data => (<>
                 <article className="">
                   <h1 className="">{data?.workoutid}</h1>
                 </article>
               </>))}
-            </section>
+            </section> */}
         </main>
     </div>
   )

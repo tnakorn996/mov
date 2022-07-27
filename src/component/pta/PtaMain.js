@@ -8,6 +8,7 @@ import { Context } from '../../context/context'
 export default function PtaMain({
     ptamainstatic,
     ptamaindata,
+    ptamainstyle,
 
 }) {
     const {
@@ -24,14 +25,14 @@ export default function PtaMain({
             ptamainindex: 0,
             ptamainaction: ll,
             ptamainrender: <section className="">
-                <RiBookmarkLine />
+                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
             </section>,
         },
         {
             ptamainindex: 1,
             ptamainaction: kk,
             ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill />
+                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
             </motion.section>,
         },
     ]
@@ -41,34 +42,34 @@ export default function PtaMain({
             ptamainindex: 0,
             ptamainaction: ll,
             ptamainrender: <section className="">
-                <RiBookmarkLine />
+                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
             </section>,
         },
         {
             ptamainindex: 1,
             ptamainaction: kk,
             ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill />
+                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
             </motion.section>,
         },
     ]
 
-    const favouriteiframe = [
-        {
-            ptamainindex: 0,
-            ptamainaction: ll,
-            ptamainrender: <section className="">
-                <RiBookmarkLine />
-            </section>,
-        },
-        {
-            ptamainindex: 1,
-            ptamainaction: kk,
-            ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill />
-            </motion.section>,
-        },
-    ]
+    // const favouriteiframe = [
+    //     {
+    //         ptamainindex: 0,
+    //         ptamainaction: ll,
+    //         ptamainrender: <section className="">
+    //             <RiBookmarkLine />
+    //         </section>,
+    //     },
+    //     {
+    //         ptamainindex: 1,
+    //         ptamainaction: kk,
+    //         ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
+    //             <RiBookmarkFill />
+    //         </motion.section>,
+    //     },
+    // ]
 
     const ptamain = [
         {
@@ -85,19 +86,19 @@ export default function PtaMain({
         },
 
 
-        {
-            ptamainid: 'favouriteiframe',
-            ptamainidtwo: 'mov.favouriteuserid',
-            ptamainref: favouriteiframe,
-            ptamaindata: (JSON.parse(window.localStorage.getItem("mov.favouriteuserid"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
-        },
+        // {
+        //     ptamainid: 'favouriteiframe',
+        //     ptamainidtwo: 'mov.favouriteuserid',
+        //     ptamainref: favouriteiframe,
+        //     ptamaindata: (JSON.parse(window.localStorage.getItem("mov.favouriteuserid"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
+        // },
     ]
 
     useEffect(() => {
       if(ptamainstatic){
         const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
         const ref = filter[0].ptamaindata
-        setptamainrendertwo(filter[0].ptamainidtwo)
+
 
             if(ref && ref.length !== 0){
                 const filtertwo = filter[0].ptamainref.filter(data => data.ptamainindex === 1)
@@ -113,19 +114,20 @@ export default function PtaMain({
     }, [ptamainstatic, ptamainstate])
 
     function ll() {
-        const parse = JSON.parse(window.localStorage.getItem(ptamainrendertwo));
-        const ref = parse || []
-        ref.push(ptamaindata)
-        window.localStorage.setItem(ptamainrendertwo, JSON.stringify(ref))
-        setptamainstate(!ptamainstate)
+        const name = `mov.` + ptamainstatic.ptamainid
+        const parse = JSON.parse(window.localStorage.getItem(name));
+            const ref = parse || []
+            ref.push(ptamaindata)
+            window.localStorage.setItem(name, JSON.stringify(ref))
+            setptamainstate(!ptamainstate)
     }
 
     function kk() {
-        const parse = JSON.parse(window.localStorage.getItem(ptamainrendertwo)).filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
-        const ref = parse || []
-        // window.localStorage.removeItem(ptamainrendertwo, JSON.stringify(parse))
-        window.localStorage.setItem(ptamainrendertwo, JSON.stringify(ref))
-        setptamainstate(!ptamainstate)
+        const name = `mov.` + ptamainstatic.ptamainid
+        const parse = JSON.parse(window.localStorage.getItem(name)).filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
+            const ref = parse || []
+            window.localStorage.setItem(name, JSON.stringify(ref))
+            setptamainstate(!ptamainstate)
     }
 
   return (
@@ -135,7 +137,7 @@ export default function PtaMain({
                 {ptamainrender && ptamainrender.map(data => (<>
                     <article onClick={() => {
                         data?.ptamainaction()
-                    }} className="">
+                    }} className="z-20">
                         {data?.ptamainrender}
                     </article>
                 </>))}

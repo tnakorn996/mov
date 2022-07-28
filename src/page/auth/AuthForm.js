@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import FieldMain from '../../component/field/FieldMain'
+import { Context } from '../../context/context'
+import CardMain from '../../layout/card/CardMain'
 
 export default function AuthForm() {
-  const [modalmainstate, setmodalmainstate] = useState(true)
+  const {
+    authformstate, setauthformstate,
+
+  } = useContext(Context)
+
   return (
     <div>
         <main className="">
-          <section className="">
-            <button onClick={() => setmodalmainstate(!modalmainstate)} className="">state</button>
-          </section>
+          <CardMain />
+          <CardMain />
             <section className="">
-                {modalmainstate === true && <FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 0}} /> }
-                {modalmainstate === false &&<FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 1}} /> }
+              <CardMain>
+                {authformstate === true && <FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 0}} />}
+                {authformstate === false && <FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 1}} />}
+              </CardMain>
             </section>
         </main>
     </div>

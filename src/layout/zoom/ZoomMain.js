@@ -26,19 +26,19 @@ export default function ZoomMain({
             zoommainindex: 0,
             zoommaindata: [
                 {
-                    zoommaintitle: '',
-                    // zoommainrender: workoutdl[0].spreaddata
-                    zoommainrender: [],
+                    zoommaintitle: 'Find workout',
+                    zoommainrender: workoutdl[0].spreaddata
+                    // zoommainrender: [],
                 },
             ]
         },
         {
             zoommainindex: 1,
             zoommaindata: [
-                {
-                    zoommaintitle: 'Your workout',
-                    zoommainrender: taskdl[0].spreaddata && taskdl[0].spreaddata.filter(data => data.workoutid.toLowerCase().includes(zoommainvalue)),
-                },
+                // {
+                //     zoommaintitle: 'Your workout',
+                //     zoommainrender: taskdl[0].spreaddata && taskdl[0].spreaddata.filter(data => data.workoutid.toLowerCase().includes(zoommainvalue)),
+                // },
                 {
                     zoommaintitle: 'All workout',
                     zoommainrender: workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadtitle.toLowerCase().includes(zoommainvalue)),
@@ -53,19 +53,19 @@ export default function ZoomMain({
             zoommainindex: 0,
             zoommaindata: [
                 {
-                    zoommaintitle: '',
-                    // zoommainrender: clubdl[0].spreaddata
-                    zoommainrender: [],
+                    zoommaintitle: 'Find club',
+                    zoommainrender: clubdl[0].spreaddata
+                    // zoommainrender: [],
                 },
             ]
         },
         {
             zoommainindex: 1,
             zoommaindata: [
-                {
-                    zoommaintitle: 'Your club',
-                    zoommainrender: ticketdl[0].spreaddata && ticketdl[0].spreaddata.filter(data => data.clubid?.toLowerCase().includes(zoommainvalue)),
-                },
+                // {
+                //     zoommaintitle: 'Your club',
+                //     zoommainrender: ticketdl[0].spreaddata && ticketdl[0].spreaddata.filter(data => data.clubid?.toLowerCase().includes(zoommainvalue)),
+                // },
                 {
                     zoommaintitle: 'All club',
                     zoommainrender: clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadtitle?.toLowerCase().includes(zoommainvalue)),

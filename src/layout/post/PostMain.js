@@ -131,8 +131,8 @@ export default function PostMain({
       <div>
         <figure onClick={() => {
             navigate(`/user/userindex/${data.user.id}`)
-        }} className="w-[35px] h-[35px] text-center  text-white rounded-full bg-gray-400">
-          <p className="text-2xl">{data.user.email.slice(0, 1)}</p>
+        }} className="w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400">
+          <p className="text-xl  uppercase">{data.user.email.slice(0, 1)}</p>
         </figure>
       </div>
       </>))
@@ -147,7 +147,7 @@ export default function PostMain({
         <section className="flex flex-col justify-center items-center">
           <CardMain>
           <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-            <p className="text-4xl">{data.useremail.slice(0, 1)}</p>
+            <p className="text-4xl  uppercase">{data.useremail.slice(0, 1)}</p>
           </figure>
           </CardMain>
         </section>
@@ -166,9 +166,11 @@ export default function PostMain({
         ref.map(data => (<>
         <CardMain>
         <figure className="relative h-[50vh] overflow-hidden">
-          <video onClick={() => {
-            navigate(`/workout/workoutindex/${data?.breadid}`)
-          }} loading='lazy' autoPlay={true} loop={true} src={data?.breadvideo}></video>
+            <video onClick={() => {
+              navigate(`/workout/workoutindex/${data?.breadid}`)
+            }} autoPlay={true} loop={true} >
+              <source src={data?.breadvideo} type="video/mp4"></source>
+            </video>
           {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
@@ -190,14 +192,16 @@ export default function PostMain({
     return (
       ref.map(data => (<>
         <figure className="">
-          <video loading='lazy' autoPlay={true} loop={true} src={data?.breadvideo}></video>
+            <video autoPlay={true} loop={true} >
+              <source src={data?.breadvideo} type="video/mp4"></source>
+            </video>
         </figure>
         <figcaption className="text-center">
         <CardMain>
           <CardMain>
           <h1 className="m-h6">{data?.breadtitle}</h1>
           </CardMain>
-          <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
+          <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
       </>))
@@ -236,14 +240,16 @@ export default function PostMain({
     return (
         reftwo.map(data => (<>
         <figure className="">
-          <video loading='lazy' autoPlay={true} loop={true} src={data?.breadvideo}></video>
+            <video autoPlay={true} loop={true} >
+              <source src={data?.breadvideo} type="video/mp4"></source>
+            </video>
         </figure>
         <figcaption className="text-center">
         <CardMain>
           <CardMain>
           <h1 className="m-h6">{data?.breadtitle}</h1>
           </CardMain>
-          <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
+          <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
         <figure className="">
@@ -275,9 +281,9 @@ export default function PostMain({
     return (
       ref.map(data => (<>
         <CardMain>
-        <figure className="relative">
+        <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
           <img onClick={() => {
-          navigate(`/club/clubindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="" />
+          navigate(`/club/clubindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
@@ -296,7 +302,7 @@ export default function PostMain({
     const ref = clubul.filter(data => data.breadid === splitstaticthree)
     return (
       ref.map(data => (<>
-        <figure className="h-[70vh] flex justify-center">
+        <figure className="h-[65vh] flex justify-center overflow-hidden">
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
         </figure>
         <figcaption className="text-center">
@@ -316,9 +322,9 @@ export default function PostMain({
     return (
       ref.map(data => (<>
         <CardMain>
-        <figure className="relative">
+        <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
           <img onClick={() => {
-          navigate(`/ticket/ticketindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="" />
+          navigate(`/ticket/ticketindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
@@ -339,7 +345,7 @@ export default function PostMain({
     const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
     return (
       reftwo.map(data => (<>
-        <figure className="h-[70vh] flex justify-center overflow-hidden">
+        <figure className="h-[65vh] flex justify-center overflow-hidden">
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
         </figure>
         <figcaption className="text-center">

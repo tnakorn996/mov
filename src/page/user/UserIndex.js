@@ -10,6 +10,8 @@ export default function UserIndex() {
     <div>
         <main className="">
             <section className="">
+              <CardMain />
+              <CardMain />
                 <PostMain postmainstatic={{postmainid: 'useraddress', postmainindex: 1}} />
             </section>
             <section className="">

@@ -71,7 +71,7 @@ export default function FieldMain({
               userimage: 'https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-1024.png',
           }
           const { error } = await supabase.from('user').upsert(query, {returning: 'minimal'})
-          navigate(`/user/userform`)
+          navigate(`/workout/workoutmain`)
           // setfieldmainstate(!fieldmainstate)
       }
 
@@ -83,6 +83,7 @@ export default function FieldMain({
           // setauthstate()
           // setfieldmainstate(!fieldmainstate)
           alert('jj ')
+          navigate(`/auth/authmain`)
   }
 
   //////////////////////////////////////

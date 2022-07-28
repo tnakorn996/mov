@@ -64,8 +64,8 @@ export default function StatMain({
                 <CardMain>
                     <button onClick={() => {
                         navigate(-1)
-                    }} className="">
-                      ←
+                    }} className="text-2xl">
+                        ←
                     </button>
                 </CardMain>
             </section>,
@@ -115,12 +115,16 @@ export default function StatMain({
     const statmainrender = appstatic && appstatic
 
     useEffect(() => {
+        // if(location && location.pathname.includes('')){
+        //     setstatmainstate({statmainid: 'apptfoot', statmainindex: 2})
+        // }
         if(location && location.pathname.includes('main')){
             setstatmainstate({statmainid: 'apptfoot', statmainindex: 0})
         }
-        else {
+        if(location && location.pathname.includes('index')) {
             setstatmainstate({statmainid: 'apptfoot', statmainindex: 1})
         }
+
     }, [location])
 
     useEffect(() => {
@@ -130,19 +134,18 @@ export default function StatMain({
         }
     }, [location])
 
-
     window.onscroll = function (){
         if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.1))) {
-            setstatmainstyle('!bg-white')
+            setstatmainstyle({main: '!bg-white', h1: '!block '})
         } 
         if (((window.innerHeight + document.documentElement.scrollTop) < window.innerHeight + (window.innerHeight * 0.05))) {
-            setstatmainstyle('!bg-transparent')
+            setstatmainstyle({main: '!bg-transparent', h1: '!hidden'})
         }
     }
 
   return (
     <div>
-        <motion.main className={`grid grid-cols-12 items-center duration-500 ${statmainstyle}`}>
+        <motion.main className={`grid grid-cols-12 items-center duration-500 ${statmainstyle?.main}`}>
             <section className="col-span-3">
                 {statmainrender?.map(data => (<>
                     {data?.statmainrender}
@@ -150,7 +153,9 @@ export default function StatMain({
             </section>
             <section className="col-span-6 flex justify-center items-center gap-1">
                 <RiCss3Fill className='m-h6' />
+                <h1 className={statmainstyle?.h1}>
                 {statmainrendertwo && statmainrendertwo}
+                </h1>
             </section>
             <section className="col-span-3 flex justify-end">
                 {statmainrender?.map(data => (<>

@@ -1,7 +1,7 @@
 
 import React, {useState, useRef, useEffect, useContext} from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import {AnimatePresence} from 'framer-motion'
+import {AnimatePresence, MotionConfig} from 'framer-motion'
 
 import './App.css';
 import { Context } from './context/context';
@@ -25,11 +25,11 @@ import TicketMain from './page/ticket/TicketMain';
 import FavouriteMain from './page/favourite/FavouriteMain';
 import BackdropMain from './layout/backdrop/BackdropMain';
 import UserIndex from './page/user/UserIndex';
+import AuthMain from './page/auth/AuthMain';
 
 export default function App() {
   const {
-    statmainstate,
-    navmainstate,
+    setappstate, appstate,
 
     authstate,
     
@@ -38,20 +38,23 @@ export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
 
-
   return (
       <div className="App">
-        <BackdropMain>
         <OverlayMain>
         <TopMain >
         <main className="relative">
-          <section className="z-30 sticky top-0 left-0 w-screen h-[10vh]">
-            {authstate && <StatMain />}
+          <section className="z-30 fixed top-0 left-0 w-screen">
+                                    {/* <button onClick={() => {
+              setappstate({appid: 'backdropmain', appidtwo: 'previewmain', appidthree: 'workoutarticle', appindexthree: 0})
+            }} className="m-button">ddd</button> */}
+            {(authstate !== null && authstate !== undefined) && <StatMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
+            {/* <AnimatePresence exitBeforeEnter> */}
             <Routes location={location} key={location.pathname}>
-              <Route path='/' element={<AuthForm />} /> 
+              <Route path='/' element={<AuthMain />} /> 
 
+              <Route path='/auth/authmain' element={<AuthMain />} /> 
               <Route path='/auth/authform' element={<AuthForm />} /> 
 
               <Route path='/user/userindex/:userid' element={<UserIndex />} /> 
@@ -75,14 +78,17 @@ export default function App() {
 
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
             </Routes> 
+            {/* </AnimatePresence> */}
           </section>
           <section className="z-30 w-screen h-[10vh]">
-            {authstate && <NavMain />}
+            <NavMain />
+          </section>
+          <section className="">
+            {(appstate && appstate.appid === 'backdropmain') && <BackdropMain />}
           </section>
         </main>
         </TopMain>
         </OverlayMain>
-        </BackdropMain>
       </div>
 
     );

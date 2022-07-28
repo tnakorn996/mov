@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BreadMain from '../../component/bread/BreadMain'
 
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
@@ -18,6 +19,9 @@ export default function WorkoutMain() {
     <div>
         <main className="">
             <section className="">
+                <CardMain />
+                <CardMain />
+                <BreadMain />
                 <TabMain tabmainstatic={{tabmainid: 'workoutfieldset', tabmainindex: null}} />
             </section>
         </main>

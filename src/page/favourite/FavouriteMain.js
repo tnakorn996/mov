@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AlertMain from '../../component/alert/AlertMain'
+import BreadMain from '../../component/bread/BreadMain'
 import FeedMain from '../../component/feed/FeedMain'
 import { Context } from '../../context/context'
+import CardMain from '../../layout/card/CardMain'
 // import useAlert from '../../hook/useAlert'
 
 export default function FavouriteMain() {
@@ -26,6 +28,9 @@ export default function FavouriteMain() {
     <div>
         <main className="">
             <section className="">
+                      <CardMain />
+                <CardMain />
+                <BreadMain />
               {/* <AlertMain alertmainstatic={alertmainstate && alertmainstate} /> */}
               <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 0}} />
               <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 1}} />

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import CtaMain from '../../component/cta/CtaMain'
 import { clubul } from '../../content/content'
 import { Context } from '../../context/context'
+import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
 
 export default function TicketIndex() {

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BreadMain from '../../component/bread/BreadMain'
 
 import CtaMain from '../../component/cta/CtaMain'
 import { Context } from '../../context/context'
@@ -27,6 +28,9 @@ export default function ClubMain() {
             </section> */}
 
             <section className="">
+                      <CardMain />
+                <CardMain />
+                <BreadMain />
                 <TabMain tabmainstatic={{tabmainid: 'clubfieldset', tabmainindex: null}} />
             </section>
 

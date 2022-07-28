@@ -105,10 +105,10 @@ export default function TabMain({
         settabmaintouchend(first.targetTouches[0].clientX)
     }
     function jj(){
-        if(tabmaintouchstart - tabmaintouchend > 75){
+        if(tabmaintouchstart - tabmaintouchend > 250){
             settabmainstate({tabmainindex: 1})
         }
-        if(tabmaintouchstart - tabmaintouchend < - 75){
+        if(tabmaintouchstart - tabmaintouchend < - 250){
             settabmainstate({tabmainindex: 0})
         }
     }

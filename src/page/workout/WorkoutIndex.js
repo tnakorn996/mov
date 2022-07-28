@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import CardMain from '../../layout/card/CardMain'
 
 import PostMain from '../../layout/post/PostMain'
 

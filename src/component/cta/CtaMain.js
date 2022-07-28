@@ -10,11 +10,27 @@ export default function CtaMain({
 
 }) {
     const {
+        setauthmainstate,
 
 
     } = useContext(Context)
     const navigate = useNavigate()
     const param = useParams()
+
+    const authembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'Join Us',
+            ctamainstyle: `l-button border-white`,
+            ctamainaction: `/auth/authform`,
+        },
+        {
+            ctamainindex: 1,
+            ctamainentitle: 'Sign In',
+            ctamainstyle: `border-white bg-transparent`,
+            ctamainaction: `/auth/authform`,
+        },
+    ]
 
     const userembed = [
         {
@@ -50,6 +66,10 @@ export default function CtaMain({
 
     const ctamain = [
         {
+            ctamainid: 'authembed',
+            ctamainref: authembed,
+        },
+        {
             ctamainid: 'userembed',
             ctamainref: userembed,
         },
@@ -73,11 +93,11 @@ export default function CtaMain({
   return (
     <div>
         <main className="">
-            <section className="">
+            <section className="flex flex-row items-center  gap-1">
                 {ctamainrender?.map(data => (<>
                 <button onClick={() => {
                     navigate(data?.ctamainaction)
-                }} className="w-full  m-button uppercase">{data?.ctamainentitle}</button>
+                }} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>{data?.ctamainentitle}</button>
                 </>))}
             </section>
         </main>

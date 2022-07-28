@@ -12,10 +12,10 @@ export const Provider = ({
     children 
 }) => {
     const navigate = useNavigate()
-    // const location = useLocation()
+    const location = useLocation()
     // const param = useParams()
-    const [appstate, setappstate] = useState('')
-    const [statmainstate, setstatmainstate] = useState('')
+    const [appstate, setappstate] = useState()
+    const [authformstate, setauthformstate] = useState(false)
     const [fieldmainstate, setfieldmainstate] = useState(true)
     const [tabmainstate, settabmainstate] = useState({tabmainindex: 0})
     const [feedmainstate, setfeedmainstate] = useState({feedmainindex: 0})
@@ -36,18 +36,18 @@ export const Provider = ({
     if(!parsefavourite) {window.localStorage.setItem("mov.favouriteiframe", JSON.stringify([]))}
 
     useEffect(() => {
-       navigate(`/auth/authform`)
+        navigate(`/auth/authmain`)
     }, [])
-    
+
     useEffect(() => {
         setauthstate(supabase.auth.session())
         supabase.auth.onAuthStateChange((_event, session) => {
             setauthstate(session)
         })
     }, [])
-    
+
     useEffect(() => {
-        if(authstate){
+        if(authstate !== undefined && authstate !== null){
             pp(authstate.user.id)
             oo(authstate.user.id)
             ii(authstate.user.id)
@@ -144,23 +144,22 @@ export const Provider = ({
         {
             spreadid: 'workout',
             spreadtitle: 'Favourite workouts',
-            spreaddata: parseworkout && parseworkout,
+            spreaddata: (parseworkout && authstate !== null && authstate !== undefined) && parseworkout.filter(data => data.userid === authstate.user.id),
         },
         {
             spreadid: 'club',
             spreadtitle: 'Favourite camp',
-            spreaddata: parseclub && parseclub,
+            spreaddata: (parseclub && authstate !== null && authstate !== undefined) && parseclub.filter(data => data.userid === authstate.user.id),
         },
     ]
 
     // if(!useruserid && !taskuserid && !task && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
-
     ////////////////////////////////////////////////
 
     return (
         <Context.Provider value={{
         appstate, setappstate,
-        statmainstate, setstatmainstate,
+        authformstate, setauthformstate,
         fieldmainstate, setfieldmainstate,
         tabmainstate, settabmainstate,
         feedmainstate, setfeedmainstate,

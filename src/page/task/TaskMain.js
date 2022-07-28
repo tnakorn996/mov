@@ -17,6 +17,8 @@ export default function TaskMain() {
     <div>
       <main className="">
         <section className="">
+                  <CardMain />
+                <CardMain />
           <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: null}} />
         </section>
       </main>

@@ -2,6 +2,12 @@ import { RiClipboardLine, RiParentLine } from "react-icons/ri"
 
 export const appul = [
     {
+        breadid: 'authmain',
+        breadaction: `/auth/authmain`,
+        breadtitle: 'Sign Up',
+        breadicon: <RiParentLine />,
+    },
+    {
         breadid: 'userindex',
         breadaction: `/user/userindex`,
         breadtitle: 'User',

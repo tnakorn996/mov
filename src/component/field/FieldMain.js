@@ -10,6 +10,7 @@ import ChoiceMain from '../choice/ChoiceMain'
 
 export default function FieldMain({
   fieldmainstatic,
+  fieldmainstyle,
 
 }) {
   const {
@@ -91,18 +92,24 @@ export default function FieldMain({
     const ss = async () => {
         const user = supabase.auth.user()
         // console.log('user', user)
-        const query = [
+        const query = [            
+            {
+                fieldmainid: 'contractinput',
+                fieldmainidtwo: 'contract',
+                // fieldmainidthree: 'mov.contract',
+                fieldmaindata: {
+                    contractid: fieldmainid,
+                  
+                    userid: user?.id,
+                    senderid: user?.id,
+                    receiverid: split[3]
+                },
+                fieldmaindatatwo: {contractid: undefined}
+            },
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                fieldmainidthree: 'mov.task',
-                // fieldmaindata: {
-                //     taskid: fieldmainid,
-
-                //     workid: refthree?.current?.value,
-                //     emojiid: reffour?.current?.value,
-                //     userid: user?.id,
-                // },
+                // fieldmainidthree: 'mov.task',
                 fieldmaindata: {
                     taskid: fieldmainid,
 
@@ -112,24 +119,10 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {taskid: param?.taskid}
             },
-            // {
-            //     fieldmainid: 'clubinput',
-            //     fieldmainidtwo: 'club',
-            //     fieldmainidthree: 'mov.club',
-            //     fieldmaindata: {
-            //         clubid: fieldmainid,
-            //         clubtitle: reffive?.current?.value,
-            //         clubdate: refseven?.current?.value,
-                    
-            //         weightid: refsix?.current?.value,
-            //         userid: user?.id,
-            //     },
-            //     fieldmaindatatwo: {clubid: param?.clubid}
-            // },
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
-                fieldmainidthree: 'mov.ticket',
+                // fieldmainidthree: 'mov.ticket',
                 fieldmaindata: {
                     ticketid: fieldmainid,
                   
@@ -138,6 +131,7 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {userid: undefined}
             },
+
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
@@ -175,20 +169,27 @@ export default function FieldMain({
         const user = supabase.auth.user()
         const query = [
             {
+                fieldmainid: 'contractinput',
+                fieldmainidtwo: 'contract',
+                // fieldmainidthree: 'mov.task',
+                fieldmaindatatwo: {receiverid: param?.userid, senderid: user?.id}
+            },
+            {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                fieldmainidthree: 'mov.task',
+                // fieldmainidthree: 'mov.task',
                 fieldmaindatatwo: {taskid: param?.taskid,}
             },
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
-                fieldmainidthree: 'mov.ticket',
+                // fieldmainidthree: 'mov.ticket',
                 fieldmaindatatwo: {ticketid: param?.ticketid,}
             },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
+        console.log('ref', ref)
         if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).delete().match(ref.fieldmaindatatwo)
                 alert(error)
@@ -260,6 +261,24 @@ export default function FieldMain({
     }
   ]
 
+  const contractinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Follow',
+      fieldmainaction: ss,
+      fieldmaindata: [],
+    },
+    {
+      fieldmainindex: 1,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Unfollow',
+      fieldmainaction: handledelete,
+      fieldmaindata: [],
+    },
+  ]
+
+
   const taskinput = [
     {
       fieldmainindex: 0,
@@ -292,30 +311,6 @@ export default function FieldMain({
     },
   ]
 
-  // const clubinput = [
-  //   {
-  //     fieldmainindex: 0,
-  //     fieldmaintitle: 'Add club',
-  //     fieldmainentitle: 'Save',
-  //     fieldmainaction: ss,
-  //     fieldmaindata: [
-  //       {
-  //         fieldmainsubtitle: 'Title',
-  //         fieldmainrender: <input ref={reffive} className="" />,
-  //       },
-  //       {
-  //         fieldmainsubtitle: 'Choose weight goal',
-  //         fieldmainrender: <ChoiceMain choicemainref={refsix} choicemainstatic={{choicemainid: 'weightlabel', choicemainindex: 0}} />,
-  //       },
-  //       {
-  //         fieldmainsubtitle: 'last date',
-  //         fieldmainrender: <input ref={refseven} type='date' className="" />,
-  //       },
-  //     ],
-  //   },
-  // ]
-
-
   const ticketinput = [
     {
       fieldmainindex: 0,
@@ -346,13 +341,13 @@ export default function FieldMain({
       fieldmainid: 'taskinput',
       fieldmainref: taskinput,
     },
-    // {
-    //   fieldmainid: 'clubinput',
-    //   fieldmainref: clubinput,
-    // },
     {
       fieldmainid: 'ticketinput',
       fieldmainref: ticketinput,
+    },
+    {
+      fieldmainid: 'contractinput',
+      fieldmainref: contractinput,
     },
   ]
 
@@ -381,7 +376,7 @@ export default function FieldMain({
               <figure className="grid grid-flow-col">
                 <button onClick={() => {
                   (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : data?.fieldmainaction()
-                }} className="w-full  m-button uppercase">
+                }} className={`w-full  m-button uppercase ${fieldmainstyle?.button}`}>
                   {data?.fieldmainentitle}
                 </button>
                 {data?.fieldmaindatatwo?.map(dat => (<>

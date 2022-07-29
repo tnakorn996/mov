@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CtaMain from '../../component/cta/CtaMain'
+import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
+import StaMain from '../../component/sta/StaMain'
 import { clubul, workoutul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -11,6 +13,7 @@ import CardMain from '../card/CardMain'
 export default function PostMain({
   postmainstatic,
   postmaindata,
+  postmainstyle,
 
 }) {
 
@@ -18,26 +21,27 @@ export default function PostMain({
     fieldmainstate,
     postmainstate,
 
+    authstate,
     userdl,
     taskdl,
     ticketdl,
+    frienddl,
 
   } = useContext(Context)
   const navigate = useNavigate()
-  const [postmainstyle, setpostmainstyle] = useState()
+  // const [postmainstyle, setpostmainstyle] = useState()
   const [splitstatic, setsplitstatic] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
 
-  useEffect(() => {
-    if(postmainstate === true) {
-      setpostmainstyle(`flex flex-col`)
-    } else {
-      setpostmainstyle(`grid grid-cols-12`)
-    }
-  }, [postmainstate])
+  // useEffect(() => {
+  //   if(postmainstate === true) {
+  //     setpostmainstyle(`flex flex-col`)
+  //   } else {
+  //     setpostmainstyle(`grid grid-cols-12`)
+  //   }
+  // }, [postmainstate])
 
-  
   const useraddress = [
     {
       postmainindex: 0,
@@ -48,6 +52,17 @@ export default function PostMain({
       postmainrender: <UserAddressRenderTwo />
     }
   ]
+
+  // const contractaddress = [
+  //   {
+  //     postmainindex: 0,
+  //     postmainrender: <ContractAddressRender />
+  //   },
+  //   {
+  //     postmainindex: 1,
+  //     postmainrender: <ContractAddressRenderTwo />
+  //   },
+  // ]
 
   const workoutaddress = [
     {
@@ -97,13 +112,17 @@ export default function PostMain({
       postmainrender: <TicketAddressRenderTwo />
     },
   ]
-  
+
   const postmain = [
     {
       postmainid: 'useraddress',
       postmainref: useraddress,
     },
-        {
+    // {
+    //   postmainid: 'contractaddress',
+    //   postmainref: contractaddress,
+    // },
+    {
       postmainid: 'workoutaddress',
       postmainref: workoutaddress,
     },
@@ -129,18 +148,26 @@ export default function PostMain({
     return (
       ref.map(data => (<>
       <div>
-        <figure onClick={() => {
-            navigate(`/user/userindex/${data.user.id}`)
-        }} className="w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400">
-          <p className="text-xl  uppercase">{data.user.email.slice(0, 1)}</p>
-        </figure>
+        <section>
+          <CardMain>
+          <figure onClick={() => {
+            navigate(`/user/userindex/${data?.user?.id || data.userid}`)
+          }} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 ${postmainstyle?.figure}`}>
+            <p className="text-xl  uppercase">{ data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
+          </figure>
+          </CardMain>
+        </section>
+        {/* <section className="">
+          {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
+            <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />}
+        </section> */}
       </div>
       </>))
     )
   }
 
   function UserAddressRenderTwo() {
-    const ref = userdl[0].spreaddata
+    const ref = userdl[1].spreaddata.filter(data => data.userid === splitstaticthree)
     return (
       ref.map(data => (<>
       <div>
@@ -152,13 +179,56 @@ export default function PostMain({
           </CardMain>
         </section>
         <section className="flex flex-col justify-center text-center">
-          <p className="l-h3">{data?.useremail}</p>
-          <p className="l-h3">Member since {data?.created_at}</p>
+          <p className="l-h4">{data?.useremail}</p>
+          <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
+        </section>
+        <section className="">
+          <CardMain>
+            {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
+            <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
+            <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
+          </CardMain>
         </section>
       </div>
       </>))
     )
   }
+
+  // function ContractAddressRender() {
+  //   const ref = [postmaindata]
+  //   return (
+  //     ref.map(data => (<>
+  //     <div>
+  //       <CardMain>
+  //       <figure onClick={() => {
+  //         navigate(`/user/userindex/${data?.user?.id || data.userid}`)
+  //       }} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 ${postmainstyle?.figure}`}>
+  //         <p className="text-xl  uppercase">{ data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
+  //       </figure>
+  //       </CardMain>
+  //     </div>
+  //     </>))
+  //   )
+  // }
+
+  // function ContractAddressRenderTwo() {
+  //   const ref = userdl[1].spreaddata.filter(data => data.userid === splitstaticthree)
+  //   return (
+  //     ref.map(data => (<>
+  //     <div>
+  //       <section className="">
+  //         <CardMain>
+  //           {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
+  //           <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
+  //           null }
+  //           {/* <PtaMain ptamainstatic={{ptamiainid: 'useriframe'}}  />}  */}
+  //         </CardMain>
+  //       </section>
+  //     </div>
+  //     </>))
+  //   )
+  // }
+  
   
   function WorkoutAddressRender() {
     const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
@@ -229,7 +299,7 @@ export default function PostMain({
           </div>
         </figure>
         </CardMain>
-        </>))
+      </>))
     )
   }
 
@@ -238,19 +308,19 @@ export default function PostMain({
     const ref = taskdl[0].spreaddata?.filter(data => data?.breadid === splitstaticthree)
     const reftwo = [Object.assign(ref, workoutul.filter(data => ref.some(dat => dat.workoutid === data.breadid))[0])]
     return (
-        reftwo.map(data => (<>
+      reftwo.map(data => (<>
         <figure className="">
-            <video autoPlay={true} loop={true} >
-              <source src={data?.breadvideo} type="video/mp4"></source>
-            </video>
+          <video autoPlay={true} loop={true} >
+            <source src={data?.breadvideo} type="video/mp4"></source>
+          </video>
         </figure>
         <figcaption className="text-center">
-        <CardMain>
           <CardMain>
-          <h1 className="m-h6">{data?.breadtitle}</h1>
+            <CardMain>
+            <h1 className="m-h6">{data?.breadtitle}</h1>
+            </CardMain>
+            <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
           </CardMain>
-          <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
-        </CardMain>
         </figcaption>
         <figure className="">
           <CardMain>

@@ -37,6 +37,12 @@ export const appul = [
         breadtitle: 'Favourites',
         breadicon: <RiParentLine />,
     },
+    {
+        breadid: 'contractmain',
+        breadaction: `/contract/contractmain`,
+        breadtitle: 'Friends',
+        breadicon: <RiParentLine />,
+    },
 ]
 
 export const workoutul = [

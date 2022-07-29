@@ -1,7 +1,7 @@
 
 import React, {useState, useRef, useEffect, useContext} from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import {AnimatePresence, MotionConfig} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 
 import './App.css';
 import { Context } from './context/context';
@@ -26,6 +26,8 @@ import FavouriteMain from './page/favourite/FavouriteMain';
 import BackdropMain from './layout/backdrop/BackdropMain';
 import UserIndex from './page/user/UserIndex';
 import AuthMain from './page/auth/AuthMain';
+import FriendMain from './page/contract/ContractMain';
+import ContractMain from './page/contract/ContractMain';
 
 export default function App() {
   const {
@@ -60,6 +62,8 @@ export default function App() {
               <Route path='/user/userindex/:userid' element={<UserIndex />} /> 
               <Route path='/user/userform/:userid' element={<UserForm />} /> 
 
+              <Route path='/contract/contractmain' element={<ContractMain />} /> 
+
               <Route path='/workout/workoutmain' element={<WorkoutMain />} /> 
               <Route path='/workout/workoutindex/:workoutid' element={<WorkoutIndex />} /> 
 
@@ -77,6 +81,8 @@ export default function App() {
               <Route path='/ticket/ticketindex/:ticketid' element={<TicketIndex />} /> 
 
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
+
+
             </Routes> 
             {/* </AnimatePresence> */}
           </section>

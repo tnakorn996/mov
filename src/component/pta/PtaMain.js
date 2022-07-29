@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri'
 
 import { Context } from '../../context/context'
+import FieldMain from '../field/FieldMain'
 // import useApp from '../../hook/useApp'
 
 export default function PtaMain({
@@ -14,11 +15,8 @@ export default function PtaMain({
     const {
         ptamainstate, setptamainstate,
 
-        favouritedl,
-
     } = useContext(Context)
     const [ptamainrender, setptamainrender] = useState()
-    const [ptamainrendertwo, setptamainrendertwo] = useState()
 
     const workoutiframe = [
         {
@@ -54,23 +52,6 @@ export default function PtaMain({
         },
     ]
 
-    // const favouriteiframe = [
-    //     {
-    //         ptamainindex: 0,
-    //         ptamainaction: ll,
-    //         ptamainrender: <section className="">
-    //             <RiBookmarkLine />
-    //         </section>,
-    //     },
-    //     {
-    //         ptamainindex: 1,
-    //         ptamainaction: kk,
-    //         ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-    //             <RiBookmarkFill />
-    //         </motion.section>,
-    //     },
-    // ]
-
     const ptamain = [
         {
             ptamainid: 'workoutiframe',
@@ -84,22 +65,12 @@ export default function PtaMain({
             ptamainref: clubiframe,
             ptamaindata: (JSON.parse(window.localStorage.getItem("mov.clubiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
         },
-
-
-        // {
-        //     ptamainid: 'favouriteiframe',
-        //     ptamainidtwo: 'mov.favouriteuserid',
-        //     ptamainref: favouriteiframe,
-        //     ptamaindata: (JSON.parse(window.localStorage.getItem("mov.favouriteuserid"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
-        // },
     ]
 
     useEffect(() => {
       if(ptamainstatic){
         const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
         const ref = filter[0].ptamaindata
-
-
             if(ref && ref.length !== 0){
                 const filtertwo = filter[0].ptamainref.filter(data => data.ptamainindex === 1)
                 setptamainrender(filtertwo)
@@ -107,9 +78,7 @@ export default function PtaMain({
             if(ref && ref.length === 0){
                 const filtertwo = filter[0].ptamainref.filter(data => data.ptamainindex === 0)
                 setptamainrender(filtertwo)
-            }
-        
-
+            } 
       }
     }, [ptamainstatic, ptamainstate])
 

@@ -98,11 +98,6 @@ export default function ZoomMain({
 
     const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue)
 
-    // useEffect(() => {
-    //    const filter = workoutdl[0].spreaddata.filter(data => data.breadtitle.toLowerCase().includes(zoommainvalue))
-    //    console.log('filter', filter)
-    // }, [])
-
     if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
     
   return (

@@ -16,15 +16,30 @@ export default function FeedMain({
         feedmainstate, setfeedmainstate,
         postmainstate, setpostmainstate,
 
-        taskdl,
+        userdl,
         workoutdl,
+        taskdl,
         clubdl,
         ticketdl,
         favouritedl,
+        frienddl,
 
     } = useContext(Context)
     const navigate = useNavigate()
     const [feedmainslice, setfeedmainslice] = useState(null)
+
+    const contractarea = [
+        {
+            feedmainindex: 0,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: 'People you may know',
+                    feedmainrender:  userdl[2].spreaddata,
+                },
+            ],
+        },
+    ]
 
     const workoutarea = [
         {
@@ -106,12 +121,16 @@ export default function FeedMain({
 
     const feedmain = [
         {
-            feedmainid: 'taskarea',
-            feedmainref: taskarea,
+            feedmainid: 'contractarea',
+            feedmainref: contractarea,
         },
         {
             feedmainid: 'workoutarea',
             feedmainref: workoutarea,
+        },
+        {
+            feedmainid: 'taskarea',
+            feedmainref: taskarea,
         },
         {
             feedmainid: 'clubarea',
@@ -125,14 +144,14 @@ export default function FeedMain({
             feedmainid: 'favouritearea',
             feedmainref: favouritearea,
         },
+
     ]
 
     const [appstatic, setappstatic] = useApp(feedmain, feedmainstatic.feedmainid, feedmainstatic.feedmainindex, fieldmainstate)
-// {Object.values(dat).find(value => dat[value].match('title'))}
 
-    function ll(first= this.props.first, second= this.props.second) {
-        if(first < second){setfeedmainslice(feedmainslice + 3)}
-    }
+    // function ll(first= this.props.first, second= this.props.second) {
+    //     if(first < second){setfeedmainslice(feedmainslice + 3)}
+    // }
 
   return (
     <div>
@@ -149,6 +168,7 @@ export default function FeedMain({
                         </CardMain>
                         <figure className="">
                             {dat?.feedmainrender?.map(post => (<>
+                                {(feedmainstatic.feedmainid === 'contractarea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
                                 {feedmainstatic.feedmainid === 'taskarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: 0}} />}
                                 {feedmainstatic.feedmainid === 'clubarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}

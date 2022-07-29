@@ -1,4 +1,5 @@
 import React from 'react'
+
 import CtaMain from '../../component/cta/CtaMain'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
@@ -14,11 +15,11 @@ export default function UserIndex() {
               <CardMain />
                 <PostMain postmainstatic={{postmainid: 'useraddress', postmainindex: 1}} />
             </section>
-            <section className="">
+            {/* <section className="">
               <CardMain>
                 <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} />
               </CardMain>
-            </section>
+            </section> */}
         </main>
     </div>
   )

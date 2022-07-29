@@ -21,12 +21,16 @@ export const Provider = ({
     const [feedmainstate, setfeedmainstate] = useState({feedmainindex: 0})
     const [postmainstate, setpostmainstate] = useState(true)
     const [ptamainstate, setptamainstate] = useState(true)
+    // const [stamainstate, setstamainstate] = useState(true)
     // const [zoommainstate, setzoommainstate] = useState(true)
     
     const [authstate, setauthstate] = useState()
+    const [user, setuser] = useState()
     const [useruserid, setuseruserid] = useState()
-    const [taskuserid, settaskuserid] = useState()
+    const [contractsenderid, setcontractsenderid] = useState()
+    const [contractreceiverid, setcontractreceiverid] = useState()
     const [task, settask] = useState()
+    const [taskuserid, settaskuserid] = useState()
     const [ticketuserid, setticketuserid] = useState()
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
@@ -50,24 +54,40 @@ export const Provider = ({
         if(authstate !== undefined && authstate !== null){
             pp(authstate.user.id)
             oo(authstate.user.id)
+            tt(authstate.user.id)
+            rr(authstate.user.id)
             ii(authstate.user.id)
             uu(authstate.user.id)
+            yy(authstate.user.id)
+
         } 
     }, [authstate, fieldmainstate])
 
     const pp = async (first =this.props.first) => {
-        const { data, error} = await supabase.from('user').select(`*`).eq('userid', first)
+        const { data, error} = await supabase.from('user').select(`*`)
         if(data) {
-            setuseruserid(data)
-            // window.localStorage.setItem('mov.useruserid', JSON.stringify(data))
+            setuser(data)
         }
     }
 
     const oo = async (first =this.props.first) => {
-        const { data, error} = await supabase.from('task').select(`*`).eq('userid', first)
+        const { data, error} = await supabase.from('user').select(`*`).eq('userid', first)
         if(data) {
-            settaskuserid(data)
-            // window.localStorage.setItem('mov.taskuserid', JSON.stringify(data))
+            setuseruserid(data)
+        }
+    }
+
+    const tt = async (first =this.props.first) => {
+        const { data, error} = await supabase.from('contract').select(`*`).eq('senderid', first)
+        if(data) {
+            setcontractsenderid(data)
+        }
+    }
+
+    const rr = async (first =this.props.first) => {
+        const { data, error} = await supabase.from('contract').select(`*`).eq('receiverid', first)
+        if(data) {
+            setcontractreceiverid(data)
         }
     }
 
@@ -75,17 +95,24 @@ export const Provider = ({
         const { data, error} = await supabase.from('task').select(`*`)
         if(data) {
             settask(data)
-            // window.localStorage.setItem('mov.task', JSON.stringify(data))
         }
     }
 
     const uu = async (first =this.props.first) => {
+        const { data, error} = await supabase.from('task').select(`*`).eq('userid', first)
+        if(data) {
+            settaskuserid(data)
+        }
+    }
+
+    const yy = async (first =this.props.first) => {
         const { data, error} = await supabase.from('ticket').select(`*`).eq('userid', first)
         if(data) {
             setticketuserid(data)
-            // window.localStorage.setItem('mov.ticketuserid', JSON.stringify(data))
         }
     }
+
+
 
     ////////////////////////////////////////////////
 
@@ -96,8 +123,30 @@ export const Provider = ({
         {
             spreadid: 'my',
             spreadtitle: 'My details',
-            // spreaddata:  parseuseruserid && parseuseruserid,
             spreaddata: useruserid && useruserid,
+        },
+        {
+            spreadid: 'all',
+            spreadtitle: 'All users',
+            spreaddata: (user && user),
+        },
+        {
+            spreadid: 'else',
+            spreadtitle: 'Anyone else',
+            spreaddata: (user && authstate) && user.filter(data => data.userid !== authstate.user.id),
+        },
+    ]
+
+    const contractdl =[
+        {
+            spreadid: 'sender',
+            spreadtitle: 'Following',
+            spreaddata: contractsenderid,
+        },
+        {
+            spreadid: 'receiver',
+            spreadtitle: 'Follower',
+            spreaddata: contractreceiverid,
         },
     ]
 
@@ -153,7 +202,8 @@ export const Provider = ({
         },
     ]
 
-    // if(!useruserid && !taskuserid && !task && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+    if(authstate !== null && authstate !== undefined && !taskuserid && !task && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+
     ////////////////////////////////////////////////
 
     return (
@@ -165,15 +215,17 @@ export const Provider = ({
         feedmainstate, setfeedmainstate,
         postmainstate, setpostmainstate,
         ptamainstate, setptamainstate,
+        // stamainstate, setstamainstate,
         // zoommainstate, setzoommainstate,
         // fix this V parse get rid of it
         authstate, setauthstate,
         useruserid, 
         userdl,
-        taskdl,
+        contractdl,
         workoutdl,
-        ticketdl,
+        taskdl,
         clubdl,
+        ticketdl,
         favouritedl,
         
         }} >

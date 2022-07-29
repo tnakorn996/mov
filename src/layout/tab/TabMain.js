@@ -22,6 +22,30 @@ export default function TabMain({
 
     const [tabmainrender, settabmainrender] = useState()
 
+    const contractfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Recommend',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'contractarea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Request',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 2,
+            tabmaintitle: 'Browse',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <ZoomMain zoommainstatic={{zoommainid: 'clubform'}} />
+            </section>
+        },
+    ]
+
     const workoutfieldset = [
         {
             tabmainindex : 0,
@@ -67,10 +91,18 @@ export default function TabMain({
             tabmainid: 'clubfieldset',
             tabmainref: clubfieldset,
         },
+        {
+            tabmainid: 'contractfieldset',
+            tabmainref: contractfieldset,
+        },
     ]
 
     const [appstatic, setappstatic] = useApp(tabmain, tabmainstatic.tabmainid, tabmainstatic.tabmainindex)
 
+    useEffect(() => {
+        settabmainstate({tabmainindex: 0})
+    }, [])
+    
     useEffect(() => {
       if(tabmainstatic){
           const filter = tabmain.filter(data => data.tabmainid === tabmainstatic.tabmainid)
@@ -86,15 +118,11 @@ export default function TabMain({
     }, [tabmainstatic])
 
     useEffect(() => {
-        // if(tabmainstate && tabmainstate === null){
-        //     settabmainrender([])
-        //     settabmainrendertwo([])
-        // }   
         if(tabmainstate && tabmainstate.tabmainindex === 0){
             ref?.current?.scrollTo(0, 0)
         }
-        if(tabmainstate && tabmainstate.tabmainindex === 1){
-            ref?.current?.scrollTo(3000, 0)
+        else {
+            ref?.current?.scrollTo(300 * tabmainstate.tabmainindex, 0)
         }
     }, [tabmainstate, tabmainrender])
 
@@ -105,10 +133,10 @@ export default function TabMain({
         settabmaintouchend(first.targetTouches[0].clientX)
     }
     function jj(){
-        if(tabmaintouchstart - tabmaintouchend > 250){
+        if(tabmaintouchstart - tabmaintouchend > 20){
             settabmainstate({tabmainindex: 1})
         }
-        if(tabmaintouchstart - tabmaintouchend < - 250){
+        if(tabmaintouchstart - tabmaintouchend < - 20){
             settabmainstate({tabmainindex: 0})
         }
     }
@@ -123,7 +151,8 @@ export default function TabMain({
                 <figcaption className="flex flex-row items-center">
                     {tabmainrender?.map((data, index) => (<>
                         <article onClick={() => {
-                            settabmainstate({tabmainindex: data?.tabmainindex})
+                            console.log('index', index)
+                            settabmainstate({tabmainindex: index})
                         }} className={`border-b-2 border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black'}`}>
                             <CardMain>
                             {data.tabmaintitle}

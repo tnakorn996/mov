@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
-import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill } from 'react-icons/ri'
+import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiUserAddLine } from 'react-icons/ri'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
@@ -16,11 +16,7 @@ export default function StatMain({
 
 }) {
     const {
-
         authstate,
-
-    } = useContext(Context)
-    const {
 
         userdl,
         workoutdl,
@@ -40,14 +36,12 @@ export default function StatMain({
         {
             statmainindex: 0,
             statmainrender: <section className="">
-                <CardMain>
                     <button className="">
                     <PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />
                     </button>
-                </CardMain>
             </section>,
             statmainrenderthree: () => {
-                return <section className="">
+                return <section className="flex flex-row">
                 <CardMain>
                     <button onClick={() => {
                         navigate(`/favourite/favouritemain`)
@@ -76,13 +70,7 @@ export default function StatMain({
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        return <section className="">
-                            <CardMain>
-                                <button className="">
-                                    <PtaMain ptamaindata={assign} ptamainstatic={{ptamainid: 'workoutiframe'}} />
-                                </button>
-                            </CardMain>
-                        </section>
+                        return <StatMainRender props={{assign: assign, ptamainid: 'workoutiframe'}} />
                     }
                 }
                 if(splitstatictwo === 'club'|| splitstatictwo === 'ticket'){
@@ -90,14 +78,19 @@ export default function StatMain({
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        return <section className="">
-                            <CardMain>
-                                <button className="">
-                                    <PtaMain ptamaindata={assign} ptamainstatic={{ptamainid: 'clubiframe'}} />
-                                </button>
-                            </CardMain>
-                        </section>
+                        return <StatMainRender props={{assign: assign, ptamainid: 'clubiframe'}} />
                     }
+                }
+                if(splitstatictwo === 'user'){
+                    return <section className="">
+                        <CardMain>
+                            <button onClick={() => {
+                                navigate(`/contract/contractmain`)
+                            }} className="">
+                                <RiUserAddLine className="m-h6" />
+                            </button>
+                        </CardMain>
+                    </section>
                 }
 
             } 
@@ -110,6 +103,21 @@ export default function StatMain({
             statmainref: apptfoot,
         }
     ]
+
+    function StatMainRender({props}) {
+      return (
+        <div>
+            <section className="">
+                <CardMain>
+                    <button className="">
+                        <PtaMain ptamaindata={props.assign} ptamainstatic={{ptamainid: props.ptamainid}} />
+                    </button>
+                </CardMain>
+            </section>
+        </div>
+      )
+    }
+    
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstate.statmainid, statmainstate.statmainindex)
     const statmainrender = appstatic && appstatic

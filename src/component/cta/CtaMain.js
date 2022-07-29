@@ -36,7 +36,17 @@ export default function CtaMain({
         {
             ctamainindex: 0,
             ctamainentitle: 'Edit profile',
+            ctamainstyle: `l-button border-black`,
             ctamainaction: `/user/userform/${param?.userid}`,
+        },
+    ]
+
+    const contractembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'Unfollow',
+            ctamainstyle: `l-button border-black`,
+            ctamainaction: `/contract/contractform/${param?.contractid}`,
         },
     ]
 
@@ -72,6 +82,10 @@ export default function CtaMain({
         {
             ctamainid: 'userembed',
             ctamainref: userembed,
+        },
+        {
+            ctamainid: 'contractembed',
+            ctamainref: contractembed,
         },
         {
             ctamainid: 'taskembed',

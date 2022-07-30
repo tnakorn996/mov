@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+
+import '../tab/index.css'
 import FeedMain from '../../component/feed/FeedMain'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -32,9 +34,9 @@ export default function TabMain({
         },
         {
             tabmainindex : 1,
-            tabmaintitle: 'Request',
+            tabmaintitle: 'Updates',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
+                <FeedMain feedmainstatic={{feedmainid: 'contractarea', feedmainindex: 1}} />
             </section>
         },
         {
@@ -122,7 +124,7 @@ export default function TabMain({
             ref?.current?.scrollTo(0, 0)
         }
         else {
-            ref?.current?.scrollTo(300 * tabmainstate.tabmainindex, 0)
+            ref?.current?.scrollTo((window.innerWidth) * tabmainstate.tabmainindex, 0)
         }
     }, [tabmainstate, tabmainrender])
 
@@ -151,9 +153,8 @@ export default function TabMain({
                 <figcaption className="flex flex-row items-center">
                     {tabmainrender?.map((data, index) => (<>
                         <article onClick={() => {
-                            console.log('index', index)
                             settabmainstate({tabmainindex: index})
-                        }} className={`border-b-2 border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black'}`}>
+                        }} className={`l-h4 border-b-2  border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black text-black font-normal'}`}>
                             <CardMain>
                             {data.tabmaintitle}
                             </CardMain>
@@ -162,7 +163,7 @@ export default function TabMain({
                 </figcaption>
             </section>
             <hr />
-            <section className="">
+            <section className="no-scrollbar bg-slate-100">
                 <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
                 {appstatic && appstatic.map(data => (<>
                     {data?.tabmainrender}

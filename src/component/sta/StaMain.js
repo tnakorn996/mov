@@ -29,13 +29,13 @@ export default function StaMain({
         {
             stamainindex: 0,
             stamainrender: <section className="">
-                <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 0}} />
+                <FieldMain fieldmaindata={stamaindata} fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 0}} />
             </section>,
         },
         {
             stamainindex: 1,
             stamainrender: <section className="">
-                <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                <FieldMain fieldmaindata={stamaindata} fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
                 {/* <CtaMain ctamainstatic={{ctamainid: 'contractembed', ctamainindex: 0}} /> */}
             </section>,
         },
@@ -45,7 +45,7 @@ export default function StaMain({
         {
             stamainid: 'useriframe',
             stamainref: useriframe,
-            stamaindata: (contractdl[0].spreaddata).filter(data => data.receiverid === param.userid),
+            stamaindata: (contractdl[0].spreaddata).filter(data => data.receiverid.userid === stamaindata.userid || data.receiverid.userid === param.userid),
         },
     ]
 
@@ -67,7 +67,6 @@ export default function StaMain({
     }, [stamainstatic])
 
     useEffect(() => {
-        if(stamainstate !== undefined) {
             const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
             if(stamainstate === true){
                 const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 1)
@@ -77,7 +76,6 @@ export default function StaMain({
                 const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 0)
                 setstamainrender(filtertwo)
             } 
-        }
     }, [stamainstate])
     // console.log('stamainstate', stamainstate)
 

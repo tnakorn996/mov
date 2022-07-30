@@ -9,6 +9,7 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
+import SheetMain from '../sheet/SheetMain'
 
 export default function PostMain({
   postmainstatic,
@@ -53,16 +54,16 @@ export default function PostMain({
     }
   ]
 
-  // const contractaddress = [
-  //   {
-  //     postmainindex: 0,
-  //     postmainrender: <ContractAddressRender />
-  //   },
-  //   {
-  //     postmainindex: 1,
-  //     postmainrender: <ContractAddressRenderTwo />
-  //   },
-  // ]
+  const contractaddress = [
+    {
+      postmainindex: 0,
+      postmainrender: <ContractAddressRender />
+    },
+    // {
+    //   postmainindex: 1,
+    //   postmainrender: <ContractAddressRenderTwo />
+    // },
+  ]
 
   const workoutaddress = [
     {
@@ -118,10 +119,10 @@ export default function PostMain({
       postmainid: 'useraddress',
       postmainref: useraddress,
     },
-    // {
-    //   postmainid: 'contractaddress',
-    //   postmainref: contractaddress,
-    // },
+    {
+      postmainid: 'contractaddress',
+      postmainref: contractaddress,
+    },
     {
       postmainid: 'workoutaddress',
       postmainref: workoutaddress,
@@ -147,7 +148,7 @@ export default function PostMain({
     const ref = [postmaindata]
     return (
       ref.map(data => (<>
-      <div>
+      <div className="flex flex-row items-center justify-between" >
         <section>
           <CardMain>
           <figure onClick={() => {
@@ -157,10 +158,13 @@ export default function PostMain({
           </figure>
           </CardMain>
         </section>
-        {/* <section className="">
+        <section className="">
           {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
-            <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />}
-        </section> */}
+            <CardMain>
+            <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />
+            </CardMain>
+            }
+        </section>
       </div>
       </>))
     )
@@ -194,42 +198,46 @@ export default function PostMain({
     )
   }
 
-  // function ContractAddressRender() {
-  //   const ref = [postmaindata]
-  //   return (
-  //     ref.map(data => (<>
-  //     <div>
-  //       <CardMain>
-  //       <figure onClick={() => {
-  //         navigate(`/user/userindex/${data?.user?.id || data.userid}`)
-  //       }} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 ${postmainstyle?.figure}`}>
-  //         <p className="text-xl  uppercase">{ data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
-  //       </figure>
-  //       </CardMain>
-  //     </div>
-  //     </>))
-  //   )
-  // }
+  function ContractAddressRender() {
+    const ref = [postmaindata]
+    // const array = []
+    // for(const data of ref ){
+    //   if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
+    //     array.push(data)
+    //   }
+    //   if(Object.keys(data).find(key => key.includes('receiverid'))) {
+    //       // array.push({
+    //       //   action: data.userid,
+    //       //   detail: `start following you`,
+    //       //   data: data.usetemail
+    //       // })
+    //   }
+    //   if(Object.keys(data).find(key => key.includes('senderid'))) {
+    //       // array.push({
+    //       //   action: data.userid,
+    //       //   detail: `being followed by you`,
+    //       //   data: data.useremail
+    //       // })
+    //   }
+    // }
+    return (
+      ref.map(data => (<>
+      <div className="" >
+        <section className="">
+          <SheetMain>
+            <figcaption onClick={() => {
+              navigate(`/user/userindex/${data?.receiverid?.userid || data?.senderid?.userid}`)
+            }} className="w-full  cursor-pointer">
+              {data?.receiverid?.useremail && <p className="m-h2">You just followed {data?.receiverid?.useremail}</p>}
+              {data?.senderid?.useremail && <p className="m-h2"> {data?.senderid?.useremail} started to follow you.</p>}
+            </figcaption>
+          </SheetMain>
+        </section>
+      </div>
+      </>))
+    )
+  }
 
-  // function ContractAddressRenderTwo() {
-  //   const ref = userdl[1].spreaddata.filter(data => data.userid === splitstaticthree)
-  //   return (
-  //     ref.map(data => (<>
-  //     <div>
-  //       <section className="">
-  //         <CardMain>
-  //           {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
-  //           <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
-  //           null }
-  //           {/* <PtaMain ptamainstatic={{ptamiainid: 'useriframe'}}  />}  */}
-  //         </CardMain>
-  //       </section>
-  //     </div>
-  //     </>))
-  //   )
-  // }
-  
-  
   function WorkoutAddressRender() {
     const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
     return (

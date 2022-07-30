@@ -78,14 +78,15 @@ export const Provider = ({
     }
 
     const tt = async (first =this.props.first) => {
-        const { data, error} = await supabase.from('contract').select(`*`).eq('senderid', first)
+        const { data, error} = await supabase.from('contract').select(`*, receiverid (*)`).eq('senderid', first)
         if(data) {
             setcontractsenderid(data)
         }
     }
+    console.log('contractsendersid', contractsenderid)
 
     const rr = async (first =this.props.first) => {
-        const { data, error} = await supabase.from('contract').select(`*`).eq('receiverid', first)
+        const { data, error} = await supabase.from('contract').select(`*, senderid (*)`).eq('receiverid', first)
         if(data) {
             setcontractreceiverid(data)
         }
@@ -202,7 +203,13 @@ export const Provider = ({
         },
     ]
 
-    if(authstate !== null && authstate !== undefined && !taskuserid && !task && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+    if(authstate !== null 
+        && authstate !== undefined 
+        && !user 
+        && !useruserid  
+        && !taskuserid 
+        && !task 
+        && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
     ////////////////////////////////////////////////
 

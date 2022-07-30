@@ -11,14 +11,14 @@ import ChoiceMain from '../choice/ChoiceMain'
 export default function FieldMain({
   fieldmainstatic,
   fieldmainstyle,
+  fieldmaindata,
 
 }) {
   const {
     fieldmainstate, setfieldmainstate,
 
     authstate, setauthstate,
-    taskdl,
-    ticketdl,
+    userdl,
 
   } = useContext(Context)
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ export default function FieldMain({
           const query = {
               userid: user.id,
               useremail: user.email,
-              userimage: 'https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-1024.png',
+              userimage: '',
           }
           const { error } = await supabase.from('user').upsert(query, {returning: 'minimal'})
           navigate(`/workout/workoutmain`)
@@ -89,10 +89,46 @@ export default function FieldMain({
 
   //////////////////////////////////////
 
-    const ss = async () => {
+  const handleSelect = async (first =this.props.first) => {
+    const query = [       
+            {
+                fieldmainid: 'userinput',
+                fieldmainidtwo: 'user',
+                fieldmainidthree: 'username',
+            },     
+        ]
+        const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
+        const ref = filter[0]
+        // console.log('ref', ref)
+
+        const { data, error} = await supabase.from(ref.fieldmainidtwo).select(`*`).eq(ref.fieldmainidthree, first)
+        if(data) {
+          return `handleselect${ref.fieldmainid}`
+        } else {
+          return first
+        }
+  }
+  
+  const ss = async () => {
+      // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
+        const refvaluefour = reffour?.current?.value
+        const refvaluefive = reffive?.current?.value
         // console.log('user', user)
-        const query = [            
+        const query = [       
+            {
+                fieldmainid: 'userinput',
+                fieldmainidtwo: 'user',
+                // fieldmainidthree: 'mov.contract',
+                fieldmaindata: {
+                  userid: user.id,
+                  useremail: user.email,
+                  userimage: '',
+                  userfullname: refvaluefour,
+                  username: refvaluefive,
+                },
+                fieldmaindatatwo: {userid: param?.userid}
+            },     
             {
                 fieldmainid: 'contractinput',
                 fieldmainidtwo: 'contract',
@@ -102,7 +138,7 @@ export default function FieldMain({
                   
                     userid: user?.id,
                     senderid: user?.id,
-                    receiverid: split[3]
+                    receiverid: fieldmaindata?.userid || split[3],
                 },
                 fieldmaindatatwo: {contractid: undefined}
             },
@@ -131,7 +167,6 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {userid: undefined}
             },
-
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
@@ -141,22 +176,15 @@ export default function FieldMain({
                 const { error } = await supabase.from(filter[0].fieldmainidtwo).upsert(filter[0].fieldmaindata, {returning: 'minimal'})
                 alert(error)
 
-                // const empty = []
-                // const parse = JSON.parse(window.localStorage.getItem(filter[0].fieldmainidthree));
-                // empty.push(...parse, filter[0].fieldmaindata)
-                // window.localStorage.setItem(filter[0].fieldmainidthree, JSON.stringify(empty))
-
                 setfieldmainstate(!fieldmainstate)
             }
             if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
-                const { error } = await supabase.from(filter[0].fieldmainidtwo).update(filter[0].fieldmaindata).match(filter[0].fieldmaindatatwo)
-                alert(error)
-
-                // const empty = []
-                // const parse = JSON.parse(window.localStorage.getItem(filter[0].fieldmainidthree));
-                // const filtertwo = parse.filter(data => Object.values(data).every(value => value !== Object.values(filter[0].fieldmaindatatwo)[0]))
-                // empty.push(...filtertwo, filter[0].fieldmaindata)
-                // window.localStorage.setItem(filter[0].fieldmainidthree, JSON.stringify(empty))
+                if(Object.values(ref.fieldmaindatatwo).some(value => value.includes('handleselect'))){
+                  alert(`dd`)
+                } else {
+                  const { error } = await supabase.from(filter[0].fieldmainidtwo).update(filter[0].fieldmaindata).match(filter[0].fieldmaindatatwo)
+                  alert(error)
+                }
 
                 setfieldmainstate(!fieldmainstate)
             } 
@@ -166,30 +194,40 @@ export default function FieldMain({
     }
 
     const handledelete = async () => {
+      // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
         const query = [
             {
                 fieldmainid: 'contractinput',
                 fieldmainidtwo: 'contract',
                 // fieldmainidthree: 'mov.task',
-                fieldmaindatatwo: {receiverid: param?.userid, senderid: user?.id}
+                fieldmaindatatwo: {
+                  senderid: user?.id,
+                  receiverid: fieldmaindata?.userid || param?.userid, 
+                }
             },
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
                 // fieldmainidthree: 'mov.task',
-                fieldmaindatatwo: {taskid: param?.taskid,}
+                fieldmaindatatwo: {
+                  userid: user?.id, 
+                  workoutid: split[3],
+                }
             },
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
                 // fieldmainidthree: 'mov.ticket',
-                fieldmaindatatwo: {ticketid: param?.ticketid,}
+                fieldmaindatatwo: {
+                  userid: user?.id, 
+                  cludid: split[3],
+                }
             },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
-        console.log('ref', ref)
+        // console.log('ref', ref)
         if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).delete().match(ref.fieldmaindatatwo)
                 alert(error)
@@ -202,18 +240,6 @@ export default function FieldMain({
         }
     }
 
-    // const hh = async () => {
-    //     // const { data, error} = await supabase.from('post').select(`*`).eq('postid', param.postid).single()
-    //     if(fieldmainrendertwo) {
-    //         const filter = fieldmainrendertwo.filter(data => data.postid === param.postid)
-    //         if(filter && filter.length >= 0){
-    //             refthree.current.value = filter[0]?.posttitle
-    //             reffour.current.value = filter[0]?.postsubtitle
-    //             reffive.current.value = filter[0]?.categoryid
-    //         }
-    //     } 
-    // }
-
   const authinput = [
     {
       fieldmainindex: 0,
@@ -223,12 +249,12 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: 'email',
-          fieldmainrender: <input ref={ref} type="email" className="m-input" />,
+          fieldmainrender: <input ref={ref} type="email" className="l-input" />,
 
         },
         {
           fieldmainsubtitle: 'password',
-          fieldmainrender: <input ref={reftwo} type='password' className="m-input" />,
+          fieldmainrender: <input ref={reftwo} type='password' className="l-input" />,
         },
       ],
     },
@@ -240,12 +266,12 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: 'email',
-          fieldmainrender: <input ref={ref} type="email" className="m-input" />,
+          fieldmainrender: <input ref={ref} type="email" className="l-input" />,
 
         },
         {
           fieldmainsubtitle: 'password',
-          fieldmainrender: <input ref={reftwo} type='password' className="m-input" />,
+          fieldmainrender: <input ref={reftwo} type='password' className="l-input" />,
         },
       ],
     },
@@ -258,7 +284,27 @@ export default function FieldMain({
       fieldmainentitle: 'Sign out',
       fieldmainaction: jj,
       fieldmaindata: [],
-    }
+    },
+    {
+      fieldmainindex: 1,
+      fieldmaintitle: 'User Settings',
+      fieldmainentitle: 'Save changes',
+      fieldmainaction: ss,
+      fieldmaindata: [
+         {
+          fieldmainsubtitle: 'Full name',
+          // fieldmainrender: <input value={userdl[0].spreaddata[0].userfullname} ref={reffour} className="l-input" placeholder="eg. John Doe" />,
+          fieldmainrender: <input ref={reffour} className="l-input" placeholder="eg. John Doe" />,
+          fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
+        },
+        {
+          fieldmainsubtitle: 'Username',
+          // fieldmainrender: <input value={userdl[0].spreaddata[0].username} ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
+          fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
+          fieldmaindetail: `This will be displayed to viewers of your profile page.`,
+        },
+      ],
+    },
   ]
 
   const contractinput = [
@@ -272,7 +318,7 @@ export default function FieldMain({
     {
       fieldmainindex: 1,
       fieldmaintitle: null,
-      fieldmainentitle: 'Unfollow',
+      fieldmainentitle: 'Following',
       fieldmainaction: handledelete,
       fieldmaindata: [],
     },
@@ -304,7 +350,7 @@ export default function FieldMain({
     },
     {
       fieldmainindex: 1,
-      fieldmaintitle: 'Danger zone',
+      fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
       fieldmainaction: handledelete,
       fieldmaindata: [],
@@ -321,7 +367,7 @@ export default function FieldMain({
     },
     {
       fieldmainindex: 1,
-      fieldmaintitle: 'Danger zone',
+      fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
       fieldmainaction: handledelete,
       fieldmaindata: [],
@@ -361,15 +407,21 @@ export default function FieldMain({
               {fieldmainrender?.map(data => (<>
 
               <figure className="">
-                {data?.fieldmaintitle !== null && <h1 className="m-h6">{data?.fieldmaintitle}</h1>}
+                {data?.fieldmaintitle !== null && <div className="">
+                  <h1 className="m-h5 py-[5px]">{data?.fieldmaintitle}</h1>
+                  <hr />
+                  <br />
+                </div> }
               </figure>
 
               <figcaption className="">
                 {data?.fieldmaindata?.map(dat => (<>
-                  <h1 className="m-h1">{dat?.fieldmainsubtitle}</h1>
+                  <h1 className="m-h4 py-[5px]">{dat?.fieldmainsubtitle}</h1>
                   <div className="">
                   {dat?.fieldmainrender}
                   </div>
+                  <h1 className="l-h2 py-[5px]">{dat?.fieldmaindetail}</h1>
+                  <br />
                 </>))}
               </figcaption>
               

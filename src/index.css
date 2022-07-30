@@ -46,51 +46,51 @@
     }
 
     .m-h1 {
-        @apply text-[10px] font-medium;
+        @apply text-[10px] font-normal;
     }
 
     .l-h1 {
-        @apply text-[10px] text-gray-500 font-thin;
+        @apply text-[10px] text-gray-500 font-light;
     }
 
     .m-h2 {
-        @apply text-[12px] font-medium;
+        @apply text-[12px] font-normal;
     }
 
     .l-h2 {
-        @apply text-[12px] text-gray-500 font-thin;
+        @apply text-[12px] text-gray-500 font-light;
     }
 
     .m-h3 {
-        @apply text-[11px] md:text-[14px] font-medium;
+        @apply text-[11px] md:text-[14px] font-normal;
     }
 
     .l-h3 {
-        @apply text-[11px] md:text-[14px] text-gray-500 font-thin;
+        @apply text-[11px] md:text-[14px] text-gray-500 font-light;
     }
 
     .m-h4 {
-        @apply text-[13px] md:text-[16px] font-medium;
+        @apply text-[13px] md:text-[16px] font-normal;
     }
 
     .l-h4 {
-        @apply text-[13px] md:text-[16px] text-gray-500 font-thin;
+        @apply text-[13px] md:text-[16px] text-gray-500 font-light;
     }
 
     .m-h5 {
-        @apply text-[16px] md:text-[18px] font-medium;
+        @apply text-[16px] md:text-[18px] font-normal;
     }
 
     .l-h5 {
-        @apply text-[16px] md:text-[18px]  text-gray-500 font-thin;
+        @apply text-[16px] md:text-[18px]  text-gray-500 font-light;
     }
 
     .m-h6 {
-        @apply text-[19px] md:text-[22px]  font-medium;
+        @apply text-[19px] md:text-[22px]  font-normal;
     }
 
     .l-h6 {
-        @apply text-[19px] md:text-[22px]  text-gray-500 font-thin; 
+        @apply text-[19px] md:text-[22px]  text-gray-500 font-light; 
     }
 
 }

@@ -113,7 +113,7 @@ export default function ZoomMain({
                     {data?.zoommaindata?.map(dat => (<>
                     <figcaption className="">
                         <CardMain>
-                        <h1 className="">{dat?.zoommaintitle}</h1>
+                        <h1 className="m-h5">{dat?.zoommaintitle}</h1>
                         </CardMain>
                     </figcaption>
                     <figure className="">

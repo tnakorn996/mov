@@ -17,12 +17,12 @@ export default function FeedMain({
         postmainstate, setpostmainstate,
 
         userdl,
+        contractdl,
         workoutdl,
         taskdl,
         clubdl,
         ticketdl,
         favouritedl,
-        frienddl,
 
     } = useContext(Context)
     const navigate = useNavigate()
@@ -36,6 +36,22 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'People you may know',
                     feedmainrender:  userdl[2].spreaddata,
+                },
+            ],
+        },
+        {
+            feedmainindex: 1,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: 'Recent followers',
+                    feedmainrender:  contractdl[1].spreaddata,
+                    // feedmainrender: [],
+                },
+                {
+                    feedmaintitle: `Who you're following`,
+                    feedmainrender:  contractdl[0].spreaddata,
+                    // feedmainrender: [],
                 },
             ],
         },
@@ -164,11 +180,12 @@ export default function FeedMain({
                 {appstatic?.map(data => (<>
                     {data?.feedmaindata?.map(dat => (<>
                         <CardMain>
-                        <h1 className="m-h4">{dat?.feedmaintitle}</h1>
+                        <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                         </CardMain>
                         <figure className="">
                             {dat?.feedmainrender?.map(post => (<>
-                                {(feedmainstatic.feedmainid === 'contractarea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'contractaddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
                                 {feedmainstatic.feedmainid === 'taskarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: 0}} />}
                                 {feedmainstatic.feedmainid === 'clubarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}

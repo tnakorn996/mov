@@ -2,39 +2,48 @@ import React, { useContext } from 'react'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import SignMain from '../sign/SignMain'
 
 export default function PreviewMain() {
   const {
     appstate,
+    signmainstate,
 
   } = useContext(Context)
 
-  const workoutarticle = [
+  const apparticle = [
     {
       previewmainindex: 0,
-      previewmainrender: <WorkoutArticle />,
+      previewmainrender: <AppArticle />,
+      
 
     }
   ]
 
   const previewmain = [
     {
-      previewmainid: 'workoutarticle',
-      previewmainref: workoutarticle,
+      previewmainid: 'apparticle',
+      previewmainref: apparticle,
     }
   ]
 
-  const [appstatic, setappstatic] = useApp(previewmain, appstate.appidthree, appstate.appindexthree)
-
-  function WorkoutArticle() {
+  function AppArticle() {
     return (
       <div>
-        <section className="w-screen h-screen  bg-white">
-          <h1 className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, esse?</h1>
+        <section className="w-screen h-screen">
+            <SignMain signmainstatic={{
+              signmainid: signmainstate?.signmainid, 
+              signmainindex: signmainstate?.signmainindex, 
+              signmaindetail: signmainstate?.signmaindetail,
+              signmainaction: signmainstate?.signmainaction,
+              }} />
         </section>
       </div>
     )
   }
+
+  const [appstatic, setappstatic] = useApp(previewmain, appstate.appidthree, appstate.appindex)
+
 
   return (
     <div>

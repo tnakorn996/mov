@@ -34,7 +34,6 @@ export default function PostMain({
   const [splitstatic, setsplitstatic] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
-
   // useEffect(() => {
   //   if(postmainstate === true) {
   //     setpostmainstyle(`flex flex-col`)
@@ -112,6 +111,10 @@ export default function PostMain({
       postmainindex: 1,
       postmainrender: <TicketAddressRenderTwo />
     },
+    {
+      postmainindex: 2,
+      postmainrender: <TicketAddressRenderThree />
+    },
   ]
 
   const postmain = [
@@ -143,7 +146,6 @@ export default function PostMain({
 
   const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstaticthree)
   
-
   function UserAddressRender() {
     const ref = [postmaindata]
     return (
@@ -171,7 +173,7 @@ export default function PostMain({
   }
 
   function UserAddressRenderTwo() {
-    const ref = userdl[1].spreaddata.filter(data => data.userid === splitstaticthree)
+    const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
     return (
       ref.map(data => (<>
       <div>
@@ -200,26 +202,6 @@ export default function PostMain({
 
   function ContractAddressRender() {
     const ref = [postmaindata]
-    // const array = []
-    // for(const data of ref ){
-    //   if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
-    //     array.push(data)
-    //   }
-    //   if(Object.keys(data).find(key => key.includes('receiverid'))) {
-    //       // array.push({
-    //       //   action: data.userid,
-    //       //   detail: `start following you`,
-    //       //   data: data.usetemail
-    //       // })
-    //   }
-    //   if(Object.keys(data).find(key => key.includes('senderid'))) {
-    //       // array.push({
-    //       //   action: data.userid,
-    //       //   detail: `being followed by you`,
-    //       //   data: data.useremail
-    //       // })
-    //   }
-    // }
     return (
       ref.map(data => (<>
       <div className="" >
@@ -253,7 +235,7 @@ export default function PostMain({
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-            <h1 className="l-h2  text-white">By {data?.breadauthor}</h1>
+            <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
             </CardMain>
             <CardMain>
             <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
@@ -267,6 +249,8 @@ export default function PostMain({
 
   function WorkoutAddressRenderTwo() {
     const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
+    const reftwo = taskdl[0]?.spreaddata.filter(data => data.workoutid === splitstaticthree)
+    console.log('reftwo', reftwo)
     return (
       ref.map(data => (<>
         <figure className="">
@@ -282,6 +266,13 @@ export default function PostMain({
           <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
+        <figure className="">
+          {(reftwo && reftwo?.length > 0) && (<>
+          <CardMain>
+            <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
+          </CardMain>
+          </>)}
+        </figure>
       </>))
     )
   }
@@ -299,7 +290,7 @@ export default function PostMain({
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-            <h1 className="l-h2  text-white">By {data?.breadauthor}</h1>
+            <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
             </CardMain>
             <CardMain>
             <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
@@ -310,7 +301,6 @@ export default function PostMain({
       </>))
     )
   }
-
 
   function TaskAddressRenderTwo() {
     const ref = taskdl[0].spreaddata?.filter(data => data?.breadid === splitstaticthree)
@@ -338,21 +328,6 @@ export default function PostMain({
       </>))
     )
   }
-
-
-  // function TaskAddressRenderThree() {
-  //   const ref = taskdl[1].spreaddata?.filter(data => data?.breadid === splitstaticthree)
-  //   return (
-  //       ref.map(data => (<>
-  //       <figure className="">
-  //       </figure>
-  //       <figcaption className="">
-
-
-  //       </figcaption>
-  //     </>))
-  //   )
-  // }
 
   function ClubAddressRender() {
     const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
@@ -417,7 +392,6 @@ export default function PostMain({
     )
   }
 
-
   function TicketAddressRenderTwo() {
     const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
     const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
@@ -439,6 +413,23 @@ export default function PostMain({
             <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
           </CardMain>
         </figure>
+      </>))
+    )
+  }
+
+  function TicketAddressRenderThree() {
+    const ref = [postmaindata]
+    return (
+      ref.map((data) => (<>
+       <div className="" >
+        <section className="">
+            <figcaption onClick={() => {
+              navigate(`/user/userindex/${data?.userid?.userid}`)
+            }} className="w-full  cursor-pointer">
+              <p className="m-h2">{data?.userid?.useremail}</p>
+            </figcaption>
+        </section>
+      </div>
       </>))
     )
   }

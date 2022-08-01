@@ -135,12 +135,16 @@ export const clubul = [
         breadid: 'bench',
         breadaction: `/club/clubindex/bench`,
         breadtitle: '100KG Bench',
+        breadsubtitle: 'Reach 100.0 kilogram this month',
+        breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/dda01e5d-e42e-4f67-9099-e41e2eedf35a/how-to-plan-your-ideal-recovery-day-workout.jpg',
     },
     {
         breadid: 'squat',
         breadaction: `/club/clubindex/squat`,
         breadtitle: '100KG Squat',
+        breadsubtitle: 'Reach 100.0 kilogram this month100.0 KG',
+        breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/fc92ed90-d329-4d37-af2b-18bba7b3be35/how-to-prevent-plantar-fasciitis.jpg',
 
     },
@@ -148,7 +152,38 @@ export const clubul = [
         breadid: 'deadlift',
         breadaction: `/club/clubindex/deadlift`,
         breadtitle: '100KG Deadlift',
+        breadsubtitle: 'Reach 100.0 kilogram this month',
+        breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/7a333ef8-3351-4f98-8646-30e4aa1385b3/how-to-prevent-blisters-while-running.jpg',
 
     },
 ]
+
+
+//  export const weightul = [
+//         {
+//             breadid: 0,
+//             choicemaindata: [
+//                 {
+//                     choicemainidtwo: '20kg',
+//                     choicemaintitle: '20KG'
+//                 },
+//                 {
+//                     choicemainidtwo: '30kg',
+//                     choicemaintitle: '30KG'
+//                 },
+//                 {
+//                     choicemainidtwo: '40kg',
+//                     choicemaintitle: '40KG'
+//                 },
+//                 {
+//                     choicemainidtwo: '50kg',
+//                     choicemaintitle: '50KG'
+//                 },
+//                 {
+//                     choicemainidtwo: '100kg',
+//                     choicemaintitle: '100KG'
+//                 },
+//             ],
+//         }
+//     ]

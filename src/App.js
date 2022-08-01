@@ -8,7 +8,7 @@ import { Context } from './context/context';
 import OverlayMain from './layout/overlay/OverlayMain';
 import TopMain from './layout/top/TopMain';
 import NavMain from './component/nav/NavMain';
-import StatMain from './component/stat/StatMain';
+import BarMain from './component/bar/BarMain';
 import AuthForm from './page/auth/AuthForm';
 import ClubForm from './page/club/ClubForm';
 import ClubMain from './page/club/ClubMain';
@@ -46,10 +46,10 @@ export default function App() {
         <TopMain >
         <main className="relative">
           <section className="z-30 fixed top-0 left-0 w-screen">
-                                    {/* <button onClick={() => {
-              setappstate({appid: 'backdropmain', appidtwo: 'previewmain', appidthree: 'workoutarticle', appindexthree: 0})
-            }} className="m-button">ddd</button> */}
-            {(authstate !== null && authstate !== undefined) && <StatMain />}
+            {/* <button onClick={() => {
+              setappstate({appid: 'backdropmain', appidtwo: 'previewmain', appidthree: 'apparticle', appindexthree: 0})
+            }} className="m-button">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quia?</button> */}
+            {(authstate !== null && authstate !== undefined) && <BarMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
             {/* <AnimatePresence exitBeforeEnter> */}

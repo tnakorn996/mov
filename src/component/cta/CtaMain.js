@@ -50,10 +50,19 @@ export default function CtaMain({
         },
     ]
 
+    const workoutembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'View your progress',
+            ctamainaction: `/task/taskindex/${param?.workoutid}`,
+        },
+    ]
+
     const taskembed = [
         {
             ctamainindex: 0,
             ctamainentitle: 'Delete record',
+            ctamainstyle: `l-button border-black`,
             ctamainaction: `/task/taskform/${param?.taskid}`,
         },
     ]
@@ -61,8 +70,8 @@ export default function CtaMain({
     const clubembed = [
         {
             ctamainindex: 0,
-            ctamainentitle: 'Create club',
-            ctamainaction: `/club/clubform/${param?.clubid}`,
+            ctamainentitle: 'View your program',
+            ctamainaction: `/ticket/ticketindex/${param?.clubid}`,
         },
     ]
 
@@ -70,8 +79,10 @@ export default function CtaMain({
         {
             ctamainindex: 0,
             ctamainentitle: 'End program',
+            ctamainstyle: `l-button border-black`,
             ctamainaction: `/ticket/ticketform/${param?.ticketid}`,
         },
+       
     ]
 
     const ctamain = [
@@ -86,6 +97,10 @@ export default function CtaMain({
         {
             ctamainid: 'contractembed',
             ctamainref: contractembed,
+        },
+        {
+            ctamainid: 'workoutembed',
+            ctamainref: workoutembed
         },
         {
             ctamainid: 'taskembed',

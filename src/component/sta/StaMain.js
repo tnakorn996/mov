@@ -56,27 +56,27 @@ export default function StaMain({
             if(ref && ref.length !== 0){
                 const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 1)
                 setstamainrender(filtertwo)
-                setstamainstate(true)
+                // setstamainstate(true)
             }
             if(ref && ref.length === 0){
                 const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 0)
                 setstamainrender(filtertwo)
-                setstamainstate(false)
+                // setstamainstate(false)
             } 
       }
     }, [stamainstatic])
 
-    useEffect(() => {
-            const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
-            if(stamainstate === true){
-                const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 1)
-                setstamainrender(filtertwo)
-            }
-            if(stamainstate === false){
-                const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 0)
-                setstamainrender(filtertwo)
-            } 
-    }, [stamainstate])
+    // useEffect(() => {
+    //         const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
+    //         if(stamainstate === true){
+    //             const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 1)
+    //             setstamainrender(filtertwo)
+    //         }
+    //         if(stamainstate === false){
+    //             const filtertwo = filter[0].stamainref.filter(data => data.stamainindex === 0)
+    //             setstamainrender(filtertwo)
+    //         } 
+    // }, [stamainstate])
     // console.log('stamainstate', stamainstate)
 
   return (

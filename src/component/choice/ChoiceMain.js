@@ -8,47 +8,6 @@ export default function ChoiceMain({
 
 }) {
 
-    const worklabel = [
-        {
-            choicemainindex: 0,
-            choicemaindata: [
-                {
-                    choicemainidtwo: 'bench',
-                    choicemaintitle: 'Bench'
-                },
-                {
-                    choicemainidtwo: 'deadlift',
-                    choicemaintitle: 'Deadlift'
-                },
-                {
-                    choicemainidtwo: 'squat',
-                    choicemaintitle: 'Squat'
-                },
-            ],
-        }
-    ]
-
-    const emojilabel = [
-        {
-            choicemainindex: 0,
-            choicemaindata: [
-                {
-                    choicemainidtwo: 'one',
-                    choicemaintitle: '😃'
-                },
-                {
-                    choicemainidtwo: 'two',
-                    choicemaintitle: '🥵'
-                },
-                {
-                    choicemainidtwo: 'three',
-                    choicemaintitle: '🤢'
-                },
-            ],
-        }
-    ]
-
-
     const weightlabel = [
         {
             choicemainindex: 0,
@@ -78,14 +37,6 @@ export default function ChoiceMain({
     ]
 
     const choicemain = [
-        {
-            choicemainid: 'worklabel',
-            choicemainref: worklabel,
-        },
-        {
-            choicemainid: 'emojilabel',
-            choicemainref: emojilabel,
-        },
         {
             choicemainid: 'weightlabel',
             choicemainref: weightlabel,

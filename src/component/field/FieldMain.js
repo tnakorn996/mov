@@ -15,7 +15,9 @@ export default function FieldMain({
 
 }) {
   const {
+    setappstate,
     fieldmainstate, setfieldmainstate,
+    signmainstate, setsignmainstate,
 
     authstate, setauthstate,
     userdl,
@@ -26,6 +28,7 @@ export default function FieldMain({
   const location = useLocation()
   const split = location.pathname.split('/');
   const [fieldmainid, setfieldmainid] = useState(uuidv4())
+  const [fieldmainboolean, setfieldmainboolean] = useState(true)
 
   const ref = useRef(null)
   const reftwo = useRef(null)
@@ -119,7 +122,8 @@ export default function FieldMain({
             {
                 fieldmainid: 'userinput',
                 fieldmainidtwo: 'user',
-                // fieldmainidthree: 'mov.contract',
+                fieldmaindetail: 'You are ready to go',
+                fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                   userid: user.id,
                   useremail: user.email,
@@ -132,7 +136,8 @@ export default function FieldMain({
             {
                 fieldmainid: 'contractinput',
                 fieldmainidtwo: 'contract',
-                // fieldmainidthree: 'mov.contract',
+                // fieldmaindetail: 'Successfully following this user',
+                // fieldmainaction: null,
                 fieldmaindata: {
                     contractid: fieldmainid,
                   
@@ -145,7 +150,8 @@ export default function FieldMain({
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                // fieldmainidthree: 'mov.task',
+                fieldmaindetail: 'Thanks for working out with us',
+                fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                     taskid: fieldmainid,
 
@@ -158,7 +164,8 @@ export default function FieldMain({
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
-                // fieldmainidthree: 'mov.ticket',
+                fieldmaindetail: 'Thanks for working out with us',
+                fieldmainaction: `/club/clubmain`,
                 fieldmaindata: {
                     ticketid: fieldmainid,
                   
@@ -173,34 +180,35 @@ export default function FieldMain({
         // console.log('ref', ref)
         try {
             if(user && filter && Object.values(ref.fieldmaindatatwo)[0] === undefined){
-                const { error } = await supabase.from(filter[0].fieldmainidtwo).upsert(filter[0].fieldmaindata, {returning: 'minimal'})
-                alert(error)
+                const { error } = await supabase.from(ref.fieldmainidtwo).upsert(ref.fieldmaindata, {returning: 'minimal'})
+                // alert(error)
 
-                setfieldmainstate(!fieldmainstate)
+                handleCallback(ref)
             }
             if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
-                if(Object.values(ref.fieldmaindatatwo).some(value => value.includes('handleselect'))){
-                  alert(`dd`)
-                } else {
-                  const { error } = await supabase.from(filter[0].fieldmainidtwo).update(filter[0].fieldmaindata).match(filter[0].fieldmaindatatwo)
-                  alert(error)
-                }
+                // if(Object.values(ref.fieldmaindatatwo).some(value => value.includes('handleselect'))){
+                //   alert(`dd`)
+                // } else {
+                // }
+                const { error } = await supabase.from(ref.fieldmainidtwo).update(ref.fieldmaindata).match(ref.fieldmaindatatwo)
+                // alert(error)
 
-                setfieldmainstate(!fieldmainstate)
-            } 
+                handleCallback(ref)
+              } 
         } catch (error) {
             alert(error)
         }
     }
 
-    const handledelete = async () => {
+    const handleDelete = async () => {
       // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
         const query = [
             {
                 fieldmainid: 'contractinput',
                 fieldmainidtwo: 'contract',
-                // fieldmainidthree: 'mov.task',
+                // fieldmaindetail: 'Successfully unfollow this person',
+                // fieldmainaction: null,
                 fieldmaindatatwo: {
                   senderid: user?.id,
                   receiverid: fieldmaindata?.userid || param?.userid, 
@@ -209,7 +217,8 @@ export default function FieldMain({
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                // fieldmainidthree: 'mov.task',
+                fieldmaindetail: 'Successfully delete this record',
+                fieldmainaction: `/workout/workoutmain`,
                 fieldmaindatatwo: {
                   userid: user?.id, 
                   workoutid: split[3],
@@ -218,10 +227,11 @@ export default function FieldMain({
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
-                // fieldmainidthree: 'mov.ticket',
+                fieldmaindetail: 'Successfully leave this program',
+                fieldmainaction: `/club/clubmain`,
                 fieldmaindatatwo: {
                   userid: user?.id, 
-                  cludid: split[3],
+                  clubid: split[3],
                 }
             },
         ]
@@ -230,14 +240,35 @@ export default function FieldMain({
         // console.log('ref', ref)
         if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).delete().match(ref.fieldmaindatatwo)
-                alert(error)
+                // alert(error)
 
                 // const parse = JSON.parse(window.localStorage.getItem(ref.fieldmainidthree));
                 // const filtertwo = parse.filter(data => Object.values(data).every(value => value !== Object.values(ref.fieldmaindatatwo)[0]))
                 // window.localStorage.setItem(ref.fieldmainidthree, JSON.stringify(filtertwo))
                 
                 setfieldmainstate(!fieldmainstate)
+                handleCallback(ref)
         }
+    }
+
+    //////////////////////////////////////
+
+    function handleCallback(first) {
+      // console.log('first', first)
+      if(!first.fieldmaindetail) return null
+            setappstate({
+              appid: 'backdropmain',
+              appidtwo: 'previewmain',
+              appidthree: 'apparticle',
+              appindex: 0,
+            })
+            setsignmainstate({
+              signmainid: 'appimg',
+              signmainindex: 0,
+              signmaindetail: first.fieldmaindetail,
+              signmainaction: first.fieldmainaction,
+            })
+            setfieldmainstate(!fieldmainstate)
     }
 
   const authinput = [
@@ -319,7 +350,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: null,
       fieldmainentitle: 'Following',
-      fieldmainaction: handledelete,
+      fieldmainaction: handleDelete,
       fieldmaindata: [],
     },
   ]
@@ -329,7 +360,7 @@ export default function FieldMain({
     {
       fieldmainindex: 0,
       fieldmaintitle: null,
-      fieldmainentitle: 'Start Workout',
+      fieldmainentitle: 'add Workout',
       fieldmainaction: ss,
       // fieldmaindata: [
       //   {
@@ -352,7 +383,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
-      fieldmainaction: handledelete,
+      fieldmainaction: handleDelete,
       fieldmaindata: [],
     },
   ]
@@ -369,7 +400,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
-      fieldmainaction: handledelete,
+      fieldmainaction: handleDelete,
       fieldmaindata: [],
     },
   ]
@@ -428,8 +459,10 @@ export default function FieldMain({
               <figure className="grid grid-flow-col">
                 <button onClick={() => {
                   (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : data?.fieldmainaction()
-                }} className={`w-full  m-button uppercase ${fieldmainstyle?.button}`}>
-                  {data?.fieldmainentitle}
+                  setfieldmainboolean(!fieldmainboolean)
+                }} className={`w-full flex flex-row gap-2 justify-center items-center  m-button uppercase ${fieldmainstyle?.button}`}>
+                  {fieldmainboolean === false && <div className="w-[10px] h-[10px] border-2 border-slate-400 rounded-full animate-ping" />}
+                   {data?.fieldmainentitle}
                 </button>
                 {data?.fieldmaindatatwo?.map(dat => (<>
                   <button className="">

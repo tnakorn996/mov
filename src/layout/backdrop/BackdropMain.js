@@ -48,9 +48,6 @@ const {
                     {data?.backdropmainrender}
                     </>))}
             </motion.figure>
-            <figcaption onClick={() => {
-                setappstate()
-            }} className="fixed top-0 right-0  m-button">X</figcaption>
           </section>
         </main>
     </div>

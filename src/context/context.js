@@ -12,7 +12,7 @@ export const Provider = ({
     children 
 }) => {
     const navigate = useNavigate()
-    const location = useLocation()
+    // const location = useLocation()
     // const param = useParams()
     const [appstate, setappstate] = useState()
     const [authformstate, setauthformstate] = useState(false)
@@ -21,6 +21,7 @@ export const Provider = ({
     const [feedmainstate, setfeedmainstate] = useState({feedmainindex: 0})
     const [postmainstate, setpostmainstate] = useState(true)
     const [ptamainstate, setptamainstate] = useState(true)
+    const [signmainstate, setsignmainstate] = useState()
     // const [stamainstate, setstamainstate] = useState(true)
     // const [zoommainstate, setzoommainstate] = useState(true)
     
@@ -83,7 +84,6 @@ export const Provider = ({
             setcontractsenderid(data)
         }
     }
-    console.log('contractsendersid', contractsenderid)
 
     const rr = async (first =this.props.first) => {
         const { data, error} = await supabase.from('contract').select(`*, senderid (*)`).eq('receiverid', first)
@@ -203,7 +203,8 @@ export const Provider = ({
         },
     ]
 
-    if(authstate !== null 
+    if(
+        authstate !== null 
         && authstate !== undefined 
         && !user 
         && !useruserid  
@@ -222,6 +223,7 @@ export const Provider = ({
         feedmainstate, setfeedmainstate,
         postmainstate, setpostmainstate,
         ptamainstate, setptamainstate,
+        signmainstate, setsignmainstate,
         // stamainstate, setstamainstate,
         // zoommainstate, setzoommainstate,
         // fix this V parse get rid of it

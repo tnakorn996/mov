@@ -30,11 +30,11 @@
     }
 
     .m-button {
-        @apply text-sm py-[10px] px-[20px] bg-black text-white font-medium border border-black;
+        @apply text-sm py-[15px] px-[20px] bg-black text-white font-medium border border-black;
     }
 
     .l-button {
-        @apply text-sm py-[10px] px-[20px] bg-white text-black font-medium border border-black;
+        @apply text-sm py-[15px] px-[20px] bg-white text-black font-medium border border-black;
     }
 
     .m-input {

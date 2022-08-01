@@ -27,8 +27,8 @@ export default function ZoomMain({
             zoommaindata: [
                 {
                     zoommaintitle: 'Find workout',
-                    zoommainrender: workoutdl[0].spreaddata
-                    // zoommainrender: [],
+                    // zoommainrender: workoutdl[0].spreaddata
+                    zoommainrender: [],
                 },
             ]
         },
@@ -41,7 +41,7 @@ export default function ZoomMain({
                 // },
                 {
                     zoommaintitle: 'All workout',
-                    zoommainrender: workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadtitle.toLowerCase().includes(zoommainvalue)),
+                    zoommainrender: workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
 
                 },
             ]
@@ -54,8 +54,8 @@ export default function ZoomMain({
             zoommaindata: [
                 {
                     zoommaintitle: 'Find club',
-                    zoommainrender: clubdl[0].spreaddata
-                    // zoommainrender: [],
+                    // zoommainrender: clubdl[0].spreaddata
+                    zoommainrender: [],
                 },
             ]
         },
@@ -68,7 +68,7 @@ export default function ZoomMain({
                 // },
                 {
                     zoommaintitle: 'All club',
-                    zoommainrender: clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                    zoommainrender: clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
                 },
             ]
         },
@@ -98,7 +98,7 @@ export default function ZoomMain({
 
     const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue)
 
-    if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
+    // if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
     
   return (
     <div>
@@ -118,8 +118,8 @@ export default function ZoomMain({
                     </figcaption>
                     <figure className="">
                         {dat?.zoommainrender?.map(post => (<>
-                            {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
                             {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: null}} />}
+                            {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
                             {zoommainstatic.zoommainid === 'clubform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
                             {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
                         </>))}

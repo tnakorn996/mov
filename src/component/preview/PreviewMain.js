@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
-import SignMain from '../sign/SignMain'
+import SignMain from '../sign/SignMain.tsx'
 
 export default function PreviewMain() {
   const {

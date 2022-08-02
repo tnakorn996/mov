@@ -1,58 +1,40 @@
 import React, { useState } from 'react'
-import { workul } from '../../content/content'
+
+import { workoutul } from '../../content/content'
 import useApp from '../../hook/useApp'
+import useSplit from '../../hook/useSplit'
+import CardMain from '../../layout/card/CardMain'
 
 export default function ChoiceMain({
     choicemainref,
     choicemainstatic,
 
 }) {
-
-    const weightlabel = [
+    const [splitstaticthree, setsplitstaticthree] = useSplit(3)
+    const workoutlabel = [
         {
             choicemainindex: 0,
-            choicemaindata: [
-                {
-                    choicemainidtwo: '20kg',
-                    choicemaintitle: '20KG'
-                },
-                {
-                    choicemainidtwo: '30kg',
-                    choicemaintitle: '30KG'
-                },
-                {
-                    choicemainidtwo: '40kg',
-                    choicemaintitle: '40KG'
-                },
-                {
-                    choicemainidtwo: '50kg',
-                    choicemaintitle: '50KG'
-                },
-                {
-                    choicemainidtwo: '100kg',
-                    choicemaintitle: '100KG'
-                },
-            ],
+            choicemaindata: workoutul.filter(data => data.breadid === splitstaticthree)
+
         }
     ]
 
     const choicemain = [
         {
-            choicemainid: 'weightlabel',
-            choicemainref: weightlabel,
+            choicemainid: 'workoutlabel',
+            choicemainref: workoutlabel,
         },
     ]
 
-    const [appstatic, setappstatic] = useApp(choicemain, choicemainstatic.choicemainid, choicemainstatic.choicemainindex)
-    const choicemainrender = appstatic && appstatic
+    const [appstatic, setappstatic] = useApp(choicemain, choicemainstatic.choicemainid, choicemainstatic.choicemainindex, splitstaticthree)
 
   return (
     <div>
         <main className="">
-            <select ref={choicemainref} className="w-full">
-                {choicemainrender?.map(data => (<>
-                    {data?.choicemaindata?.map(dat => (<>
-                    <option value={dat?.choicemainidtwo} className="">{dat?.choicemaintitle}</option>
+            <select ref={choicemainref} className="p-[15px] w-full flex justify-center text-center  appearance-none l-h5 rounded-full font-medium">
+                {appstatic?.map(data => (<>
+                    {data?.choicemaindata[0]?.breaddata?.map(dat => (<>
+                    <option value={dat?.breadhead} className="">{dat?.breadbody}</option>
                     </>))}
                 </>))}
             </select>

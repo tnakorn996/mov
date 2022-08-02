@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-export default function useApp(appmain, appmainid, appmainindex, appmainstatic, appmainstatictwo) {
+export default function useApp(appmain, appmainid, appmainindex, appmainstatic, appmainstatictwo, appmainstaticthree) {
     const [appstatic, setappstatic] = useState()
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function useApp(appmain, appmainid, appmainindex, appmainstatic, 
           setappstatic(filtertwo)
         }
       } 
-    }, [appmainstatic, appmainstatictwo, appmainid, appmainindex])
+    }, [appmainstatic, appmainstatictwo, appmainstaticthree, appmainid, appmainindex])
 
   return [appstatic, setappstatic]
     

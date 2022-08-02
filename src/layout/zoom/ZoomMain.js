@@ -20,6 +20,7 @@ export default function ZoomMain({
         ticketdl,
         
     } = useContext(Context)
+    const EMPTY = ''
 
     const workoutform = [
         {
@@ -86,14 +87,8 @@ export default function ZoomMain({
     ]
 
     useEffect(() => {
-        if(zoommainvalue === ''){
-            setzoommainindex(0)
-            // setzoommainstate(!zoommainstate)
-        }
-        if(zoommainvalue !== ''){
-            setzoommainindex(1)
-            // setzoommainstate(!zoommainstate)
-        }
+        if(zoommainvalue === EMPTY){setzoommainindex(0)}
+        if(zoommainvalue !== EMPTY){setzoommainindex(1)}
     }, [zoommainvalue])
 
     const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue)

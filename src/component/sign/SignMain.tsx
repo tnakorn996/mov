@@ -5,11 +5,16 @@ import useApp from '../../hook/useApp'
 import CardMain from '../../layout/card/CardMain'
 import SplashMain from '../../layout/splash/SplashMain'
 
-export default function SignMain({
-    signmainstatic,
-
+interface SignMainProps {
+    signmainstatic: {
+        signmainid: string,
+        signmainindex:  number,
+        signmaindetail: string,
+        signmainaction: string,
+    }
 }
-    ) {
+
+export default function SignMain({signmainstatic}: SignMainProps) {
     const navigate = useNavigate()
     const {
     setappstate,
@@ -50,7 +55,7 @@ export default function SignMain({
   return (
     <div>
         <main>
-            {appstatic?.map(data => (<>
+            {appstatic?.map((data: { signmainstyle: { section: any } }) => (<>
             <section className={`w-full text-2xl flex items-center ${data?.signmainstyle?.section}`}>
                 <div className="">
                 <figcaption className="">

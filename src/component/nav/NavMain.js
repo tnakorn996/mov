@@ -79,7 +79,10 @@ export default function NavbarMain({
         <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
         </motion.div>
       </CardMain>
-      : null,
+      // : <CardMain>
+      //   <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
+      // </CardMain>
+      : null
     }
   ]
 
@@ -92,7 +95,10 @@ export default function NavbarMain({
         <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />
         </motion.div>
       </CardMain>
-      : null,
+      // : <CardMain>
+      //   <CtaMain ctamainstatic={{ctamainid: 'clubembed', ctamainindex: 0}} />
+      // </CardMain>
+      : null
     },
   ]
 

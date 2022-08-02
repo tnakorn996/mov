@@ -28,7 +28,7 @@ export default function FieldMain({
   const location = useLocation()
   const split = location.pathname.split('/');
   const [fieldmainid, setfieldmainid] = useState(uuidv4())
-  const [fieldmainboolean, setfieldmainboolean] = useState(true)
+  const [fieldmainboolean, setfieldmainboolean] = useState(false)
 
   const ref = useRef(null)
   const reftwo = useRef(null)
@@ -39,8 +39,8 @@ export default function FieldMain({
   const refseven = useRef(null)
 
   useEffect(() => {
-    
-  }, [])
+    setfieldmainboolean(!fieldmainboolean)
+  }, [fieldmainstate])
 
   //////////////////////////////////////
 
@@ -131,7 +131,7 @@ export default function FieldMain({
                   userfullname: refvaluefour,
                   username: refvaluefive,
                 },
-                fieldmaindatatwo: {userid: param?.userid}
+                fieldmaindatatwo: {userid: split[3]}
             },     
             {
                 fieldmainid: 'contractinput',
@@ -150,7 +150,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                fieldmaindetail: 'Thanks for working out with us',
+                fieldmaindetail: 'Successfully add your personal best.',
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                     taskid: fieldmainid,
@@ -159,7 +159,7 @@ export default function FieldMain({
                     workoutid: split[3],
                     userid: user?.id,
                 },
-                fieldmaindatatwo: {taskid: param?.taskid}
+                fieldmaindatatwo: {userid: undefined}
             },
             {
                 fieldmainid: 'ticketinput',
@@ -183,20 +183,18 @@ export default function FieldMain({
                 const { error } = await supabase.from(ref.fieldmainidtwo).upsert(ref.fieldmaindata, {returning: 'minimal'})
                 // alert(error)
 
-                handleCallback(ref)
             }
             if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
-                // if(Object.values(ref.fieldmaindatatwo).some(value => value.includes('handleselect'))){
-                //   alert(`dd`)
-                // } else {
-                // }
                 const { error } = await supabase.from(ref.fieldmainidtwo).update(ref.fieldmaindata).match(ref.fieldmaindatatwo)
                 // alert(error)
 
-                handleCallback(ref)
-              } 
+            } 
+              setfieldmainstate(!fieldmainstate)
+              handleCallback(ref)
         } catch (error) {
             alert(error)
+            setfieldmainstate(!fieldmainstate)
+            handleCallback(error)
         }
     }
 
@@ -324,13 +322,11 @@ export default function FieldMain({
       fieldmaindata: [
          {
           fieldmainsubtitle: 'Full name',
-          // fieldmainrender: <input value={userdl[0].spreaddata[0].userfullname} ref={reffour} className="l-input" placeholder="eg. John Doe" />,
           fieldmainrender: <input ref={reffour} className="l-input" placeholder="eg. John Doe" />,
           fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
         {
           fieldmainsubtitle: 'Username',
-          // fieldmainrender: <input value={userdl[0].spreaddata[0].username} ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
           fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
           fieldmaindetail: `This will be displayed to viewers of your profile page.`,
         },
@@ -362,20 +358,10 @@ export default function FieldMain({
       fieldmaintitle: null,
       fieldmainentitle: 'add Workout',
       fieldmainaction: ss,
-      // fieldmaindata: [
-      //   {
-      //     fieldmainsubtitle: 'Choose work',
-      //     fieldmainrender: <ChoiceMain choicemainref={refthree} choicemainstatic={{choicemainid: 'worklabel', choicemainindex: 0}} />,
-      //   },
-      //   {
-      //     fieldmainsubtitle: 'Choose emoji',
-      //     fieldmainrender: <ChoiceMain choicemainref={reffour} choicemainstatic={{choicemainid: 'emojilabel', choicemainindex: 0}} />,
-      //   },
-      // ],
       fieldmaindatatwo: [
         {
           fieldmainsubtitle: null,
-          fieldmainrender: <ChoiceMain choicemainref={refthree} choicemainstatic={{choicemainid: 'weightlabel', choicemainindex: 0}} />,
+          fieldmainrender: <ChoiceMain choicemainref={refthree} choicemainstatic={{choicemainid: 'workoutlabel', choicemainindex: 0}} />,
         },
       ],
     },
@@ -456,16 +442,17 @@ export default function FieldMain({
                 </>))}
               </figcaption>
               
-              <figure className="grid grid-flow-col">
+              <figure className="flex flex-row gap-2">
                 <button onClick={() => {
-                  (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : data?.fieldmainaction()
-                  setfieldmainboolean(!fieldmainboolean)
+                  (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : 
+                    data?.fieldmainaction()
+                    setfieldmainboolean(!fieldmainboolean)
                 }} className={`w-full flex flex-row gap-2 justify-center items-center  m-button uppercase ${fieldmainstyle?.button}`}>
                   {fieldmainboolean === false && <div className="w-[10px] h-[10px] border-2 border-slate-400 rounded-full animate-ping" />}
                    {data?.fieldmainentitle}
                 </button>
                 {data?.fieldmaindatatwo?.map(dat => (<>
-                  <button className="">
+                  <button className="max-w-[55px]">
                   {dat?.fieldmainrender}
                   </button>
                 </>))}
@@ -477,3 +464,13 @@ export default function FieldMain({
     </div>
   )
 }
+
+
+// export function FieldMainRender({ref, props}) {
+//   const {type, placeholder} = props
+//   return (
+//     <div>
+//       <input ref={ref} type={type && type} className="l-input" placeholder={placeholder && placeholder} />
+//     </div>
+//   )
+// }

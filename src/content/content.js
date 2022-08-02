@@ -54,7 +54,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-lateralbearcrawl-01-1625160521.mp4',
-
+        breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
     {
         breadid: 'squat-to-broad-jump',
@@ -64,6 +77,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-squattobroadjump-01-1625160622.mp4',
+        breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
     {
         breadid: 'single-side-kick-through',
@@ -73,6 +100,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-singelsidekickthrough-01-1625160738.mp4',
+        breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
     {
         breadid: 'mixed-style-skater-lunge',
@@ -84,6 +125,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-mixedstyleskaterlunges-01-1625161797.mp4',
+                breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
     {
         breadid: 'black-widow',
@@ -93,6 +148,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-backwidow-01-1625162059.mp4',
+        breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
     {
         breadid: 'spiderman-crawl-pushup',
@@ -102,6 +171,20 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-spidermancrawlpushup-01-1625162163.mp4',
+        breaddata: [
+            {
+                breadhead: '20m',
+                breadbody: '20 minutes',
+            },
+            {
+                breadhead: '30m',
+                breadbody: '30 minutes',
+            },
+            {
+                breadhead: '60m',
+                breadbody: '60 minutes',
+            },
+        ]
     },
 
     {
@@ -155,6 +238,16 @@ export const clubul = [
         breadsubtitle: 'Reach 100.0 kilogram this month',
         breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/7a333ef8-3351-4f98-8646-30e4aa1385b3/how-to-prevent-blisters-while-running.jpg',
+
+    },
+
+    {
+        breadid: 'lateral-bear-crawl',
+        breadaction: `/club/clubindex/lateral-bear-crawl`,
+        breadtitle: '60MIN Lateral Bear Crawl',
+        breadsubtitle: 'Reach 60.0 minutes this month',
+        breadnumber: '60.0 minutes',
+        breadimage: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1504,c_limit/08cc70ef-be31-48a7-b4e8-e23095d2342e/5-benefits-of-playing-basketball-according-to-experts.jpg',
 
     },
 ]

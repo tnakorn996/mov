@@ -4,7 +4,7 @@ import './index.css'
 import CtaMain from '../../component/cta/CtaMain'
 import CardMain from '../../layout/card/CardMain'
 import SplashMain from '../../layout/splash/SplashMain'
-import SignMain from '../../component/sign/SignMain'
+import SignMain from '../../component/sign/SignMain.tsx'
 
 export default function AuthMain() {
     

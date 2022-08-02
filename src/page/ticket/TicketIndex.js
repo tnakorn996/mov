@@ -8,28 +8,15 @@ import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
 import SheetMain from '../../layout/sheet/SheetMain'
 import StatMain from '../../component/stat/StatMain'
+import useClient from '../../hook/useClient'
 
 export default function TicketIndex() {
   const {
 
 
   } = useContext(Context)
-    const [splitstaticthree, setsplitstaticthree] = useSplit(3)
-
-    const [ticketindexrender, setticketindexrender] = useState()
-
-    useEffect(() => {
-      if(!splitstaticthree) return 
-      ll(splitstaticthree)
-    }, [splitstaticthree])
+  const [clientstatic, setclientstatic] = useClient()
     
-    const ll = async (first =this.props.first) => {
-        const { data, error} = await supabase.from('task').select(`*, userid (*)`).eq('workoutid', first).limit(5)
-        if(data) {
-            setticketindexrender(data)
-        }
-    }
-
   return (
     <div>
         <main className="">
@@ -37,10 +24,15 @@ export default function TicketIndex() {
               <PostMain postmainstatic={{postmainid:'ticketaddress', postmainindex: 1}} />
           </section>
           <section className="">
-            <StatMain statmainstatic={{statmainid:'tickettable', statmainindex: 0}} />
+            {/* <StatMain statmainstatic={{statmainid:'tickettable', statmainindex: 0}} /> */}
+            <SheetMain>
+            <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
+            </SheetMain>
+            <StatMain statmainstatic={{statmainid:'tickettable', statmainindex: 1}} />
           </section>
+
           <section className="">
-            {ticketindexrender?.map((data, index) => (<>
+            {clientstatic?.map((data, index) => (<>
             <SheetMain>
               <div className="flex flex-row gap-3">
               <p className="">{index + 1}</p>
@@ -48,6 +40,12 @@ export default function TicketIndex() {
               </div>
             </SheetMain>
             </>))}
+          </section>
+
+          <section className="">
+          <CardMain>
+            <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
+          </CardMain>
           </section>
         </main>
     </div>

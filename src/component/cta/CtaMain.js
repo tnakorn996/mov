@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { appul } from '../../content/content'
+// import { appul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import useSplit from '../../hook/useSplit'
 
 export default function CtaMain({
     ctamainstatic,
@@ -16,6 +17,7 @@ export default function CtaMain({
     } = useContext(Context)
     const navigate = useNavigate()
     const param = useParams()
+    const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
     const authembed = [
         {
@@ -37,7 +39,7 @@ export default function CtaMain({
             ctamainindex: 0,
             ctamainentitle: 'Edit profile',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/user/userform/${param?.userid}`,
+            ctamainaction: `/user/userform/${splitstaticthree}`,
         },
     ]
 
@@ -46,7 +48,7 @@ export default function CtaMain({
             ctamainindex: 0,
             ctamainentitle: 'Unfollow',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/contract/contractform/${param?.contractid}`,
+            ctamainaction: `/contract/contractform/${splitstaticthree}`,
         },
     ]
 
@@ -54,7 +56,7 @@ export default function CtaMain({
         {
             ctamainindex: 0,
             ctamainentitle: 'View your progress',
-            ctamainaction: `/task/taskindex/${param?.workoutid}`,
+            ctamainaction: `/task/taskindex/${splitstaticthree}`,
         },
     ]
 
@@ -63,15 +65,15 @@ export default function CtaMain({
             ctamainindex: 0,
             ctamainentitle: 'Delete record',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/task/taskform/${param?.taskid}`,
+            ctamainaction: `/task/taskform/${splitstaticthree}`,
         },
     ]
-
+    
     const clubembed = [
         {
             ctamainindex: 0,
             ctamainentitle: 'View your program',
-            ctamainaction: `/ticket/ticketindex/${param?.clubid}`,
+            ctamainaction: `/ticket/ticketindex/${splitstaticthree}`,
         },
     ]
 
@@ -80,7 +82,7 @@ export default function CtaMain({
             ctamainindex: 0,
             ctamainentitle: 'End program',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/ticket/ticketform/${param?.ticketid}`,
+            ctamainaction: `/ticket/ticketform/${splitstaticthree}`,
         },
        
     ]
@@ -116,14 +118,13 @@ export default function CtaMain({
         },
     ]
 
-    const [appstatic, setappstatic] = useApp(ctamain, ctamainstatic.ctamainid, ctamainstatic.ctamainindex)
-    const ctamainrender = appstatic && appstatic
+    const [appstatic, setappstatic] = useApp(ctamain, ctamainstatic.ctamainid, ctamainstatic.ctamainindex, splitstaticthree)
 
   return (
     <div>
         <main className="">
             <section className="flex flex-row items-center  gap-1">
-                {ctamainrender?.map(data => (<>
+                {appstatic?.map(data => (<>
                 <button onClick={() => {
                     navigate(data?.ctamainaction)
                 }} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>{data?.ctamainentitle}</button>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import CtaMain from '../../component/cta/CtaMain'
 import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
@@ -26,94 +26,192 @@ export default function PostMain({
     userdl,
     taskdl,
     ticketdl,
-    frienddl,
 
   } = useContext(Context)
   const navigate = useNavigate()
-  // const [postmainstyle, setpostmainstyle] = useState()
-  const [splitstatic, setsplitstatic] = useSplit(2)
+  // const location = useLocation()
+  // const param = useParams()
+  const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
-
-  // useEffect(() => {
-  //   if(postmainstate === true) {
-  //     setpostmainstyle(`flex flex-col`)
-  //   } else {
-  //     setpostmainstyle(`grid grid-cols-12`)
-  //   }
-  // }, [postmainstate])
 
   const useraddress = [
     {
       postmainindex: 0,
-      postmainrender: <UserAddressRender />
+      postmainrender: () => {
+        const ref = [postmaindata]
+        return ref.map(data => (<>
+          <UserAddressRender 
+          data={data} 
+          props={{  
+            navigate: () => {navigate(`/user/userindex/${data?.user?.id || data.userid}`)}  
+          }} />
+        </>))
+      },
     },
     {
       postmainindex: 1,
-      postmainrender: <UserAddressRenderTwo />
+      postmainrender:() => {
+        const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
+        return (
+        ref.map(data => (<>
+          <UserAddressRenderTwo 
+          data={data} 
+          props={{  
+            authstate: authstate,
+            splitstaticthree: splitstaticthree
+          }} />
+        </>))
+        )
+      }  
     }
   ]
 
   const contractaddress = [
     {
       postmainindex: 0,
-      postmainrender: <ContractAddressRender />
+      postmainrender:() => {
+        const ref = [postmaindata]
+        ref.map(data => (<>
+          <ContractAddressRender 
+          data={data}
+          props={{
+            navigate: () => {navigate(`/user/userindex/${data?.receiverid?.userid || data?.senderid?.userid}`)}
+          }} />
+        </>))
+      }  
     },
-    // {
-    //   postmainindex: 1,
-    //   postmainrender: <ContractAddressRenderTwo />
-    // },
   ]
 
   const workoutaddress = [
     {
       postmainindex: 0,
-      postmainrender: <WorkoutAddressRender />
-      
+      postmainrender:() => {
+      const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+        return (
+            ref.map(data => (<>
+            <WorkoutAddressRender 
+            data={data}
+            props={{
+              navigate: () => { navigate(`/workout/workoutindex/${data?.breadid}`)}
+            }} />
+            </>))
+          )
+        }  
     },
     {
       postmainindex: 1,
-      postmainrender: <WorkoutAddressRenderTwo />
+      postmainrender:() => {
+        const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
+        return (
+        ref.map(data => (<>
+          <WorkoutAddressRenderTwo
+          data={data} />
+        </>)))
+      }  
     },
   ]
 
   const taskaddress = [
     {
       postmainindex: 0,
-      postmainrender: <TaskAddressRender />
+      postmainrender:() => {
+        const ref = [Object.assign(postmaindata, workoutul.filter(data => [postmaindata].some(dat => dat.workoutid === data.breadid))[0])]
+        return (
+          ref.map(data => (<>
+          <TaskAddressRender 
+            data={data}
+            props={{
+              navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
+          }} />
+          </>)))
+      }  
     },
     {
       postmainindex: 1,
-      postmainrender: <TaskAddressRenderTwo />
+      postmainrender:() => {
+        const ref = taskdl[0].spreaddata?.filter(data => data?.breadid === splitstaticthree)
+        const reftwo = [Object.assign(ref, workoutul.filter(data => ref.some(dat => dat.workoutid === data.breadid))[0])]
+        return (
+        reftwo.map(data => (<>
+        <TaskAddressRenderTwo
+          data={data} />
+        </>))
+        )
+      }  
     },
-    // {
-    //   postmainindex: 2,
-    //   postmainrender: <TaskAddressRenderThree />
-    // },
   ]
 
   const clubaddress = [
     {
       postmainindex: 0,
-      postmainrender: <ClubAddressRender />
+      postmainrender:() => {
+        const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+        return (
+          ref.map(data => (<>
+          <ClubAddressRender
+            data={data}
+            props={{
+              navigate: () => {navigate(`/club/clubindex/${data?.breadid}`)}
+          }} />
+          </>))
+        )
+      }  
     },
     {
       postmainindex: 1,
-      postmainrender: <ClubAddressRenderTwo />
+      postmainrender:() => {
+        const ref = clubul.filter(data => data.breadid === splitstaticthree)
+        return (
+          ref.map(data => (<>
+          <ClubAddressRenderTwo
+          data={data} />
+        </>)))
+      }  
     },
   ]
 
   const ticketaddress = [
     {
       postmainindex: 0,
-      postmainrender: <TicketAddressRender />
+      postmainrender:() => {
+        const ref = [Object.assign(postmaindata, clubul.filter(data => [postmaindata].some(dat => dat.clubid === data.breadid))[0])]
+        return (
+          ref.map(data => (<>
+            <TicketAddressRender
+            data={data}
+            props={{
+              navigate: () => {navigate(`/ticket/ticketindex/${data?.breadid}`)}
+            }} />
+        </>)))
+      }  
     },
     {
       postmainindex: 1,
-      postmainrender: <TicketAddressRenderTwo />
+      postmainrender:() => {
+        const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
+        const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
+        return (
+          reftwo.map(data => (<>
+            <TicketAddressRenderTwo 
+            data={data}
+             />
+        </>)))
+      }  
     },
     {
       postmainindex: 2,
-      postmainrender: <TicketAddressRenderThree />
+      postmainrender:() => {
+        const ref = [postmaindata]
+        return (
+          ref.map((data) => (<>
+          <TicketAddressRenderThree
+          data={data}
+          props={{
+            navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
+          }}
+           />
+          </>)))
+      }  
     },
   ]
 
@@ -144,38 +242,45 @@ export default function PostMain({
     },
   ]
 
-  const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstaticthree)
-  
-  function UserAddressRender() {
-    const ref = [postmaindata]
+  const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstatictwo, splitstaticthree, postmaindata)
+
+  return (
+    <div>
+        <main className="">
+             <section className={postmainstyle && postmainstyle}>
+              {appstatic?.map(data => (<>
+                {data?.postmainrender()}
+              </>))}
+            </section>
+        </main>
+    </div>
+  )
+}
+
+  export function UserAddressRender({data, props}) {
     return (
-      ref.map(data => (<>
       <div className="flex flex-row items-center justify-between" >
         <section>
           <CardMain>
-          <figure onClick={() => {
-            navigate(`/user/userindex/${data?.user?.id || data.userid}`)
-          }} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 ${postmainstyle?.figure}`}>
-            <p className="text-xl  uppercase">{ data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
+          <figure onClick={props.navigate} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400`}>
+            <p className="text-xl  uppercase">{data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
           </figure>
           </CardMain>
         </section>
         <section className="">
-          {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
+          {props.authstate !== null && props.authstate !== undefined && props.authstate.user.id !== data?.user?.id &&
             <CardMain>
             <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />
             </CardMain>
             }
         </section>
       </div>
-      </>))
     )
   }
 
-  function UserAddressRenderTwo() {
-    const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
+  export function UserAddressRenderTwo({data, props}) {
+    const {authstate, splitstaticthree} = props
     return (
-      ref.map(data => (<>
       <div>
         <section className="flex flex-col justify-center items-center">
           <CardMain>
@@ -196,40 +301,32 @@ export default function PostMain({
           </CardMain>
         </section>
       </div>
-      </>))
     )
   }
 
-  function ContractAddressRender() {
-    const ref = [postmaindata]
+  export function ContractAddressRender({data, props}) {
+    const {navigate} = props
     return (
-      ref.map(data => (<>
       <div className="" >
         <section className="">
           <SheetMain>
-            <figcaption onClick={() => {
-              navigate(`/user/userindex/${data?.receiverid?.userid || data?.senderid?.userid}`)
-            }} className="w-full  cursor-pointer">
+            <figcaption onClick={navigate} className="w-full  cursor-pointer">
               {data?.receiverid?.useremail && <p className="m-h2">You just followed {data?.receiverid?.useremail}</p>}
               {data?.senderid?.useremail && <p className="m-h2"> {data?.senderid?.useremail} started to follow you.</p>}
             </figcaption>
           </SheetMain>
         </section>
       </div>
-      </>))
     )
   }
 
-  function WorkoutAddressRender() {
-    const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+  export function WorkoutAddressRender({data, props}) {
+    const {navigate} = props
     return (
-        ref.map(data => (<>
+    <div>
         <CardMain>
         <figure className="relative h-[50vh] overflow-hidden">
-            <video onClick={() => {
-              navigate(`/workout/workoutindex/${data?.breadid}`)
-            }} autoPlay={true} loop={true} >
-              <source src={data?.breadvideo} type="video/mp4"></source>
+            <video onClick={navigate} src={data?.breadvideo}  autoPlay={true} loop={true} >
             </video>
           {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
@@ -243,50 +340,36 @@ export default function PostMain({
           </div>
         </figure>
         </CardMain>
-        </>))
+      </div>
     )
   }
 
-  function WorkoutAddressRenderTwo() {
-    const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
-    const reftwo = taskdl[0]?.spreaddata.filter(data => data.workoutid === splitstaticthree)
-    console.log('reftwo', reftwo)
+  export function WorkoutAddressRenderTwo({data}) {
     return (
-      ref.map(data => (<>
+    <div className="">
         <figure className="">
-            <video autoPlay={true} loop={true} >
-              <source src={data?.breadvideo} type="video/mp4"></source>
+            <video src={data?.breadvideo} autoPlay={true} loop={true} >
             </video>
         </figure>
         <figcaption className="text-center">
         <CardMain>
           <CardMain>
-          <h1 className="m-h6">{data?.breadtitle}</h1>
+          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
           </CardMain>
           <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
-        <figure className="">
-          {(reftwo && reftwo?.length > 0) && (<>
-          <CardMain>
-            <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
-          </CardMain>
-          </>)}
-        </figure>
-      </>))
+    </div>
     )
   }
 
-  function TaskAddressRender() {
-    const ref = [Object.assign(postmaindata, workoutul.filter(data => [postmaindata].some(dat => dat.workoutid === data.breadid))[0])]
+  export function TaskAddressRender({props, data}) {
+    const {navigate} = props
     return (
-        ref.map(data => (<>
         <CardMain>
         <figure className="relative h-[50vh]">
-          <video onClick={() => {
-          navigate(`/task/taskindex/${data?.breadid}`)
-          }} loading='lazy' autoPlay={true} loop={true} src={data?.breadvideo}></video>
-          {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
+          <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+          </video>
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
@@ -298,45 +381,39 @@ export default function PostMain({
           </div>
         </figure>
         </CardMain>
-      </>))
     )
   }
 
-  function TaskAddressRenderTwo() {
-    const ref = taskdl[0].spreaddata?.filter(data => data?.breadid === splitstaticthree)
-    const reftwo = [Object.assign(ref, workoutul.filter(data => ref.some(dat => dat.workoutid === data.breadid))[0])]
+  export function TaskAddressRenderTwo({data}) {
     return (
-      reftwo.map(data => (<>
+      <div className="">
         <figure className="">
-          <video autoPlay={true} loop={true} >
-            <source src={data?.breadvideo} type="video/mp4"></source>
+          <video src={data?.breadvideo} autoPlay={true} loop={true} >
           </video>
         </figure>
         <figcaption className="text-center">
           <CardMain>
             <CardMain>
-            <h1 className="m-h6">{data?.breadtitle}</h1>
+            <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
             </CardMain>
             <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
           </CardMain>
         </figcaption>
-        <figure className="">
-          <CardMain>
-          <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
-          </CardMain>
-        </figure>
-      </>))
+        {/* <figure className="">
+          <SheetMain>
+          <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
+          </SheetMain>
+        </figure> */}
+      </div>
     )
   }
 
-  function ClubAddressRender() {
-    const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+  export function ClubAddressRender({data, props}) {
+    const {navigate} = props
     return (
-      ref.map(data => (<>
         <CardMain>
         <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-          <img onClick={() => {
-          navigate(`/club/clubindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
+          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
@@ -347,37 +424,33 @@ export default function PostMain({
           </div>
         </figure>
         </CardMain>
-        </>))
     )
   }
 
-  function ClubAddressRenderTwo() {
-    const ref = clubul.filter(data => data.breadid === splitstaticthree)
+  export function ClubAddressRenderTwo({data}) {
     return (
-      ref.map(data => (<>
+      <div className="">
         <figure className="h-[65vh] flex justify-center overflow-hidden">
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
         </figure>
         <figcaption className="text-center">
         <CardMain>
           <CardMain>
-          <h1 className="m-h6">{data?.breadtitle}</h1>
+          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
           </CardMain>
           <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
-      </>))
+      </div>
     )
   }
 
-  function TicketAddressRender() {
-    const ref = [Object.assign(postmaindata, clubul.filter(data => [postmaindata].some(dat => dat.clubid === data.breadid))[0])]
+  export function TicketAddressRender({data, props}) {
+    const {navigate} = props
     return (
-      ref.map(data => (<>
         <CardMain>
         <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-          <img onClick={() => {
-          navigate(`/ticket/ticketindex/${data?.breadid}`)}} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
+          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
@@ -388,61 +461,36 @@ export default function PostMain({
           </div>
         </figure>
         </CardMain>
-        </>))
     )
   }
 
-  function TicketAddressRenderTwo() {
-    const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
-    const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
+  export function TicketAddressRenderTwo({data}) {
     return (
-      reftwo.map(data => (<>
+      <div className="">
         <figure className="h-[65vh] flex justify-center overflow-hidden">
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
         </figure>
         <figcaption className="text-center">
         <CardMain>
           <CardMain>
-          <h1 className="m-h6">{data?.breadtitle}</h1>
+          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
           </CardMain>
           <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
-        <figure className="">
-          <CardMain>
-            <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
-          </CardMain>
-        </figure>
-      </>))
+      </div>
     )
   }
 
-  function TicketAddressRenderThree() {
-    const ref = [postmaindata]
+  export function TicketAddressRenderThree({data, props}) {
+    const {navigate} = props
     return (
-      ref.map((data) => (<>
        <div className="" >
         <section className="">
-            <figcaption onClick={() => {
-              navigate(`/user/userindex/${data?.userid?.userid}`)
-            }} className="w-full  cursor-pointer">
+            <figcaption onClick={navigate} className="w-full  cursor-pointer">
               <p className="m-h2">{data?.userid?.useremail}</p>
             </figcaption>
         </section>
       </div>
-      </>))
     )
   }
-
-  return (
-    <div>
-        <main className="">
-             <section className={postmainstyle && postmainstyle}>
-              {appstatic?.map(data => (<>
-                {data?.postmainrender}
-              </>))}
-            </section>
-        </main>
-    </div>
-  )
-}

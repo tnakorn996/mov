@@ -8,7 +8,7 @@ export default function useSlice(splitslice) {
     useEffect(() => {
         const split = location.pathname.split('/');
         setsplitstatic(split[splitslice])
-    }, [location, splitslice])
+    }, [location.pathname, splitslice])
 
   return [splitstatic, setsplitstatic]
 }

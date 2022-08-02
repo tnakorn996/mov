@@ -3,7 +3,8 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { supabase } from '../lib/supabase'
 import useSplit from './useSplit'
 
-export default function useClient(clientmainid, clientmainindex, clientmainstatic, clientmainstatictwo, clientmainstaticthree) {
+export default function useClient(clientmainstatic, clientmainstatictwo, clientmainstaticthree) {
+    // const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [clientstatic, setclientstatic] = useState()
     
@@ -13,9 +14,11 @@ export default function useClient(clientmainid, clientmainindex, clientmainstati
     }, [splitstaticthree])
 
     const ll = async (splitstaticthree) => {
-        const { data, error} = await supabase.from('task').select(`*, userid (*)`).eq('workoutid', splitstaticthree).limit(5)
+        const user = supabase.auth.user()
+        const { data, error} = await supabase.from('task').select(`*, userid (*)`).eq('userid', user.id, 'workoutid', splitstaticthree).limit(5)
         if(data) {
             setclientstatic(data)
+            // console.log('data', data)
         }
     }
 

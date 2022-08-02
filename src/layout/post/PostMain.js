@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+
 import CtaMain from '../../component/cta/CtaMain'
 import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
 import StaMain from '../../component/sta/StaMain'
+import SignMain from '../../component/sign/SignMain.tsx'
 import { clubul, workoutul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -87,26 +89,27 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
       const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        return (
-            ref.map(data => (<>
+        return ref.map(data => (<>
             <WorkoutAddressRender 
             data={data}
             props={{
               navigate: () => { navigate(`/workout/workoutindex/${data?.breadid}`)}
             }} />
             </>))
-          )
         }  
     },
     {
       postmainindex: 1,
       postmainrender:() => {
-        const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
-        return (
-        ref.map(data => (<>
+        const ref = workoutul?.filter(data => data?.breadid === splitstaticthree && data?.breadbool === true)
+        if(ref.length > 0){
+          return ref.map(data => (<>
           <WorkoutAddressRenderTwo
           data={data} />
-        </>)))
+        </>))
+        } else {
+          return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
+        }
       }  
     },
   ]
@@ -129,14 +132,21 @@ export default function PostMain({
     {
       postmainindex: 1,
       postmainrender:() => {
-        const ref = taskdl[0].spreaddata?.filter(data => data?.breadid === splitstaticthree)
-        const reftwo = [Object.assign(ref, workoutul.filter(data => ref.some(dat => dat.workoutid === data.breadid))[0])]
-        return (
-        reftwo.map(data => (<>
-        <TaskAddressRenderTwo
-          data={data} />
-        </>))
-        )
+        const filter = taskdl[0].spreaddata?.filter(data => data?.workoutid === splitstaticthree)
+        const filtertwo = workoutul?.filter(data => data.breadid === splitstaticthree)
+        const filterthree = workoutul[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
+        // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
+        if(filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
+        // if(filter.length > 0) {
+          const assign = [Object.assign(filter[0], filtertwo[0], filterthree[0])]
+          return  assign.map(data => (<>
+          <TaskAddressRenderTwo
+            data={data} />
+          </>))
+        } else {
+          return null
+          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
+        }
       }  
     },
   ]
@@ -385,25 +395,40 @@ export default function PostMain({
   }
 
   export function TaskAddressRenderTwo({data}) {
+    // console.log('data', data)
     return (
       <div className="">
-        <figure className="">
+        <section className="">
           <video src={data?.breadvideo} autoPlay={true} loop={true} >
           </video>
-        </figure>
-        <figcaption className="text-center">
+        </section>
+        <section className="text-center">
           <CardMain>
             <CardMain>
             <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
             </CardMain>
             <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
           </CardMain>
-        </figcaption>
-        {/* <figure className="">
-          <SheetMain>
-          <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
-          </SheetMain>
-        </figure> */}
+        </section>
+        <section className="">
+            <CardMain>
+            <figcaption className="flex justify-between items-center">
+                <p className="m-h5">Personal Best(PB)</p>
+                <p className="l-h5 truncate">{data?.breadbody}</p>
+            </figcaption>
+            </CardMain>
+            <CardMain>
+            <figcaption className="flex justify-between items-center">
+                <p className="m-h5">Date created</p>
+                <p className="l-h5">{handleDate(data?.created_at)}</p>
+            </figcaption>
+            </CardMain>
+        </section>
+        <section className="">
+            <CardMain>
+            <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
+            </CardMain>
+        </section>
       </div>
     )
   }
@@ -494,3 +519,30 @@ export default function PostMain({
       </div>
     )
   }
+
+export function handleDate(data) {
+    // console.log('data', data)
+        var floor = Math.floor((new Date() - data) / 1000);
+        // console.log('floor', floor)
+        var interval = floor / 31536000;
+        if (interval > 1) {
+            return Math.floor(interval) + " years";
+        }
+        interval = floor / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months";
+        }
+        interval = floor / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days";
+        }
+        interval = floor / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours";
+        }
+        interval = floor / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " min";
+        }
+        return Math.floor(floor) + " seconds";
+    }

@@ -100,7 +100,7 @@ export default function ZoomMain({
         <main className="">
             <section className="">
                 <CardMain>
-                <input onChange={p => setzoommainvalue(p.target.value)} value={zoommainvalue} className="l-input" placeholder='Search' />
+                <input onChange={p => setzoommainvalue(p.target.value.toLowerCase())} value={zoommainvalue} className="l-input" placeholder='Search' />
                 </CardMain>
             </section>
             <section className="">

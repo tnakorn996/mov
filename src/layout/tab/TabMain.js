@@ -53,12 +53,18 @@ export default function TabMain({
             tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: 0}} />
                 <FeedMain feedmainstatic={{feedmainid: 'workoutarea', feedmainindex: 0}} />
             </section>
         },
         {
             tabmainindex : 1,
+            tabmaintitle: 'My Workouts',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 2,
             tabmaintitle: 'Browse',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
                 <ZoomMain zoommainstatic={{zoommainid: 'workoutform'}} />
@@ -69,14 +75,20 @@ export default function TabMain({
     const clubfieldset = [
         {
             tabmainindex : 0,
-            tabmaintitle: 'Challenges',
+            tabmaintitle: 'For You',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
                 <FeedMain feedmainstatic={{feedmainid: 'clubarea', feedmainindex: 0}} />
             </section>
         },
         {
             tabmainindex : 1,
+            tabmaintitle: 'My Challenges',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 2,
             tabmaintitle: 'Browse',
             tabmainrender: <section className="w-screen  snap-center overflow-hidden">
                 <ZoomMain zoommainstatic={{zoommainid: 'clubform'}} />
@@ -128,23 +140,20 @@ export default function TabMain({
         }
     }, [tabmainstate, tabmainrender])
 
-    function ll(first=this.props.first){
-        settabmaintouchstart(first.targetTouches[0].clientX)
-    }
-    function kk(first=this.props.first){
-        settabmaintouchend(first.targetTouches[0].clientX)
-    }
-    function jj(){
-        if(tabmaintouchstart - tabmaintouchend > 20){
-            settabmainstate({tabmainindex: 1})
-        }
-        if(tabmaintouchstart - tabmaintouchend < - 20){
-            settabmainstate({tabmainindex: 0})
-        }
-    }
-
-    // if(tabmainref === undefined) return null
-    // if(searchmainstate === null) return null
+    // function ll(first=this.props.first){
+    //     settabmaintouchstart(first.targetTouches[0].clientX)
+    // }
+    // function kk(first=this.props.first){
+    //     settabmaintouchend(first.targetTouches[0].clientX)
+    // }
+    // function jj(){
+    //     if(tabmaintouchstart - tabmaintouchend > 20){
+    //         settabmainstate({tabmainindex: 1})
+    //     }
+    //     if(tabmaintouchstart - tabmaintouchend < - 20){
+    //         settabmainstate({tabmainindex: 0})
+    //     }
+    // }
     
   return (
     <div>
@@ -164,7 +173,8 @@ export default function TabMain({
             </section>
             <hr />
             <section className="no-scrollbar">
-                <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
+                {/* <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}> */}
+                <figure ref={ref} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
                 {appstatic && appstatic.map(data => (<>
                     {data?.tabmainrender}
                 </>))}

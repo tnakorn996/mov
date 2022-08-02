@@ -11,6 +11,7 @@ interface SignMainProps {
         signmainindex:  number,
         signmaindetail: string,
         signmainaction: string,
+        signmainentitle: string,
     }
 }
 
@@ -71,7 +72,7 @@ export default function SignMain({signmainstatic}: SignMainProps) {
                         navigate(signmainstatic?.signmainaction)
                         setappstate()
                     }} className="m-button uppercase">
-                        Continue
+                        {signmainstatic?.signmainentitle || 'Continue'}
                     </button>}
                     </CardMain>
                 </figure>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 
 import useSplit from '../../hook/useSplit'
 import useApp from '../../hook/useApp'
+import useClient from '../../hook/useClient'
 import PostMain from '../../layout/post/PostMain'
 import SheetMain from '../../layout/sheet/SheetMain'
 import { Context } from '../../context/context'
@@ -22,13 +23,13 @@ export default function StatMain({
     // console.log('statmainstatic', statmainstatic)
     const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
+    const [clientstatic, setclientstatic] = useClient()
 
     const workouttable = [
         {
             statmaindex: 1,
             statmainrender: () => {
                 const filter = taskdl[0]?.spreaddata?.filter(data => data.workoutid === splitstaticthree)
-                // console.log('filter', filter)
                 if(filter.length > 0) {
                     return <WorkoutTableRender />
                 } else {
@@ -38,23 +39,23 @@ export default function StatMain({
         },
     ]
 
-    const tasktable = [
-        {
-            statmaindex: 1,
-            statmainrender: () => {
-                const filter = taskdl[0]?.spreaddata?.filter(data => data.workoutid === splitstaticthree)
-                if(filter.length > 0) {
-                    const filtertwo = workoutul[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
-                    const assign = [Object.assign(filter[0], filtertwo[0])]
-                    return assign?.map((data, index) => (<>
-                    <TaskTableRenderTwo data={data} />
-                    </>))
-                } else {
-                    return null
-                }
-            }
-        },
-    ]
+    // const tasktable = [
+    //     {
+    //         statmaindex: 1,
+    //         statmainrender: () => {
+    //             const filter = taskdl[0]?.spreaddata?.filter(data => data.workoutid === splitstaticthree)
+    //             if(filter.length > 0) {
+    //                 const filtertwo = workoutul[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
+    //                 const assign = [Object.assign(filter[0], filtertwo[0])]
+    //                 return assign?.map((data) => (<>
+    //                 <TaskTableRenderTwo data={data} />
+    //                 </>))
+    //             } else {
+    //                 return null
+    //             }
+    //         }
+    //     },
+    // ]
 
     const clubtable = [
         {
@@ -74,20 +75,17 @@ export default function StatMain({
         {
             statmaindex: 0,
             statmainrender: () => {
-                const filter = clubul.filter(data => data.breadid === splitstaticthree)
-                return filter?.map(data => (<>
-                <TicketTableRender data={data} />
-                </>))
+                return  <TicketTableRender data={clientstatic && clientstatic} />
             }
         },
         {
             statmaindex: 1,
             statmainrender: () => {
-                const filter = taskdl[0]?.spreaddata?.filter(data => data.workoutid === splitstaticthree)
+                const filter = clientstatic?.filter(data => data.workoutid === splitstaticthree)
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
-                if(filter.length > 0 && filtertwo.length > 0) {
+                if(filter && filter.length > 0 && filtertwo.length > 0) {
                     const assign = [Object.assign(filter[0], filtertwo[0])]
-                    return assign?.map((data, index) => (<>
+                    return assign?.map((data) => (<>
                     <TicketTableRenderTwo data={data} />
                     </>))
                 } else {
@@ -102,10 +100,10 @@ export default function StatMain({
             statmainid: 'workouttable',
             statmainref: workouttable,
         },
-        {
-            statmainid: 'tasktable',
-            statmainref: tasktable,
-        },
+        // {
+        //     statmainid: 'tasktable',
+        //     statmainref: tasktable,
+        // },
         {
             statmainid: 'clubtable',
             statmainref: clubtable,
@@ -116,8 +114,10 @@ export default function StatMain({
         }
     ]
 
-    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, splitstaticthree, splitstatictwo)
-// console.log('appstatic', appstatic)
+    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, splitstaticthree, clientstatic)
+    // console.log('appstatic', appstatic)
+    if(clientstatic === undefined || clientstatic === null) return null
+// console.log('clientstatic', clientstatic)
   return (
     <div>
         <main className="">
@@ -173,32 +173,32 @@ export function WorkoutTableRender() {
   )
 }
 
-export function TaskTableRenderTwo({data}) {
-    // console.log('data', data)
-    return (
-        <div>
-        <section className="">
-            <CardMain>
-            <figcaption className="flex justify-between items-center">
-                <p className="m-h5">Personal Best(PB)</p>
-                <p className="l-h5 truncate">{data?.breadbody}</p>
-            </figcaption>
-            </CardMain>
-            <CardMain>
-            <figcaption className="flex justify-between items-center">
-                <p className="m-h5">Date created</p>
-                <p className="l-h5">{handleDate(data?.created_at)}</p>
-            </figcaption>
-            </CardMain>
-        </section>
-        <section className="">
-            <CardMain>
-            <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
-            </CardMain>
-        </section>
-    </div>
-  )
-}
+// export function TaskTableRenderTwo({data}) {
+//     // console.log('data', data)
+//     return (
+//         <div>
+//         <section className="">
+//             <CardMain>
+//             <figcaption className="flex justify-between items-center">
+//                 <p className="m-h5">Personal Best(PB)</p>
+//                 <p className="l-h5 truncate">{data?.breadbody}</p>
+//             </figcaption>
+//             </CardMain>
+//             <CardMain>
+//             <figcaption className="flex justify-between items-center">
+//                 <p className="m-h5">Date created</p>
+//                 <p className="l-h5">{handleDate(data?.created_at)}</p>
+//             </figcaption>
+//             </CardMain>
+//         </section>
+//         <section className="">
+//             <CardMain>
+//             <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
+//             </CardMain>
+//         </section>
+//     </div>
+//   )
+// }
 
 export function ClubTableRender() {
     return (
@@ -214,27 +214,37 @@ export function ClubTableRender() {
   )
 }
 
-
 export function TicketTableRender({data}) {
     // console.log('data', data)
   return (
     <div>
         <section className="">
-            <CardMain>
-            <figcaption className="flex justify-between items-center">
-                {/* <p className="m-h5">Duration</p>
-                <p className="l-h5 truncate">{Date(data?.breaddate)}</p> */}
-            </figcaption>
-            </CardMain>
+            {data?.map((data, index) => (<>
+            <SheetMain>
+                <div className="flex flex-row gap-3">
+                <p className="">{index + 1}</p>
+                <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
+                </div>
+            </SheetMain>
+            </>))}
+        </section>
+        <section className="">
+          <CardMain>
+            <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
+          </CardMain>
         </section>
     </div>
   )
 }
 
-
 export function TicketTableRenderTwo({data}) {
     return (
       <div>
+        <section className="">
+        <SheetMain>
+            <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
+        </SheetMain>
+        </section>
           <section className="">
             <CardMain>
               <figcaption className="flex flex-row gap-2  uppercase">

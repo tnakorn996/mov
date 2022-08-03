@@ -97,7 +97,29 @@ export default function TabMain({
         },
     ]
 
+
+    const favouritefieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Workouts',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Challenges',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 1}} />
+            </section>
+        },
+    ]
+
     const tabmain = [
+        {
+            tabmainid: 'contractfieldset',
+            tabmainref: contractfieldset,
+        },
         {
             tabmainid: 'workoutfieldset',
             tabmainref: workoutfieldset,
@@ -107,9 +129,10 @@ export default function TabMain({
             tabmainref: clubfieldset,
         },
         {
-            tabmainid: 'contractfieldset',
-            tabmainref: contractfieldset,
+            tabmainid: 'favouritefieldset',
+            tabmainref: favouritefieldset,
         },
+
     ]
 
     const [appstatic, setappstatic] = useApp(tabmain, tabmainstatic.tabmainid, tabmainstatic.tabmainindex)
@@ -121,14 +144,14 @@ export default function TabMain({
     useEffect(() => {
       if(tabmainstatic){
           const filter = tabmain.filter(data => data.tabmainid === tabmainstatic.tabmainid)
-          const empty = []
+          const array = []
           for(let i = 0; i < filter[0].tabmainref.length; i++){
-            empty.push({
+            array.push({
                 tabmaintitle: filter[0].tabmainref[i].tabmaintitle,
                 tabmainindex: filter[0].tabmainref[i].tabmainindex
             })
           }
-            settabmainrender(empty)
+          return  settabmainrender(array)
       }
     }, [tabmainstatic])
 
@@ -164,12 +187,14 @@ export default function TabMain({
                     {tabmainrender?.map((data, index) => (<>
                         <article onClick={() => {
                             settabmainstate({tabmainindex: index})
-                        }} className={`l-h4 border-b-2  border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black text-black font-normal'}`}>
+                        }} className={`l-h4 border-b-2  border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black text-black font-medium'}`}>
                             <CardMain>
                                 <div className="flex flex-row gap-2">
                                 {data.tabmaintitle}
                                 {(tabmainstatic?.tabmainid === 'workoutfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'taskspan', badgemainindex: 0}}  />}
                                 {(tabmainstatic?.tabmainid === 'clubfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'ticketspan', badgemainindex: 0}}  />}
+                                {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 1}}  />}
+                                {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 2}}  />}
                                 </div>
                             </CardMain>
                         </article>

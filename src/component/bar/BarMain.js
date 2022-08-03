@@ -147,10 +147,10 @@ export default function BarMain({
     }, [location])
 
     window.onscroll = function (){
-        if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.1))) {
+        if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.07))) {
             setbarmainstyle({main: '!bg-white', h1: '!block '})
         } 
-        if (((window.innerHeight + document.documentElement.scrollTop) < window.innerHeight + (window.innerHeight * 0.05))) {
+        if (((window.innerHeight + document.documentElement.scrollTop) < window.innerHeight + (window.innerHeight * 0.07))) {
             setbarmainstyle({main: '!bg-transparent', h1: '!hidden'})
         }
     }

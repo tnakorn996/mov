@@ -4,6 +4,7 @@ import BreadMain from '../../component/bread/BreadMain'
 import FeedMain from '../../component/feed/FeedMain'
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
+import TabMain from '../../layout/tab/TabMain'
 // import useAlert from '../../hook/useAlert'
 
 export default function FavouriteMain() {
@@ -28,12 +29,12 @@ export default function FavouriteMain() {
     <div>
         <main className="">
             <section className="">
-                      <CardMain />
-                <CardMain />
-                <BreadMain />
-              {/* <AlertMain alertmainstatic={alertmainstate && alertmainstate} /> */}
-              <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 0}} />
-              <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 1}} />
+              <CardMain />
+              <CardMain />
+              <BreadMain />
+              {/* <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 0}} />
+              <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 1}} /> */}
+              <TabMain tabmainstatic={{tabmainid: 'favouritefieldset', tabmainindex: null}} />
             </section>
         </main>
     </div>

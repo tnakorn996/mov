@@ -15,7 +15,7 @@ export default function TaskMain() {
 
   return (
     <div>
-      <main className="">
+      <main>
         <section className="">
                   <CardMain />
                 <CardMain />

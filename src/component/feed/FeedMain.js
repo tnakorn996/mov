@@ -6,6 +6,8 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
+import SignMain from '../sign/SignMain.tsx'
+import { appul } from '../../content/content'
 
 export default function FeedMain({
     feedmainstatic,
@@ -26,7 +28,6 @@ export default function FeedMain({
 
     } = useContext(Context)
     const navigate = useNavigate()
-    const [feedmainslice, setfeedmainslice] = useState(null)
 
     const contractarea = [
         {
@@ -165,10 +166,6 @@ export default function FeedMain({
 
     const [appstatic, setappstatic] = useApp(feedmain, feedmainstatic.feedmainid, feedmainstatic.feedmainindex, fieldmainstate)
 
-    // function ll(first= this.props.first, second= this.props.second) {
-    //     if(first < second){setfeedmainslice(feedmainslice + 3)}
-    // }
-
   return (
     <div>
         <main className="">
@@ -183,7 +180,7 @@ export default function FeedMain({
                         <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                         </CardMain>
                         <figure className="">
-                            {dat?.feedmainrender?.map(post => (<>
+                            {dat?.feedmainrender?.length > 0 && dat?.feedmainrender?.map(post => (<>
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'contractaddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
@@ -194,21 +191,36 @@ export default function FeedMain({
                                 {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
                             </>))}
                         </figure>
+                        <figure className="">
+                            {dat?.feedmainrender?.length === 0 && (<>
+                            <div className="bg-slate-800">
+                                <CardMain>
+                                <SignMain signmainstatic={{
+                                    signmainid: 'appimg', 
+                                    signmainindex: 2,
+                                    signmaindetail: `Keep your training on track.`,
+                                    signmainaction: `/workout/workoutmain`, 
+                                    signmainentitle: `find a workouts`
+                                }} />
+                                </CardMain>
+                            </div>
+                            </>)}
+                        </figure>
                     </>))}
                 </>))}
             </section>
-            {/* <section className="">
-                {appstatic?.map(data => (<>
-                    {data?.feedmaindata?.map(dat => (<>
-                    <figure className="">
-                        {dat?.feedmainrender?.map(da => (<>
-                            {((feedmainslice < da?.spreaddata.length) && (data?.feedmainslice < da?.spreaddata.length)) && <button onClick={() => ll(data?.feedmainslice, da?.spreaddata.length)} className="w-full  l-button">See more</button>} 
-                        </>))}
-                    </figure>
-                    </>))}
-                </>))}
-            </section> */}
         </main>
     </div>
   )
 }
+
+
+// export function ll(feedmainstatic) {
+//     const replace = feedmainstatic.feedmainid.replace('area', '')
+//     const filter  = appul.filter(data => data.breadref.includes(replace))
+//     console.log('filter', feedmainstatic.feedmainid, replace, filter)
+//   return {
+//     title: filter[0]?.breadtitle,
+//     action: filter[0]?.breadaction,
+//   }
+// }

@@ -2,39 +2,22 @@ import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BreadMain from '../../component/bread/BreadMain'
 
-import CtaMain from '../../component/cta/CtaMain'
-import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
 import TabMain from '../../layout/tab/TabMain'
+import ScreenMain from '../../layout/screen/ScreenMain.tsx'
 
 export default function ClubMain() {
-  const {
-
-    ticketdl,
-    clubdl,
-
-  } = useContext(Context)
-  const navigate = useNavigate()
-
-  // if(ticketdl && ticketdl[0]?.spreaddata?.length > 0) return null
 
   return (
     <div>
-        <main className="">
-            {/* <section className="">
-              <CardMain>
-              <CtaMain ctamainstatic={{ctamainid: 'clubembed', ctamainindex: 0}} />
-              </CardMain>
-            </section> */}
-
+      <main className="">
             <section className="">
                       <CardMain />
                 <CardMain />
                 <BreadMain />
                 <TabMain tabmainstatic={{tabmainid: 'clubfieldset', tabmainindex: null}} />
             </section>
-
-        </main>
+      </main>
     </div>
   )
 }

@@ -12,6 +12,7 @@ import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
+import ScreenMain from '../screen/ScreenMain.tsx'
 
 export default function PostMain({
   postmainstatic,
@@ -73,7 +74,7 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata]
-        ref.map(data => (<>
+        return ref.map(data => (<>
           <ContractAddressRender 
           data={data}
           props={{
@@ -101,14 +102,15 @@ export default function PostMain({
     {
       postmainindex: 1,
       postmainrender:() => {
-        const ref = workoutul?.filter(data => data?.breadid === splitstaticthree && data?.breadbool === true)
+        const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
         if(ref.length > 0){
           return ref.map(data => (<>
           <WorkoutAddressRenderTwo
           data={data} />
         </>))
         } else {
-          return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
+          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
+          return null
         }
       }  
     },
@@ -259,7 +261,9 @@ export default function PostMain({
         <main className="">
              <section className={postmainstyle && postmainstyle}>
               {appstatic?.map(data => (<>
+              <ScreenMain>
                 {data?.postmainrender()}
+              </ScreenMain>
               </>))}
             </section>
         </main>
@@ -333,24 +337,39 @@ export default function PostMain({
   export function WorkoutAddressRender({data, props}) {
     const {navigate} = props
     return (
-    <div>
+    // <div>
+    //     <CardMain>
+    //     <figure className="relative h-[50vh] overflow-hidden">
+    //         <video onClick={navigate} src={data?.breadvideo}  autoPlay={true} loop={true} >
+    //         </video>
+    //       {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
+    //       <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
+    //         <CardMain>
+    //         <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
+    //         <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
+    //         </CardMain>
+    //         <CardMain>
+    //         <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
+    //         </CardMain>
+    //       </div>
+    //     </figure>
+    //     </CardMain>
+    //   </div>
         <CardMain>
-        <figure className="relative h-[50vh] overflow-hidden">
-            <video onClick={navigate} src={data?.breadvideo}  autoPlay={true} loop={true} >
-            </video>
-          {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
-          <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-            <CardMain>
-            <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-            <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
-            </CardMain>
-            <CardMain>
-            <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
-            </CardMain>
-          </div>
-        </figure>
+          <section className="grid grid-cols-12">
+            <figure className="col-span-3">
+              <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+              </video>
+            </figure>
+            <figcaption className="col-span-9 flex flex-row items-center justify-between">
+                <CardMain>
+                <h1 className="m-h5">{data?.breadtitle}</h1>
+                <h1 className="l-h2">With {data?.breadauthor}</h1>
+                </CardMain>
+                <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}}  />
+            </figcaption>
+          </section>
         </CardMain>
-      </div>
     )
   }
 
@@ -376,20 +395,35 @@ export default function PostMain({
   export function TaskAddressRender({props, data}) {
     const {navigate} = props
     return (
+        // <CardMain>
+        // <figure className="relative h-[50vh]">
+        //   <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+        //   </video>
+        //   <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
+        //     <CardMain>
+        //     <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
+        //     <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
+        //     </CardMain>
+        //     <CardMain>
+        //     <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
+        //     </CardMain>
+        //   </div>
+        // </figure>
+        // </CardMain>
         <CardMain>
-        <figure className="relative h-[50vh]">
-          <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
-          </video>
-          <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-            <CardMain>
-            <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-            <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
-            </CardMain>
-            <CardMain>
-            <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
-            </CardMain>
-          </div>
-        </figure>
+          <section className="grid grid-cols-12">
+            <figure className="col-span-3">
+              <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+              </video>
+            </figure>
+            <figcaption className="col-span-9 flex flex-row items-center justify-between">
+                <CardMain>
+                <h1 className="m-h5">{data?.breadtitle}</h1>
+                <h1 className="l-h2">With {data?.breadauthor}</h1>
+                </CardMain>
+                <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}}  />
+            </figcaption>
+          </section>
         </CardMain>
     )
   }

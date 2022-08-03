@@ -48,6 +48,14 @@ export default function BadgeMain({
                 }
                 return array.reduce(function(a, b) { return a + b; }, 0)
             }
+        },
+        {
+            badgemainindex: 1,
+            badgemainrender: () => {return favouritedl[0]?.spreaddata?.length}
+        },
+        {
+            badgemainindex: 2,
+            badgemainrender: () => {return favouritedl[1]?.spreaddata?.length}
         }
     ]
 

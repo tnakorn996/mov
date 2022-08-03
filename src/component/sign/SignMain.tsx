@@ -62,7 +62,7 @@ export default function SignMain({signmainstatic}: SignMainProps) {
                 <figcaption className="">
                     <CardMain>
                     <p className="flex flex-row items-center gap-1 text-white"><SplashMain splashmainstyle={`text-2xl`} /> BEASTY TRAING CLUB</p>
-                    <p className="text-slate-300">{signmainstatic?.signmaindetail}</p>
+                    <p className="text-slate-400">{signmainstatic?.signmaindetail}</p>
                     </CardMain>
                 </figcaption>
                 <figure className="">

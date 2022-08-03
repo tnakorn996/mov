@@ -26,8 +26,8 @@ import FavouriteMain from './page/favourite/FavouriteMain';
 import BackdropMain from './layout/backdrop/BackdropMain';
 import UserIndex from './page/user/UserIndex';
 import AuthMain from './page/auth/AuthMain';
-import FriendMain from './page/contract/ContractMain';
 import ContractMain from './page/contract/ContractMain';
+import ScreenMain from './layout/screen/ScreenMain.tsx';
 
 export default function App() {
   const {
@@ -52,7 +52,7 @@ export default function App() {
             {(authstate !== null && authstate !== undefined) && <BarMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
-            {/* <AnimatePresence exitBeforeEnter> */}
+            {/* <AnimatePresence> */}
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthMain />} /> 
 

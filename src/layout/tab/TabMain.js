@@ -6,6 +6,7 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import CardMain from '../card/CardMain'
 import ZoomMain from '../zoom/ZoomMain'
+import BadgeMain from '../badge/BadgeMain'
 
 export default function TabMain({
     tabmainref,
@@ -165,7 +166,11 @@ export default function TabMain({
                             settabmainstate({tabmainindex: index})
                         }} className={`l-h4 border-b-2  border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black text-black font-normal'}`}>
                             <CardMain>
-                            {data.tabmaintitle}
+                                <div className="flex flex-row gap-2">
+                                {data.tabmaintitle}
+                                {(tabmainstatic?.tabmainid === 'workoutfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'taskspan', badgemainindex: 0}}  />}
+                                {(tabmainstatic?.tabmainid === 'clubfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'ticketspan', badgemainindex: 0}}  />}
+                                </div>
                             </CardMain>
                         </article>
                     </>))}

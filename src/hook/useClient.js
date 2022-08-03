@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { supabase } from '../lib/supabase'
 import useSplit from './useSplit'
 
-export default function useClient(clientmainstatic, clientmainstatictwo, clientmainstaticthree) {
+export default function useClient(clientmainquery, clientmainstatic, clientmainstatictwo, clientmainstaticthree) {
     // const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [clientstatic, setclientstatic] = useState()
@@ -11,7 +11,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
     useEffect(() => {
       if(!splitstaticthree) return 
       ll(splitstaticthree)
-    }, [splitstaticthree])
+    }, [splitstaticthree, ])
 
     const ll = async (splitstaticthree) => {
         const user = supabase.auth.user()

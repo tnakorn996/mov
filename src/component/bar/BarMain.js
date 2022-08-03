@@ -8,6 +8,7 @@ import { appul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
+import BadgeMain from '../../layout/badge/BadgeMain'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
 import PtaMain from '../pta/PtaMain'
@@ -41,12 +42,15 @@ export default function BarMain({
                     </button>
             </section>,
             barmainrenderthree: () => {
-                return <section className="flex flex-row">
+                return <section className="">
                 <CardMain>
                     <button onClick={() => {
                         navigate(`/favourite/favouritemain`)
-                    }} className="">
-                        <RiBookmark3Fill className="m-h5" />
+                    }} className="relative flex justify-center justify-items-center items-center">
+                        <div className="absolute -top-[10px] -right-[10px]">
+                        <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />
+                        </div>
+                        <RiBookmarkFill className="m-h5" />
                     </button>
                 </CardMain>
             </section>

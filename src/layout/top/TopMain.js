@@ -12,7 +12,7 @@ export default function TopMain({
       if(location && location.pathname){
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth'})
       }
-    }, [location.pathname, param])
+    }, [location.pathname])
     
   return (
     <div>

@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { clubul, workoutul } from '../content/content'
+import { achievementul, clubul, workoutul } from '../content/content'
 import {supabase} from '../lib/supabase'
 import SplashMain from '../layout/splash/SplashMain'
 
@@ -33,6 +33,7 @@ export const Provider = ({
     const [task, settask] = useState()
     const [taskuserid, settaskuserid] = useState()
     const [ticketuserid, setticketuserid] = useState()
+    const [awarduserid, setawarduserid] = useState()
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
     const parsefavourite = JSON.parse(window.localStorage.getItem("mov.favouriteiframe"));
@@ -53,67 +54,72 @@ export const Provider = ({
 
     useEffect(() => {
         if(authstate !== undefined && authstate !== null){
-            pp(authstate.user.id)
-            oo(authstate.user.id)
-            tt(authstate.user.id)
-            rr(authstate.user.id)
-            ii(authstate.user.id)
-            uu(authstate.user.id)
-            yy(authstate.user.id)
-
+            selectUser(authstate.user.id)
+            selectUserUserid(authstate.user.id)
+            selectContractSenderid(authstate.user.id)
+            selectContractReceiverid(authstate.user.id)
+            selectTask(authstate.user.id)
+            selectTaskUserid(authstate.user.id)
+            selectTicketUserid(authstate.user.id)
+            selectAwardUserid(authstate.user.id)
         } 
     }, [authstate, fieldmainstate])
 
-    const pp = async (first =this.props.first) => {
+    const selectUser = async (first =this.props.first) => {
         const { data, error} = await supabase.from('user').select(`*`)
         if(data) {
             setuser(data)
         }
     }
 
-    const oo = async (first =this.props.first) => {
+    const selectUserUserid = async (first =this.props.first) => {
         const { data, error} = await supabase.from('user').select(`*`).eq('userid', first)
         if(data) {
             setuseruserid(data)
         }
     }
 
-    const tt = async (first =this.props.first) => {
+    const selectContractSenderid = async (first =this.props.first) => {
         const { data, error} = await supabase.from('contract').select(`*, receiverid (*)`).eq('senderid', first)
         if(data) {
             setcontractsenderid(data)
         }
     }
 
-    const rr = async (first =this.props.first) => {
+    const selectContractReceiverid = async (first =this.props.first) => {
         const { data, error} = await supabase.from('contract').select(`*, senderid (*)`).eq('receiverid', first)
         if(data) {
             setcontractreceiverid(data)
         }
     }
 
-    const ii = async (first =this.props.first) => {
+    const selectTask = async (first =this.props.first) => {
         const { data, error} = await supabase.from('task').select(`*`)
         if(data) {
             settask(data)
         }
     }
 
-    const uu = async (first =this.props.first) => {
+    const selectTaskUserid = async (first =this.props.first) => {
         const { data, error} = await supabase.from('task').select(`*`).eq('userid', first)
         if(data) {
             settaskuserid(data)
         }
     }
 
-    const yy = async (first =this.props.first) => {
+    const selectTicketUserid = async (first =this.props.first) => {
         const { data, error} = await supabase.from('ticket').select(`*`).eq('userid', first)
         if(data) {
             setticketuserid(data)
         }
     }
 
-
+    const selectAwardUserid = async (first =this.props.first) => {
+        const { data, error} = await supabase.from('award').select(`*`).eq('userid', first)
+        if(data) {
+            setawarduserid(data)
+        }
+    }
 
     ////////////////////////////////////////////////
 
@@ -203,6 +209,81 @@ export const Provider = ({
         },
     ]
 
+    const achievementdl =[
+        {
+            spreadid: 'user',
+            spreadtitle: 'all users',
+            spreaddata: achievementul.filter(data => data.breadid.includes('user')),
+        },
+        {
+            spreadid: 'workout',
+            spreadtitle: 'all workouts',
+            spreaddata: achievementul.filter(data => data.breadid.includes('workout')),
+        },
+    ]
+
+    const awarddl =[
+        {
+            spreadid: 'my',
+            spreadtitle: 'My rewards',
+            spreaddata: awarduserid,
+            spreaddatatwo: [
+                {
+                    breadid: 'user-one',
+                    breadbool: () => {
+                        if(taskdl[0]?.spreaddata?.length >= 1){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                },
+                       {
+                    breadid: 'user-two',
+                    breadbool: () => {
+                        if(taskdl[0]?.spreaddata?.length >= 1){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                },
+                       {
+                    breadid: 'user-three',
+                    breadbool: () => {
+                        if(taskdl[0]?.spreaddata?.length >= 1){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                },
+
+                {
+                    breadid: 'workout-one',
+                    breadbool: () => {
+                        if(taskdl[0]?.spreaddata?.length >= 1){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                },
+                {
+                    breadid: 'workout-three',
+                    breadbool: () => {
+                        if(taskdl[0]?.spreaddata?.length >= 3){
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                },
+            ]
+        },
+    ]
+
+
     if(
         authstate !== null 
         && authstate !== undefined 
@@ -210,7 +291,8 @@ export const Provider = ({
         && !useruserid  
         && !taskuserid 
         && !task 
-        && !ticketuserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+        && !ticketuserid
+        && !awarduserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
     ////////////////////////////////////////////////
 
@@ -236,6 +318,8 @@ export const Provider = ({
         clubdl,
         ticketdl,
         favouritedl,
+        achievementdl,
+        awarddl,
         
         }} >
         {children}

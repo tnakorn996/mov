@@ -84,7 +84,14 @@ export default function CtaMain({
             ctamainstyle: `l-button border-black`,
             ctamainaction: `/ticket/ticketform/${splitstaticthree}`,
         },
-       
+    ]
+
+    const achievementembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'View your reward',
+            ctamainaction: `/reward/rewardindex/${splitstaticthree}`,
+        },
     ]
 
     const ctamain = [
@@ -100,6 +107,7 @@ export default function CtaMain({
             ctamainid: 'contractembed',
             ctamainref: contractembed,
         },
+
         {
             ctamainid: 'workoutembed',
             ctamainref: workoutembed
@@ -108,6 +116,7 @@ export default function CtaMain({
             ctamainid: 'taskembed',
             ctamainref: taskembed
         },
+
         {
             ctamainid: 'clubembed',
             ctamainref: clubembed
@@ -115,6 +124,11 @@ export default function CtaMain({
         {
             ctamainid: 'ticketembed',
             ctamainref: ticketembed
+        },
+
+        {
+            ctamainid: 'achievementembed',
+            ctamainref: achievementembed
         },
     ]
 

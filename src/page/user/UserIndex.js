@@ -1,6 +1,7 @@
 import React from 'react'
 
 import CtaMain from '../../component/cta/CtaMain'
+import StatMain from '../../component/stat/StatMain'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
 import SheetMain from '../../layout/sheet/SheetMain'
@@ -13,7 +14,8 @@ export default function UserIndex() {
             <section className="">
               <CardMain />
               <CardMain />
-                <PostMain postmainstatic={{postmainid: 'useraddress', postmainindex: 1}} />
+                {/* <PostMain postmainstatic={{postmainid: 'useraddress', postmainindex: 1}} /> */}
+                <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
             </section>
             {/* <section className="">
               <CardMain>

@@ -6,7 +6,7 @@ import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
 import StaMain from '../../component/sta/StaMain'
 import SignMain from '../../component/sign/SignMain.tsx'
-import { clubul, workoutul } from '../../content/content'
+import { achievementul, appul, clubul, workoutul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
@@ -29,6 +29,7 @@ export default function PostMain({
     userdl,
     taskdl,
     ticketdl,
+    awarddl,
 
   } = useContext(Context)
   const navigate = useNavigate()
@@ -103,15 +104,10 @@ export default function PostMain({
       postmainindex: 1,
       postmainrender:() => {
         const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
-        if(ref.length > 0){
           return ref.map(data => (<>
           <WorkoutAddressRenderTwo
           data={data} />
         </>))
-        } else {
-          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
-          return null
-        }
       }  
     },
   ]
@@ -121,14 +117,24 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, workoutul.filter(data => [postmaindata].some(dat => dat.workoutid === data.breadid))[0])]
-        return (
-          ref.map(data => (<>
+        // if(ref.length > 0){
+        //  return ref.map(data => (<>
+        //   <TaskAddressRender 
+        //     data={data}
+        //     props={{
+        //       navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
+        //   }} />
+        //   </>))
+        // } else {
+        //   return null
+        // }
+         return ref.map(data => (<>
           <TaskAddressRender 
             data={data}
             props={{
               navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
           }} />
-          </>)))
+          </>))
       }  
     },
     {
@@ -227,6 +233,73 @@ export default function PostMain({
     },
   ]
 
+
+  const achievementaddress = [
+    {
+      postmainindex: 0,
+      postmainrender:() => {
+        const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+        return (
+          ref.map(data => (<>
+            <AchievementAddressRender
+            data={data}
+            props={{
+              navigate: () => {navigate(`/achievement/achievementindex/${data?.breadid}`)}
+            }} />
+        </>)))
+      }  
+    },
+    {
+      postmainindex: 1,
+      postmainrender:() => {
+        const ref = achievementul?.filter(data => data?.breadid === splitstaticthree)
+        return (
+          ref.map(data => (<>
+            <AchievementAddressRenderTwo
+            data={data}
+            />
+        </>)))
+      }  
+    },
+    
+  ]
+
+  const awardaddress = [
+    {
+      postmainindex: 0,
+      postmainrender:() => {
+        const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
+        return (
+          ref.map(data => (<>
+            <AchievementAddressRender
+            data={data}
+            props={{
+              navigate: () => {navigate(`/award/awardindex/${data?.breadid}`)}
+            }} />
+        </>)))
+      }  
+    },
+    {
+    postmainindex: 1,
+     postmainrender:() => {
+        const filter = awarddl[0].spreaddata?.filter(data => data?.achievementid === splitstaticthree)
+        const filtertwo = achievementul?.filter(data => data.breadid === splitstaticthree)
+        // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
+        if(filter.length > 0 && filtertwo.length > 0) {
+        // if(filter.length > 0) {
+          const assign = [Object.assign(filter[0], filtertwo[0])]
+          return  assign.map(data => (<>
+          <AchievementAddressRenderTwo
+            data={data} />
+          </>))
+        } else {
+          return null
+          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
+        }
+      }  
+    },
+  ]
+
   const postmain = [
     {
       postmainid: 'useraddress',
@@ -251,6 +324,14 @@ export default function PostMain({
     {
       postmainid: 'ticketaddress',
       postmainref: ticketaddress,
+    },
+    {
+      postmainid: 'achievementaddress',
+      postmainref: achievementaddress,
+    },
+    {
+      postmainid: 'awardaddress',
+      postmainref: awardaddress,
     },
   ]
 
@@ -458,11 +539,11 @@ export default function PostMain({
             </figcaption>
             </CardMain>
         </section>
-        <section className="">
+        {/* <section className="">
             <CardMain>
             <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
             </CardMain>
-        </section>
+        </section> */}
       </div>
     )
   }
@@ -545,14 +626,79 @@ export default function PostMain({
     const {navigate} = props
     return (
        <div className="" >
-        <section className="">
+        <section className="w-full flex flex-row justify-between">
             <figcaption onClick={navigate} className="w-full  cursor-pointer">
-              <p className="m-h2">{data?.userid?.useremail}</p>
+              <p className="l-h4">{data?.userid?.useremail}</p>
             </figcaption>
+            <figure className="">
+              <p className="l-h4 uppercase">{data?.weightid}</p>
+            </figure>
         </section>
       </div>
     )
   }
+
+  //  const filter = [postmaindata]
+  //       const filtertwo = workoutul.filter(data => filter.some(dat => dat.workoutid === data.breadid))
+  //       const filterthree = filtertwo[0].breaddata.filter(data => filter.some(dat => dat.weightid === data?.breadhead))
+  //       // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
+  //       // console.log('filter', filter)
+  //       if(filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
+  //         const assign = [Object.assign(filter[0], filtertwo[0], filterthree[0])]
+  //         return (
+  //           assign.map((data) => (<>
+  //           <TicketAddressRenderThree
+  //           data={data}
+  //           props={{
+  //             navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
+  //           }}
+  //           />
+  //           </>)))
+  //       } else {
+  //         return null
+  //       }
+
+
+  export function AchievementAddressRender({data, props}) {
+    return (
+      <div className="flex flex-row items-center justify-between" >
+        <section>
+          <CardMain>
+          <figure onClick={props.navigate} className={``}>
+            <p className="text-2xl">{data?.breadicon}</p>
+          </figure>
+          </CardMain>
+        </section>
+        <section className="">
+          <CardMain>
+          <figcaption className="">{data?.breadtitle}</figcaption>
+          <figcaption className="">{handleDate(data?.created_at)}</figcaption>
+          </CardMain>
+        </section>
+      </div>
+    )
+  }
+
+  export function AchievementAddressRenderTwo({data}) {
+    return (
+    <div className="">
+        <figure className="flex flex-col h-[65vh] items-center justify-center  bg-slate-200">
+          <CardMain >
+           <p className="text-9xl">{data?.breadicon}</p>
+          </CardMain>
+        </figure>
+        <figcaption className="text-center">
+        <CardMain>
+          <CardMain>
+          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
+          </CardMain>
+          <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
+        </CardMain>
+        </figcaption>
+    </div>
+    )
+  }
+
 
 export function handleDate(data) {
     // console.log('data', data)

@@ -1,53 +1,52 @@
-import { RiClipboardLine, RiParentLine } from "react-icons/ri"
+import { RiClipboardLine, RiMedal2Fill, RiMedal2Line, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill } from "react-icons/ri"
 
 export const appul = [
     {
         breadid: 'authmain',
         breadaction: `/auth/authmain`,
         breadtitle: 'Sign Up',
-        breadref: `user`,
         breadicon: <RiParentLine />,
     },
     {
         breadid: 'userindex',
         breadaction: `/user/userindex`,
         breadtitle: 'User',
-        breadref: `auth`,
         breadicon: <RiParentLine />,
     },
     {
         breadid: 'userform',
         breadaction: `/user/userform`,
         breadtitle: 'User',
-        breadref: `auth`,
         breadicon: <RiParentLine />,
     },
     {
         breadid: 'workoutmain',
         breadaction: `/workout/workoutmain`,
         breadtitle: 'Workouts',
-        breadref: `task`,
         breadicon: <RiClipboardLine />,
+    },
+    {
+        breadid: 'achievementmain',
+        breadaction: `/achievement/achievementmain`,
+        breadtitle: 'Rewards',
+        breadicon: <RiMedalLine />,
     },
     {
         breadid: 'clubmain',
         breadaction: `/club/clubmain`,
         breadtitle: 'Club',
-        breadref: `ticket`,
         breadicon: <RiParentLine />,
     },
     {
         breadid: 'favouritemain',
         breadaction: `/favourite/favouritemain`,
         breadtitle: 'Favourites',
-        breadref: `workout`,
         breadicon: <RiParentLine />,
     },
     {
         breadid: 'contractmain',
         breadaction: `/contract/contractmain`,
         breadtitle: 'Friends',
-        breadref: `user`,
         breadicon: <RiParentLine />,
     },
 ]
@@ -310,6 +309,52 @@ export const clubul = [
         breadnumber: '60.0 minutes',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1504,c_limit/08cc70ef-be31-48a7-b4e8-e23095d2342e/5-benefits-of-playing-basketball-according-to-experts.jpg',
 
+    },
+]
+
+
+export const achievementul = [
+    {
+        breadid: 'user-one',
+        breadaction: `/achievement/achievementindex/user-one`,
+        breadtitle: 'Beginner',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadnumber: `1`,
+        breadicon: <RiSettingsFill />,
+    },
+    {
+        breadid: 'user-two',
+        breadaction: `/achievement/achievementindex/user-two`,
+        breadtitle: 'Intermediate',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadnumber: `2`,
+        breadicon: <RiSettings4Fill />,
+    },
+    {
+        breadid: 'user-three',
+        breadaction: `/achievement/achievementindex/user-three`,
+        breadtitle: 'Expert',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadnumber: `3`,
+        breadicon: <RiSettings5Fill />,
+    },
+
+
+    {
+        breadid: 'workout-one',
+        breadaction: `/achievement/achievementindex/workout-one`,
+        breadtitle: '1 Workout',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadnumber: `1`,
+        breadicon: <RiMedal2Line />,
+    },
+    {
+        breadid: 'workout-three',
+        breadaction: `/achievement/achievementindex/workout-three`,
+        breadtitle: '3 Workouts',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadnumber: `3`,
+        breadicon: <RiMedal2Fill />,
     },
 ]
 

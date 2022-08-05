@@ -7,6 +7,8 @@ import useApp from '../../hook/useApp'
 import CardMain from '../card/CardMain'
 import ZoomMain from '../zoom/ZoomMain'
 import BadgeMain from '../badge/BadgeMain'
+import SignMain from '../../component/sign/SignMain.tsx'
+import { appul } from '../../content/content'
 
 export default function TabMain({
     tabmainref,
@@ -115,6 +117,22 @@ export default function TabMain({
         },
     ]
 
+    const achievementfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'achievementarea', feedmainindex: 0}} />
+            </section>
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'History',
+            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
+                <FeedMain feedmainstatic={{feedmainid: 'awardarea', feedmainindex: 0}} />
+            </section>
+        },
+    ]
     const tabmain = [
         {
             tabmainid: 'contractfieldset',
@@ -131,6 +149,10 @@ export default function TabMain({
         {
             tabmainid: 'favouritefieldset',
             tabmainref: favouritefieldset,
+        },
+        {
+            tabmainid: 'achievementfieldset',
+            tabmainref: achievementfieldset,
         },
 
     ]
@@ -178,6 +200,17 @@ export default function TabMain({
     //         settabmainstate({tabmainindex: 0})
     //     }
     // }
+
+
+//   function ll(tabmainstatic) {
+//       const replace = tabmainstatic.tabmainid.replace('fieldset', '')
+//       const filter  = appul.filter(data => data.breadid.includes(replace))
+//       // console.log('filter', replace, filter)
+//     return {
+//       entitle: filter[0]?.breadtitle,
+//       action: filter[0]?.breadaction,
+//     }
+//   }
     
   return (
     <div>
@@ -204,11 +237,24 @@ export default function TabMain({
             <hr />
             <section className="no-scrollbar">
                 {/* <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}> */}
-                <figure ref={ref} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
+                <figure ref={ref} className={`w-screen md:w-full grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
                 {appstatic && appstatic.map(data => (<>
                     {data?.tabmainrender}
                 </>))}
                 </figure>
+{/* 
+                    <figure className="bg-slate-800">
+                        <CardMain>
+                        <SignMain signmainstatic={{
+                            signmainid: 'appimg', 
+                            signmainindex: 2,
+                            signmaindetail: `Keep your training on track.`,
+                            signmainaction: ll(tabmainstatic).action, 
+                            signmainentitle: `find a ${ll(tabmainstatic).entitle}`
+                        }} />
+                        </CardMain>
+                    </figure> */}
+                   
             </section>
         </main>
     </div>

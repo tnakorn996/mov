@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { motion } from 'framer-motion'
 
 import useSplit from '../../hook/useSplit'
 import useApp from '../../hook/useApp'
@@ -9,15 +10,16 @@ import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
 import { clubul, workoutul } from '../../content/content'
 import CtaMain from '../cta/CtaMain'
+import StaMain from '../sta/StaMain'
+import { RiLoaderLine } from 'react-icons/ri'
 
 export default function StatMain({
     statmainstatic,
 
 }) {
     const {
+        authstate,
 
-        taskdl,
-        ticketdl,
 
     } = useContext(Context)
     // console.log('statmainstatic', statmainstatic)
@@ -25,16 +27,39 @@ export default function StatMain({
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [clientstatic, setclientstatic] = useClient()
 
+    function statMainRender(first, component) {
+        const filter = clientstatic?.filter(data => data[first] === splitstaticthree)
+        // console.log('fislter', filter)
+        if(filter !== undefined && filter !== null && filter.length > 0) {
+            return component
+        } else {
+            return null
+        }
+    }
+
+    const usertable = [
+        {
+            statmaindex: 1,
+            statmainrender: () => {
+                return statMainRender('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
+            }
+        },
+    ]
+
     const workouttable = [
         {
             statmaindex: 1,
             statmainrender: () => {
-                const filter = taskdl[0]?.spreaddata?.filter(data => data.workoutid === splitstaticthree)
-                if(filter.length > 0) {
-                    return <WorkoutTableRender />
-                } else {
-                    return null
-                }
+                return statMainRender('workoutid', <WorkoutTableRender />)
+            }
+        },
+    ]
+
+    const tasktable = [
+        {
+            statmaindex: 1,
+            statmainrender: () => {
+                return statMainRender('workoutid', <TaskTableRender />)
             }
         },
     ]
@@ -43,12 +68,7 @@ export default function StatMain({
         {
             statmaindex: 1,
             statmainrender: () => {
-                const filter = ticketdl[0]?.spreaddata?.filter(data => data.clubid === splitstaticthree)
-                if(filter.length > 0) {
-                    return <ClubTableRender />
-                } else {
-                    return null
-                }
+                return statMainRender('clubid', <ClubTableRender />)
             }
         },
     ]
@@ -57,14 +77,16 @@ export default function StatMain({
         {
             statmaindex: 0,
             statmainrender: () => {
-                return  <TicketTableRender data={clientstatic && clientstatic} />
+                return  statMainRender('workoutid', <TicketTableRender data={clientstatic && clientstatic} />)
             }
         },
         {
             statmaindex: 1,
             statmainrender: () => {
-                const filter = clientstatic?.filter(data => data.workoutid === splitstaticthree)
+                // console.log('clientstagtic, authstate', clientstatic, authstate)
+                const filter = clientstatic?.filter(data => data.userid?.userid === authstate?.user?.id)
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
+                // console.log('filter, filtertwo', filter, filtertwo)
                 if(filter && filter.length > 0 && filtertwo.length > 0) {
                     const assign = [Object.assign(filter[0], filtertwo[0])]
                     return assign?.map((data) => (<>
@@ -77,10 +99,28 @@ export default function StatMain({
         }
     ]
 
+    const acheivementtable = [
+        {
+            statmaindex: 0,
+            statmainrender: () => {
+                return statMainRender('achievementid', <AchievementTableRender data={clientstatic && clientstatic} />)
+            }
+        },
+    ]
+
     const statmain = [
+        {
+            statmainid: 'usertable',
+            statmainref: usertable,
+        },
+
         {
             statmainid: 'workouttable',
             statmainref: workouttable,
+        },
+        {
+            statmainid: 'tasktable',
+            statmainref: tasktable,
         },
         {
             statmainid: 'clubtable',
@@ -89,12 +129,17 @@ export default function StatMain({
         {
             statmainid: 'tickettable',
             statmainref: tickettable,
-        }
+        },
+
+        {
+            statmainid: 'acheivementtable',
+            statmainref: acheivementtable,
+        },
     ]
 
-    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, splitstaticthree, clientstatic)
+    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic)
     // console.log('appstatic', appstatic)
-    if(clientstatic === undefined || clientstatic === null) return null
+    if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><RiLoaderLine className="m-h6  animate-spin" /></motion.section> 
     // console.log('clientstatic', clientstatic)
     return (
         <div>
@@ -136,6 +181,48 @@ export default function StatMain({
             return Math.floor(floor) + " seconds";
         }
 
+    export function ll(index) {
+        const data = [
+            {article: '!bg-amber-200'},
+            {article: '!bg-slate-200'},
+            {article: '!bg-rose-200'},
+        ]
+        for(let i = 0; i < data.length; i++){
+            if(index === data.indexOf(data[i]) + 1){
+                return data[i].article
+            }
+        }
+    }
+
+    export function UserTableRender({data, props}) {
+        const {authstate, splitstaticthree} = props
+        console.log('data', data)
+        return (
+        <div>
+            {data?.map(data => (<>
+            <section className="flex flex-col justify-center items-center">
+            <CardMain>
+            <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+                <p className="text-4xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+            </figure>
+            </CardMain>
+            </section>
+            <section className="flex flex-col justify-center text-center">
+            <p className="l-h4">{data?.useremail}</p>
+            <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
+            </section>
+            <section className="">
+            <CardMain>
+                {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
+                <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
+                <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
+            </CardMain>
+            </section>
+            </>))}
+        </div>
+        )
+    }
+
 
     export function WorkoutTableRender() {
         return (
@@ -148,35 +235,21 @@ export default function StatMain({
                 </SheetMain>
             </section>
         </div>
-    )
+        )
     }
 
-    // export function TaskTableRenderTwo({data}) {
-    //     // console.log('data', data)
-    //     return (
-    //         <div>
-    //         <section className="">
-    //             <CardMain>
-    //             <figcaption className="flex justify-between items-center">
-    //                 <p className="m-h5">Personal Best(PB)</p>
-    //                 <p className="l-h5 truncate">{data?.breadbody}</p>
-    //             </figcaption>
-    //             </CardMain>
-    //             <CardMain>
-    //             <figcaption className="flex justify-between items-center">
-    //                 <p className="m-h5">Date created</p>
-    //                 <p className="l-h5">{handleDate(data?.created_at)}</p>
-    //             </figcaption>
-    //             </CardMain>
-    //         </section>
-    //         <section className="">
-    //             <CardMain>
-    //             <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
-    //             </CardMain>
-    //         </section>
-    //     </div>
-    //   )
-    // }
+    export function TaskTableRender({data}) {
+        // console.log('data', data)
+        return (
+            <div>
+                <section className="">
+                <SheetMain>
+                <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
+                </SheetMain>
+                </section>
+            </div>
+        )
+    }
 
     export function ClubTableRender() {
         return (
@@ -194,25 +267,35 @@ export default function StatMain({
 
     export function TicketTableRender({data}) {
         // console.log('data', data)
-    return (
-        <div>
-            <section className="">
-                {data?.map((data, index) => (<>
-                <SheetMain>
-                    <div className="flex flex-row gap-3">
-                    <p className="">{index + 1}</p>
-                    <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
-                    </div>
-                </SheetMain>
-                </>))}
-            </section>
-            <section className="">
-            <CardMain>
-                <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
-            </CardMain>
-            </section>
-        </div>
-    )
+        return (
+            <div>
+                <section className="">
+                    {data?.map((data, index) => (<>
+                    <SheetMain>
+                        <figcaption className="w-full grid grid-cols-12 gap-3">
+                            <div className="col-span-1">
+                                {/* <article className={`w-[20px] h-[20px] flex items-center justify-center  bg-slate-200 rounded-full 
+                                ${index + 1 === 1 && 'bg-amber-200'}
+                                ${index + 1 === 2 && 'bg-slate-200'}
+                                ${index + 1 === 3 && 'bg-rose-200'}  ` }> */}
+                                <article className={`w-[20px] h-[20px] flex items-center justify-center  bg-slate-200 rounded-full ${ll(index + 1)} ` }>
+                                    <p className="l-h2">{index + 1}</p>
+                                </article>
+                            </div>
+                            <div className="col-span-11">
+                            <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
+                            </div>
+                        </figcaption>
+                    </SheetMain>
+                    </>))}
+                </section>
+                <section className="">
+                <CardMain>
+                    <CtaMain ctamainstatic={{ctamainid:'ticketembed', ctamainindex: 0}} />
+                </CardMain>
+                </section>
+            </div>
+        )
     }
 
     export function TicketTableRenderTwo({data}) {
@@ -230,14 +313,21 @@ export default function StatMain({
                         <p className="text-2xl m-h6 font-medium">/ {data?.breadnumber}</p>
                 </figcaption>
                 </CardMain>
-                {/* <figure className="">
-                    {assign?.map((data, index) => (<>
-                        <p className="text-2xl l-h6 font-medium">{data?.weightid}</p>
-                        <p className="text-2xl m-h6 font-medium">/ {data?.breadnumber}</p>
-                    </>))}
-                </figure> */}
             </section>
         </div>
         )
     }
 
+    export function AchievementTableRender() {
+        return (
+            <div>
+            <section className="">
+                <SheetMain>
+                {/* <CardMain> */}
+                <CtaMain ctamainstatic={{ctamainid: 'achievementembed', ctamainindex: 0}} />
+                {/* </CardMain> */}
+                </SheetMain>
+            </section>
+        </div>
+    )
+    }

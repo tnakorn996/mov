@@ -23,7 +23,7 @@ export default function AuthMain() {
                   <p className="text-slate-400">Everything you need to reach your fitness goals. Let's get started.</p>
                   </CardMain>
                 </div> */}
-                <div className="absolute w-full h-full  bg-black opacity-60" />
+                <div className="absolute w-full h-full  bg-white opacity-10" />
                 <div className="absolute">
                   <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 2, signmaindetail: `Everything you need to reach your fitness goals. Let's get started.`}} />
                 </div>

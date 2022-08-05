@@ -20,6 +20,7 @@ export default function NavbarMain({
     authstate,
     taskdl,
     ticketdl,
+    awarddl,
 
   } = useContext(Context)
   const location = useLocation()
@@ -31,83 +32,91 @@ export default function NavbarMain({
   const apptbody = [
     {
       navmainindex: 0,
-      navmainrender: 
-          <div className="w-screen p-[5px] bg-white">
+      navmainrender: () => {
+        return <div className="w-screen p-[5px] bg-white">
               <div className="grid grid-flow-col text-center items-center  ">
-                <article onClick={() => {
-                  navigate(appul[3].breadaction)
-                }} className={`m-h5 p-[10px] flex flex-col items-center  rounded-sm duration-500 ${splitstatic === 'workout' ? `!bg-slate-200` : ``} `}>
-                  {appul[3].breadicon}
-                  <p className="m-h2">{appul[3].breadtitle}</p>
-                </article>
-
-                <article onClick={() => {
-                  navigate(appul[4].breadaction)
-                }} className={`m-h5 p-[10px] flex flex-col items-center  rounded-sm duration-500 ${splitstatic === 'club' ? `!bg-slate-200` : ``} `}>
-                  {appul[4].breadicon}
-                  <p className="m-h2">{appul[4].breadtitle}</p>
-                  
-                </article>
+                {appul?.slice(3, 6)?.map((data, index) => (<>
+                  <article onClick={() => {
+                    navigate(data.breadaction)
+                  }} className={`m-h5 p-[10px] flex flex-col items-center  rounded-sm duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
+                    {data.breadicon}
+                    <p className="m-h2">{data.breadtitle}</p>
+                  </article>
+                </>))}
               </div>
           </div>
-        ,
+      }
     },
-    {
-      navmainindex: 0,
-      navmainrender: null,
-    },
-
   ]
 
   const authtbody = [
     {
       navmainindex: 0,
-      navmainrender: <CardMain>
+      navmainrender: () => {
+      return <CardMain>
         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
         <CtaMain ctamainstatic={{ctamainid: 'authembed', ctamainindex: null}} />
         </motion.div>
-      </CardMain>,
+      </CardMain>
+      }
     }
   ]
 
   const workouttbody = [
     {
       navmainindex: 0,
-      navmainrender: (taskdl[0]?.spreaddata && (taskdl[0]?.spreaddata?.filter(data => data?.workoutid === split[3])).length === 0) ?  
-      <CardMain>
-        <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-        <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
-        </motion.div>
-      </CardMain>
-      // : <CardMain>
-      //   <CtaMain ctamainstatic={{ctamainid: 'workoutembed', ctamainindex: 0}} />
-      // </CardMain>
-      : null
+      navmainrender: () => {
+        if((taskdl[0]?.spreaddata && (taskdl[0]?.spreaddata?.filter(data => data?.workoutid === split[3])).length === 0)) {
+          return <CardMain>
+            <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+            <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
+            </motion.div>
+          </CardMain>
+        } else {
+          return null
+        }
+      }
     }
   ]
 
   const clubtbody = [
     {
       navmainindex: 0,
-      navmainrender: (ticketdl[0]?.spreaddata && (ticketdl[0]?.spreaddata?.filter(data => data?.clubid === split[3])).length === 0) ?  
-      <CardMain>
-        <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-        <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />
-        </motion.div>
-      </CardMain>
-      // : <CardMain>
-      //   <CtaMain ctamainstatic={{ctamainid: 'clubembed', ctamainindex: 0}} />
-      // </CardMain>
-      : null
+      navmainrender: () => {
+        if(ticketdl[0]?.spreaddata && (ticketdl[0]?.spreaddata?.filter(data => data?.clubid === split[3])).length === 0) {
+          return <CardMain>
+          <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+          <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />
+          </motion.div>
+        </CardMain>
+        } else {
+          return null
+        }
+      }
     },
   ]
 
-  // const tickettbody = [
-  //   {
-  //     navmainindex: 0,
-  //     navmainrender: <button className="w-full  m-button">Leader board</button>,
-  //   },
-  // ]
+  const achievementtbody = [
+    {
+      navmainindex: 0,
+      navmainrender: () => {
+        const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
+        const filtertwo = awarddl[0]?.spreaddatatwo?.filter(data => data?.breadid === split[3])
+        // console.log('filtertwo', filtertwo[0]?.breadbool())
+        if (awarddl[0]?.spreaddata 
+          && filter.length === 0
+          && filtertwo[0]?.breadbool()) {
+          return <CardMain>
+          <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+          <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />
+          </motion.div>
+        </CardMain>
+        } else {
+          return null;
+        }
+      }
+    },
+  ]
 
   const navbarmain = [
     {
@@ -126,14 +135,13 @@ export default function NavbarMain({
       navmainid: 'clubtbody',
       navmainref: clubtbody,
     },
-    // {
-    //   navmainid: 'tickettbody',
-    //   navmainref: tickettbody,
-    // },
+    {
+      navmainid: 'achievementtbody',
+      navmainref: achievementtbody,
+    },
   ]
 
   const [appstatic, setappstatic] = useApp(navbarmain, navmainstate.navmainid, navmainstate.navmainindex, splitstatic)
-  const navmainrender = appstatic && appstatic
 
   useEffect(() => {
     if((location.pathname.includes('main') || location.pathname.includes(''))) {
@@ -157,9 +165,9 @@ export default function NavbarMain({
     <div>
         <main className="">
         <section className="z-30 fixed bottom-0 left-0 w-screen flex items-center">
-            {navmainrender?.map(data => (<>
+            {appstatic?.map(data => (<>
             <div className="w-full">
-              {data?.navmainrender}
+              {data?.navmainrender()}
             </div>
             </>))}
         </section>

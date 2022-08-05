@@ -174,6 +174,19 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {userid: undefined}
             },
+            {
+                fieldmainid: 'awardinput',
+                fieldmainidtwo: 'award',
+                fieldmaindetail: 'Successfully claim your reward',
+                fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindata: {
+                    awardid: fieldmainid,
+                  
+                    userid: user?.id,
+                    achievementid: split[3],
+                },
+                fieldmaindatatwo: {userid: undefined}
+            },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
@@ -230,6 +243,16 @@ export default function FieldMain({
                 fieldmaindatatwo: {
                   userid: user?.id, 
                   clubid: split[3],
+                }
+            },
+            {
+                fieldmainid: 'awardinput',
+                fieldmainidtwo: 'award',
+                fieldmaindetail: 'Successfully remove this reward',
+                fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindatatwo: {
+                  userid: user?.id, 
+                  achievementid: split[3],
                 }
             },
         ]
@@ -391,6 +414,23 @@ export default function FieldMain({
     },
   ]
 
+  const awardinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Claim reward',
+      fieldmainaction: ss,
+      fieldmaindata: [],
+    },
+    {
+      fieldmainindex: 1,
+      fieldmaintitle: 'Would you like to continue?',
+      fieldmainentitle: 'Confirm',
+      fieldmainaction: handleDelete,
+      fieldmaindata: [],
+    },
+  ]
+
   const fieldmain = [
     {
       fieldmainid: 'authinput',
@@ -411,6 +451,10 @@ export default function FieldMain({
     {
       fieldmainid: 'contractinput',
       fieldmainref: contractinput,
+    },
+    {
+      fieldmainid: 'awardinput',
+      fieldmainref: awardinput,
     },
   ]
 

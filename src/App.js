@@ -28,6 +28,8 @@ import UserIndex from './page/user/UserIndex';
 import AuthMain from './page/auth/AuthMain';
 import ContractMain from './page/contract/ContractMain';
 import ScreenMain from './layout/screen/ScreenMain.tsx';
+import AchievementMain from './page/achievement/AchievementMain.tsx';
+import AchievementIndex from './page/achievement/AchievementIndex.tsx';
 
 export default function App() {
   const {
@@ -82,7 +84,9 @@ export default function App() {
               <Route path='/ticket/ticketindex/:ticketid' element={<TicketIndex />} /> 
 
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
-
+              
+              <Route path='/achievement/achievementmain' element={<AchievementMain />} /> 
+              <Route path='/achievement/achievementindex/:achievementid' element={<AchievementIndex />} /> 
 
             </Routes> 
             {/* </AnimatePresence> */}

@@ -16,23 +16,20 @@ export default function BadgeMain({
         taskdl,
         ticketdl,
         favouritedl,
+        messagedl,
     } = useContext(Context)
 
     const taskspan = [
         {
             badgemainindex: 0,
-            badgemainrender: () => {
-                return taskdl[0]?.spreaddata?.length
-            }
+            badgemainrender: () => {return badgemainrender(taskdl[0], 'spreaddata')}
         }
     ]
 
     const ticketspan = [
         {
             badgemainindex: 0,
-            badgemainrender: () => {
-                return ticketdl[0]?.spreaddata?.length
-            }
+            badgemainrender: () => { return badgemainrender(ticketdl[0], 'spreaddata')}
         }
     ]
 
@@ -51,15 +48,31 @@ export default function BadgeMain({
         },
         {
             badgemainindex: 1,
-            badgemainrender: () => {return favouritedl[0]?.spreaddata?.length}
+            badgemainrender: () => { return badgemainrender(favouritedl[0], 'spreaddata')}
         },
         {
             badgemainindex: 2,
-            badgemainrender: () => {return favouritedl[1]?.spreaddata?.length}
+            badgemainrender: () => { return badgemainrender(favouritedl[1], 'spreaddata')}
         }
     ]
 
+    const messagespan = [
+        {
+            badgemainindex: 0,
+            badgemainrender: () => {
+                const array = []
+                for(const data of messagedl[0]?.spreaddata){
+                    if(data.spreadrender() !== undefined){
+                        array.push(data)
+                    }
+                }
+                return array.length
+            }
+        },
+    ]
+
     const badgemain = [
+
         {
             badgemainid: 'taskspan',
             badgemainref: taskspan,
@@ -71,21 +84,32 @@ export default function BadgeMain({
         {
             badgemainid: 'favouritespan',
             badgemainref: favouritespan,
-        }
+        },
+        {
+            badgemainid: 'messagespan',
+            badgemainref: messagespan,
+        },
     ]
 
-    const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate)
+    const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate, messagedl)
+
+    function badgemainrender(first, second) {
+        return first?.[second].length
+    }
+
 
   return (
     <div>
         <main className="">
             <section className="">
-                <button className={`px-[7px] flex flex-row  bg-slate-200 ${badgemainstyle?.button}`}>
                 {appstatic?.map(data => (<>
-                <p className="m-h1">{data?.badgemainrender()}</p>
+                    {data?.badgemainrender() !== 0 ? (<>
+                        <button className={`px-[7px] flex flex-row  bg-slate-200 ${badgemainstyle?.button}`}>
+                        <p className="m-h1">{data?.badgemainrender()}</p>
+                        </button>
+                    </>) : null}
                 </>))}
                 {children}
-                </button>
             </section>
         </main>
     </div>

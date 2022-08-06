@@ -156,7 +156,10 @@ export default function StatMain({
 
     export function handleDate(data) {
         // console.log('data', data)
-            var floor = Math.floor((new Date() - data) / 1000);
+       const slice = data.slice(0, 19) + `z`
+    console.log('slicse', slice)
+
+            var floor = Math.floor((new Date() - slice) / 1000);
             // console.log('floor', floor)
             var interval = floor / 31536000;
             if (interval > 1) {

@@ -30,6 +30,7 @@ import ContractMain from './page/contract/ContractMain';
 import ScreenMain from './layout/screen/ScreenMain.tsx';
 import AchievementMain from './page/achievement/AchievementMain.tsx';
 import AchievementIndex from './page/achievement/AchievementIndex.tsx';
+import MessageMain from './page/message/MessageMain.tsx';
 
 export default function App() {
   const {
@@ -49,8 +50,8 @@ export default function App() {
         <main className="relative">
           <section className="z-30 fixed top-0 left-0 w-screen">
             {/* <button onClick={() => {
-              setappstate({appid: 'backdropmain', appidtwo: 'previewmain', appidthree: 'apparticle', appindexthree: 0})
-            }} className="m-button">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quia?</button> */}
+             navigate(`/message/messagemain`)
+            }} className="m-button">Message</button> */}
             {(authstate !== null && authstate !== undefined) && <BarMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
@@ -87,6 +88,9 @@ export default function App() {
               
               <Route path='/achievement/achievementmain' element={<AchievementMain />} /> 
               <Route path='/achievement/achievementindex/:achievementid' element={<AchievementIndex />} /> 
+
+              <Route path='/message/messagemain' element={<MessageMain />} /> 
+
 
             </Routes> 
             {/* </AnimatePresence> */}

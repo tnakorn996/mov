@@ -1,4 +1,4 @@
-import { RiClipboardLine, RiMedal2Fill, RiMedal2Line, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill } from "react-icons/ri"
+import { RiClipboardLine, RiInboxLine, RiMedal2Fill, RiMedal2Line, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiUserAddLine } from "react-icons/ri"
 
 export const appul = [
     {
@@ -47,7 +47,13 @@ export const appul = [
         breadid: 'contractmain',
         breadaction: `/contract/contractmain`,
         breadtitle: 'Friends',
-        breadicon: <RiParentLine />,
+        breadicon: <RiUserAddLine />,
+    },
+    {
+        breadid: 'messagemain',
+        breadaction: `/message/messagemain`,
+        breadtitle: 'Messages',
+        breadicon: <RiInboxLine  />,
     },
 ]
 
@@ -289,7 +295,6 @@ export const clubul = [
         breadsubtitle: 'Reach 100.0 kilogram this month100.0 KG',
         breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/fc92ed90-d329-4d37-af2b-18bba7b3be35/how-to-prevent-plantar-fasciitis.jpg',
-
     },
     {
         breadid: 'deadlift',
@@ -298,7 +303,6 @@ export const clubul = [
         breadsubtitle: 'Reach 100.0 kilogram this month',
         breadnumber: '100.0 KG',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/7a333ef8-3351-4f98-8646-30e4aa1385b3/how-to-prevent-blisters-while-running.jpg',
-
     },
 
     {
@@ -308,10 +312,8 @@ export const clubul = [
         breadsubtitle: 'Reach 60.0 minutes this month',
         breadnumber: '60.0 minutes',
         breadimage: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1504,c_limit/08cc70ef-be31-48a7-b4e8-e23095d2342e/5-benefits-of-playing-basketball-according-to-experts.jpg',
-
     },
 ]
-
 
 export const achievementul = [
     {
@@ -339,7 +341,6 @@ export const achievementul = [
         breadicon: <RiSettings5Fill />,
     },
 
-
     {
         breadid: 'workout-one',
         breadaction: `/achievement/achievementindex/workout-one`,
@@ -358,31 +359,11 @@ export const achievementul = [
     },
 ]
 
-
-//  export const weightul = [
-//         {
-//             breadid: 0,
-//             choicemaindata: [
-//                 {
-//                     choicemainidtwo: '20kg',
-//                     choicemaintitle: '20KG'
-//                 },
-//                 {
-//                     choicemainidtwo: '30kg',
-//                     choicemaintitle: '30KG'
-//                 },
-//                 {
-//                     choicemainidtwo: '40kg',
-//                     choicemaintitle: '40KG'
-//                 },
-//                 {
-//                     choicemainidtwo: '50kg',
-//                     choicemaintitle: '50KG'
-//                 },
-//                 {
-//                     choicemainidtwo: '100kg',
-//                     choicemaintitle: '100KG'
-//                 },
-//             ],
-//         }
-//     ]
+export const articleul = [
+    {
+        breadid: 'blog-one',
+        breadaction: `/blog/blogindex/blog-one`,
+        breadtitle: 'blog one',
+        breadsubtitle: 'Finish your third workout to earn this achievement.',
+    },
+]

@@ -27,6 +27,7 @@ export default function FeedMain({
         favouritedl,
         achievementdl,
         awarddl,
+        messagedl,
 
     } = useContext(Context)
     const navigate = useNavigate()
@@ -173,6 +174,19 @@ export default function FeedMain({
         },
     ]
 
+    const messagearea = [
+        {
+            feedmainindex: 0,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: 'New message',
+                    feedmainrender: messagedl[0].spreaddata,
+                },
+            ],
+        },
+    ]
+
     const feedmain = [
         {
             feedmainid: 'contractarea',
@@ -205,6 +219,10 @@ export default function FeedMain({
         {
             feedmainid: 'awardarea',
             feedmainref: awardarea,
+        },
+        {
+            feedmainid: 'messagearea',
+            feedmainref: messagearea,
         },
 
     ]
@@ -243,6 +261,8 @@ export default function FeedMain({
                                 {(feedmainstatic.feedmainid === 'achievementarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'achievementaddress', postmainindex: 0}} />}
 
                                 {(feedmainstatic.feedmainid === 'awardarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'awardaddress', postmainindex: 0}} />}
+
+                                {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
 
                             </>))}
                         </figure>

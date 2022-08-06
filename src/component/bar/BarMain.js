@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
-import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiUserAddLine } from 'react-icons/ri'
+import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiUserAddLine } from 'react-icons/ri'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
@@ -36,67 +36,63 @@ export default function BarMain({
     const apptfoot = [
         {
             barmainindex: 0,
-            barmainrender: <section className="">
-                    <button className="">
-                    <PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />
-                    </button>
-            </section>,
+            barmainrender: () => {
+                return <BarMainRenderThree props={{
+                        navigate: () => {navigate(`/user/userindex/${authstate?.user?.id}`)}
+                        }}
+                        component={<BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+                        icon={<PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />} />
+
+            },
             barmainrenderthree: () => {
-                return <section className="">
-                <CardMain>
-                    <button onClick={() => {
-                        navigate(`/favourite/favouritemain`)
-                    }} className="relative flex justify-center justify-items-center items-center">
-                        <div className="absolute -top-[10px] -right-[10px]">
-                        <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />
-                        </div>
-                        <RiBookmarkFill className="m-h5" />
-                    </button>
-                </CardMain>
-            </section>
+                return <BarMainRenderThree props={{
+                        navigate: () => {navigate(`/favourite/favouritemain`)}}}
+                        component={<BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />}
+                        icon={<RiBookmarkFill className="m-h5" />} />
             } 
         },
         {
             barmainindex: 1,
-            barmainrender: <section className="">
-                <CardMain>
-                    <button onClick={() => {
-                        navigate(-1)
-                    }} className="text-2xl">
-                        ←
-                    </button>
-                </CardMain>
-            </section>,
+            barmainrender:() => {
+                return <BarMainRenderThree props={{
+                        navigate: () => {navigate(-1)}}}
+                        icon={<p className="text-2xl">←</p>} />
+            
+            },
             barmainrenderthree: () => {
                 const empty = []
+
                 if(splitstatictwo === 'workout' || splitstatictwo === 'task'){
                     const filter = workoutdl[0].spreaddata.filter(data => data.breadid === splitstaticthree)
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        return <BarMainRender props={{assign: assign, ptamainid: 'workoutiframe'}} />
+                        // return <BarMainRenderThree props={{assign: assign, ptamainid: 'workoutiframe'}} />
+                        return <BarMainRenderThree props={{navigate: () => {}}} icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'workoutiframe'}} ptamainstyle={`!m-h5`} />} />
                     }
                 }
+
                 if(splitstatictwo === 'club'|| splitstatictwo === 'ticket'){
                     const filter = clubdl[0].spreaddata.filter(data => data.breadid === splitstaticthree)
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        return <BarMainRender props={{assign: assign, ptamainid: 'clubiframe'}} />
+                        // return <BarMainRenderThree props={{assign: assign, ptamainid: 'clubiframe'}} />
+                        return <BarMainRenderThree props={{navigate: () => {}}}  icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'clubiframe'}} ptamainstyle={`!m-h5`} />} />
                     }
                 }
+
                 if(splitstatictwo === 'user'){
-                    return <section className="">
-                        <CardMain>
-                            <button onClick={() => {
-                                navigate(`/contract/contractmain`)
-                            }} className="">
-                                <RiUserAddLine className="m-h6" />
-                            </button>
-                        </CardMain>
+                    return  <section className="flex flex-row gap-5 items-center">
+                        <BarMainRenderThree props={{
+                            navigate: () => {navigate(`/message/messagemain`)}}}
+                            component={<BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+                            icon={<RiInboxLine />} />
+                        <BarMainRenderThree props={{
+                            navigate: () => {navigate(`/contract/contractmain`)}}}
+                            icon={<RiUserAddLine />} />
                     </section>
                 }
-
             } 
         },
     ]
@@ -107,24 +103,9 @@ export default function BarMain({
             barmainref: apptfoot,
         }
     ]
-
-    function BarMainRender({props}) {
-      return (
-        <div>
-            <section className="">
-                <CardMain>
-                    <button className="">
-                        <PtaMain ptamaindata={props.assign} ptamainstatic={{ptamainid: props.ptamainid}} />
-                    </button>
-                </CardMain>
-            </section>
-        </div>
-      )
-    }
     
 
     const [appstatic, setappstatic] = useApp(barmain, barmainstate.barmainid, barmainstate.barmainindex)
-    const barmainrender = appstatic && appstatic
 
     useEffect(() => {
         // if(location && location.pathname.includes('')){
@@ -155,13 +136,21 @@ export default function BarMain({
         }
     }
 
+    // function barmainrenderthree() {
+
+
+    // }
+
+
   return (
     <div>
-        <motion.main className={`grid grid-cols-12 items-center duration-500 ${barmainstyle?.main}`}>
+        <motion.main className={`h-[70px] grid grid-cols-12 items-center duration-500 ${barmainstyle?.main}`}>
             <section className="col-span-3">
-                {barmainrender?.map(data => (<>
-                    {data?.barmainrender}
+                <CardMain>
+                {appstatic?.map(data => (<>
+                    {data?.barmainrender()}
                 </>))}
+                </CardMain>
             </section>
             <section className="col-span-6 flex justify-center items-center gap-1">
                 <RiCss3Fill className='m-h6' />
@@ -169,12 +158,30 @@ export default function BarMain({
                 {barmainrendertwo && barmainrendertwo}
                 </h1>
             </section>
-            <section className="col-span-3 flex justify-end">
-                {barmainrender?.map(data => (<>
+            <section className="col-span-3 flex justify-end items-center">
+                <CardMain>
+                {appstatic?.map(data => (<>
                     {data?.barmainrenderthree()}
                 </>))}
+                </CardMain>
             </section>
         </motion.main>
     </div>
   )
 }
+
+    export function BarMainRenderThree({props, component, icon}) {
+        const {navigate} = props
+        return (
+            <div>
+                <section className="">
+                    <button onClick={navigate} className="relative m-h6">
+                        <div className="absolute -top-[10px] -right-[10px]">
+                        {component}
+                        </div>
+                        {icon}
+                    </button>
+                </section>
+            </div>
+      )
+    }

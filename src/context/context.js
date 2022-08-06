@@ -40,7 +40,7 @@ export const Provider = ({
     if(!parseworkout) {window.localStorage.setItem("mov.workoutiframe", JSON.stringify([]))}
     if(!parseclub) {window.localStorage.setItem("mov.clubiframe", JSON.stringify([]))}
     if(!parsefavourite) {window.localStorage.setItem("mov.favouriteiframe", JSON.stringify([]))}
-
+    
     useEffect(() => {
         navigate(`/auth/authmain`)
     }, [])
@@ -135,12 +135,12 @@ export const Provider = ({
         {
             spreadid: 'all',
             spreadtitle: 'All users',
-            spreaddata: (user && user),
+            spreaddata: user && user,
         },
         {
             spreadid: 'else',
             spreadtitle: 'Anyone else',
-            spreaddata: (user && authstate) && user.filter(data => data.userid !== authstate.user.id),
+            spreaddata: user && contextRender(user, 'userid', authstate?.user?.id)
         },
     ]
 
@@ -169,13 +169,11 @@ export const Provider = ({
         {
             spreadid: 'my',
             spreadtitle: 'Your Workouts',
-            // spreaddata: parsetaskuserid && parsetaskuserid,
             spreaddata: taskuserid,
         },
         {
             spreadid: 'all',
             spreadtitle: 'Global',
-            // spreaddata: parsetask && parsetask,
             spreaddata: task,
         },
     ]
@@ -200,12 +198,15 @@ export const Provider = ({
         {
             spreadid: 'workout',
             spreadtitle: 'Favourite workouts',
-            spreaddata: (parseworkout && authstate !== null && authstate !== undefined) && parseworkout.filter(data => data.userid === authstate.user.id),
+            // spreaddata: (parseworkout ) && parseworkout.filter(data => data.userid === authstate.user.id),
+            spreaddata: contextRender(parseworkout, 'userid', authstate?.user?.id)
+
         },
         {
             spreadid: 'club',
             spreadtitle: 'Favourite camp',
-            spreaddata: (parseclub && authstate !== null && authstate !== undefined) && parseclub.filter(data => data.userid === authstate.user.id),
+            // spreaddata: (parseclub ) && parseclub.filter(data => data.userid === authstate.user.id),
+            spreaddata: contextRender(parseclub, 'userid', authstate?.user?.id)
         },
     ]
 
@@ -213,12 +214,12 @@ export const Provider = ({
         {
             spreadid: 'user',
             spreadtitle: 'all users',
-            spreaddata: achievementul.filter(data => data.breadid.includes('user')),
+            spreaddata: contextRender(achievementul, 'breadid', 'user')
         },
         {
             spreadid: 'workout',
             spreadtitle: 'all workouts',
-            spreaddata: achievementul.filter(data => data.breadid.includes('workout')),
+            spreaddata: contextRender(achievementul, 'breadid', 'workout')
         },
     ]
 
@@ -227,61 +228,68 @@ export const Provider = ({
             spreadid: 'my',
             spreadtitle: 'My rewards',
             spreaddata: awarduserid,
-            spreaddatatwo: [
+        }
+    ]
+
+    const messagedl =[
+        {
+            spreadid: 'my',
+            spreadtitle: 'My message',
+            spreaddata: [
                 {
-                    breadid: 'user-one',
-                    breadbool: () => {
-                        if(taskdl[0]?.spreaddata?.length >= 1){
-                            return true
-                        } else {
-                            return false
-                        }
+                    spreadidtwo: 'user-one',
+                    spreaddetail: `You unlocked 1 workout rewards`,
+                    spreadrender: () => {
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length === 0, `user-one`, `/achievement/achievementindex/workout-one`)
                     }
                 },
-                       {
-                    breadid: 'user-two',
-                    breadbool: () => {
-                        if(taskdl[0]?.spreaddata?.length >= 1){
-                            return true
-                        } else {
-                            return false
-                        }
+                {
+                    spreadidtwo: 'user-two',
+                    spreaddetail: `You unlocked 1 workout rewards`,
+                    spreadrender: () => {
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length === 0, `user-one`, `/achievement/achievementindex/workout-one`)
                     }
                 },
-                       {
-                    breadid: 'user-three',
-                    breadbool: () => {
-                        if(taskdl[0]?.spreaddata?.length >= 1){
-                            return true
-                        } else {
-                            return false
-                        }
+                {
+                    spreadidtwo: 'user-three',
+                    spreaddetail: `You unlocked 1 workout rewards`,
+                    spreadrender: () => {
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
+
                     }
                 },
 
                 {
-                    breadid: 'workout-one',
-                    breadbool: () => {
-                        if(taskdl[0]?.spreaddata?.length >= 1){
-                            return true
-                        } else {
-                            return false
-                        }
+                    spreadidtwo: 'workout-one',
+                    spreaddetail: `You unlocked 1-workout rewards`,
+                    spreadrender: () => {
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
                     }
                 },
                 {
-                    breadid: 'workout-three',
-                    breadbool: () => {
-                        if(taskdl[0]?.spreaddata?.length >= 3){
-                            return true
-                        } else {
-                            return false
-                        }
+                    spreadidtwo: 'workout-three',
+                    spreaddetail: `You unlocked 3-workout rewards`,
+                    spreadrender: () => {
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `workout-three`, `/achievement/achievementindex/workout-three`)
                     }
                 },
             ]
         },
     ]
+
+    function contextRender(first, second, third) {
+        if(authstate === null && authstate === undefined ) return null
+        return first.filter(data => data[second].includes(third))
+    }
+
+
+    function contextRenderTwo(first, second, navigation) {
+        if(first && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0){
+            return navigation
+        } else {
+            return undefined
+        }
+    }
 
 
     if(
@@ -310,16 +318,23 @@ export const Provider = ({
         // zoommainstate, setzoommainstate,
         // fix this V parse get rid of it
         authstate, setauthstate,
+        // V whts this
         useruserid, 
         userdl,
         contractdl,
+
         workoutdl,
         taskdl,
+
         clubdl,
         ticketdl,
+
         favouritedl,
+
         achievementdl,
         awarddl,
+
+        messagedl,
         
         }} >
         {children}

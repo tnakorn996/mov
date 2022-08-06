@@ -26,21 +26,3 @@ export default function TaskMain() {
     </div>
   )
 }
-
-// <main className="">
-//             <section className="">
-//             {taskdl?.map(data => (<>
-//               {data?.spraddata?.map(dat => (<>
-//               <CardMain>
-//                 <article onClick={() => {
-//                   navigate(`/task/taskform/${dat?.taskid}`)
-//                 }}  className="">
-//                 {/* <h1 className="">{data?.taskid}</h1> */}
-//                 <p className="">{dat?.workid}</p>
-//                 <p className="">{dat?.emojiid}</p>
-//                 </article>
-//               </CardMain>
-//               </>))}
-//             </>))}
-//             </section>
-//         </main>

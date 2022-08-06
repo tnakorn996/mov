@@ -300,6 +300,25 @@ export default function PostMain({
     },
   ]
 
+  const messageaddress = [
+    {
+      postmainindex: 0,
+      postmainrender:() => {
+        const ref = [postmaindata].filter(data => data.spreadrender() !== undefined)
+        // const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
+          if(ref.length > 0){
+            return ref.map(data => (<>
+            <MessageAddressRender
+            data={data}
+            props={{
+              navigate: () => {navigate(data?.spreadrender())}
+            }} />
+          </>))
+          }
+      }
+    },
+  ]
+
   const postmain = [
     {
       postmainid: 'useraddress',
@@ -333,6 +352,10 @@ export default function PostMain({
       postmainid: 'awardaddress',
       postmainref: awardaddress,
     },
+    {
+      postmainid: 'messageaddress',
+      postmainref: messageaddress,
+    },
   ]
 
   const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstatictwo, splitstaticthree, postmaindata)
@@ -353,20 +376,17 @@ export default function PostMain({
 }
 
   export function UserAddressRender({data, props}) {
+    const {navigate, authstate} = props
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
-          <CardMain>
-          <figure onClick={props.navigate} className={`w-[35px] h-[35px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400`}>
-            <p className="text-xl  uppercase">{data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
+          <figure className={`w-[25px] h-[25px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400`}>
+            <p className="text-base  uppercase">{data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
           </figure>
-          </CardMain>
         </section>
         <section className="">
-          {props.authstate !== null && props.authstate !== undefined && props.authstate.user.id !== data?.user?.id &&
-            <CardMain>
+          {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
             <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />
-            </CardMain>
             }
         </section>
       </div>
@@ -699,10 +719,24 @@ export default function PostMain({
     )
   }
 
+  export function MessageAddressRender({data, props}) {
+    const {navigate} = props
+    return (
+      <div>
+        <SheetMain>
+        <figure onClick={navigate} className="cursor-pointer">
+          <p className="">{data?.spreaddetail}</p>
+        </figure>
+        </SheetMain>
+      </div>
+    )
+  }
 
 export function handleDate(data) {
-    // console.log('data', data)
-        var floor = Math.floor((new Date() - data) / 1000);
+  // console.log('data', data)
+    const slice = data.slice(0, 19) + `Z`
+    console.log('slice', slice)
+        var floor = Math.floor((new Date() - slice) / 1000);
         // console.log('floor', floor)
         var interval = floor / 31536000;
         if (interval > 1) {

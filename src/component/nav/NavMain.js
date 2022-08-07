@@ -54,11 +54,6 @@ export default function NavbarMain({
     {
       navmainindex: 0,
       navmainrender: () => {
-      // return <CardMain>
-      //   <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-      //   <CtaMain ctamainstatic={{ctamainid: 'authembed', ctamainindex: null}} />
-      //   </motion.div>
-      // </CardMain>
       return navMainAction(true,  <CtaMain ctamainstatic={{ctamainid: 'authembed', ctamainindex: null}} />)
       }
     }
@@ -68,15 +63,6 @@ export default function NavbarMain({
     {
       navmainindex: 0,
       navmainrender: () => {
-        // if((taskdl[0]?.spreaddata && (taskdl[0]?.spreaddata?.filter(data => data?.workoutid === split[3])).length === 0)) {
-        //   return <CardMain>
-        //     <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-        //     <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />
-        //     </motion.div>
-        //   </CardMain>
-        // } else {
-        //   return null
-        // }
         return navMainAction((taskdl[0]?.spreaddata && (taskdl[0]?.spreaddata?.filter(data => data?.workoutid === split[3])).length === 0),  <FieldMain fieldmainstatic={{fieldmainid: 'taskinput', fieldmainindex: 0}} />)
       }
     }
@@ -86,15 +72,6 @@ export default function NavbarMain({
     {
       navmainindex: 0,
       navmainrender: () => {
-        // if(ticketdl[0]?.spreaddata && (ticketdl[0]?.spreaddata?.filter(data => data?.clubid === split[3])).length === 0) {
-        //   return <CardMain>
-        //   <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-        //   <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />
-        //   </motion.div>
-        // </CardMain>
-        // } else {
-        //   return null
-        // }
         return navMainAction(ticketdl[0]?.spreaddata && (ticketdl[0]?.spreaddata?.filter(data => data?.clubid === split[3])).length === 0,  <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 0}} />)
       }
     },
@@ -106,17 +83,6 @@ export default function NavbarMain({
       navmainrender: () => {
         const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
         const filtertwo = messagedl[0]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
-        // if (awarddl[0]?.spreaddata 
-        //   && filter.length === 0
-        //   && filtertwo[0]?.spreadrender() !== undefined) {
-        //   return <CardMain>
-        //   <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-        //   <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />
-        //   </motion.div>
-        // </CardMain>
-        // } else {
-        //   return null;
-        // }
         return navMainAction(awarddl[0]?.spreaddata && filter.length === 0 && filtertwo[0]?.spreadrender() !== undefined, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
       }
     },
@@ -165,6 +131,17 @@ export default function NavbarMain({
     }
     }, [location])
 
+
+  function navMainAction(first, component) {
+      if (first) {
+        return <CardMain>
+         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+          {component}
+          </motion.div>
+        </CardMain>
+      } else { return null}
+  }
+
   return (
     <div>
         <main className="">
@@ -179,13 +156,3 @@ export default function NavbarMain({
     </div>
   )
 }
-
-  export function navMainAction(first, component) {
-      if (first) {
-        return <CardMain>
-         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-          {component}
-          </motion.div>
-        </CardMain>
-      } else { return null}
-  }

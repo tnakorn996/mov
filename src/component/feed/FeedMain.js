@@ -30,7 +30,7 @@ export default function FeedMain({
         messagedl,
 
     } = useContext(Context)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const contractarea = [
         {
@@ -144,32 +144,18 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: 'Status',
+                    feedmaintitle: 'Ranks',
                     feedmainrender: achievementdl[0].spreaddata,
                 },
-            ],
-        },
-        {
-            feedmainindex: 0,
-            feedmainslice: 10,
-            feedmaindata: [
-                {
+                 {
                     feedmaintitle: 'Workouts',
                     feedmainrender: achievementdl[1].spreaddata,
                 },
-            ],
-        },
-    ]
-
-     const awardarea = [
-        {
-            feedmainindex: 0,
-            feedmainslice: 10,
-            feedmaindata: [
-                {
-                    feedmaintitle: 'My Awards',
-                    feedmainrender: awarddl[0].spreaddata,
+                 {
+                    feedmaintitle: 'Clubs',
+                    feedmainrender: achievementdl[2].spreaddata,
                 },
+
             ],
         },
     ]
@@ -180,8 +166,13 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: 'New message',
+                    feedmaintitle: 'New rewards',
+                    // feedmainrender: messagedl[0].spreaddata.concat(messagedl[1].spreaddata),
                     feedmainrender: messagedl[0].spreaddata,
+                },
+                             {
+                    feedmaintitle: 'New challenges',
+                    feedmainrender: messagedl[1].spreaddata,
                 },
             ],
         },
@@ -217,10 +208,6 @@ export default function FeedMain({
             feedmainref: achievementarea,
         },
         {
-            feedmainid: 'awardarea',
-            feedmainref: awardarea,
-        },
-        {
             feedmainid: 'messagearea',
             feedmainref: messagearea,
         },
@@ -239,11 +226,12 @@ export default function FeedMain({
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.feedmaindata?.map(dat => (<>
+                        {dat?.feedmainrender?.length > 0 && (<>
                         <CardMain>
                         <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                         </CardMain>
                         <figure className="">
-                            {dat?.feedmainrender?.length > 0 && dat?.feedmainrender?.map(post => (<>
+                            {dat?.feedmainrender?.map(post => (<>
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'contractaddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
 
@@ -258,7 +246,7 @@ export default function FeedMain({
                                 {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
                                 {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
 
-                                {(feedmainstatic.feedmainid === 'achievementarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'achievementaddress', postmainindex: 0}} />}
+                                {(feedmainstatic.feedmainid === 'achievementarea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'achievementaddress', postmainindex: 0}} />}
 
                                 {(feedmainstatic.feedmainid === 'awardarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'awardaddress', postmainindex: 0}} />}
 
@@ -266,6 +254,8 @@ export default function FeedMain({
 
                             </>))}
                         </figure>
+                        </>)}
+
                         {/* <figure className="">
                             {dat?.feedmainrender?.length === 0 && (<>
                             <div className="bg-slate-800">

@@ -90,7 +90,16 @@ export default function CtaMain({
         {
             ctamainindex: 0,
             ctamainentitle: 'View your reward',
-            ctamainaction: `/reward/rewardindex/${splitstaticthree}`,
+            ctamainaction: `/award/awardindex/${splitstaticthree}`,
+        },
+    ]
+
+    const awardembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'Return reward',
+            ctamainstyle: `l-button border-black`,
+            ctamainaction: `/award/awardform/${splitstaticthree}`,
         },
     ]
 
@@ -129,6 +138,10 @@ export default function CtaMain({
         {
             ctamainid: 'achievementembed',
             ctamainref: achievementembed
+        },
+        {
+            ctamainid: 'awardembed',
+            ctamainref: awardembed
         },
     ]
 

@@ -58,7 +58,7 @@ export const Provider = ({
             selectUserUserid(authstate.user.id)
             selectContractSenderid(authstate.user.id)
             selectContractReceiverid(authstate.user.id)
-            selectTask(authstate.user.id)
+            // selectTask(authstate.user.id)
             selectTaskUserid(authstate.user.id)
             selectTicketUserid(authstate.user.id)
             selectAwardUserid(authstate.user.id)
@@ -123,9 +123,6 @@ export const Provider = ({
 
     ////////////////////////////////////////////////
 
-
-    ////////////////////////////////////////////////
-
     const userdl = [
         {
             spreadid: 'my',
@@ -171,11 +168,11 @@ export const Provider = ({
             spreadtitle: 'Your Workouts',
             spreaddata: taskuserid,
         },
-        {
-            spreadid: 'all',
-            spreadtitle: 'Global',
-            spreaddata: task,
-        },
+        // {
+        //     spreadid: 'all',
+        //     spreadtitle: 'Global',
+        //     spreaddata: task,
+        // },
     ]
 
     const clubdl = [
@@ -198,14 +195,12 @@ export const Provider = ({
         {
             spreadid: 'workout',
             spreadtitle: 'Favourite workouts',
-            // spreaddata: (parseworkout ) && parseworkout.filter(data => data.userid === authstate.user.id),
             spreaddata: contextRender(parseworkout, 'userid', authstate?.user?.id)
 
         },
         {
             spreadid: 'club',
             spreadtitle: 'Favourite camp',
-            // spreaddata: (parseclub ) && parseclub.filter(data => data.userid === authstate.user.id),
             spreaddata: contextRender(parseclub, 'userid', authstate?.user?.id)
         },
     ]
@@ -213,13 +208,18 @@ export const Provider = ({
     const achievementdl =[
         {
             spreadid: 'user',
-            spreadtitle: 'all users',
+            spreadtitle: 'User',
             spreaddata: contextRender(achievementul, 'breadid', 'user')
         },
         {
-            spreadid: 'workout',
-            spreadtitle: 'all workouts',
-            spreaddata: contextRender(achievementul, 'breadid', 'workout')
+            spreadid: 'task',
+            spreadtitle: 'Workout',
+            spreaddata: contextRender(achievementul, 'breadid', 'task')
+        },
+        {
+            spreadid: 'ticket',
+            spreadtitle: 'Club',
+            spreaddata: contextRender(achievementul, 'breadid', 'ticket')
         },
     ]
 
@@ -233,48 +233,73 @@ export const Provider = ({
 
     const messagedl =[
         {
-            spreadid: 'my',
-            spreadtitle: 'My message',
+            spreadid: 'award',
+            spreadtitle: 'Awards message',
             spreaddata: [
                 {
-                    spreadidtwo: 'user-one',
-                    spreaddetail: `You unlocked 1 workout rewards`,
+                    spreadidtwo: 'task-one',
+                    spreaddetail: `You unlocked a new award of 1-workout reward`,
                     spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length === 0, `user-one`, `/achievement/achievementindex/workout-one`)
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
                     }
                 },
                 {
-                    spreadidtwo: 'user-two',
-                    spreaddetail: `You unlocked 1 workout rewards`,
+                    spreadidtwo: 'task-three',
+                    spreaddetail: `You unlocked a new award of 3-workouts reward`,
                     spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length === 0, `user-one`, `/achievement/achievementindex/workout-one`)
-                    }
-                },
-                {
-                    spreadidtwo: 'user-three',
-                    spreaddetail: `You unlocked 1 workout rewards`,
-                    spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
-
+                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
                     }
                 },
 
                 {
-                    spreadidtwo: 'workout-one',
-                    spreaddetail: `You unlocked 1-workout rewards`,
+                    spreadidtwo: 'ticket-one',
+                    spreaddetail: `You unlocked a new award of 1-club reward`,
                     spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
+                        return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
                     }
                 },
                 {
-                    spreadidtwo: 'workout-three',
-                    spreaddetail: `You unlocked 3-workout rewards`,
+                    spreadidtwo: 'ticket-three',
+                    spreaddetail: `You unlocked a new award of 3-clubs reward`,
                     spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `workout-three`, `/achievement/achievementindex/workout-three`)
+                        return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
                     }
                 },
             ]
         },
+        {
+            spreadid: 'guide',
+            spreadtitle: 'Guides message',
+            spreaddata: [
+                {
+                    spreadidtwo: 'lateral-bear-crawl',
+                    spreaddetail: `You unlocked a new challange of 60MIN Lateral Bear Crawl club`,
+                    spreadrender: () => {
+                        return contextRenderThree(true, `lateral-bear-crawl`, `/club/clubindex/lateral-bear-crawl`)
+                    }
+                },
+            ]
+        },
+        // {
+        //     spreadid: 'blog',
+        //     spreadtitle: 'Blogs message',
+        //     spreaddata: [
+        //         {
+        //             spreadidtwo: 'article-one',
+        //             spreaddetail: `Bla bla bla`,
+        //             spreadrender: () => {
+        //                 return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
+        //             }
+        //         },
+        //         {
+        //             spreadidtwo: 'article-one',
+        //             spreaddetail: `Bla bla bla`,
+        //             spreadrender: () => {
+        //                 return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `workout-one`, `/achievement/achievementindex/workout-one`)
+        //             }
+        //         },
+        //     ]
+        // },
     ]
 
     function contextRender(first, second, third) {
@@ -286,11 +311,20 @@ export const Provider = ({
     function contextRenderTwo(first, second, navigation) {
         if(first && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0){
             return navigation
-        } else {
+        } 
+        else {
             return undefined
         }
     }
 
+    function contextRenderThree(first, second, navigation) {
+        if(first && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0){
+            return navigation
+        } 
+        else {
+            return undefined
+        }
+    }
 
     if(
         authstate !== null 
@@ -322,18 +356,13 @@ export const Provider = ({
         useruserid, 
         userdl,
         contractdl,
-
         workoutdl,
         taskdl,
-
         clubdl,
         ticketdl,
-
         favouritedl,
-
         achievementdl,
         awarddl,
-
         messagedl,
         
         }} >

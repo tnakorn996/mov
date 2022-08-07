@@ -94,13 +94,13 @@ export default function BadgeMain({
     const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate, messagedl)
 
     function badgemainrender(first, second) {
+        if(!second) return null
         return first?.[second].length
     }
 
-
   return (
     <div>
-        <main className="">
+        {/* <main className="">
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.badgemainrender() !== 0 ? (<>
@@ -111,7 +111,31 @@ export default function BadgeMain({
                 </>))}
                 {children}
             </section>
-        </main>
+        </main> */}
+        {badgeMainRender({appstatic, children, badgemainstyle})}
     </div>
+  )
+}
+
+
+export function badgeMainRender({
+    appstatic,
+    children,
+    badgemainstyle,
+
+}) {
+  return (
+    <main className="">
+            <section className="">
+                {appstatic?.map(data => (<>
+                    {data?.badgemainrender() !== 0 ? (<>
+                        <button className={`px-[7px] flex flex-row  bg-slate-200 ${badgemainstyle?.button}`}>
+                        <p className="m-h1">{data?.badgemainrender()}</p>
+                        </button>
+                    </>) : null}
+                </>))}
+                {children}
+            </section>
+    </main>
   )
 }

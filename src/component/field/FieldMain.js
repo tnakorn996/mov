@@ -469,7 +469,7 @@ export default function FieldMain({
 
               <figure className="">
                 {data?.fieldmaintitle !== null && <div className="">
-                  <h1 className="m-h5 py-[5px]">{data?.fieldmaintitle}</h1>
+                  <h1 className="m-h5 pb-[20px] first-letter:uppercase">{data?.fieldmaintitle}</h1>
                   <hr />
                   <br />
                 </div> }
@@ -477,11 +477,11 @@ export default function FieldMain({
 
               <figcaption className="">
                 {data?.fieldmaindata?.map(dat => (<>
-                  <h1 className="m-h4 py-[5px]">{dat?.fieldmainsubtitle}</h1>
+                  <h1 className="l-h4 py-[5px]   first-letter:uppercase">{dat?.fieldmainsubtitle}</h1>
                   <div className="">
                   {dat?.fieldmainrender}
                   </div>
-                  <h1 className="l-h2 py-[5px]">{dat?.fieldmaindetail}</h1>
+                  <h1 className="l-h1 py-[5px]">{dat?.fieldmaindetail}</h1>
                   <br />
                 </>))}
               </figcaption>

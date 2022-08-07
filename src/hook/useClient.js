@@ -14,14 +14,13 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
     }, [splitstaticthree])
 
     function clientRenderTwo(userid) {
-      // console.log('userid', userid)
       const query = [
         {
           id: 'userindex',
           from: `user`,
           select: `*`,
           order: [`userid`, { ascending: false }],
-          eq: ['userid', splitstaticthree],
+          eq: ['userid', splitstaticthree,  `achievement:userid ( * )`],
           limit: 5,
         },
 
@@ -67,6 +66,14 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           eq: ['userid', userid, 'clubid', splitstaticthree],
           limit: 5,
         },
+        {
+          id: 'awardindex',
+          from: `award`,
+          select: `*`,
+          order: [`awardid`, { ascending: false }],
+          eq: ['userid', userid, 'achievementid', splitstaticthree],
+          limit: 5,
+        },
         // {
         //   id: 'achievementindex',
         //   from: `award`,
@@ -88,10 +95,6 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
         // const join = func.eq[0] + `, ` + func.eq[1]
         // const stringify = func.eq.map(data => JSON.stringify(data)).join()
 
-        // console.log('func', func)
-        // console.log('map', map)
-        // console.log('join', join)
-        // console.log('string', string)
         if(func !== null && func !== undefined) {
           const { data, error} = await supabase.from(func.from).select(func.select)
           .order(

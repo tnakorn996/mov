@@ -27,10 +27,11 @@ import BackdropMain from './layout/backdrop/BackdropMain';
 import UserIndex from './page/user/UserIndex';
 import AuthMain from './page/auth/AuthMain';
 import ContractMain from './page/contract/ContractMain';
-import ScreenMain from './layout/screen/ScreenMain.tsx';
 import AchievementMain from './page/achievement/AchievementMain.tsx';
 import AchievementIndex from './page/achievement/AchievementIndex.tsx';
 import MessageMain from './page/message/MessageMain.tsx';
+import AwardIndex from './page/award/AwardIndex.tsx';
+import AwardForm from './page/award/AwardForm.tsx';
 
 export default function App() {
   const {
@@ -88,6 +89,9 @@ export default function App() {
               
               <Route path='/achievement/achievementmain' element={<AchievementMain />} /> 
               <Route path='/achievement/achievementindex/:achievementid' element={<AchievementIndex />} /> 
+
+              <Route path='/award/awardindex/:awardid' element={<AwardIndex />} /> 
+              <Route path='/award/awardform/:awardid' element={<AwardForm />} /> 
 
               <Route path='/message/messagemain' element={<MessageMain />} /> 
 

@@ -13,6 +13,7 @@ import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
 import ScreenMain from '../screen/ScreenMain.tsx'
+import AvaMain from '../ava/AvaMain.tsx'
 
 export default function PostMain({
   postmainstatic,
@@ -294,10 +295,30 @@ export default function PostMain({
           </>))
         } else {
           return null
-          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
         }
       }  
     },
+    // {
+    // postmainindex: 2,
+    //  postmainrender:() => {
+    //     const filter = awarddl[0].spreaddata?.filter(data => data?.achievementid === splitstaticthree)
+    //     const filtertwo = achievementul?.filter(data => data.breadid === splitstaticthree)
+    //     // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
+    //     if(filter.length > 0 && filtertwo.length > 0) {
+    //     // if(filter.length > 0) {
+    //       const assign = [Object.assign(filter[0], filtertwo[0])]
+    //       return  assign.map(data => (<>
+    //       <AchievementAddressRenderThree
+    //         data={data}
+    //         props={{
+    //           navigate: () => {navigate(`achievement/achievementindex/${data?.breadid}`)}
+    //         }} />
+    //       </>))
+    //     } else {
+    //       return null
+    //     }
+    //   }  
+    // },
   ]
 
   const messageaddress = [
@@ -328,6 +349,7 @@ export default function PostMain({
       postmainid: 'contractaddress',
       postmainref: contractaddress,
     },
+
     {
       postmainid: 'workoutaddress',
       postmainref: workoutaddress,
@@ -336,6 +358,7 @@ export default function PostMain({
       postmainid: 'taskaddress',
       postmainref: taskaddress,
     },
+
     {
       postmainid: 'clubaddress',
       postmainref: clubaddress,
@@ -344,6 +367,7 @@ export default function PostMain({
       postmainid: 'ticketaddress',
       postmainref: ticketaddress,
     },
+
     {
       postmainid: 'achievementaddress',
       postmainref: achievementaddress,
@@ -352,6 +376,7 @@ export default function PostMain({
       postmainid: 'awardaddress',
       postmainref: awardaddress,
     },
+
     {
       postmainid: 'messageaddress',
       postmainref: messageaddress,
@@ -363,7 +388,7 @@ export default function PostMain({
   return (
     <div>
         <main className="">
-             <section className={postmainstyle && postmainstyle}>
+             <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map(data => (<>
               <ScreenMain>
                 {data?.postmainrender()}
@@ -425,9 +450,9 @@ export default function PostMain({
       <div className="" >
         <section className="">
           <SheetMain>
-            <figcaption onClick={navigate} className="w-full  cursor-pointer">
-              {data?.receiverid?.useremail && <p className="m-h2">You just followed {data?.receiverid?.useremail}</p>}
-              {data?.senderid?.useremail && <p className="m-h2"> {data?.senderid?.useremail} started to follow you.</p>}
+            <figcaption onClick={navigate} className="w-full l-h2  cursor-pointer">
+              {data?.receiverid?.useremail && <p className="">You just followed {data?.receiverid?.useremail}</p>}
+              {data?.senderid?.useremail && <p className=""> {data?.senderid?.useremail} started to follow you.</p>}
             </figcaption>
           </SheetMain>
         </section>
@@ -658,41 +683,22 @@ export default function PostMain({
     )
   }
 
-  //  const filter = [postmaindata]
-  //       const filtertwo = workoutul.filter(data => filter.some(dat => dat.workoutid === data.breadid))
-  //       const filterthree = filtertwo[0].breaddata.filter(data => filter.some(dat => dat.weightid === data?.breadhead))
-  //       // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
-  //       // console.log('filter', filter)
-  //       if(filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
-  //         const assign = [Object.assign(filter[0], filtertwo[0], filterthree[0])]
-  //         return (
-  //           assign.map((data) => (<>
-  //           <TicketAddressRenderThree
-  //           data={data}
-  //           props={{
-  //             navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
-  //           }}
-  //           />
-  //           </>)))
-  //       } else {
-  //         return null
-  //       }
-
-
   export function AchievementAddressRender({data, props}) {
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
           <CardMain>
+          <AvaMain>
           <figure onClick={props.navigate} className={``}>
-            <p className="text-2xl">{data?.breadicon}</p>
+            <p className="p-[10px] m-h6">{data?.breadicon}</p>
           </figure>
+          </AvaMain>
           </CardMain>
         </section>
         <section className="">
           <CardMain>
           <figcaption className="">{data?.breadtitle}</figcaption>
-          <figcaption className="">{handleDate(data?.created_at)}</figcaption>
+          {/* <figcaption className="">{handleDate(data?.created_at)}</figcaption> */}
           </CardMain>
         </section>
       </div>
@@ -719,23 +725,42 @@ export default function PostMain({
     )
   }
 
+  // export function AchievementAddressRenderThree({data, props}) {
+  //   return (
+  //   <div >
+  //       <section>
+  //         <CardMain>
+  //         <AvaMain>
+  //         <figure onClick={props.navigate}>
+  //           <p className="p-[10px] m-h6">{data?.breadicon}</p>
+  //         </figure>
+  //         </AvaMain>
+  //         </CardMain>
+  //       </section>
+  //     </div>
+  //   )
+  // }
+
   export function MessageAddressRender({data, props}) {
     const {navigate} = props
     return (
       <div>
         <SheetMain>
-        <figure onClick={navigate} className="cursor-pointer">
-          <p className="">{data?.spreaddetail}</p>
+        <figure onClick={navigate} className="l-h4  cursor-pointer">
+          {data?.spreaddetail}
         </figure>
         </SheetMain>
       </div>
     )
   }
 
+
+
+
 export function handleDate(data) {
   // console.log('data', data)
     const slice = data.slice(0, 19) + `Z`
-    console.log('slice', slice)
+    // console.log('slice', slice)
         var floor = Math.floor((new Date() - slice) / 1000);
         // console.log('floor', floor)
         var interval = floor / 31536000;

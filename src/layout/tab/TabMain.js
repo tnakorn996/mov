@@ -27,27 +27,44 @@ export default function TabMain({
 
     const [tabmainrender, settabmainrender] = useState()
 
+    const userfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Recommend',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
+            })
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'fix this',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
+            })
+        },
+    ]
+
     const contractfieldset = [
         {
             tabmainindex : 0,
             tabmaintitle: 'Recommend',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'contractarea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
+            })
         },
         {
             tabmainindex : 1,
             tabmaintitle: 'Updates',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'contractarea', feedmainindex: 1}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
+            })
         },
         {
             tabmainindex : 2,
             tabmaintitle: 'Browse',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <ZoomMain zoommainstatic={{zoommainid: 'clubform'}} />
-            </section>
+            tabmainrender: tabMainRender({
+                zoommainstatic:{zoommainid: 'clubform'}
+            })
         },
     ]
 
@@ -55,23 +72,23 @@ export default function TabMain({
         {
             tabmainindex : 0,
             tabmaintitle: 'For You',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'workoutarea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'workoutarea', feedmainindex: 0}
+            })
         },
         {
             tabmainindex : 1,
-            tabmaintitle: 'My Workouts',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'taskarea', feedmainindex: 0}} />
-            </section>
+            tabmaintitle: 'History',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'taskarea', feedmainindex: 0}
+            })
         },
         {
             tabmainindex : 2,
             tabmaintitle: 'Browse',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <ZoomMain zoommainstatic={{zoommainid: 'workoutform'}} />
-            </section>
+            tabmainrender: tabMainRender({
+                zoommainstatic:{zoommainid: 'workoutform'}
+            })
         },
     ]
 
@@ -79,23 +96,23 @@ export default function TabMain({
         {
             tabmainindex : 0,
             tabmaintitle: 'For You',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'clubarea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'clubarea', feedmainindex: 0}
+            })
         },
         {
             tabmainindex : 1,
-            tabmaintitle: 'My Challenges',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'ticketarea', feedmainindex: 0}} />
-            </section>
+            tabmaintitle: 'History',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'ticketarea', feedmainindex: 0}
+            })
         },
         {
             tabmainindex : 2,
             tabmaintitle: 'Browse',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <ZoomMain zoommainstatic={{zoommainid: 'clubform'}} />
-            </section>
+            tabmainrender: tabMainRender({
+                zoommainstatic:{zoommainid: 'clubform'}
+            })
         },
     ]
 
@@ -104,16 +121,16 @@ export default function TabMain({
         {
             tabmainindex : 0,
             tabmaintitle: 'Workouts',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 0}
+            })
         },
         {
             tabmainindex : 1,
             tabmaintitle: 'Challenges',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'favouritearea', feedmainindex: 1}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 1}
+            })
         },
     ]
 
@@ -121,19 +138,41 @@ export default function TabMain({
         {
             tabmainindex : 0,
             tabmaintitle: 'For You',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'achievementarea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: null}
+            })
         },
         {
             tabmainindex : 1,
             tabmaintitle: 'History',
-            tabmainrender: <section className="w-screen  snap-center overflow-hidden">
-                <FeedMain feedmainstatic={{feedmainid: 'awardarea', feedmainindex: 0}} />
-            </section>
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'awardarea', feedmainindex: 0}
+            })
         },
     ]
+
+    const messagefieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+            })
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'fix this',
+            tabmainrender: tabMainRender({
+                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+            })
+        },
+    ]
+
     const tabmain = [
+        {
+            tabmainid: 'userfieldset',
+            tabmainref: userfieldset,
+        },
         {
             tabmainid: 'contractfieldset',
             tabmainref: contractfieldset,
@@ -154,7 +193,10 @@ export default function TabMain({
             tabmainid: 'achievementfieldset',
             tabmainref: achievementfieldset,
         },
-
+        {
+            tabmainid: 'messagefieldset',
+            tabmainref: messagefieldset,
+        },
     ]
 
     const [appstatic, setappstatic] = useApp(tabmain, tabmainstatic.tabmainid, tabmainstatic.tabmainindex)
@@ -185,6 +227,15 @@ export default function TabMain({
             ref?.current?.scrollTo((window.innerWidth) * tabmainstate.tabmainindex, 0)
         }
     }, [tabmainstate, tabmainrender])
+
+    function tabMainRender({feedmainstatic, zoommainstatic}) {
+        return (
+            <section className="w-screen  snap-center overflow-hidden">
+                {feedmainstatic && <FeedMain feedmainstatic={feedmainstatic} />}
+                {zoommainstatic && <ZoomMain zoommainstatic={zoommainstatic} />}
+            </section>
+        )
+    }
 
     // function ll(first=this.props.first){
     //     settabmaintouchstart(first.targetTouches[0].clientX)
@@ -226,8 +277,12 @@ export default function TabMain({
                                 {data.tabmaintitle}
                                 {(tabmainstatic?.tabmainid === 'workoutfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'taskspan', badgemainindex: 0}}  />}
                                 {(tabmainstatic?.tabmainid === 'clubfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'ticketspan', badgemainindex: 0}}  />}
+
                                 {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 1}}  />}
                                 {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 2}}  />}
+
+                                {(tabmainstatic?.tabmainid === 'achievementfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+                                {(tabmainstatic?.tabmainid === 'messagefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
                                 </div>
                             </CardMain>
                         </article>
@@ -242,19 +297,6 @@ export default function TabMain({
                     {data?.tabmainrender}
                 </>))}
                 </figure>
-{/* 
-                    <figure className="bg-slate-800">
-                        <CardMain>
-                        <SignMain signmainstatic={{
-                            signmainid: 'appimg', 
-                            signmainindex: 2,
-                            signmaindetail: `Keep your training on track.`,
-                            signmainaction: ll(tabmainstatic).action, 
-                            signmainentitle: `find a ${ll(tabmainstatic).entitle}`
-                        }} />
-                        </CardMain>
-                    </figure> */}
-                   
             </section>
         </main>
     </div>

@@ -1,4 +1,4 @@
-import { RiClipboardLine, RiInboxLine, RiMedal2Fill, RiMedal2Line, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiUserAddLine } from "react-icons/ri"
+import { RiClipboardLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
 
 export const appul = [
     {
@@ -29,7 +29,7 @@ export const appul = [
         breadid: 'achievementmain',
         breadaction: `/achievement/achievementmain`,
         breadtitle: 'Rewards',
-        breadicon: <RiMedalLine />,
+        breadicon: <RiTrophyLine />,
     },
     {
         breadid: 'clubmain',
@@ -316,54 +316,71 @@ export const clubul = [
 ]
 
 export const achievementul = [
-    {
-        breadid: 'user-one',
-        breadaction: `/achievement/achievementindex/user-one`,
-        breadtitle: 'Beginner',
-        breadsubtitle: 'Finish your third workout to earn this achievement.',
-        breadnumber: `1`,
-        breadicon: <RiSettingsFill />,
-    },
-    {
-        breadid: 'user-two',
-        breadaction: `/achievement/achievementindex/user-two`,
-        breadtitle: 'Intermediate',
-        breadsubtitle: 'Finish your third workout to earn this achievement.',
-        breadnumber: `2`,
-        breadicon: <RiSettings4Fill />,
-    },
-    {
-        breadid: 'user-three',
-        breadaction: `/achievement/achievementindex/user-three`,
-        breadtitle: 'Expert',
-        breadsubtitle: 'Finish your third workout to earn this achievement.',
-        breadnumber: `3`,
-        breadicon: <RiSettings5Fill />,
-    },
+    // {
+    //     breadid: 'user-one',
+    //     breadaction: `/achievement/achievementindex/user-one`,
+    //     breadtitle: 'Beginner',
+    //     breadsubtitle: 'Finish your third workout to earn this achievement.',
+    //     breadnumber: `1`,
+    //     breadicon: <RiSettingsFill />,
+    // },
+    // {
+    //     breadid: 'user-two',
+    //     breadaction: `/achievement/achievementindex/user-two`,
+    //     breadtitle: 'Intermediate',
+    //     breadsubtitle: 'Finish your third workout to earn this achievement.',
+    //     breadnumber: `2`,
+    //     breadicon: <RiSettings4Fill />,
+    // },
+    // {
+    //     breadid: 'user-three',
+    //     breadaction: `/achievement/achievementindex/user-three`,
+    //     breadtitle: 'Expert',
+    //     breadsubtitle: 'Finish your third workout to earn this achievement.',
+    //     breadnumber: `3`,
+    //     breadicon: <RiSettings5Fill />,
+    // },
 
     {
-        breadid: 'workout-one',
-        breadaction: `/achievement/achievementindex/workout-one`,
+        breadid: 'task-one',
+        breadaction: `/achievement/achievementindex/task-one`,
         breadtitle: '1 Workout',
-        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadsubtitle: 'Finish your first workout to earn this achievement.',
         breadnumber: `1`,
         breadicon: <RiMedal2Line />,
     },
     {
-        breadid: 'workout-three',
-        breadaction: `/achievement/achievementindex/workout-three`,
+        breadid: 'task-three',
+        breadaction: `/achievement/achievementindex/task-three`,
         breadtitle: '3 Workouts',
         breadsubtitle: 'Finish your third workout to earn this achievement.',
         breadnumber: `3`,
         breadicon: <RiMedal2Fill />,
     },
+
+    {
+        breadid: 'ticket-one',
+        breadaction: `/achievement/achievementindex/ticket-one`,
+        breadtitle: '1 Club',
+        breadsubtitle: 'Join your first club to earn this achievement.',
+        breadnumber: `1`,
+        breadicon: <RiMedalLine />,
+    },
+    {
+        breadid: 'ticket-three',
+        breadaction: `/achievement/achievementindex/ticket-three`,
+        breadtitle: '3 Clubs',
+        breadsubtitle: 'Join your third club to earn this achievement.',
+        breadnumber: `3`,
+        breadicon: <RiMedalFill />,
+    },
 ]
 
 export const articleul = [
     {
-        breadid: 'blog-one',
-        breadaction: `/blog/blogindex/blog-one`,
-        breadtitle: 'blog one',
+        breadid: 'article-one',
+        breadaction: `/article/articleindex/article-one`,
+        breadtitle: 'Article one',
         breadsubtitle: 'Finish your third workout to earn this achievement.',
     },
 ]

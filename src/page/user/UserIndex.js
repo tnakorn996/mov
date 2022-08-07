@@ -2,6 +2,7 @@ import React from 'react'
 
 import StatMain from '../../component/stat/StatMain'
 import CardMain from '../../layout/card/CardMain'
+import TabMain from '../../layout/tab/TabMain'
 
 export default function UserIndex() {
 
@@ -11,10 +12,11 @@ export default function UserIndex() {
             <section className="">
               <CardMain />
               <CardMain />
-                {/* <PostMain postmainstatic={{postmainid: 'useraddress', postmainindex: 1}} /> */}
-                <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
+              <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
+              {/* <StatMain statmainstatic={{statmainid: 'awardtable', statmainindex: 1}} /> */}
             </section>
             <section className="">
+              <TabMain tabmainstatic={{tabmainid: 'userfieldset'}} />
             </section>
         </main>
     </div>

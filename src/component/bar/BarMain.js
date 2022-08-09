@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
-import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiUserAddLine } from 'react-icons/ri'
+import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiMenu5Line, RiUserAddLine } from 'react-icons/ri'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
@@ -11,14 +11,14 @@ import useSplit from '../../hook/useSplit'
 import BadgeMain from '../../layout/badge/BadgeMain'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
+import AtaMain from '../ata/AtaMain.tsx'
 import PtaMain from '../pta/PtaMain'
 
-export default function BarMain({
-
-}) {
+export default function BarMain() {
     const {
-        authstate,
+        setappstate,
 
+        authstate,
         userdl,
         workoutdl,
         clubdl,
@@ -37,26 +37,35 @@ export default function BarMain({
         {
             barmainindex: 0,
             barmainrender: () => {
-                return <BarMainRenderThree props={{
-                        navigate: () => {navigate(`/user/userindex/${authstate?.user?.id}`)}
-                        }}
-                        component={<BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
-                        icon={<PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />} />
+                return appTfootRender({
+                            props:{
+                                navigate: () => {navigate(`/user/userindex/${authstate?.user?.id}`)},
+                                component: <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />,
+                                icon: <PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />,
+                            },
+                        })
 
             },
             barmainrenderthree: () => {
-                return <BarMainRenderThree props={{
-                        navigate: () => {navigate(`/favourite/favouritemain`)}}}
-                        component={<BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />}
-                        icon={<RiBookmarkFill className="m-h5" />} />
+                return appTfootRender({
+                            props:{
+                                navigate: () => {},
+                                // component: <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />,
+                                // icon:<RiBookmarkFill className="m-h5" />
+                                icon: <AtaMain atamaindata={{spreadhref: `/app/appmain`}} atamainstatic={{atamainid: 'appiframe', atamainindex: 0}}><RiMenu5Line className="m-h6" /></AtaMain>
+                            },
+                        })
             } 
         },
         {
             barmainindex: 1,
             barmainrender:() => {
-                return <BarMainRenderThree props={{
-                        navigate: () => {navigate(-1)}}}
-                        icon={<p className="text-2xl">←</p>} />
+                 return appTfootRender({
+                            props:{
+                                navigate: () => {navigate(-1)},
+                                icon:<p className="text-2xl">←</p>
+                            },
+                        })
             
             },
             barmainrenderthree: () => {
@@ -67,8 +76,13 @@ export default function BarMain({
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        // return <BarMainRenderThree props={{assign: assign, ptamainid: 'workoutiframe'}} />
-                        return <BarMainRenderThree props={{navigate: () => {}}} icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'workoutiframe'}} ptamainstyle={`!m-h5`} />} />
+                        // return <BarMainRenderThree props={{navigate: () => {}}} icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'workoutiframe'}} ptamainstyle={`!m-h5`} />} />
+                        return appTfootRender({
+                            props:{
+                                navigate: () => {},
+                                icon:<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'workoutiframe'}} ptamainstyle={`!m-h5`} />
+                            },
+                        })
                     }
                 }
 
@@ -77,21 +91,24 @@ export default function BarMain({
                     empty.push(filter[0])
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
-                        // return <BarMainRenderThree props={{assign: assign, ptamainid: 'clubiframe'}} />
-                        return <BarMainRenderThree props={{navigate: () => {}}}  icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'clubiframe'}} ptamainstyle={`!m-h5`} />} />
+                        // return <BarMainRenderThree props={{navigate: () => {}}}  icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'clubiframe'}} ptamainstyle={`!m-h5`} />} />
+                        return appTfootRender({
+                            props:{
+                                navigate: () => {},
+                                icon:<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'clubiframe'}} ptamainstyle={`!m-h5`} />
+                            },
+                        })
                     }
                 }
 
                 if(splitstatictwo === 'user'){
-                    return  <section className="flex flex-row gap-5 items-center">
-                        <BarMainRenderThree props={{
-                            navigate: () => {navigate(`/message/messagemain`)}}}
-                            component={<BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
-                            icon={<RiInboxLine />} />
-                        <BarMainRenderThree props={{
-                            navigate: () => {navigate(`/contract/contractmain`)}}}
-                            icon={<RiUserAddLine />} />
-                    </section>
+                    return appTfootRender({
+                        props:{
+                            navigate: () => {navigate(`/message/messagemain`)},
+                            component:<BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />,
+                            icon:<RiInboxLine />
+                        },
+                    })
                 }
             } 
         },
@@ -117,6 +134,7 @@ export default function BarMain({
         if(location && location.pathname.includes('index')) {
             setbarmainstate({barmainid: 'apptfoot', barmainindex: 1})
         }
+        setappstate()
 
     }, [location])
 
@@ -135,12 +153,6 @@ export default function BarMain({
             setbarmainstyle({main: '!bg-transparent', h1: '!hidden'})
         }
     }
-
-    // function barmainrenderthree() {
-
-
-    // }
-
 
   return (
     <div>
@@ -170,8 +182,8 @@ export default function BarMain({
   )
 }
 
-    export function BarMainRenderThree({props, component, icon}) {
-        const {navigate} = props
+    export function appTfootRender({props}) {
+        const {navigate, component, icon} = props
         return (
             <div>
                 <section className="">

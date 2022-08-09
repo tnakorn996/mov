@@ -17,7 +17,7 @@ export default function MessageMain() {
               {/* <FeedMain feedmainstatic={{feedmainid:'messagearea', feedmainindex: 0}} /> */}
             </section>
             <section className="">
-              <TabMain tabmainstatic={{ tabmainid: 'messagefieldset', tabmainindex: 0 }} 
+              <TabMain tabmainstatic={{ tabmainid: 'messagefieldset', tabmainindex: null}}
               tabmainref={undefined} 
               tabmainstyle={undefined} />
             </section>

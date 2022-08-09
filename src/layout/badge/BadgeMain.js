@@ -100,7 +100,7 @@ export default function BadgeMain({
 
   return (
     <div>
-        {/* <main className="">
+        <main className="">
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.badgemainrender() !== 0 ? (<>
@@ -111,31 +111,31 @@ export default function BadgeMain({
                 </>))}
                 {children}
             </section>
-        </main> */}
-        {badgeMainRender({appstatic, children, badgemainstyle})}
+        </main>
+        {/* {badgeMainRender({appstatic, children, badgemainstyle})} */}
     </div>
   )
 }
 
 
-export function badgeMainRender({
-    appstatic,
-    children,
-    badgemainstyle,
+// export function badgeMainRender({
+//     appstatic,
+//     children,
+//     badgemainstyle,
 
-}) {
-  return (
-    <main className="">
-            <section className="">
-                {appstatic?.map(data => (<>
-                    {data?.badgemainrender() !== 0 ? (<>
-                        <button className={`px-[7px] flex flex-row  bg-slate-200 ${badgemainstyle?.button}`}>
-                        <p className="m-h1">{data?.badgemainrender()}</p>
-                        </button>
-                    </>) : null}
-                </>))}
-                {children}
-            </section>
-    </main>
-  )
-}
+// }) {
+//   return (
+//     <main className="">
+//             <section className="">
+//                 {appstatic?.map(data => (<>
+//                     {data?.badgemainrender() !== 0 ? (<>
+//                         <button className={`px-[7px] flex flex-row  bg-slate-200 shadow ${badgemainstyle?.button}`}>
+//                         <p className="m-h1">{data?.badgemainrender()}</p>
+//                         </button>
+//                     </>) : null}
+//                 </>))}
+//                 {children}
+//             </section>
+//     </main>
+//   )
+// }

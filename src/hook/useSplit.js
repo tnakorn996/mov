@@ -6,7 +6,7 @@ export default function useSlice(splitslice) {
     const location = useLocation()
     
     useEffect(() => {
-        const split = location.pathname.split('/');
+        const split =  new URL(window.location).pathname.split('/') || location.pathname.split('/');
         setsplitstatic(split[splitslice])
     }, [location.pathname, splitslice])
 

@@ -9,6 +9,7 @@ import ZoomMain from '../zoom/ZoomMain'
 import BadgeMain from '../badge/BadgeMain'
 import SignMain from '../../component/sign/SignMain.tsx'
 import { appul } from '../../content/content'
+import useSlice from '../../hook/useSplit'
 
 export default function TabMain({
     tabmainref,
@@ -22,8 +23,7 @@ export default function TabMain({
 
     } = useContext(Context)
     const ref = useRef()
-    const [tabmaintouchstart, settabmaintouchstart] = useState(0)
-    const [tabmaintouchend, settabmaintouchend] = useState(0)
+    const [slicestaticthree, setsplitstaticthree] = useSlice(3)
 
     const [tabmainrender, settabmainrender] = useState()
 
@@ -139,14 +139,14 @@ export default function TabMain({
             tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: null}
+                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 0}
             })
         },
         {
             tabmainindex : 1,
             tabmaintitle: 'History',
             tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'awardarea', feedmainindex: 0}
+                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 1}
             })
         },
     ]
@@ -161,9 +161,9 @@ export default function TabMain({
         },
         {
             tabmainindex : 1,
-            tabmaintitle: 'fix this',
+            tabmaintitle: 'Update',
             tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 1}
             })
         },
     ]
@@ -276,12 +276,14 @@ export default function TabMain({
                                 <div className="flex flex-row gap-2">
                                 {data.tabmaintitle}
                                 {(tabmainstatic?.tabmainid === 'workoutfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'taskspan', badgemainindex: 0}}  />}
+                                
                                 {(tabmainstatic?.tabmainid === 'clubfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'ticketspan', badgemainindex: 0}}  />}
 
                                 {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 1}}  />}
                                 {(tabmainstatic?.tabmainid === 'favouritefieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 2}}  />}
 
                                 {(tabmainstatic?.tabmainid === 'achievementfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+
                                 {(tabmainstatic?.tabmainid === 'messagefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
                                 </div>
                             </CardMain>

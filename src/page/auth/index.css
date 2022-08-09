@@ -1,5 +1,5 @@
 #video {
-    width: 100ch;
+    width: fit;
     height: 100ch;
     object-fit: cover;
 }

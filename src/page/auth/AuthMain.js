@@ -1,20 +1,20 @@
 import React from 'react'
 
 import './index.css'
+import video from '../../content/video/video.mp4'
 import CtaMain from '../../component/cta/CtaMain'
 import CardMain from '../../layout/card/CardMain'
 import SplashMain from '../../layout/splash/SplashMain'
 import SignMain from '../../component/sign/SignMain.tsx'
 
 export default function AuthMain() {
-    
+    // console.log('video', video)
   return (
     <div>
         <main className="">
             <section className="">
               <figure className="relative flex items-center">
-                <video id='video' autoPlay={true} loop={true} >
-                 <source src="https://cdn.videvo.net/videvo_files/video/free/2018-08/large_watermarked/180419_Boxing_01_06_preview.mp4" type="video/mp4"></source>
+                <video id='video' autoPlay={true} loop={true} src={video} >
                 </video>
                 {/* <div className="absolute w-full h-full  bg-black opacity-60" />
                 <div className="absolute text-2xl">

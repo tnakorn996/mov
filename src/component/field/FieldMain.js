@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import useSplit from '../../hook/useSplit'
 import CardMain from '../../layout/card/CardMain'
 import { supabase } from '../../lib/supabase'
 import ChoiceMain from '../choice/ChoiceMain'
+import AtaMain from '../ata/AtaMain.tsx'
 
 export default function FieldMain({
   fieldmainstatic,
@@ -27,8 +29,10 @@ export default function FieldMain({
   const param = useParams()
   const location = useLocation()
   const split = location.pathname.split('/');
+  const url = (new URL(window.location)).pathname.split('/')[3]
   const [fieldmainid, setfieldmainid] = useState(uuidv4())
   const [fieldmainboolean, setfieldmainboolean] = useState(false)
+  const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
   const ref = useRef(null)
   const reftwo = useRef(null)
@@ -42,7 +46,41 @@ export default function FieldMain({
     setfieldmainboolean(!fieldmainboolean)
   }, [fieldmainstate])
 
-  //////////////////////////////////////
+  // function pp() {
+  //   const data = [
+  //     {
+  //       title: 'sugar'
+  //     },
+  //     {
+  //       title: 'calcium'
+  //     },
+  //     {
+  //       title: 'energy'
+  //     },
+  //     {
+  //       title: 'fiber'
+  //     },
+  //     {
+  //       title: 'folate'
+  //     },
+  //     {
+  //       title: 'folic'
+  //     },
+  //     {
+  //       title: 'iron'
+  //     },
+  //     {
+  //       title: 'niacin'
+  //     },
+  //     {
+  //       title: 'sugar'
+  //     },
+  //     {
+  //       title: 'sugar'
+  //     },
+  //   ]
+  // }
+
 
   const ll = async () => {
     const refvalue = ref?.current?.value
@@ -72,6 +110,7 @@ export default function FieldMain({
           const query = {
               userid: user.id,
               useremail: user.email,
+              username: user.email.split(`@`)[0],
               userimage: '',
           }
           const { error } = await supabase.from('user').upsert(query, {returning: 'minimal'})
@@ -92,26 +131,28 @@ export default function FieldMain({
 
   //////////////////////////////////////
 
-  const handleSelect = async (first =this.props.first) => {
-    const query = [       
-            {
-                fieldmainid: 'userinput',
-                fieldmainidtwo: 'user',
-                fieldmainidthree: 'username',
-            },     
-        ]
-        const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
-        const ref = filter[0]
-        // console.log('ref', ref)
+  // const handleSelect = async (first =this.props.first) => {
+  //   const query = [       
+  //           {
+  //               fieldmainid: 'userinput',
+  //               fieldmainidtwo: 'user',
+  //               fieldmainidthree: 'username',
+  //           },     
+  //       ]
+  //       const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
+  //       const ref = filter[0]
+  //       // console.log('ref', ref)
 
-        const { data, error} = await supabase.from(ref.fieldmainidtwo).select(`*`).eq(ref.fieldmainidthree, first)
-        if(data) {
-          return `handleselect${ref.fieldmainid}`
-        } else {
-          return first
-        }
-  }
-  
+  //       const { data, error} = await supabase.from(ref.fieldmainidtwo).select(`*`).eq(ref.fieldmainidthree, first)
+  //       if(data) {
+  //         return `handleselect${ref.fieldmainid}`
+  //       } else {
+  //         return first
+  //       }
+  // }
+
+  // console.log('window.history', new URL(window.location))
+
   const ss = async () => {
       // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
@@ -187,6 +228,19 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {userid: undefined}
             },
+            {
+                fieldmainid: 'textinput',
+                fieldmainidtwo: 'text',
+                // fieldmaindetail: 'Successfully claim your reward',
+                // fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindata: {
+                    textid: fieldmainid,
+                  
+                    userid: user?.id,
+                    spreadidtwo: url,
+                },
+                fieldmaindatatwo: {userid: undefined}
+            },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = filter[0]
@@ -253,6 +307,16 @@ export default function FieldMain({
                 fieldmaindatatwo: {
                   userid: user?.id, 
                   achievementid: split[3],
+                }
+            },
+            {
+                fieldmainid: 'textinput',
+                fieldmainidtwo: 'text',
+                // fieldmaindetail: 'Successfully mark this message',
+                // fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindatatwo: {
+                  userid: user?.id, 
+                  spreadidtwo: url,
                 }
             },
         ]
@@ -431,6 +495,23 @@ export default function FieldMain({
     },
   ]
 
+  const textinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Mark as read',
+      fieldmainaction: ss,
+      fieldmaindata: [],
+    },
+    {
+      fieldmainindex: 1,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Mask as un-read',
+      fieldmainaction: handleDelete,
+      fieldmaindata: [],
+    },
+  ]
+
   const fieldmain = [
     {
       fieldmainid: 'authinput',
@@ -455,6 +536,10 @@ export default function FieldMain({
     {
       fieldmainid: 'awardinput',
       fieldmainref: awardinput,
+    },
+    {
+      fieldmainid: 'textinput',
+      fieldmainref: textinput,
     },
   ]
 
@@ -486,20 +571,22 @@ export default function FieldMain({
                 </>))}
               </figcaption>
               
-              <figure className="flex flex-row gap-2">
+              <figure className="flex flex-row gap-2 justify-between">
+
                 <button onClick={() => {
-                  (!authstate && location.pathname !== (`/auth/authform`)) ? navigate(`/auth/authform`) : 
                     data?.fieldmainaction()
                     setfieldmainboolean(!fieldmainboolean)
                 }} className={`w-full flex flex-row gap-2 justify-center items-center  m-button uppercase ${fieldmainstyle?.button}`}>
                   {fieldmainboolean === false && <div className="w-[10px] h-[10px] border-2 border-slate-400 rounded-full animate-ping" />}
                    {data?.fieldmainentitle}
                 </button>
-                {data?.fieldmaindatatwo?.map(dat => (<>
-                  <button className="max-w-[55px]">
-                  {dat?.fieldmainrender}
-                  </button>
-                </>))}
+
+                <button className="w-fit">
+                  {data?.fieldmaindatatwo?.map(dat => (<>
+                    {dat?.fieldmainrender}
+                    </>))}
+                </button>
+
               </figure>
 
               </>))}

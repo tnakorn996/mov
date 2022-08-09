@@ -74,6 +74,14 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           eq: ['userid', userid, 'achievementid', splitstaticthree],
           limit: 5,
         },
+        {
+          id: 'messageindex',
+          from: `text`,
+          select: `*`,
+          order: [`messageid`, { ascending: false }],
+          eq: ['userid', userid, 'spreadidtwo', splitstaticthree],
+          limit: 5,
+        },
         // {
         //   id: 'achievementindex',
         //   from: `award`,

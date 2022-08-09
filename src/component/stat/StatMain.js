@@ -163,6 +163,15 @@ export default function StatMain({
         }
     ]
 
+    // const messagetable = [
+    //     {
+    //         statmaindex: 0,
+    //         statmainrender: () => {
+    //             return statMainRender('spreadidtwo', messageTableRender({data: clientstatic && clientstatic}))
+    //         }
+    //     },
+    // ]
+
     const statmain = [
         {
             statmainid: 'usertable',
@@ -177,6 +186,7 @@ export default function StatMain({
             statmainid: 'tasktable',
             statmainref: tasktable,
         },
+
         {
             statmainid: 'clubtable',
             statmainref: clubtable,
@@ -194,6 +204,13 @@ export default function StatMain({
             statmainid: 'awardtable',
             statmainref: awardtable,
         },
+
+        // {
+        //     statmainid: 'messagetable',
+        //     statmainref: messagetable,
+        // },
+
+        
     ]
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic)
@@ -227,14 +244,14 @@ export default function StatMain({
             </CardMain>
             </section>
             <section className="flex flex-col justify-center text-center">
-            <p className="l-h4">{data?.useremail}</p>
+            <p className="l-h4">{data?.username !== null ? `@` + data?.username : data?.useremail}</p>
             <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
             </section>
             <section className="">
             <CardMain>
                 {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
                 <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
-                <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
+                <StaMain stamainstatic={{stamainid: 'useriframe'}}  /> }
             </CardMain>
             </section>
             </>))}
@@ -296,7 +313,7 @@ export default function StatMain({
                                 </BadgeMain> */}
                             </div>
                             <div className="col-span-11">
-                            <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
+                                <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
                             </div>
                         </figcaption>
                     </SheetMain>
@@ -360,8 +377,7 @@ export default function StatMain({
         )
     }
 
-    export function awardTableRender({data}) {
-        // console.log('data', data)
+    export function awardTableRender() {
         return (
             <div>
             <section className="">
@@ -372,6 +388,21 @@ export default function StatMain({
         </div>
     )
     }
+
+    // export function messageTableRender() {
+    //     return (
+    //         <div>
+    //         <section className="">
+    //             sss
+    //             <SheetMain>
+    //             <CtaMain ctamainstatic={{ctamainid: 'awardembed', ctamainindex: 0}} />
+    //             </SheetMain>
+    //         </section>
+    //     </div>
+    // )
+    // }
+
+
 
 
 

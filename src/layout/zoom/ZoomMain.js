@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { workoutul } from '../../content/content'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
 import PostMain from '../post/PostMain'
 
@@ -20,6 +22,7 @@ export default function ZoomMain({
         ticketdl,
         
     } = useContext(Context)
+    const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const EMPTY = ''
 
     const workoutform = [
@@ -29,7 +32,9 @@ export default function ZoomMain({
                 {
                     zoommaintitle: 'Find workout',
                     // zoommainrender: workoutdl[0].spreaddata
-                    zoommainrender: [],
+                    zoommainrender: () => {
+                        return []
+                    },
                 },
             ]
         },
@@ -42,13 +47,44 @@ export default function ZoomMain({
                 // },
                 {
                     zoommaintitle: 'All workout',
-                    zoommainrender: workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                    zoommainrender: () => {
+                        return workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                    },
 
                 },
             ]
         },
     ]
 
+
+    const workoutformtwo = [
+        {
+            zoommainindex: 0,
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    // zoommainrender: workoutdl[0].spreaddata
+                    zoommainrender: () => {
+                        const filter = workoutul.filter(data => data.breadid === splitstaticthree)
+                        console.log('filter', filter, splitstaticthree)
+                        return filter[0]?.breaddata
+                    },
+                },
+            ]
+        },
+        {
+            zoommainindex: 1,
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    zoommainrender: () => {
+                        const filter = workoutul.filter(data => data.breadid === splitstaticthree)
+                        return filter[0]?.breaddata.filter(data => data.breadhead?.toLowerCase().includes(zoommainvalue) || data.breadbody?.toLowerCase().includes(zoommainvalue))
+                    } 
+                },
+            ]
+        },
+    ]
     const clubform = [
         {
             zoommainindex: 0,
@@ -56,7 +92,9 @@ export default function ZoomMain({
                 {
                     zoommaintitle: 'Find club',
                     // zoommainrender: clubdl[0].spreaddata
-                    zoommainrender: [],
+                    zoommainrender: () => {
+                        return []
+                    },
                 },
             ]
         },
@@ -69,7 +107,9 @@ export default function ZoomMain({
                 // },
                 {
                     zoommaintitle: 'All club',
-                    zoommainrender: clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                    zoommainrender: () => {
+                        return clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                    } 
                 },
             ]
         },
@@ -79,6 +119,10 @@ export default function ZoomMain({
         {
             zoommainid: 'workoutform',
             zoommainref: workoutform,
+        },
+        {
+            zoommainid: 'workoutformtwo',
+            zoommainref: workoutformtwo,
         },
         {
             zoommainid: 'clubform',
@@ -91,7 +135,7 @@ export default function ZoomMain({
         if(zoommainvalue !== EMPTY){setzoommainindex(1)}
     }, [zoommainvalue])
 
-    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue)
+    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree)
 
     // if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
     
@@ -112,8 +156,9 @@ export default function ZoomMain({
                         </CardMain>
                     </figcaption>
                     <figure className="">
-                        {dat?.zoommainrender?.map(post => (<>
-                            {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: null}} />}
+                        {dat?.zoommainrender()?.map(post => (<>
+                            {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
+                            {zoommainstatic.zoommainid === 'workoutformtwo' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 2}} />}
                             {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
                             {zoommainstatic.zoommainid === 'clubform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
                             {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}

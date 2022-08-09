@@ -97,7 +97,7 @@ export default function CtaMain({
     const awardembed = [
         {
             ctamainindex: 0,
-            ctamainentitle: 'Return reward',
+            ctamainentitle: 'Give it back',
             ctamainstyle: `l-button border-black`,
             ctamainaction: `/award/awardform/${splitstaticthree}`,
         },

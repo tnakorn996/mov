@@ -26,7 +26,7 @@ export default function SignMain({signmainstatic}: SignMainProps) {
         {
             signmainindex: 0,
             signmainstyle: {
-                section: `bg-slate-800 w-screen h-screen`, 
+                section: `bg-slate-900 w-screen h-screen`, 
             },
         },
         {
@@ -69,9 +69,9 @@ export default function SignMain({signmainstatic}: SignMainProps) {
                     <CardMain>
                     {signmainstatic?.signmainaction && 
                     <button onClick={() => {
-                        navigate(signmainstatic?.signmainaction)
+                        navigate(-1)
                         setappstate()
-                    }} className="m-button uppercase">
+                    }} className="l-button uppercase">
                         {signmainstatic?.signmainentitle || 'Continue'}
                     </button>}
                     </CardMain>

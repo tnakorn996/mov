@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { appul } from '../../content/content'
 
 import { Context } from '../../context/context'
@@ -30,22 +30,28 @@ export default function NavbarMain({
   const [splitstatic, setsplitstatic] = useSplit(1)
   const [navmainstate, setnavmainstate] = useState({navmainid: 'apptbody', navmainindex: 0})
 
+  function navMainAction(first, component) {
+    // console.log('first', first)
+      if (first) {
+        return <CardMain>
+         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+          {component}
+          </motion.div>
+        </CardMain>
+      } 
+      return null
+  }
+
   const apptbody = [
     {
       navmainindex: 0,
       navmainrender: () => {
-        return <div className="w-screen p-[5px] bg-white">
-              <div className="grid grid-flow-col text-center items-center  ">
-                {appul?.slice(3, 6)?.map((data, index) => (<>
-                  <article onClick={() => {
-                    navigate(data.breadaction)
-                  }} className={`m-h5 p-[10px] flex flex-col items-center  rounded-sm duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
-                    {data.breadicon}
-                    <p className="m-h2">{data.breadtitle}</p>
-                  </article>
-                </>))}
-              </div>
-          </div>
+        return appTbodyRender({
+          data: appul,
+          props: {
+            splitstatic: splitstatic
+          },
+        })
       }
     },
   ]
@@ -82,11 +88,21 @@ export default function NavbarMain({
       navmainindex: 0,
       navmainrender: () => {
         const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
-        const filtertwo = messagedl[0]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
+        const filtertwo = messagedl[1]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
         return navMainAction(awarddl[0]?.spreaddata && filter.length === 0 && filtertwo[0]?.spreadrender() !== undefined, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
       }
     },
   ]
+
+  const messagetbody = [
+    {
+      navmainindex: 0,
+      navmainrender: () => {
+        return null
+      }
+    },
+  ]
+
 
   const navbarmain = [
     {
@@ -109,6 +125,10 @@ export default function NavbarMain({
       navmainid: 'achievementtbody',
       navmainref: achievementtbody,
     },
+    {
+      navmainid: 'messagetbody',
+      navmainref: messagetbody,
+    },
   ]
 
   const [appstatic, setappstatic] = useApp(navbarmain, navmainstate.navmainid, navmainstate.navmainindex, splitstatic)
@@ -130,17 +150,8 @@ export default function NavbarMain({
       setnavmainstate({navmainid: `${split[1]}tbody`, navmainindex: 0})
     }
     }, [location])
+    // console.log('navmainstate', navmainstate)
 
-
-  function navMainAction(first, component) {
-      if (first) {
-        return <CardMain>
-         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
-          {component}
-          </motion.div>
-        </CardMain>
-      } else { return null}
-  }
 
   return (
     <div>
@@ -153,6 +164,26 @@ export default function NavbarMain({
             </>))}
         </section>
         </main>
+    </div>
+  )
+}
+
+export function appTbodyRender({props, data}) {
+  const {splitstatic} = props
+  return (
+    <div>
+      <div className="w-screen p-[5px] bg-white">
+              <div className="grid grid-flow-col text-center items-center  ">
+                {data?.slice(3, 6)?.map((data, index) => (<>
+                <Link to={data?.breadaction}>
+                  <article className={`m-h5 p-[10px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
+                    {data.breadicon}
+                    <p className="m-h2">{data.breadtitle}</p>
+                  </article>
+                </Link>
+                </>))}
+              </div>
+          </div>
     </div>
   )
 }

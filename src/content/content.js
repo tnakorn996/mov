@@ -1,11 +1,11 @@
-import { RiClipboardLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
+import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
 
 export const appul = [
     {
         breadid: 'authmain',
         breadaction: `/auth/authmain`,
-        breadtitle: 'Sign Up',
-        breadicon: <RiParentLine />,
+        breadtitle: 'Home',
+        breadicon: <RiHomeLine />,
     },
     {
         breadid: 'userindex',
@@ -41,7 +41,7 @@ export const appul = [
         breadid: 'favouritemain',
         breadaction: `/favourite/favouritemain`,
         breadtitle: 'Favourites',
-        breadicon: <RiParentLine />,
+        breadicon: <RiBookmarkLine />,
     },
     {
         breadid: 'contractmain',
@@ -381,6 +381,12 @@ export const articleul = [
         breadid: 'article-one',
         breadaction: `/article/articleindex/article-one`,
         breadtitle: 'Article one',
-        breadsubtitle: 'Finish your third workout to earn this achievement.',
+        breadsubtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi aperiam unde amet harum suscipit excepturi dolore incidunt. Esse, alias sit. ',
+    },
+    {
+        breadid: 'article-two',
+        breadaction: `/article/articleindex/article-two`,
+        breadtitle: 'Article two',
+        breadsubtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi aperiam unde amet harum suscipit excepturi dolore incidunt. Esse, alias sit.',
     },
 ]

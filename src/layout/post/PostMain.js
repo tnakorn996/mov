@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import CtaMain from '../../component/cta/CtaMain'
 import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
 import StaMain from '../../component/sta/StaMain'
 import SignMain from '../../component/sign/SignMain.tsx'
-import { achievementul, appul, clubul, workoutul } from '../../content/content'
+import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
@@ -14,6 +14,10 @@ import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
 import ScreenMain from '../screen/ScreenMain.tsx'
 import AvaMain from '../ava/AvaMain.tsx'
+import AtaMain from '../../component/ata/AtaMain.tsx'
+import { RiMoreLine } from 'react-icons/ri'
+import BadgeMain from '../badge/BadgeMain'
+import { motion } from 'framer-motion'
 
 export default function PostMain({
   postmainstatic,
@@ -25,19 +29,43 @@ export default function PostMain({
   const {
     fieldmainstate,
     postmainstate,
+    setchoicemainstate, choicemainstate,
 
     authstate,
     userdl,
     taskdl,
     ticketdl,
     awarddl,
+    messagedl,
 
   } = useContext(Context)
+  // console.log('choicemainstate', choicemainstate)
   const navigate = useNavigate()
   // const location = useLocation()
   // const param = useParams()
   const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
+
+  // function postMainAction() {
+  //     const ref = [postmaindata]
+  //     return ref.map(data => 
+  //        alert('d')
+  //     )
+  // }
+
+  const appaddress = [
+    {
+      postmainindex: 0,
+      postmainrender: () => {
+        const ref = [postmaindata]
+        return ref.map(data => 
+          appAddressRender({
+            data: data
+          })
+        )
+      },
+    },
+  ]
 
   const useraddress = [
     {
@@ -109,6 +137,21 @@ export default function PostMain({
           <WorkoutAddressRenderTwo
           data={data} />
         </>))
+      }  
+    },
+    {
+      postmainindex: 2,
+      postmainrender:() => {
+        const ref = [postmaindata]
+          return ref.map(data => 
+            workoutAddressRenderThree({
+              data: data,
+              choicemainstate: choicemainstate,
+              navigate: () => {
+                setchoicemainstate(data?.breadhead)
+              }
+            })
+        )
       }  
     },
   ]
@@ -227,6 +270,7 @@ export default function PostMain({
           data={data}
           props={{
             navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
+          
           }}
            />
           </>)))
@@ -298,27 +342,24 @@ export default function PostMain({
         }
       }  
     },
-    // {
-    // postmainindex: 2,
-    //  postmainrender:() => {
-    //     const filter = awarddl[0].spreaddata?.filter(data => data?.achievementid === splitstaticthree)
-    //     const filtertwo = achievementul?.filter(data => data.breadid === splitstaticthree)
-    //     // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
-    //     if(filter.length > 0 && filtertwo.length > 0) {
-    //     // if(filter.length > 0) {
-    //       const assign = [Object.assign(filter[0], filtertwo[0])]
-    //       return  assign.map(data => (<>
-    //       <AchievementAddressRenderThree
-    //         data={data}
-    //         props={{
-    //           navigate: () => {navigate(`achievement/achievementindex/${data?.breadid}`)}
-    //         }} />
-    //       </>))
-    //     } else {
-    //       return null
-    //     }
-    //   }  
-    // },
+  ]
+
+
+  const articleaddress = [
+    {
+    postmainindex: 1,
+     postmainrender:() => {
+        const filter = articleul?.filter(data => data.breadid === splitstaticthree)
+        if(filter.length > 0) {
+          return  filter.map(data => (<>
+          <ArticleAddressRenderTwo
+            data={data} />
+          </>))
+        } else {
+          return null
+        }
+      }  
+    },
   ]
 
   const messageaddress = [
@@ -326,6 +367,7 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata].filter(data => data.spreadrender() !== undefined)
+        // console.log('ref', ref)
         // const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
           if(ref.length > 0){
             return ref.map(data => (<>
@@ -338,9 +380,40 @@ export default function PostMain({
           }
       }
     },
+    {
+      postmainindex: 1,
+      postmainrender:() => {
+        return messageAddressRenderTwo({
+          component: <StaMain 
+              stamainstatic={{ stamainid: 'messageiframe' }} 
+              stamaindata={undefined} 
+              stamainstyle={undefined}  
+              /> 
+        })
+        // const array = []
+        // for(const data of messagedl) {
+        //   if(data?.spreaddatatwo.length > 0) {
+        //     array.concat(data.spreaddatatwo)
+        //   }
+        // } 
+        // const filter = array.filter(data => data.breadid === splitstaticthree)
+        //  if(filter.length > 0){
+        //     return filter.map(data => (<>
+        //       if(data.breadaction.split(`/`)[0] === splitstaticthree){
+
+        //       }
+        //   </>))
+        //   }
+      }
+    },
   ]
 
   const postmain = [
+    {
+      postmainid: 'appaddress',
+      postmainref: appaddress,
+    },
+
     {
       postmainid: 'useraddress',
       postmainref: useraddress,
@@ -378,12 +451,19 @@ export default function PostMain({
     },
 
     {
+      postmainid: 'articleaddress',
+      postmainref: articleaddress,
+    },
+
+    {
       postmainid: 'messageaddress',
       postmainref: messageaddress,
     },
+
+
   ]
 
-  const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstatictwo, splitstaticthree, postmaindata)
+  const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstatictwo, splitstaticthree, postmaindata, choicemainstate)
 
   return (
     <div>
@@ -399,6 +479,25 @@ export default function PostMain({
     </div>
   )
 }
+
+  export function appAddressRender({data, props}) {
+    return (
+      <div className="">
+          <Link to={data?.breadaction}>
+        <CardMain>
+          <CardMain >
+          <button className="w-full flex flex-row gap-2 justify-center items-center  m-h5 first-letter:uppercase">
+            {data?.breadicon}
+            {data?.breadtitle}
+            {(data?.breadid === 'achievementmain') &&  <AvaMain><span className="px-[5px]  l-h1">NEW</span></AvaMain>}
+            {(data?.breadid === 'messagemain') &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+          </button>
+          </CardMain>
+        </CardMain>
+          </Link>
+      </div>
+    )
+  }
 
   export function UserAddressRender({data, props}) {
     const {navigate, authstate} = props
@@ -514,6 +613,22 @@ export default function PostMain({
           <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
+    </div>
+    )
+  }
+
+  export function workoutAddressRenderThree({data, navigate, choicemainstate}) {
+    return (
+    <div className=" ">
+      <section className="">
+        <motion.figure onClick={navigate} className={data.breadhead === choicemainstate && `!bg-slate-200 !duration-1000`}>
+          <CardMain>
+                <CardMain>
+                <p className=" l-h4 uppercase">{data.breadbody}</p>
+                </CardMain>
+          </CardMain>
+        </motion.figure>
+      </section>
     </div>
     )
   }
@@ -673,7 +788,7 @@ export default function PostMain({
        <div className="" >
         <section className="w-full flex flex-row justify-between">
             <figcaption onClick={navigate} className="w-full  cursor-pointer">
-              <p className="l-h4">{data?.userid?.useremail}</p>
+              <p className="l-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
             <figure className="">
               <p className="l-h4 uppercase">{data?.weightid}</p>
@@ -718,7 +833,7 @@ export default function PostMain({
           <CardMain>
           <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
           </CardMain>
-          <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
+          <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
     </div>
@@ -741,19 +856,53 @@ export default function PostMain({
   //   )
   // }
 
+  export function ArticleAddressRenderTwo({data}) {
+    // console.log('data', data)
+    return (
+      <div>
+          <CardMain>
+          <AvaMain>
+            <CardMain>
+            <figure className="l-h4">
+              {data?.breadsubtitle}
+            </figure>
+            </CardMain>
+          </AvaMain>
+          </CardMain>
+      </div>
+    )
+  }
+
+
   export function MessageAddressRender({data, props}) {
     const {navigate} = props
     return (
       <div>
         <SheetMain>
-        <figure onClick={navigate} className="l-h4  cursor-pointer">
-          {data?.spreaddetail}
-        </figure>
+          <article className="grid grid-cols-11">
+            <section className="col-span-10">
+              <figure onClick={navigate} className="l-h4  cursor-pointer">
+                {data?.spreaddetail}
+              </figure>
+            </section>
+            <section className="col-span-1 flex justify-end">
+                <AtaMain atamaindata={data} atamainstatic={{atamainid:'messageiframe', atamainindex: 0}} ><RiMoreLine /></AtaMain>
+            </section>
+          </article>
         </SheetMain>
       </div>
     )
   }
 
+  export function messageAddressRenderTwo({component}) {
+    return (
+      <div>
+        <section className="">
+          {component}
+        </section>
+      </div>
+    )
+  }
 
 
 

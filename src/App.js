@@ -32,6 +32,9 @@ import AchievementIndex from './page/achievement/AchievementIndex.tsx';
 import MessageMain from './page/message/MessageMain.tsx';
 import AwardIndex from './page/award/AwardIndex.tsx';
 import AwardForm from './page/award/AwardForm.tsx';
+import ArticleIndex from './page/article/ArticleIndex.tsx';
+import AppMain from './page/app/AppMain.tsx';
+// import MessageInput from './page/message/MessageInput.tsx';
 
 export default function App() {
   const {
@@ -59,6 +62,7 @@ export default function App() {
             {/* <AnimatePresence> */}
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthMain />} /> 
+              {/* <Route path='/app/appmain' element={<AppMain />} />  */}
 
               <Route path='/auth/authmain' element={<AuthMain />} /> 
               <Route path='/auth/authform' element={<AuthForm />} /> 
@@ -94,7 +98,9 @@ export default function App() {
               <Route path='/award/awardform/:awardid' element={<AwardForm />} /> 
 
               <Route path='/message/messagemain' element={<MessageMain />} /> 
+              {/* <Route path='/message/messageindex' element={<MessageInput />} />  */}
 
+              <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
 
             </Routes> 
             {/* </AnimatePresence> */}

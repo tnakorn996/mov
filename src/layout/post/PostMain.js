@@ -59,11 +59,9 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender: () => {
         const ref = [postmaindata]
-        return ref.map(data => 
-          appAddressRender({
-            data: data
+        return appAddressRender({
+            data: ref
           })
-        )
       },
     },
   ]
@@ -484,18 +482,22 @@ export default function PostMain({
   export function appAddressRender({data, props}) {
     return (
       <div className="">
+        <section className="">
+        {data?.map(data => (<>
+        <article className="h-[10vh]">
           <Link to={data?.breadaction}>
-        <CardMain>
-          <CardMain >
-          <button className="w-full flex flex-row gap-2 justify-center items-center  m-h5 first-letter:uppercase">
-            {data?.breadicon}
-            {data?.breadtitle}
-            {(data?.breadid === 'achievementmain') &&  <AvaMain><span className="px-[5px]  l-h1">NEW</span></AvaMain>}
-            {(data?.breadid === 'messagemain') &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
-          </button>
+          <CardMain>
+            <button className="w-full flex flex-row gap-2 justify-center items-center  m-h5 first-letter:uppercase">
+              {data?.breadicon}
+              {data?.breadtitle}
+              {(data?.breadid === 'achievementmain') &&  <AvaMain><span className="px-[5px]  l-h1">NEW</span></AvaMain>}
+              {(data?.breadid === 'messagemain') &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+            </button>
           </CardMain>
-        </CardMain>
           </Link>
+        </article>
+        </>))}
+        </section>
       </div>
     )
   }

@@ -54,7 +54,7 @@ export default function App() {
         <OverlayMain>
         <TopMain >
         <GraphMain graphmainstatic={{graphmainid: 'appbase', graphmainindex: 0}} />
-        <main className="relative">
+        <motion.main className={`relative min-h-screen  duration-300 ${appstate && `!scale-95`}`}>
           <section className="z-30 fixed top-0 left-0 w-screen">
             {/* <button onClick={() => {
              navigate(`/message/messagemain`)
@@ -112,9 +112,9 @@ export default function App() {
           <section className="z-30 w-screen h-[10vh]">
             <NavMain />
           </section>
-          <section className="">
+        </motion.main>
+        <main className="">
             {(appstate && appstate.appid === 'backdropmain') && <BackdropMain />}
-          </section>
         </main>
         </TopMain>
         </OverlayMain>

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { motion } from 'framer-motion'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -65,14 +66,14 @@ export default function PreviewMain() {
   export function appArticleRender({component, navigate}) {
     return (
       <div>
-        <section className="w-screen max-h-[80vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-hidden">
+        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[80vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-hidden duration-500">
           <div className="absolute top-0 right-0">
           <CardMain>
           <RiCloseLine onClick={navigate} className="text-2xl" />
           </CardMain>
           </div>
           {component}
-        </section>
+        </motion.section>
       </div>
     )
   }

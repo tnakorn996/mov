@@ -40,9 +40,9 @@ export default function StaMain({
         },
         {
             stamainindex: 1,
-            stamainrender: <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
+            stamainrender: <section className="duration-100">
                 <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
-            </motion.section>,
+            </section>,
         },
     ]
 
@@ -55,9 +55,9 @@ export default function StaMain({
         },
         {
             stamainindex: 1,
-            stamainrender: <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
+            stamainrender: <section className="duration-100">
                     <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
-                </motion.section>,
+                </section>,
         },
     ]
 

@@ -88,8 +88,10 @@ export default function NavbarMain({
       navmainindex: 0,
       navmainrender: () => {
         const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
-        const filtertwo = messagedl[1]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
-        return navMainAction(awarddl[0]?.spreaddata && filter.length === 0 && filtertwo[0]?.spreadrender() !== undefined, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
+        // const filtertwo = messagedl[1]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
+        // return navMainAction(awarddl[0]?.spreaddata && filter.length === 0 && filtertwo[0]?.spreadrender() !== undefined, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
+        return navMainAction(awarddl[0]?.spreaddata && filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
+
       }
     },
   ]
@@ -156,7 +158,7 @@ export default function NavbarMain({
   return (
     <div>
         <main className="">
-        <section className="z-30 fixed bottom-0 left-0 w-screen flex items-center">
+        <section className="z-30 fixed bottom-0 left-0 w-screen items-center">
             {appstatic?.map(data => (<>
             <div className="w-full">
               {data?.navmainrender()}
@@ -172,18 +174,22 @@ export function appTbodyRender({props, data}) {
   const {splitstatic} = props
   return (
     <div>
-      <div className="w-screen p-[5px] bg-white">
-              <div className="grid grid-flow-col text-center items-center  ">
+      <div className="p-[10px]">
+      <section className="w-full rounded-full bg-white border shadow-xl">
+        <CardMain>
+              <figure className="grid grid-cols-3 text-center items-center  ">
                 {data?.slice(3, 6)?.map((data, index) => (<>
                 <Link to={data?.breadaction}>
-                  <article className={`m-h5 p-[15px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
+                  <div className={`m-h5 p-[10px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-100` : ``} `}>
                     {data.breadicon}
                     <p className="m-h2">{data.breadtitle}</p>
-                  </article>
+                  </div>
                 </Link>
                 </>))}
-              </div>
-          </div>
+              </figure>
+        </CardMain>
+          </section>
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import StatMain from '../../component/stat/StatMain'
@@ -59,7 +60,7 @@ if(appstate.appidtwo !== 'modalmain') return null
   return (
     <div>
         <main className="">
-            <section className="w-full fixed bottom-0 left-0  bg-white">
+            <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white duration-100 rounded-t-3xl overflow-hidden">
               <figcaption className="">
                 <SheetMain>
                 {appstatic?.map(data => (<>
@@ -75,7 +76,7 @@ if(appstate.appidtwo !== 'modalmain') return null
                 }} className="w-full  uppercase">Cancle</button>
                 </CardMain>
               </figure>
-            </section>
+            </motion.section>
         </main>
     </div>
   )

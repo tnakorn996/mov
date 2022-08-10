@@ -63,7 +63,7 @@ export default function CtaMain({
     const taskembed = [
         {
             ctamainindex: 0,
-            ctamainentitle: 'Delete record',
+            ctamainentitle: 'reset record',
             ctamainstyle: `l-button border-black`,
             ctamainaction: `/task/taskform/${splitstaticthree}`,
         },

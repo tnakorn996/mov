@@ -61,6 +61,7 @@ export default function BadgeMain({
             badgemainindex: 0,
             badgemainrender: () => {
                 const array = []
+                if(!messagedl) return null
                 for(const data of messagedl[0]?.spreaddata){
                     if(data.spreadrender() !== undefined){
                         array.push(data)

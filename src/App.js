@@ -30,11 +30,13 @@ import ContractMain from './page/contract/ContractMain';
 import AchievementMain from './page/achievement/AchievementMain.tsx';
 import AchievementIndex from './page/achievement/AchievementIndex.tsx';
 import MessageMain from './page/message/MessageMain.tsx';
+import MessageIndex from './page/message/MessageIndex.tsx';
+import MessageForm from './page/message/MessageForm.tsx';
 import AwardIndex from './page/award/AwardIndex.tsx';
 import AwardForm from './page/award/AwardForm.tsx';
 import ArticleIndex from './page/article/ArticleIndex.tsx';
-import AppMain from './page/app/AppMain.tsx';
-// import MessageInput from './page/message/MessageInput.tsx';
+// import AppMain from './page/app/AppMain.tsx';
+import GraphMain from './component/graph/GraphMain.tsx';
 
 export default function App() {
   const {
@@ -51,6 +53,7 @@ export default function App() {
       <div className="App">
         <OverlayMain>
         <TopMain >
+        <GraphMain graphmainstatic={{graphmainid: 'appbase', graphmainindex: 0}} />
         <main className="relative">
           <section className="z-30 fixed top-0 left-0 w-screen">
             {/* <button onClick={() => {
@@ -98,7 +101,8 @@ export default function App() {
               <Route path='/award/awardform/:awardid' element={<AwardForm />} /> 
 
               <Route path='/message/messagemain' element={<MessageMain />} /> 
-              {/* <Route path='/message/messageindex' element={<MessageInput />} />  */}
+              <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 
+              <Route path='/message/messageform' element={<MessageForm />} /> 
 
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
 

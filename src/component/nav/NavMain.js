@@ -176,7 +176,7 @@ export function appTbodyRender({props, data}) {
               <div className="grid grid-flow-col text-center items-center  ">
                 {data?.slice(3, 6)?.map((data, index) => (<>
                 <Link to={data?.breadaction}>
-                  <article className={`m-h5 p-[10px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
+                  <article className={`m-h5 p-[15px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-200` : ``} `}>
                     {data.breadicon}
                     <p className="m-h2">{data.breadtitle}</p>
                   </article>

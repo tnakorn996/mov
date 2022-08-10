@@ -20,10 +20,10 @@ export const appul = [
         breadicon: <RiParentLine />,
     },
     {
-        breadid: 'workoutmain',
-        breadaction: `/workout/workoutmain`,
-        breadtitle: 'Workouts',
-        breadicon: <RiClipboardLine />,
+        breadid: 'clubmain',
+        breadaction: `/club/clubmain`,
+        breadtitle: 'Club',
+        breadicon: <RiParentLine />,
     },
     {
         breadid: 'achievementmain',
@@ -32,10 +32,10 @@ export const appul = [
         breadicon: <RiTrophyLine />,
     },
     {
-        breadid: 'clubmain',
-        breadaction: `/club/clubmain`,
-        breadtitle: 'Club',
-        breadicon: <RiParentLine />,
+        breadid: 'workoutmain',
+        breadaction: `/workout/workoutmain`,
+        breadtitle: 'Workouts',
+        breadicon: <RiClipboardLine />,
     },
     {
         breadid: 'favouritemain',

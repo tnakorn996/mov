@@ -37,9 +37,18 @@ export default function StatMain({
         // console.log('fisltesr', filter)
         if(filter !== undefined && filter !== null && filter.length > 0) {
             return component || component()
-        } else {
-            return null
-        }
+        } 
+        return null
+    }
+
+    function statMainRenderTwo(first) {
+        const filter = clientstatic?.filter(data => data[first] === splitstaticthree)
+        // console.log('clientstatic', clientstatic)
+        // console.log('fisltesr', filter)
+        if(filter !== undefined && filter !== null && filter.length > 0) {
+            return filter
+        } 
+        return null
     }
 
     // function statMainRenderTwo(data, first, second) {
@@ -130,7 +139,9 @@ export default function StatMain({
         {
             statmaindex: 0,
             statmainrender: () => {
-                return statMainRender('achievementid', awardTableRender({data: clientstatic && clientstatic}))
+                return awardTableRender({
+                    data: statMainRenderTwo('achievementid')
+                })
             }
         },
         {
@@ -243,8 +254,11 @@ export default function StatMain({
             </figure>
             </CardMain>
             </section>
+            <section className="">
+                
+            </section>
             <section className="flex flex-col justify-center text-center">
-            <p className="l-h4">{data?.username !== null ? `@` + data?.username : data?.useremail}</p>
+            <p className="m-h5">{data?.username !== null ? `@` + data?.username : data?.useremail}</p>
             <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
             </section>
             <section className="">
@@ -376,15 +390,24 @@ export default function StatMain({
         </div>
         )
     }
-
-    export function awardTableRender() {
+    
+    export function awardTableRender({data}) {
+        console.log('data', data)
         return (
             <div>
-            <section className="">
-                <SheetMain>
-                <CtaMain ctamainstatic={{ctamainid: 'awardembed', ctamainindex: 0}} />
-                </SheetMain>
-            </section>
+                {data?.map(data => (<>
+                <CardMain>
+                <section className="flex flex-row justify-between">
+                    <p className="m-h5">Started date</p>
+                    <p className="l-h5">{handleDate(data?.created_at)}</p>
+                </section>
+                </CardMain>
+                <section className="">
+                    <SheetMain>
+                    <CtaMain ctamainstatic={{ctamainid: 'awardembed', ctamainindex: 0}} />
+                    </SheetMain>
+                </section>
+                </>))}
         </div>
     )
     }

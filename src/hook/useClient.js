@@ -7,6 +7,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
     const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [clientstatic, setclientstatic] = useState()
+    // console.log('splitstaticthree', splitstaticthree)
     
     useEffect(() => {
       if(!splitstaticthree) return 
@@ -20,7 +21,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           from: `user`,
           select: `*`,
           order: [`userid`, { ascending: false }],
-          eq: ['userid', splitstaticthree,  `achievement:userid ( * )`],
+          eq: ['userid', splitstaticthree],
           limit: 5,
         },
 
@@ -112,7 +113,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
             func.eq[0], func.eq[1], func.eq[2], func.eq[3]
             ).limit(func.limit)
           if(data) {
-            console.log('data', data)
+            console.log('data.....', data)
             setclientstatic(data)
           } else {
             alert(error)

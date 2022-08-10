@@ -256,8 +256,8 @@ export const Provider = ({
     const messagedl =[
         {
             spreadid: 'guide',
-            spreadtitle: 'Guides message',
-            spreaddatatwo: clubul,
+            spreadtitle: `Guide's message`,
+            // spreaddatatwo: clubul,
             spreaddata: [
                 {
                     spreadidtwo: 'lateral-bear-crawl',
@@ -271,8 +271,8 @@ export const Provider = ({
         },
         {
             spreadid: 'check',
-            spreadtitle: 'Checks message',
-            spreaddatatwo: achievementul,
+            spreadtitle: 'Achievement unlocked!',
+            // spreaddatatwo: achievementul,
             spreaddata: [
                 {
                     spreadidtwo: 'task-one',
@@ -312,12 +312,12 @@ export const Provider = ({
         {
             spreadid: 'update',
             spreadtitle: 'Update message',
-            spreaddatatwo: articleul,
+            // spreaddatatwo: articleul,
             spreaddata: [
                 {
                     spreadidtwo: 'article-one',
                     spreadhref: `/message/messageindex/article-one`,
-                    spreaddetail: `Beasty: The Beasty App has everything you need to get moving. That means the personal trainer, engaging stories and your community. It's all here, personalized for you.`,
+                    spreaddetail: `TIPS: The Beasty App has everything you need to get moving. That means the personal trainer, engaging stories and your community. It's all here, personalized for you.`,
                     spreadrender: () => {
                         return contextRenderFour(true, `article-one`, `/article/articleindex/article-one`)
                     }

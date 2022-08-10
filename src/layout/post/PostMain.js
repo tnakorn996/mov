@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { RiMailOpenLine, RiMoreLine } from 'react-icons/ri'
+import { motion } from 'framer-motion'
 
+import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
+import { Context } from '../../context/context'
+import MessageForm from '../../page/message/MessageForm.tsx'
 import CtaMain from '../../component/cta/CtaMain'
 import FieldMain from '../../component/field/FieldMain'
 import PtaMain from '../../component/pta/PtaMain'
 import StaMain from '../../component/sta/StaMain'
 import SignMain from '../../component/sign/SignMain.tsx'
-import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
-import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
@@ -15,9 +18,7 @@ import SheetMain from '../sheet/SheetMain'
 import ScreenMain from '../screen/ScreenMain.tsx'
 import AvaMain from '../ava/AvaMain.tsx'
 import AtaMain from '../../component/ata/AtaMain.tsx'
-import { RiMoreLine } from 'react-icons/ri'
 import BadgeMain from '../badge/BadgeMain'
-import { motion } from 'framer-motion'
 
 export default function PostMain({
   postmainstatic,
@@ -41,7 +42,7 @@ export default function PostMain({
   } = useContext(Context)
   // console.log('choicemainstate', choicemainstate)
   const navigate = useNavigate()
-  // const location = useLocation()
+  const location = useLocation()
   // const param = useParams()
   const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
@@ -367,14 +368,13 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata].filter(data => data.spreadrender() !== undefined)
-        // console.log('ref', ref)
-        // const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
           if(ref.length > 0){
             return ref.map(data => (<>
             <MessageAddressRender
             data={data}
             props={{
-              navigate: () => {navigate(data?.spreadrender())}
+              // navigate: () => {navigate(data?.spreadrcender())}
+              navigate: () => {navigate(data?.spreadhref)}
             }} />
           </>))
           }
@@ -383,12 +383,13 @@ export default function PostMain({
     {
       postmainindex: 1,
       postmainrender:() => {
+        const concat = messagedl[0].spreaddata.concat(messagedl[1].spreaddata, messagedl[2].spreaddata)
+        const filter = concat.filter(data => data.spreadidtwo === splitstaticthree)
         return messageAddressRenderTwo({
-          component: <StaMain 
-              stamainstatic={{ stamainid: 'messageiframe' }} 
-              stamaindata={undefined} 
-              stamainstyle={undefined}  
-              /> 
+          data: filter,
+          navigate: () => {
+            window.history.replaceState(null, "" , location.pathname)
+          }
         })
         // const array = []
         // for(const data of messagedl) {
@@ -894,12 +895,44 @@ export default function PostMain({
     )
   }
 
-  export function messageAddressRenderTwo({component}) {
+  export function messageAddressRenderTwo({data, navigate}) {
     return (
-      <div>
-        <section className="">
-          {component}
+      <div className="">
+        {data?.map(data => (<>
+        <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
+            <CardMain />
+            <CardMain />
+            <CardMain>
+            {/* <RiMailOpenLine className="text-3xl" /> */}
+            <p className="text-7xl">🎉🥳</p>
+            </CardMain>
+            <CardMain />
+            <CardMain />
         </section>
+        <section className="text-center">
+          <CardMain>
+            {/* <CardMain>
+              <p className="text-2xl  m-h6">{first[0]?.spreadtitle}</p>
+            </CardMain> */}
+            <CardMain>
+              <p className="l-h5">{data?.spreaddetail}</p>
+            </CardMain>
+          </CardMain>
+          <CardMain>
+            <Link to={data?.spreadrender() || `/club/clubmain`}>
+              <button onClick={navigate} className="w-full  m-button uppercase">Check the link</button>
+            </Link>
+            <br /><br />
+             <StaMain 
+             stamainstatic={{ stamainid: 'messageiframe' }} 
+            /> 
+          </CardMain>
+        </section>
+        {/* <hr />
+        <section className="">
+            <MessageForm />
+        </section> */}
+        </>))}
       </div>
     )
   }

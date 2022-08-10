@@ -5,6 +5,7 @@ import StatMain from '../../component/stat/StatMain'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import AppMain from '../../page/app/AppMain.tsx'
+import MessageForm from '../../page/message/MessageForm.tsx'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
@@ -33,7 +34,7 @@ export default function ModalMain() {
       modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
-          component: <MessageIndex />
+          component: <MessageForm />
         })
       }
     }

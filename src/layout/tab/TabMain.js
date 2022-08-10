@@ -271,7 +271,7 @@ export default function TabMain({
                     {tabmainrender?.map((data, index) => (<>
                         <article onClick={() => {
                             settabmainstate({tabmainindex: index})
-                        }} className={`l-h4 border-b-2  border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-black text-black font-medium'}`}>
+                        }} className={`l-h4 border-b-[2.5px]  rounded-sm border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-slate-700 text-black font-medium'}`}>
                             <CardMain>
                                 <div className="flex flex-row gap-2">
                                 {data.tabmaintitle}

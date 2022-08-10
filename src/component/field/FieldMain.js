@@ -163,8 +163,9 @@ export default function FieldMain({
             {
                 fieldmainid: 'userinput',
                 fieldmainidtwo: 'user',
-                fieldmaindetail: 'You are ready to go',
-                fieldmainaction: `/workout/workoutmain`,
+                // fieldmainhref: `/user/userindex/`,
+                // fieldmaindetail: 'You are ready to go',
+                // fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                   userid: user.id,
                   useremail: user.email,
@@ -177,6 +178,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'contractinput',
                 fieldmainidtwo: 'contract',
+                // fieldmainhref: `/user/userindex/`,
                 // fieldmaindetail: 'Successfully following this user',
                 // fieldmainaction: null,
                 fieldmaindata: {
@@ -191,6 +193,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
+                fieldmainhref: `/task/taskindex/`,
                 fieldmaindetail: 'Successfully add your personal best.',
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
@@ -205,6 +208,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
+                fieldmainhref: `/ticket/ticketindex/`,
                 fieldmaindetail: 'Thanks for working out with us',
                 fieldmainaction: `/club/clubmain`,
                 fieldmaindata: {
@@ -218,6 +222,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'awardinput',
                 fieldmainidtwo: 'award',
+                fieldmainhref: `/award/awardindex/`,
                 fieldmaindetail: 'Successfully claim your reward',
                 fieldmainaction: `/achievement/achievementmain`,
                 fieldmaindata: {
@@ -231,6 +236,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'textinput',
                 fieldmainidtwo: 'text',
+                // fieldmainhref: `//awardindex/`,
                 // fieldmaindetail: 'Successfully claim your reward',
                 // fieldmainaction: `/achievement/achievementmain`,
                 fieldmaindata: {
@@ -340,12 +346,15 @@ export default function FieldMain({
 
     function handleCallback(first) {
       // console.log('first', first)
+
       if(!first.fieldmaindetail) return null
-            setappstate({
+          setfieldmainstate(!fieldmainstate)
+          // window.history.replaceState(null, "" , `app/apps`)
+          setappstate({
               appid: 'backdropmain',
               appidtwo: 'previewmain',
               appidthree: 'apparticle',
-              appindex: 0,
+              appindex: 1,
             })
             setsignmainstate({
               signmainid: 'appimg',
@@ -353,7 +362,10 @@ export default function FieldMain({
               signmaindetail: first.fieldmaindetail,
               signmainaction: first.fieldmainaction,
             })
-            setfieldmainstate(!fieldmainstate)
+
+      // setfieldmainstate(!fieldmainstate)
+      //   if(!first.fieldmainhref) return null
+      //     navigate(first.fieldmainhref + split[3])
     }
 
   const authinput = [
@@ -425,7 +437,7 @@ export default function FieldMain({
     {
       fieldmainindex: 0,
       fieldmaintitle: null,
-      fieldmainentitle: 'Follow',
+      fieldmainentitle: '+ Follow',
       fieldmainaction: ss,
       fieldmaindata: [],
     },
@@ -499,14 +511,14 @@ export default function FieldMain({
     {
       fieldmainindex: 0,
       fieldmaintitle: null,
-      fieldmainentitle: 'Mark as read',
+      fieldmainentitle: '✔️ Mark as read',
       fieldmainaction: ss,
       fieldmaindata: [],
     },
     {
       fieldmainindex: 1,
       fieldmaintitle: null,
-      fieldmainentitle: 'Mask as un-read',
+      fieldmainentitle: 'Mark as un-read',
       fieldmainaction: handleDelete,
       fieldmaindata: [],
     },
@@ -571,7 +583,7 @@ export default function FieldMain({
                 </>))}
               </figcaption>
               
-              <figure className="flex flex-row gap-2 justify-between">
+              <figure className="flex flex-row gap-2">
 
                 <button onClick={() => {
                     data?.fieldmainaction()
@@ -581,11 +593,11 @@ export default function FieldMain({
                    {data?.fieldmainentitle}
                 </button>
 
-                <button className="w-fit">
-                  {data?.fieldmaindatatwo?.map(dat => (<>
+                {data?.fieldmaindatatwo?.map(dat => (<>
+                <button className="">
                     {dat?.fieldmainrender}
-                    </>))}
                 </button>
+                  </>))}
 
               </figure>
 

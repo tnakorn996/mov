@@ -19,18 +19,21 @@ export default function AtaMain({
     } = useContext(Context)
     // const navigate = useNavigate()
 
-    function ataMainAction(first: { 
+    function ataMainRender(first: { 
         appid: string; 
         appidtwo: string; 
         appidthree: string; 
         appindex: number 
     }) {
+        
         return () => {
             setappstate(first)
+            
             // document.location.href = atamaindata.spreadhref;
             // window.location.replace(atamaindata.spreadhref)
             // window.location.href = atamaindata.spreadhref
-            window.history.replaceState(null, "", atamaindata.spreadhref)
+            if(atamaindata.spreadhref) return  window.history.replaceState(null, "", atamaindata.spreadhref)
+            return null
         }
     }
     
@@ -41,7 +44,7 @@ export default function AtaMain({
                 return appIframe({
                     children: children,
                     props: {
-                        navigate: ataMainAction({
+                        navigate: ataMainRender({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'appdialog',
@@ -52,6 +55,25 @@ export default function AtaMain({
             } 
         },
     ]
+
+    const searchiframe = [
+        {
+            atamainindex: 0,
+            atamainrender: () => {
+                return appIframe({
+                    children: children,
+                    props: {
+                        navigate: ataMainRender({
+                            appid: 'backdropmain',
+                            appidtwo: 'modalmain',
+                            appidthree: 'searchdialog',
+                            appindex: 0,
+                        })
+                    },
+                })
+            } 
+        }
+    ]
         
     const messageiframe = [
         {
@@ -60,7 +82,7 @@ export default function AtaMain({
                 return appIframe({
                     children: children,
                     props: {
-                        navigate: ataMainAction({
+                        navigate: ataMainRender({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'messagedialog',
@@ -76,6 +98,10 @@ export default function AtaMain({
         {
             atamainid: 'appiframe',
             atamainref: appiframe
+        },
+        {
+            atamainid: 'searchiframe',
+            atamainref: searchiframe
         },
         {
             atamainid: 'messageiframe',

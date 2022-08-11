@@ -17,9 +17,9 @@ export default function useDev() {
     // console.log('splitstatictwo', splitstatictwo.includes(`main`))
     
     useEffect(() => {
-        const concat = messagedl[0].spreaddata.concat(messagedl[1].spreaddata, messagedl[2].spreaddata)
-        const filter = concat.filter((data: { spreadrender: () => undefined }) => data.spreadrender() !== undefined)
-        const filtertwo = filter.filter((data) => data.spreadrender().split(`/`)[1].includes(splitstatic))
+        const concat = messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[2].spreaddata())
+        const filter = concat.filter((data) => data.spreadrender().bool !== false)
+        const filtertwo = filter.filter((data) => data.spreadrender().navigation.split(`/`)[1].includes(splitstatic))
         // console.log('filtertwo', filtertwo)
         if(filtertwo.length > 0 
             && splitstatictwo && splitstatictwo.includes(`main`) ) {

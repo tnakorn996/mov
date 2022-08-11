@@ -35,8 +35,9 @@ import MessageForm from './page/message/MessageForm.tsx';
 import AwardIndex from './page/award/AwardIndex.tsx';
 import AwardForm from './page/award/AwardForm.tsx';
 import ArticleIndex from './page/article/ArticleIndex.tsx';
-// import AppMain from './page/app/AppMain.tsx';
+import AppMain from './page/app/AppMain.tsx';
 import GraphMain from './component/graph/GraphMain.tsx';
+import SearchMain from './page/search/SearchMain.tsx';
 
 export default function App() {
   const {
@@ -48,6 +49,7 @@ export default function App() {
   } = useContext(Context)
   const location = useLocation()
   const navigate = useNavigate()
+  console.log('appstate', appstate)
 
   return (
       <div className="App">
@@ -65,7 +67,7 @@ export default function App() {
             {/* <AnimatePresence> */}
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthMain />} /> 
-              {/* <Route path='/app/appmain' element={<AppMain />} />  */}
+              <Route path='/app/appmain' element={<AppMain />} /> 
 
               <Route path='/auth/authmain' element={<AuthMain />} /> 
               <Route path='/auth/authform' element={<AuthForm />} /> 
@@ -105,6 +107,8 @@ export default function App() {
               <Route path='/message/messageform' element={<MessageForm />} /> 
 
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
+
+              <Route path='/search/searchmain' element={<SearchMain />} /> 
 
             </Routes> 
             {/* </AnimatePresence> */}

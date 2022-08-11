@@ -21,7 +21,6 @@ export default function NavbarMain({
     taskdl,
     ticketdl,
     awarddl,
-    messagedl,
 
   } = useContext(Context)
   const location = useLocation()
@@ -88,8 +87,6 @@ export default function NavbarMain({
       navmainindex: 0,
       navmainrender: () => {
         const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
-        // const filtertwo = messagedl[1]?.spreaddata?.filter(data => data?.spreadidtwo === split[3])
-        // return navMainAction(awarddl[0]?.spreaddata && filter.length === 0 && filtertwo[0]?.spreadrender() !== undefined, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
         return navMainAction(awarddl[0]?.spreaddata && filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
 
       }

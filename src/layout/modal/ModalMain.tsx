@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import StatMain from '../../component/stat/StatMain'
 
@@ -10,6 +10,7 @@ import MessageForm from '../../page/message/MessageForm.tsx'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
+import SearchMain from '../../page/search/SearchMain.tsx'
 
 export default function ModalMain() {
   const {
@@ -19,12 +20,27 @@ export default function ModalMain() {
   // const navigate = useNavigate()
   const location = useLocation()
 
+  // useEffect(() => {
+  //     window.history.replaceState(null, "", location.pathname)
+  // }, [])
+
   const appdialog = [
     {
       modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <AppMain />
+        })
+      }
+    }
+  ]
+
+  const searchdialog = [
+    {
+      modalmainindex: 0,
+      modalmainrender: () => {
+        return appDialogRender({
+          component: <SearchMain />
         })
       }
     }
@@ -47,6 +63,10 @@ export default function ModalMain() {
       modalmainref: appdialog,
     },
     {
+      modalmainid: 'searchdialog',
+      modalmainref: searchdialog,
+    },
+    {
       modalmainid: 'messagedialog',
       modalmainref: messagedialog,
     },
@@ -61,19 +81,20 @@ if(appstate.appidtwo !== 'modalmain') return null
     <div>
         <main className="">
             <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white duration-100 rounded-t-3xl overflow-hidden">
-              <figcaption className="">
-                <SheetMain>
+              <motion.figcaption className={` overflow-y-scroll`}>
+                {/* <SheetMain> */}
                 {appstatic?.map(data => (<>
                   {data?.modalmainrender()}
                 </>))}
-                </SheetMain>
-              </figcaption>
+                {/* </SheetMain> */}
+              </motion.figcaption>
+              <hr />
               <figure className="">
                 <CardMain>
                 <button onClick={() => {
-                  window.history.replaceState(null, "", location?.pathname)
                   setappstate()
-                }} className="w-full  uppercase">Cancle</button>
+                  window.history.replaceState(null, "", location?.pathname)
+                }} className="w-full  uppercase">Close</button>
                 </CardMain>
               </figure>
             </motion.section>

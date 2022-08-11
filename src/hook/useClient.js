@@ -92,7 +92,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
         // },
       ]
       const filter = query.filter(data => data.id === splitstatictwo)
-      const ref = filter[0]
+      const ref = Object.assign(...filter)
       return ref
     }
 

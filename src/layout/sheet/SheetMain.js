@@ -7,7 +7,7 @@ export default function SheetMain({
 }) {
 
   return (
-        <main className="mb-[10px] bg-white border-y">
+        <main className="mb-[10px]  border-y">
             <section className="p-[20px]">
                 {children}
             </section>

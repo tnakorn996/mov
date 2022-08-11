@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import AppState from '../../page/app/AppState.tsx'
+import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import { RiCloseLine } from 'react-icons/ri'
 import CardMain from '../../layout/card/CardMain'
@@ -17,13 +18,21 @@ export default function PreviewMain() {
   } = useContext(Context)
   const location = useLocation()
 
+  // useEffect(() => {
+  //     window.history.replaceState(null, "", location.pathname)
+  // }, [])
+
+  function previewMainRender() {
+     window.history.replaceState(null, "", location?.pathname)
+  }
+
   const apparticle = [
     {
       previewmainindex: 0,
       previewmainrender: () => {
         return appArticleRender({
           navigate: () => {
-            window.history.replaceState(null, "", location?.pathname)
+             window.history.replaceState(null, "", location?.pathname)
             setappstate()
           },
           component: <MessageIndex />
@@ -40,10 +49,29 @@ export default function PreviewMain() {
     }
   ]
 
+   const searcharticle = [
+    {
+      previewmainindex: 0,
+      previewmainrender: () => {
+        return appArticleRender({
+          navigate: () => {
+            window.history.replaceState(null, "", location?.pathname)
+            setappstate()
+          },
+          component: <SearchMain />
+        })
+      },
+    },
+  ]
+
   const previewmain = [
     {
       previewmainid: 'apparticle',
       previewmainref: apparticle,
+    },
+    {
+      previewmainid: 'searcharticle',
+      previewmainref: searcharticle,
     },
 
   ]
@@ -66,7 +94,7 @@ export default function PreviewMain() {
   export function appArticleRender({component, navigate}) {
     return (
       <div>
-        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[80vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-hidden duration-500">
+        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-screen fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-500">
           <div className="absolute top-0 right-0">
           <CardMain>
           <RiCloseLine onClick={navigate} className="text-2xl" />

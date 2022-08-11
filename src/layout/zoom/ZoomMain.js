@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { workoutul } from '../../content/content'
 
 import { Context } from '../../context/context'
@@ -30,8 +30,10 @@ export default function ZoomMain({
             zoommainindex: 0,
             zoommaindata: [
                 {
-                    zoommaintitle: 'Find workout',
-                    // zoommainrender: workoutdl[0].spreaddata
+                    // zoommaintitle: 'Find workout',
+                    // zoommainrender: () => {
+                    //     return workoutdl[0].spreaddata.slice(0, 5)
+                    // } ,
                     zoommainrender: () => {
                         return []
                     },
@@ -66,7 +68,6 @@ export default function ZoomMain({
                     // zoommainrender: workoutdl[0].spreaddata
                     zoommainrender: () => {
                         const filter = workoutul.filter(data => data.breadid === splitstaticthree)
-                        console.log('filter', filter, splitstaticthree)
                         return filter[0]?.breaddata
                     },
                 },
@@ -90,8 +91,10 @@ export default function ZoomMain({
             zoommainindex: 0,
             zoommaindata: [
                 {
-                    zoommaintitle: 'Find club',
-                    // zoommainrender: clubdl[0].spreaddata
+                    // zoommaintitle: 'Find club',
+                    // zoommainrender: () => {
+                    //     return clubdl[0].spreaddata.slice(0, 5)
+                    // },
                     zoommainrender: () => {
                         return []
                     },
@@ -141,10 +144,10 @@ export default function ZoomMain({
     
   return (
     <div>
-        <main className="">
+        <main autoFocus={true}  className="">
             <section className="">
                 <CardMain>
-                <input onChange={p => setzoommainvalue(p.target.value.toLowerCase())} value={zoommainvalue} className="l-input" placeholder='Search' />
+                <input autoFocus={true} onChange={p => setzoommainvalue(p.target.value.toLowerCase())} value={zoommainvalue} className="l-input" placeholder='Search' />
                 </CardMain>
             </section>
             <section className="">

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { RiMailOpenLine, RiMoreLine } from 'react-icons/ri'
+import { RiFireLine, RiMailOpenLine, RiMoreLine, RiTimer2Line } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 
 import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
@@ -47,12 +47,9 @@ export default function PostMain({
   const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
-  // function postMainAction() {
-  //     const ref = [postmaindata]
-  //     return ref.map(data => 
-  //        alert('d')
-  //     )
-  // }
+  function postMainRender() {
+      window.history.replaceState(null, "", location.pathname)
+  }
 
   const appaddress = [
     {
@@ -365,7 +362,8 @@ export default function PostMain({
     {
       postmainindex: 0,
       postmainrender:() => {
-        const ref = [postmaindata].filter(data => data.spreadrender() !== undefined)
+        // const ref = [postmaindata].filter(data => data.spreadrender().bool === true)
+        const ref = [postmaindata]
           if(ref.length > 0){
             return ref.map(data => (<>
             <MessageAddressRender
@@ -381,28 +379,21 @@ export default function PostMain({
     {
       postmainindex: 1,
       postmainrender:() => {
-        const concat = messagedl[0].spreaddata.concat(messagedl[1].spreaddata, messagedl[2].spreaddata)
-        const filter = concat.filter(data => data.spreadidtwo === splitstaticthree)
+        const array = []
+        for(const data of messagedl) {
+          if(data.spreaddata().length > 0){
+            data.spreaddata().forEach(dat => {
+              array.push({
+                spreadicon: data.spreadicon, ...dat
+              })
+            })
+          }
+        }
+        const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
         return messageAddressRenderTwo({
           data: filter,
-          navigate: () => {
-            window.history.replaceState(null, "" , location.pathname)
-          }
+          navigate: () => {postMainRender()}
         })
-        // const array = []
-        // for(const data of messagedl) {
-        //   if(data?.spreaddatatwo.length > 0) {
-        //     array.concat(data.spreaddatatwo)
-        //   }
-        // } 
-        // const filter = array.filter(data => data.breadid === splitstaticthree)
-        //  if(filter.length > 0){
-        //     return filter.map(data => (<>
-        //       if(data.breadaction.split(`/`)[0] === splitstaticthree){
-
-        //       }
-        //   </>))
-        //   }
       }
     },
   ]
@@ -470,7 +461,7 @@ export default function PostMain({
              <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map(data => (<>
               <ScreenMain>
-                {data?.postmainrender()}
+                  {data?.postmainrender()}
               </ScreenMain>
               </>))}
             </section>
@@ -604,6 +595,7 @@ export default function PostMain({
   export function WorkoutAddressRenderTwo({data}) {
     return (
     <div className="">
+      <section className="">
         <figure className="">
             <video src={data?.breadvideo} autoPlay={true} loop={true} >
             </video>
@@ -616,6 +608,21 @@ export default function PostMain({
           <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
         </CardMain>
         </figcaption>
+      </section>
+              <CardMain>
+        <section className="flex flex-row gap-1 justify-center">
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
+            </CardMain>
+            </AvaMain>
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
+           </ CardMain>
+            </AvaMain>
+        </section>
+          </CardMain>
     </div>
     )
   }
@@ -688,6 +695,20 @@ export default function PostMain({
             <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
           </CardMain>
         </section>
+         <CardMain>
+        <section className="flex flex-row gap-1 justify-center">
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
+            </CardMain>
+            </AvaMain>
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
+           </ CardMain>
+            </AvaMain>
+        </section>
+          </CardMain>
         <section className="">
             <CardMain>
             <figcaption className="flex justify-between items-center">
@@ -702,11 +723,6 @@ export default function PostMain({
             </figcaption>
             </CardMain>
         </section>
-        {/* <section className="">
-            <CardMain>
-            <CtaMain ctamainstatic={{ctamainid: 'taskembed', ctamainindex: 0}} />
-            </CardMain>
-        </section> */}
       </div>
     )
   }
@@ -716,7 +732,7 @@ export default function PostMain({
     return (
         <CardMain>
         <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
+          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
           <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
             <CardMain>
             <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
@@ -733,17 +749,33 @@ export default function PostMain({
   export function ClubAddressRenderTwo({data}) {
     return (
       <div className="">
-        <figure className="h-[65vh] flex justify-center overflow-hidden">
-          <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
-        </figure>
-        <figcaption className="text-center">
-        <CardMain>
+        <section className="">
+          <figure className="h-[65vh] flex justify-center overflow-hidden">
+            <img src={data?.breadimage} alt="" className="max-w-[100ch] max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
+          </figure>
+          <figcaption className="text-center">
           <CardMain>
-          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
+            <CardMain>
+            <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
+            </CardMain>
+            <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
           </CardMain>
-          <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
-        </CardMain>
-        </figcaption>
+          </figcaption>
+        </section>
+          <CardMain>
+        <section className="flex flex-row gap-1 justify-center">
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
+            </CardMain>
+            </AvaMain>
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
+           </ CardMain>
+            </AvaMain>
+        </section>
+          </CardMain>
       </div>
     )
   }
@@ -770,17 +802,33 @@ export default function PostMain({
   export function TicketAddressRenderTwo({data}) {
     return (
       <div className="">
-        <figure className="h-[65vh] flex justify-center overflow-hidden">
-          <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
-        </figure>
-        <figcaption className="text-center">
-        <CardMain>
+        <section className="">
+          <figure className="h-[65vh] flex justify-center overflow-hidden">
+            <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
+          </figure>
+          <figcaption className="text-center">
           <CardMain>
-          <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
+            <CardMain>
+            <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
+            </CardMain>
+            <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
           </CardMain>
-          <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
-        </CardMain>
-        </figcaption>
+          </figcaption>
+        </section>
+        <CardMain>
+        <section className="flex flex-row gap-1 justify-center">
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
+            </CardMain>
+            </AvaMain>
+            <AvaMain>
+           <CardMain>
+                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
+           </ CardMain>
+            </AvaMain>
+        </section>
+          </CardMain>
       </div>
     )
   }
@@ -789,7 +837,7 @@ export default function PostMain({
     const {navigate} = props
     return (
        <div className="" >
-        <section className="w-full flex flex-row justify-between">
+        <section className="w-full flex flex-row items-center justify-between">
             <figcaption onClick={navigate} className="w-full  cursor-pointer">
               <p className="l-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
@@ -881,6 +929,7 @@ export default function PostMain({
     const {navigate} = props
     return (
       <div>
+        <section className={data?.spreadrender().bool && `bg-slate-100`}>
         <SheetMain>
           <article className="grid grid-cols-11">
             <section className="col-span-10">
@@ -893,11 +942,13 @@ export default function PostMain({
             </section>
           </article>
         </SheetMain>
+        </section>
       </div>
     )
   }
 
   export function messageAddressRenderTwo({data, navigate}) {
+    // console.log('data', data)
     return (
       <div className="">
         {data?.map(data => (<>
@@ -906,7 +957,7 @@ export default function PostMain({
             <CardMain />
             <CardMain>
             {/* <RiMailOpenLine className="text-3xl" /> */}
-            <p className="text-7xl">🎉🥳</p>
+            <p className="text-7xl">{data?.spreadicon}</p>
             </CardMain>
             <CardMain />
             <CardMain />
@@ -921,7 +972,7 @@ export default function PostMain({
             </CardMain>
           </CardMain>
           <CardMain>
-            <Link to={data?.spreadrender() || `/club/clubmain`}>
+            <Link to={data?.spreadrender().navigation || `/club/clubmain`}>
               <button onClick={navigate} className="w-full  m-button uppercase">Check the link</button>
             </Link>
             <br /><br />

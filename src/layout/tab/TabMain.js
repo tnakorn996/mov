@@ -27,180 +27,6 @@ export default function TabMain({
 
     const [tabmainrender, settabmainrender] = useState()
 
-    const userfieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'Recommend',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'fix this',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
-            })
-        },
-    ]
-
-    const contractfieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'Recommend',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'Updates',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
-            })
-        },
-        {
-            tabmainindex : 2,
-            tabmaintitle: 'Browse',
-            tabmainrender: tabMainRender({
-                zoommainstatic:{zoommainid: 'clubform'}
-            })
-        },
-    ]
-
-    const workoutfieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'For You',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'workoutarea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'History',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'taskarea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 2,
-            tabmaintitle: 'Browse',
-            tabmainrender: tabMainRender({
-                zoommainstatic:{zoommainid: 'workoutform'}
-            })
-        },
-    ]
-
-    const clubfieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'For You',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'clubarea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'History',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'ticketarea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 2,
-            tabmaintitle: 'Browse',
-            tabmainrender: tabMainRender({
-                zoommainstatic:{zoommainid: 'clubform'}
-            })
-        },
-    ]
-
-
-    const favouritefieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'Workouts',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'Challenges',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 1}
-            })
-        },
-    ]
-
-    const achievementfieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'For You',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'History',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 1}
-            })
-        },
-    ]
-
-    const messagefieldset = [
-        {
-            tabmainindex : 0,
-            tabmaintitle: 'For You',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
-            })
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'Update',
-            tabmainrender: tabMainRender({
-                feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 1}
-            })
-        },
-    ]
-
-    const tabmain = [
-        {
-            tabmainid: 'userfieldset',
-            tabmainref: userfieldset,
-        },
-        {
-            tabmainid: 'contractfieldset',
-            tabmainref: contractfieldset,
-        },
-        {
-            tabmainid: 'workoutfieldset',
-            tabmainref: workoutfieldset,
-        },
-        {
-            tabmainid: 'clubfieldset',
-            tabmainref: clubfieldset,
-        },
-        {
-            tabmainid: 'favouritefieldset',
-            tabmainref: favouritefieldset,
-        },
-        {
-            tabmainid: 'achievementfieldset',
-            tabmainref: achievementfieldset,
-        },
-        {
-            tabmainid: 'messagefieldset',
-            tabmainref: messagefieldset,
-        },
-    ]
-
-    const [appstatic, setappstatic] = useApp(tabmain, tabmainstatic.tabmainid, tabmainstatic.tabmainindex)
-
     useEffect(() => {
         settabmainstate({tabmainindex: 0})
     }, [])
@@ -236,6 +62,213 @@ export default function TabMain({
             </section>
         )
     }
+
+    const userfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Recommend',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'fix this',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
+                })
+            }
+        },
+    ]
+
+    const contractfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Recommend',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 0},
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Updates',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
+                })
+            }
+        },
+    ]
+
+    const workoutfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'workoutarea', feedmainindex: 0}
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'History',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'taskarea', feedmainindex: 0}
+                })
+            }
+        },
+    ]
+
+    const clubfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'clubarea', feedmainindex: 0}
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'History',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'ticketarea', feedmainindex: 0}
+                })
+            }
+        },
+    ]
+
+
+    const favouritefieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Workouts',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 0}
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Challenges',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'favouritearea', feedmainindex: 1}
+                })
+            }
+        },
+    ]
+
+    const achievementfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 0}
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'History',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'achievementarea', feedmainindex: 1}
+                })
+            }
+        },
+    ]
+
+    const messagefieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'For You',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+                })
+            }
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Update',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 1}
+                })
+            }
+        },
+    ]
+
+    const searchfieldset = [
+        {
+            tabmainindex : 0,
+            tabmaintitle: 'Challenge',
+            tabmainrender: () => {
+                return tabMainRender({
+                    zoommainstatic:{zoommainid: 'clubform'}
+                })
+            } 
+            
+        },
+        {
+            tabmainindex : 1,
+            tabmaintitle: 'Workout',
+            tabmainrender: () => {
+                return tabMainRender({
+                    zoommainstatic:{zoommainid: 'workoutform'}
+                })
+            } 
+        },
+    ]
+
+    const tabmain = [
+        {
+            tabmainid: 'userfieldset',
+            tabmainref: userfieldset,
+        },
+        {
+            tabmainid: 'contractfieldset',
+            tabmainref: contractfieldset,
+        },
+        {
+            tabmainid: 'workoutfieldset',
+            tabmainref: workoutfieldset,
+        },
+        {
+            tabmainid: 'clubfieldset',
+            tabmainref: clubfieldset,
+        },
+        {
+            tabmainid: 'favouritefieldset',
+            tabmainref: favouritefieldset,
+        },
+        {
+            tabmainid: 'achievementfieldset',
+            tabmainref: achievementfieldset,
+        },
+        {
+            tabmainid: 'messagefieldset',
+            tabmainref: messagefieldset,
+        },
+        {
+            tabmainid: 'searchfieldset',
+            tabmainref: searchfieldset,
+        }
+    ]
+
+    const [appstatic, setappstatic] = useApp(tabmain, tabmainstatic.tabmainid, tabmainstatic.tabmainindex)
 
     // function ll(first=this.props.first){
     //     settabmaintouchstart(first.targetTouches[0].clientX)
@@ -296,7 +329,7 @@ export default function TabMain({
                 {/* <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}> */}
                 <figure ref={ref} className={`w-screen md:w-full grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
                 {appstatic && appstatic.map(data => (<>
-                    {data?.tabmainrender}
+                    {data?.tabmainrender()}
                 </>))}
                 </figure>
             </section>

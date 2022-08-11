@@ -185,6 +185,7 @@ export default function FeedMain({
             ],
         },
     ]
+    console.log('messagedl[3].spreaddata(', messagedl[3].spreaddata())
 
     const messagearea = [
         {
@@ -192,13 +193,12 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: 'New challenge',
-                    // feedmainrender: messagedl[0].spreaddata.concat(messagedl[1].spreaddata),
-                    feedmainrender: messagedl[0].spreaddata,
+                    feedmaintitle: 'New message',
+                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().bool === true),
                 },
-                             {
-                    feedmaintitle: 'New reward',
-                    feedmainrender: messagedl[1].spreaddata,
+                {
+                    feedmaintitle: 'Other messages',
+                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().bool === false),
                 },
             ],
         },
@@ -207,13 +207,13 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: 'Annoucement',
-                    feedmainrender: messagedl[2].spreaddata,
+                    feedmaintitle: 'New annoucement',
+                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().bool === true),
                 },
-                // {
-                //     feedmaintitle: 'All blog',
-                //     feedmainrender: messagedl[1].spreaddata,
-                // },
+                {
+                    feedmaintitle: 'Other annoucement',
+                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().bool === false),
+                },
             ],
         },
     ]

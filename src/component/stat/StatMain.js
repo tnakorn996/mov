@@ -33,8 +33,7 @@ export default function StatMain({
 
     function statMainRender(first, component) {
         const filter = clientstatic?.filter(data => data[first] === splitstaticthree)
-        // console.log('clientstatic', clientstatic)
-        // console.log('fisltesr', filter)
+
         if(filter !== undefined && filter !== null && filter.length > 0) {
             return component || component()
         } 
@@ -115,7 +114,7 @@ export default function StatMain({
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
                 // console.log('filter, filtertwo', filter, filtertwo)
                 if(filter && filter.length > 0 && filtertwo.length > 0) {
-                    const assign = [Object.assign(filter[0], filtertwo[0])]
+                    const assign = [Object.assign(Object.assign(...filter), Object.assign(...filtertwo))]
                     return assign?.map((data) => (<>
                     <TicketTableRenderTwo data={data} />
                     </>))
@@ -409,25 +408,25 @@ export default function StatMain({
                 </section>
                 </>))}
         </div>
-    )
+        )
     }
 
-    // export function messageTableRender() {
+    // export function messageTableRender({data}) {
+    //     // console.log('data', data)
     //     return (
     //         <div>
-    //         <section className="">
-    //             sss
+    //             <section className="">
     //             <SheetMain>
-    //             <CtaMain ctamainstatic={{ctamainid: 'awardembed', ctamainindex: 0}} />
+    //                 <CardMain>
+    //                     <StaMain 
+    //                     stamainstatic={{ stamainid: 'messageiframe' }} 
+    //                     /> 
+    //                 </CardMain>
     //             </SheetMain>
-    //         </section>
-    //     </div>
-    // )
+    //             </section>
+    //         </div>
+    //     )
     // }
-
-
-
-
 
     export function handleDate(data) {
         // console.log('data', data)

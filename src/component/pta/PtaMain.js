@@ -70,13 +70,13 @@ export default function PtaMain({
     useEffect(() => {
       if(ptamainstatic){
         const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
-        const ref = filter[0].ptamaindata
+        const ref = Object.assign(...filter).ptamaindata
             if(ref && ref.length !== 0){
-                const filtertwo = filter[0].ptamainref.filter(data => data.ptamainindex === 1)
+                const filtertwo = Object.assign(...filter).ptamainref.filter(data => data.ptamainindex === 1)
                 setptamainrender(filtertwo)
             }
             if(ref && ref.length === 0){
-                const filtertwo = filter[0].ptamainref.filter(data => data.ptamainindex === 0)
+                const filtertwo = Object.assign(...filter).ptamainref.filter(data => data.ptamainindex === 0)
                 setptamainrender(filtertwo)
             } 
       }

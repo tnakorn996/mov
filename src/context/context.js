@@ -66,6 +66,7 @@ export const Provider = ({
             selectAwardUserid(authstate.user.id)
             selectTextUserid(authstate.user.id)
             // setstamainstate(!stamainstate)
+
         } 
     }, [authstate, fieldmainstate])
 
@@ -130,6 +131,40 @@ export const Provider = ({
         if(data) {
             settextuserid(data)
         }
+    }
+
+    function contextRender(first, second, third) {
+        if(authstate === null && authstate === undefined ) return null
+        return first.filter(data => data[second].includes(third))
+    }
+
+    function contextRenderTwo(first, second, navigation) {
+        if(first 
+            && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0
+            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+            ){
+            return {navigation: navigation, bool: true}
+        } 
+        return {navigation: navigation, bool: false}
+    }
+
+    function contextRenderThree(first, second, navigation) {
+        if(first 
+            && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0
+            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+            ){
+            return {navigation: navigation, bool: true}
+        } 
+        return {navigation: navigation, bool: false}
+    }
+
+    function contextRenderFour(first, second, navigation) {
+        if(first
+            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+            ) {
+            return {navigation: navigation, bool: true}
+        }  
+        return {navigation: navigation, bool: false}
     }
 
     ////////////////////////////////////////////////
@@ -255,111 +290,107 @@ export const Provider = ({
 
     const messagedl =[
         {
-            spreadid: 'guide',
+            spreadid: 'ticket',
             spreadtitle: `Guide's message`,
-            // spreaddatatwo: clubul,
-            spreaddata: [
-                {
-                    spreadidtwo: 'lateral-bear-crawl',
-                    spreadhref: `/message/messageindex/lateral-bear-crawl`,
-                    spreaddetail: `You unlocked a new club of 60MIN Lateral Bear Crawl`,
-                    spreadrender: () => {
-                        return contextRenderThree(true, `lateral-bear-crawl`, `/club/clubindex/lateral-bear-crawl`)
-                    }
-                },
-            ]
+            spreadicon: `🎱🏀🎾`,
+            spreaddata: () => {
+                return [
+                    {
+                        spreadidtwo: 'lateral-bear-crawl',
+                        spreadhref: `/message/messageindex/lateral-bear-crawl`,
+                        spreaddetail: `You unlocked a new club of 60MIN Lateral Bear Crawl`,
+                        spreadrender: () => {
+                            return contextRenderThree(true, `lateral-bear-crawl`, `/club/clubindex/lateral-bear-crawl`)
+                        }
+                    },
+                ]
+              } 
         },
         {
-            spreadid: 'check',
+            spreadid: 'award',
             spreadtitle: 'Achievement unlocked!',
-            // spreaddatatwo: achievementul,
-            spreaddata: [
-                {
-                    spreadidtwo: 'task-one',
-                    spreadhref: `/message/messageindex/task-one`,
-                    spreaddetail: `You unlocked a new reward of 1-workout`,
-                    spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
-                    }
-                },
-                {
-                    spreadidtwo: 'task-three',
-                    spreadhref: `/message/messageindex/task-three`,
-                    spreaddetail: `You unlocked a new reward of 3-workouts`,
-                    spreadrender: () => {
-                        return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
-                    }
-                },
+            spreadicon: `🎉🥳`,
+            spreaddata: () => {
+                return [
+                    {
+                        spreadidtwo: 'task-one',
+                        spreadhref: `/message/messageindex/task-one`,
+                        spreaddetail: `You unlocked a new reward of 1-workout`,
+                        spreadrender: () => {
+                            return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
+                        }
+                    },
+                    {
+                        spreadidtwo: 'task-three',
+                        spreadhref: `/message/messageindex/task-three`,
+                        spreaddetail: `You unlocked a new reward of 3-workouts`,
+                        spreadrender: () => {
+                            return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
+                        }
+                    },
 
-                {
-                    spreadidtwo: 'ticket-one',
-                    spreadhref: `/message/messageindex/ticket-one`,
-                    spreaddetail: `You unlocked a new reward of 1-club`,
-                    spreadrender: () => {
-                        return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
-                    }
-                },
-                {
-                    spreadidtwo: 'ticket-three',
-                    spreadhref:`/message/messageindex/ticket-three`,
-                    spreaddetail: `You unlocked a new reward of 3-clubs`,
-                    spreadrender: () => {
-                        return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
-                    }
-                },
-            ]
+                    {
+                        spreadidtwo: 'ticket-one',
+                        spreadhref: `/message/messageindex/ticket-one`,
+                        spreaddetail: `You unlocked a new reward of 1-club`,
+                        spreadrender: () => {
+                            return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
+                        }
+                    },
+                    {
+                        spreadidtwo: 'ticket-three',
+                        spreadhref:`/message/messageindex/ticket-three`,
+                        spreaddetail: `You unlocked a new reward of 3-clubs`,
+                        spreadrender: () => {
+                            return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
+                        }
+                    },
+                ]
+             }
+              
         },
         {
-            spreadid: 'update',
+            spreadid: 'article',
             spreadtitle: 'Update message',
-            // spreaddatatwo: articleul,
-            spreaddata: [
-                {
-                    spreadidtwo: 'article-one',
-                    spreadhref: `/message/messageindex/article-one`,
-                    spreaddetail: `TIPS: The Beasty App has everything you need to get moving. That means the personal trainer, engaging stories and your community. It's all here, personalized for you.`,
-                    spreadrender: () => {
-                        return contextRenderFour(true, `article-one`, `/article/articleindex/article-one`)
-                    }
-                },
-            ]
+            spreadicon: `💬`,
+            spreaddata: () => {
+                return  [
+                    {
+                        spreadidtwo: 'article-one',
+                        spreadhref: `/message/messageindex/article-one`,
+                        spreaddetail: `TIPS: The Beasty App has everything you need to get moving. That means the personal trainer, engaging stories and your community. It's all here, personalized for you.`,
+                        spreadrender: () => {
+                            return contextRenderFour(true, `article-one`, `/article/articleindex/article-one`)
+                        }
+                    },
+                ]
+            }
+        },
+        {
+            spreadid: 'task',
+            spreadtitle: `Regular's message`,
+            spreadicon: `⚡️🔥⚡️`,
+            spreaddata: () => {
+                const array = [];
+                for(const data of workoutul) {
+                    // delete data.breaddata
+                    // delete data.breadimage
+                    // delete data.breadsubtitle
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/message/messageindex/` + data.breadid,
+                        spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle,
+                        spreadrender: () => {
+                            return contextRenderFour(
+                            (taskuserid.filter(dat => dat.workoutid === data.breadid)).length === 1
+                            , data.breadid, `/workout/workoutindex/` + data.breadid)
+                        }
+                    })
+                }
+                return array
+            }
         },
     ]
-
-    function contextRender(first, second, third) {
-        if(authstate === null && authstate === undefined ) return null
-        return first.filter(data => data[second].includes(third))
-    }
-
-
-    function contextRenderTwo(first, second, navigation) {
-        if(first 
-            && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ){
-            return navigation
-        } 
-        return undefined
-    }
-
-    function contextRenderThree(first, second, navigation) {
-        if(first 
-            && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ){
-            return navigation
-        } 
-        return undefined
-    }
-
-    function contextRenderFour(first, second, navigation) {
-        if(first
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ) {
-            return navigation
-        } 
-        return undefined
-    }
 
     if(
         authstate !== null 

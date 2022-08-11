@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
-import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiMenu5Line, RiUserAddLine } from 'react-icons/ri'
+import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiMenu5Line, RiSearchLine, RiUserAddLine } from 'react-icons/ri'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
@@ -16,7 +16,7 @@ import PtaMain from '../pta/PtaMain'
 
 export default function BarMain() {
     const {
-        setappstate,
+        setappstate, appstate,
 
         authstate,
         userdl,
@@ -32,7 +32,37 @@ export default function BarMain() {
     const [splitstaticthree, setsplistaticthree] = useSplit(3)
 
     const [barmainrendertwo, setbarmainrendertwo] = useState('')
-    
+
+    useEffect(() => {
+        // if(location && location.pathname.includes('')){
+        //     setbarmainstate({barmainid: 'apptfoot', barmainindex: 2})
+        // }
+        setappstate()
+        if(location && location.pathname.includes('main')){
+            setbarmainstate({barmainid: 'apptfoot', barmainindex: 0})
+        }
+        if(location && location.pathname.includes('index')) {
+            setbarmainstate({barmainid: 'apptfoot', barmainindex: 1})
+        }
+
+    }, [location])
+
+    useEffect(() => {
+        const filter = appul?.filter(data => data?.breadaction.includes(location.pathname.split(`/`)[1]))        
+        if(filter && filter.length !== 0){
+            setbarmainrendertwo(filter[0].breadtitle)
+        }
+    }, [location])
+
+    window.onscroll = function (){
+        if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.07))) {
+            setbarmainstyle({main: '!bg-white', h1: '!block '})
+        } 
+        if (((window.innerHeight + document.documentElement.scrollTop) < window.innerHeight + (window.innerHeight * 0.07))) {
+            setbarmainstyle({main: '!bg-transparent', h1: '!hidden'})
+        }
+    }
+
     const apptfoot = [
         {
             barmainindex: 0,
@@ -52,7 +82,11 @@ export default function BarMain() {
                                 navigate: () => {},
                                 // component: <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />,
                                 // icon:<RiBookmarkFill className="m-h5" />
-                                icon: <AtaMain atamaindata={{spreadhref: `/app/appmain`}} atamainstatic={{atamainid: 'appiframe', atamainindex: 0}}><RiMenu5Line className="m-h6" /></AtaMain>
+                                icon: <section className="flex flex-row items-center gap-5">
+                                    <AtaMain atamaindata={{}} atamainstatic={{atamainid: 'searchiframe', atamainindex: 0}}><RiSearchLine className="m-h6" /></AtaMain>
+                                    <AtaMain atamaindata={{}} atamainstatic={{atamainid: 'appiframe', atamainindex: 0}}><RiMenu5Line className="m-h6" /></AtaMain>
+                                </section>
+                                
                             },
                         })
             } 
@@ -73,7 +107,7 @@ export default function BarMain() {
 
                 if(splitstatictwo === 'workout' || splitstatictwo === 'task'){
                     const filter = workoutdl[0].spreaddata.filter(data => data.breadid === splitstaticthree)
-                    empty.push(filter[0])
+                    empty.push(Object.assign(...filter))
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
                         // return <BarMainRenderThree props={{navigate: () => {}}} icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'workoutiframe'}} ptamainstyle={`!m-h5`} />} />
@@ -88,7 +122,7 @@ export default function BarMain() {
 
                 if(splitstatictwo === 'club'|| splitstatictwo === 'ticket'){
                     const filter = clubdl[0].spreaddata.filter(data => data.breadid === splitstaticthree)
-                    empty.push(filter[0])
+                    empty.push(Object.assign(...filter))
                     if(empty.length !== 0){
                         const assign = Object.assign(empty[0], userdl[0]?.spreaddata[0])
                         // return <BarMainRenderThree props={{navigate: () => {}}}  icon={<PtaMain ptamaindata={assign} ptamainstatic={{ptamainid:'clubiframe'}} ptamainstyle={`!m-h5`} />} />
@@ -123,36 +157,6 @@ export default function BarMain() {
     
 
     const [appstatic, setappstatic] = useApp(barmain, barmainstate.barmainid, barmainstate.barmainindex)
-
-    useEffect(() => {
-        // if(location && location.pathname.includes('')){
-        //     setbarmainstate({barmainid: 'apptfoot', barmainindex: 2})
-        // }
-        if(location && location.pathname.includes('main')){
-            setbarmainstate({barmainid: 'apptfoot', barmainindex: 0})
-        }
-        if(location && location.pathname.includes('index')) {
-            setbarmainstate({barmainid: 'apptfoot', barmainindex: 1})
-        }
-        setappstate()
-
-    }, [location])
-
-    useEffect(() => {
-        const filter = appul?.filter(data => data?.breadaction.includes(location.pathname.split(`/`)[1]))        
-        if(filter && filter.length !== 0){
-            setbarmainrendertwo(filter[0].breadtitle)
-        }
-    }, [location])
-
-    window.onscroll = function (){
-        if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.07))) {
-            setbarmainstyle({main: '!bg-white', h1: '!block '})
-        } 
-        if (((window.innerHeight + document.documentElement.scrollTop) < window.innerHeight + (window.innerHeight * 0.07))) {
-            setbarmainstyle({main: '!bg-transparent', h1: '!hidden'})
-        }
-    }
 
   return (
     <div>

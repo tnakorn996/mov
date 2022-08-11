@@ -4,7 +4,6 @@ import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri'
 import { useParams } from 'react-router-dom'
 
 import { Context } from '../../context/context'
-import CtaMain from '../cta/CtaMain'
 import FieldMain from '../field/FieldMain'
 // import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
@@ -14,13 +13,15 @@ export default function StaMain({
 
 }) {
     const {
+        appstate,
 
         contractdl,
         textdl,
 
     } = useContext(Context)
     const param = useParams()
-    const url = (new URL(window.location)).pathname.split('/')[3]
+    // const url = (new URL(window.location)).pathname
+    const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
     const [stamainrender, setstamainrender] = useState()
@@ -71,30 +72,28 @@ export default function StaMain({
         {
             stamainid: 'messageiframe',
             stamainref: messageiframe,
-            stamaindata: textdl && textdl[0]?.spreaddata.filter(data =>  data.spreadidtwo === url),
+            stamaindata: textdl && textdl[0]?.spreaddata.filter(data => data.spreadidtwo === splitstaticthree),
             // stamaindata: staMainRender(textdl),
-
         },
     ]
-    // console.log('textuserid', )
 
     useEffect(() => {
       if(stamainstatic){
         const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
-        const ref = filter[0].stamaindata
-        const reftwo = filter[0].stamainref
-            if(ref && ref.length !== 0){
-                // console.log('fill')
-                const filtertwo = reftwo.filter(data => data.stamainindex === 1)
-                setstamainrender(filtertwo)
-            }
-            if(ref && ref.length === 0){
-                // console.log('unfill')
-                const filtertwo = reftwo.filter(data => data.stamainindex === 0)
-                setstamainrender(filtertwo)
-            } 
+        const ref = Object.assign(...filter).stamaindata
+        const reftwo = Object.assign(...filter).stamainref
+        if(ref && ref.length !== 0){
+            const filtertwo = reftwo.filter(data => data.stamainindex === 1)
+            setstamainrender(filtertwo)
+        }
+        if(ref && ref.length === 0){
+            const filtertwo = reftwo.filter(data => data.stamainindex === 0)
+            setstamainrender(filtertwo)
+        }
       }
     }, [stamainstatic])
+
+    if(!splitstaticthree) return null
 
   return (
     <div>
@@ -110,7 +109,6 @@ export default function StaMain({
     </div>
   )
 }
-
 
 // import { motion } from 'framer-motion'
 // import React, { useContext, useEffect, useState } from 'react'

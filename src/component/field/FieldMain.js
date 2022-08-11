@@ -9,6 +9,7 @@ import CardMain from '../../layout/card/CardMain'
 import { supabase } from '../../lib/supabase'
 import ChoiceMain from '../choice/ChoiceMain'
 import AtaMain from '../ata/AtaMain.tsx'
+import { workoutul } from '../../content/content'
 
 export default function FieldMain({
   fieldmainstatic,
@@ -46,40 +47,14 @@ export default function FieldMain({
     setfieldmainboolean(!fieldmainboolean)
   }, [fieldmainstate])
 
-  // function pp() {
-  //   const data = [
-  //     {
-  //       title: 'sugar'
-  //     },
-  //     {
-  //       title: 'calcium'
-  //     },
-  //     {
-  //       title: 'energy'
-  //     },
-  //     {
-  //       title: 'fiber'
-  //     },
-  //     {
-  //       title: 'folate'
-  //     },
-  //     {
-  //       title: 'folic'
-  //     },
-  //     {
-  //       title: 'iron'
-  //     },
-  //     {
-  //       title: 'niacin'
-  //     },
-  //     {
-  //       title: 'sugar'
-  //     },
-  //     {
-  //       title: 'sugar'
-  //     },
-  //   ]
-  // }
+  function fieldMainRender(first, second) {
+    for(const data of first) {
+      if(data.breadid === splitstaticthree || split[3]){
+        // console.log('datdddddddda', data[second])
+        return data[second]
+      }
+    }
+  }
 
 
   const ll = async () => {
@@ -198,6 +173,7 @@ export default function FieldMain({
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                     taskid: fieldmainid,
+                    taskpoint: fieldMainRender(workoutul, 'breadpoint'),
 
                     weightid: refthree?.current?.value,
                     workoutid: split[3],

@@ -73,7 +73,7 @@ export default function ChoiceMain({
                     setchoicemainbool(!choicemainbool)
                 }} className="text-center  l-button" />
             </section>
-        </>))}
+            </>))}
         </main>
     </div>
   )

@@ -56,21 +56,21 @@ export default function BadgeMain({
         }
     ]
 
-    const messagespan = [
-        {
-            badgemainindex: 0,
-            badgemainrender: () => {
-                const array = []
-                if(!messagedl) return null
-                for(const data of messagedl[0]?.spreaddata){
-                    if(data.spreadrender() !== undefined){
-                        array.push(data)
-                    }
-                }
-                return array.length
-            }
-        },
-    ]
+    // const messagespan = [
+    //     {
+    //         badgemainindex: 0,
+    //         badgemainrender: () => {
+    //             const array = []
+    //             if(!messagedl) return null
+    //             for(const data of messagedl[0]?.spreaddata){
+    //                 if(data.spreadrender() !== undefined){
+    //                     array.push(data)
+    //                 }
+    //             }
+    //             return array.length
+    //         }
+    //     },
+    // ]
 
     const badgemain = [
 
@@ -86,10 +86,10 @@ export default function BadgeMain({
             badgemainid: 'favouritespan',
             badgemainref: favouritespan,
         },
-        {
-            badgemainid: 'messagespan',
-            badgemainref: messagespan,
-        },
+        // {
+        //     badgemainid: 'messagespan',
+        //     badgemainref: messagespan,
+        // },
     ]
 
     const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate, messagedl)

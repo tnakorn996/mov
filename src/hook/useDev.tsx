@@ -3,11 +3,15 @@ import useSplit from './useSplit'
 
 import { Context } from '../context/context'
 
-export default function useDev() {
+export default function useDev({
+    devstaticdata,
+    devstaticaction,
+
+}) {
     const {
         setappstate,
 
-        messagedl,
+        // messagedl,
 
     } = useContext(Context)
     const [splitstatic, setsplitstatic] = useSplit(1)
@@ -17,22 +21,20 @@ export default function useDev() {
     // console.log('splitstatictwo', splitstatictwo.includes(`main`))
     
     useEffect(() => {
-        const concat = messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[2].spreaddata())
+        if(!devstaticdata) return null
+        // console.log('devstaticdata', devstaticdata)
+        const concat = devstaticdata
         const filter = concat.filter((data) => data.spreadrender().bool !== false)
         const filtertwo = filter.filter((data) => data.spreadrender().navigation.split(`/`)[1].includes(splitstatic))
+        // console.log('filter', filter)
         // console.log('filtertwo', filtertwo)
         if(filtertwo.length > 0 
             && splitstatictwo && splitstatictwo.includes(`main`) ) {
+            // && splitstatictwo) {
             setTimeout(() => {
                 window.history.replaceState(null, "" , filtertwo[0].spreadhref)
-                setappstate({
-                    appid:'backdropmain',
-                    appidtwo: 'previewmain',
-                    appidthree: 'apparticle',
-                    appindex: 0
-                })
+                setappstate(devstaticaction)
             }, 1000);
-            // return setdevstatic(concat)
         }
         return null
     }, [splitstatic])

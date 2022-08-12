@@ -15,6 +15,7 @@ import StaMain from '../sta/StaMain'
 import { RiLoaderLine } from 'react-icons/ri'
 import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
+import SplashMain from '../../layout/splash/SplashMain'
 
 export default function StatMain({
     statmainstatic,
@@ -62,6 +63,16 @@ export default function StatMain({
     //         return null
     //     }
     // }
+
+
+    const apptable = [
+        {
+            statmaindex: 1,
+            statmainrender: () => {
+                return statMainRender('userid', appMainRenderTwo({data: clientstatic && clientstatic}))
+            }
+        },
+    ]
 
     const usertable = [
         {
@@ -173,16 +184,12 @@ export default function StatMain({
         }
     ]
 
-    // const messagetable = [
-    //     {
-    //         statmaindex: 0,
-    //         statmainrender: () => {
-    //             return statMainRender('spreadidtwo', messageTableRender({data: clientstatic && clientstatic}))
-    //         }
-    //     },
-    // ]
 
     const statmain = [
+        {
+            statmainid: 'apptable',
+            statmainref: apptable,
+        },
         {
             statmainid: 'usertable',
             statmainref: usertable,
@@ -215,17 +222,14 @@ export default function StatMain({
             statmainref: awardtable,
         },
 
-        // {
-        //     statmainid: 'messagetable',
-        //     statmainref: messagetable,
-        // },
-
         
     ]
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic)
     
     if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><RiLoaderLine className="m-h6  animate-spin" /></motion.section> 
+    // if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><div className="m-h6  animate-bounce" ><SplashMain /></div></motion.section> 
+
     // console.log('clientstatic', clientstatic)
     return (
         <div>
@@ -240,6 +244,24 @@ export default function StatMain({
     )
     }
 
+    export function appMainRenderTwo({data}) {
+        // console.log('data', data)
+        return (
+            <div>
+                <section className="">
+                <SheetMain>
+                    <CardMain>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, aliquid!
+                        {/* <StaMain 
+                        stamainstatic={{ stamainid: 'messageiframe' }} 
+                        />  */}
+                    </CardMain>
+                </SheetMain>
+                </section>
+            </div>
+        )
+    }
+
     export function UserTableRender({data, props}) {
         const {authstate, splitstaticthree} = props
         // console.log('data', data)
@@ -248,8 +270,8 @@ export default function StatMain({
             {data?.map(data => (<>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
-            <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-                <p className="text-4xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+            <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+                <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
             </figure>
             </CardMain>
             </section>
@@ -391,7 +413,7 @@ export default function StatMain({
     }
     
     export function awardTableRender({data}) {
-        console.log('data', data)
+        // console.log('data', data)
         return (
             <div>
                 {data?.map(data => (<>
@@ -410,23 +432,6 @@ export default function StatMain({
         </div>
         )
     }
-
-    // export function messageTableRender({data}) {
-    //     // console.log('data', data)
-    //     return (
-    //         <div>
-    //             <section className="">
-    //             <SheetMain>
-    //                 <CardMain>
-    //                     <StaMain 
-    //                     stamainstatic={{ stamainid: 'messageiframe' }} 
-    //                     /> 
-    //                 </CardMain>
-    //             </SheetMain>
-    //             </section>
-    //         </div>
-    //     )
-    // }
 
     export function handleDate(data) {
         // console.log('data', data)

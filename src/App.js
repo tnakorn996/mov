@@ -38,24 +38,25 @@ import ArticleIndex from './page/article/ArticleIndex.tsx';
 import AppMain from './page/app/AppMain.tsx';
 import GraphMain from './component/graph/GraphMain.tsx';
 import SearchMain from './page/search/SearchMain.tsx';
+import AppIndex from './page/app/AppIndex.tsx';
 
 export default function App() {
   const {
-    setappstate, appstate,
+    appstate,
 
     authstate,
-    
 
   } = useContext(Context)
   const location = useLocation()
-  const navigate = useNavigate()
-  console.log('appstate', appstate)
+  // const navigate = useNavigate()
+  // console.log('appstate', appstate)
 
   return (
       <div className="App">
         <OverlayMain>
         <TopMain >
-        <GraphMain graphmainstatic={{graphmainid: 'appbase', graphmainindex: 0}} />
+        {/* <GraphMain graphmainstatic={{graphmainid: 'appbase', graphmainindex: 0}} /> */}
+        <GraphMain graphmainstatic={{graphmainid: 'messagebase', graphmainindex: 0}} />
         <motion.main className={`relative min-h-screen  duration-300 ${appstate && `!scale-95`}`}>
           <section className="z-30 fixed top-0 left-0 w-screen">
             {/* <button onClick={() => {
@@ -68,6 +69,7 @@ export default function App() {
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthMain />} /> 
               <Route path='/app/appmain' element={<AppMain />} /> 
+              <Route path='/app/appindex/:id' element={<AppIndex />} /> 
 
               <Route path='/auth/authmain' element={<AuthMain />} /> 
               <Route path='/auth/authform' element={<AuthForm />} /> 
@@ -93,8 +95,6 @@ export default function App() {
               <Route path='/ticket/ticketmain' element={<TicketMain />} /> 
               <Route path='/ticket/ticketform/:ticketid' element={<TicketForm />} /> 
               <Route path='/ticket/ticketindex/:ticketid' element={<TicketIndex />} /> 
-
-              <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
               
               <Route path='/achievement/achievementmain' element={<AchievementMain />} /> 
               <Route path='/achievement/achievementindex/:achievementid' element={<AchievementIndex />} /> 
@@ -106,9 +106,13 @@ export default function App() {
               <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 
               <Route path='/message/messageform' element={<MessageForm />} /> 
 
+              <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
+
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
 
               <Route path='/search/searchmain' element={<SearchMain />} /> 
+
+
 
             </Routes> 
             {/* </AnimatePresence> */}

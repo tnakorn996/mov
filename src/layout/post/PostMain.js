@@ -30,9 +30,11 @@ export default function PostMain({
   const {
     fieldmainstate,
     postmainstate,
+    signmainstate,
     setchoicemainstate, choicemainstate,
 
     authstate,
+    appdl,
     userdl,
     taskdl,
     ticketdl,
@@ -59,6 +61,32 @@ export default function PostMain({
         return appAddressRender({
             data: ref
           })
+      },
+    },
+     {
+      postmainindex: 1,
+      postmainrender: () => {
+        //  const array = []
+        //   for(const data of appdl) {
+        //     if(data.spreaddata().length > 0){
+        //       data.spreaddata().forEach(dat => {
+        //         array.push({
+        //           spreadicon: data.spreadicon, ...dat
+        //         })
+        //       })
+        //     }
+        //   }
+        //   const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
+        //   return appAddressRenderTwo({
+        //     data: filter,
+        //     signmainstate: signmainstate,
+        //     navigate: () => {postMainRender()},
+        // })
+          return appAddressRenderTwo({
+            // data: filter,
+            signmainstate: signmainstate,
+            navigate: () => {postMainRender()},
+        })
       },
     },
   ]
@@ -492,6 +520,30 @@ export default function PostMain({
       </div>
     )
   }
+  
+  export function appAddressRenderTwo({data, navigate, signmainstate}) {
+    // console.log('data', data)
+    // console.log('signmainstate', signmainstate)
+    return (
+      <div>
+        {/* {data?.map(data => (<> */}
+        <section className="">
+           <SignMain signmainstatic={{
+              signmainid: signmainstate?.signmainid, 
+              signmainindex: signmainstate?.signmainindex, 
+              signmaindetail: signmainstate?.signmaindetail,
+              signmainaction: signmainstate?.signmainaction,
+                    // signmainid: 'appimg', 
+                    // signmainindex: 0, 
+                    // signmaindetail: data?.spreaddetail,
+                    // signmainaction: data?.spreadrender()?.navigation,
+                  }} /> 
+        </section>
+        {/* </>))} */}
+      </div>
+    )
+  }
+  
 
   export function UserAddressRender({data, props}) {
     const {navigate, authstate} = props
@@ -913,11 +965,13 @@ export default function PostMain({
       <div>
           <CardMain>
           <AvaMain>
-            <CardMain>
-            <figure className="l-h4">
-              {data?.breadsubtitle}
-            </figure>
-            </CardMain>
+              <CardMain>
+              <CardMain>
+              <figure className="l-h4">
+                {data?.breadsubtitle}
+              </figure>
+              </CardMain>
+              </CardMain>
           </AvaMain>
           </CardMain>
       </div>
@@ -929,7 +983,7 @@ export default function PostMain({
     const {navigate} = props
     return (
       <div>
-        <section className={data?.spreadrender().bool && `bg-slate-100`}>
+        <section className={data?.spreadrender().booltwo && `bg-slate-100`}>
         <SheetMain>
           <article className="grid grid-cols-11">
             <section className="col-span-10">

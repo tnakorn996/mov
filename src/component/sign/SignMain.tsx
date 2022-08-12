@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import useClient from '../../hook/useClient'
 import CardMain from '../../layout/card/CardMain'
 import SplashMain from '../../layout/splash/SplashMain'
 
@@ -21,6 +22,18 @@ export default function SignMain({signmainstatic}: SignMainProps) {
     setappstate,
 
     } = useContext(Context)
+    // const [clientstatic, setclientstatic] = useClient()
+
+    // function signMainRender(first) {
+    //     const query = [
+    //         { 
+    //             signmainid: 
+
+
+    //         }
+
+    //     ]
+    // }
 
     const appimg = [
         {
@@ -41,6 +54,12 @@ export default function SignMain({signmainstatic}: SignMainProps) {
             // signmainstyle: {
             //     section: `bg-emerald-700`, 
             // },
+
+            // signmainrender: () => {
+            //     return appImgRender({
+            //         component: signMainRender(signmainstatic),
+            //     })
+            // }
         },
     ]
 
@@ -69,17 +88,30 @@ export default function SignMain({signmainstatic}: SignMainProps) {
                     <CardMain>
                     {signmainstatic?.signmainaction && 
                     <button onClick={() => {
-                        navigate(-1)
+                        // navigate(-1)
+                        navigate(signmainstatic?.signmainaction)
                         setappstate()
                     }} className="l-button uppercase">
                         {signmainstatic?.signmainentitle || 'Continue'}
                     </button>}
                     </CardMain>
                 </figure>
+
                 </div>
             </section>
             </>))}
         </main>
+    </div>
+  )
+}
+
+
+export function appImgRender({component}) {
+  return (
+    <div>
+        <section className="">
+            {component}
+        </section>
     </div>
   )
 }

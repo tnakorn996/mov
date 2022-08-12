@@ -135,47 +135,82 @@ export const Provider = ({
 
     function contextRender(first, second, third) {
         if(authstate === null && authstate === undefined ) return null
+        if(first === null) return null
         return first.filter(data => data[second].includes(third))
     }
 
-    function contextRenderTwo(first, second, navigation) {
-        if(first 
-            && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ){
-            return {navigation: navigation, bool: true}
+    function contextRenderItem(second, result) {
+        if(textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0){
+            return Object.assign({booltwo: true}, result)
         } 
-        return {navigation: navigation, bool: false}
+        return Object.assign({booltwo: false}, result)
+    }
+
+    function contextRenderTwo(first, second, navigation) {
+        if(first  && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0){
+            return contextRenderItem(second, {navigation: navigation, bool: true} )
+        } 
+        return contextRenderItem(second, {navigation: navigation, bool: false} )
     }
 
     function contextRenderThree(first, second, navigation) {
-        if(first 
-            && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ){
-            return {navigation: navigation, bool: true}
+        if(first && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0){
+            return contextRenderItem(second, {navigation: navigation, bool: true} )
         } 
-        return {navigation: navigation, bool: false}
+        return contextRenderItem(second, {navigation: navigation, bool: false} )
     }
 
     function contextRenderFour(first, second, navigation) {
-        if(first
-            && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-            ) {
+        if(first) {
+            return contextRenderItem(second, {navigation: navigation, bool: true} )
+        }  
+        return contextRenderItem(second, {navigation: navigation, bool: false} )
+    }
+
+    function contextRenderFive(first, second, navigation) {
+        if(first) {
             return {navigation: navigation, bool: true}
         }  
         return {navigation: navigation, bool: false}
     }
 
-    ////////////////////////////////////////////////
+    // function contextRenderTwo(first, second, navigation) {
+    //     if(first 
+    //         && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0
+    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+    //         ){
+    //         return {navigation: navigation, bool: true}
+    //     } 
+    //     return {navigation: navigation, bool: false}
+    // }
 
-    const appdl = [
-        {
-            spreadid: 'all',
-            spreadtitle: 'All rouths',
-            spreaddata: appul.filter(data => data.breadid.includes('main') )
-        },
-    ]
+    // function contextRenderThree(first, second, navigation) {
+    //     if(first 
+    //         && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0
+    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+    //         ){
+    //         return {navigation: navigation, bool: true}
+    //     } 
+    //     return {navigation: navigation, bool: false}
+    // }
+
+    // function contextRenderFour(first, second, navigation) {
+    //     if(first
+    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
+    //         ) {
+    //         return {navigation: navigation, bool: true}
+    //     }  
+    //     return {navigation: navigation, bool: false}
+    // }
+
+    // function contextRenderFive(first, second, navigation) {
+    //     if(first) {
+    //         return {navigation: navigation, bool: true}
+    //     }  
+    //     return {navigation: navigation, bool: false}
+    // }
+
+    ////////////////////////////////////////////////
 
     const userdl = [
         {
@@ -288,11 +323,33 @@ export const Provider = ({
         }
     ]
 
+    const appdl = [
+        {
+            spreadid: 'task',
+            spreadtitle: 'My task',
+            spreadicon: `💬`,
+            spreaddata: () => {
+                const array = [];
+                for(const data of workoutul) {
+                        array.push({
+                            spreadidtwo: data.breadid,
+                            spreadhref: `/app/appindex/` + data.breadid,
+                            spreaddetail: `You have successfully added ` + data.breadtitle,
+                            spreadrender: () => {
+                                return contextRenderFive(true, data.breadid, `/workout/workoutindex/` + data.breadid)
+                            },
+                        })
+                }
+                return array
+            }
+        },
+    ]
+
     const messagedl =[
         {
             spreadid: 'ticket',
-            spreadtitle: `Guide's message`,
-            spreadicon: `🎱🏀🎾`,
+            spreadtitle: `Ticket's message`,
+            spreadicon: `🏀`,
             spreaddata: () => {
                 return [
                     {
@@ -308,7 +365,7 @@ export const Provider = ({
         },
         {
             spreadid: 'award',
-            spreadtitle: 'Achievement unlocked!',
+            spreadtitle: 'Award unlocked!',
             spreadicon: `🎉🥳`,
             spreaddata: () => {
                 return [
@@ -317,7 +374,7 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/task-one`,
                         spreaddetail: `You unlocked a new reward of 1-workout`,
                         spreadrender: () => {
-                            return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
+                            return contextRenderTwo(taskuserid && taskuserid.length > 0 && taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
                         }
                     },
                     {
@@ -325,7 +382,7 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/task-three`,
                         spreaddetail: `You unlocked a new reward of 3-workouts`,
                         spreadrender: () => {
-                            return contextRenderTwo(taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
+                            return contextRenderTwo(taskuserid && taskuserid.length > 0 && taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
                         }
                     },
 
@@ -334,7 +391,7 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/ticket-one`,
                         spreaddetail: `You unlocked a new reward of 1-club`,
                         spreadrender: () => {
-                            return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
+                            return contextRenderTwo(ticketuserid && ticketuserid.length > 0 && ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
                         }
                     },
                     {
@@ -342,34 +399,36 @@ export const Provider = ({
                         spreadhref:`/message/messageindex/ticket-three`,
                         spreaddetail: `You unlocked a new reward of 3-clubs`,
                         spreadrender: () => {
-                            return contextRenderTwo(ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
+                            return contextRenderTwo(ticketuserid && ticketuserid.length > 0 && ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
                         }
                     },
                 ]
              }
               
         },
-        {
+          {
             spreadid: 'article',
-            spreadtitle: 'Update message',
+            spreadtitle: `Article's message`,
             spreadicon: `💬`,
             spreaddata: () => {
-                return  [
-                    {
-                        spreadidtwo: 'article-one',
-                        spreadhref: `/message/messageindex/article-one`,
-                        spreaddetail: `TIPS: The Beasty App has everything you need to get moving. That means the personal trainer, engaging stories and your community. It's all here, personalized for you.`,
+                const array = [];
+                for(const data of articleul) {
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/message/messageindex/` + data.breadid,
+                        spreaddetail: data.breadtitle,
                         spreadrender: () => {
-                            return contextRenderFour(true, `article-one`, `/article/articleindex/article-one`)
+                            return contextRenderFour(true , data.breadid, `/article/articleindex/` + data.breadid)
                         }
-                    },
-                ]
+                    })
+                }
+                return array
             }
         },
         {
             spreadid: 'task',
-            spreadtitle: `Regular's message`,
-            spreadicon: `⚡️🔥⚡️`,
+            spreadtitle: `Task's message`,
+            spreadicon: `⚡️`,
             spreaddata: () => {
                 const array = [];
                 for(const data of workoutul) {
@@ -379,10 +438,10 @@ export const Provider = ({
                     array.push({
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,
-                        spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle,
+                        spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s workout`,
                         spreadrender: () => {
                             return contextRenderFour(
-                            (taskuserid.filter(dat => dat.workoutid === data.breadid)).length === 1
+                            (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
                             , data.breadid, `/workout/workoutindex/` + data.breadid)
                         }
                     })
@@ -401,6 +460,8 @@ export const Provider = ({
         && !task 
         && !ticketuserid
         && !awarduserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+
+    // if (taskuserid === null && taskuserid=== undefined) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
     ////////////////////////////////////////////////
 

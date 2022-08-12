@@ -12,10 +12,11 @@ export default function GraphMain({
     const {
         setappstate,
         
+        appdl,
         messagedl,
 
     } = useContext(Context)
-    const [devstatic, setdevstatic] = useDev()
+
 
     // useEffect(() => {
     //   graphMainRender()
@@ -36,7 +37,32 @@ export default function GraphMain({
         {
             graphmainindex: 0,
             graphmainrender: () => {
-                // return messagedl[0].breaddata.concat(messagedl[1].breaddata, messagedl[2].breaddata)
+                return {
+                    data: appdl[0]?.spreaddata(),
+                    action: {
+                        appid:'backdropmain',
+                        appidtwo: 'previewmain',
+                        appidthree: 'apparticle',
+                        appindex: 1
+                    }
+                }
+            }
+        }
+    ]
+
+    const messagebase = [
+        {
+            graphmainindex: 0,
+            graphmainrender: () => {
+                return {
+                    data: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[2].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
+                    action: {
+                        appid:'backdropmain',
+                        appidtwo: 'previewmain',
+                        appidthree: 'apparticle',
+                        appindex: 0
+                    }
+                } 
             }
         }
     ]
@@ -45,11 +71,19 @@ export default function GraphMain({
         {
             graphmainid: 'appbase',
             graphmainref: appbase,
-        }
+        },
+        {
+            graphmainid: 'messagebase',
+            graphmainref: messagebase,
+        },
     ]
 
-    const [appstatic, setappstatic] = useApp(graphmain, graphmainstatic.graphmainid, graphmainstatic.graphmainindex)
-    // console.log('graphsstadtic', appstatic)
+    // console.log('graphmainstatic', graphmainstatic)
+    const [appstatic, setappstatic] = useApp(graphmain, graphmainstatic.graphmainid, graphmainstatic.graphmainindex, graphmainstatic)
+    const [devstatic, setdevstatic] = useDev({
+            devstaticdata: appstatic && appstatic[0].graphmainrender().data,
+            devstaticaction: appstatic && appstatic[0].graphmainrender().action
+        })
 
   return (
     <div>

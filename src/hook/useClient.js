@@ -17,6 +17,15 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
     function clientRenderTwo(userid) {
       const query = [
         {
+          id: 'appindex',
+          from: `user`,
+          // from: `user`,
+          select: `*`,
+          order: [`userid`, { ascending: false }],
+          eq: ['userid', userid],
+          limit: 5,
+        },
+        {
           id: 'userindex',
           from: `user`,
           select: `*`,
@@ -75,21 +84,15 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           eq: ['userid', userid, 'achievementid', splitstaticthree],
           limit: 5,
         },
-        {
-          id: 'messageindex',
-          from: `text`,
-          select: `*`,
-          order: [`messageid`, { ascending: false }],
-          eq: ['userid', userid, 'spreadidtwo', splitstaticthree],
-          limit: 5,
-        },
         // {
-        //   id: 'achievementindex',
-        //   from: `award`,
+        //   id: 'messageindex',
+        //   from: `text`,
         //   select: `*`,
-        //   eq: ['userid', userid, 'clubid', splitstaticthree],
+        //   order: [`messageid`, { ascending: false }],
+        //   eq: ['userid', userid, 'spreadidtwo', splitstaticthree],
         //   limit: 5,
         // },
+       
       ]
       const filter = query.filter(data => data.id === splitstatictwo)
       const ref = Object.assign(...filter)
@@ -113,7 +116,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
             func.eq[0], func.eq[1], func.eq[2], func.eq[3]
             ).limit(func.limit)
           if(data) {
-            console.log('data.....', data)
+            // console.log('data.....', data)
             setclientstatic(data)
           } else {
             alert(error)

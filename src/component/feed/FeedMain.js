@@ -19,7 +19,7 @@ export default function FeedMain({
         postmainstate, setpostmainstate,
         stamainstate,
 
-        appdl,
+        // appdl,
         userdl,
         contractdl,
         workoutdl,
@@ -42,7 +42,7 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: null,
-                    feedmainrender:  appdl[0].spreaddata,
+                    feedmainrender: appul.filter(data => data.breadid.includes('main') ),
                 },
             ],
         },
@@ -185,7 +185,6 @@ export default function FeedMain({
             ],
         },
     ]
-    console.log('messagedl[3].spreaddata(', messagedl[3].spreaddata())
 
     const messagearea = [
         {
@@ -194,11 +193,11 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New message',
-                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().bool === true),
+                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
                 },
                 {
                     feedmaintitle: 'Other messages',
-                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().bool === false),
+                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
                 },
             ],
         },
@@ -208,11 +207,11 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New annoucement',
-                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().bool === true),
+                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
                 },
                 {
                     feedmaintitle: 'Other annoucement',
-                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().bool === false),
+                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
                 },
             ],
         },

@@ -5,6 +5,7 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import AppState from '../../page/app/AppState.tsx'
+import AppIndex from '../../page/app/AppIndex.tsx'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import { RiCloseLine } from 'react-icons/ri'
@@ -43,7 +44,7 @@ export default function PreviewMain() {
       previewmainindex: 1,
       previewmainrender: () => {
         return appArticleRenderTwo({
-          component: <AppState />
+          component: <AppIndex />
         })
       },
     }
@@ -94,7 +95,7 @@ export default function PreviewMain() {
   export function appArticleRender({component, navigate}) {
     return (
       <div>
-        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-screen fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-500">
+        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-500">
           <div className="absolute top-0 right-0">
           <CardMain>
           <RiCloseLine onClick={navigate} className="text-2xl" />
@@ -106,7 +107,7 @@ export default function PreviewMain() {
     )
   }
 
-  export function appArticleRenderTwo({component, navigate}) {
+  export function appArticleRenderTwo({component}) {
     return (
       <div>
         <section className="w-screen h-screen fixed top-0 right-0">

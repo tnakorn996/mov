@@ -56,6 +56,28 @@ export default function FieldMain({
     }
   }
 
+  function fieldMainRenderTwo(first) {
+      // console.log('first', first)
+
+      if(!first.fieldmaindetail) return null
+          setappstate({
+              appid: 'backdropmain',
+              appidtwo: 'previewmain',
+              appidthree: 'apparticle',
+              appindex: 1,
+            })
+            setsignmainstate({
+              signmainid: 'appimg',
+              signmainindex: 0,
+              signmaindetail: first.fieldmaindetail,
+              signmainaction: first.fieldmainaction,
+            })
+
+      // setfieldmainstate(!fieldmainstate)
+      //   if(!first.fieldmainhref) return null
+      //     navigate(first.fieldmainhref + split[3])
+    }
+
 
   const ll = async () => {
     const refvalue = ref?.current?.value
@@ -125,8 +147,6 @@ export default function FieldMain({
   //         return first
   //       }
   // }
-
-  // console.log('window.history', new URL(window.location))
 
   const ss = async () => {
       // console.log('fieldmaindata', fieldmaindata)
@@ -239,11 +259,11 @@ export default function FieldMain({
 
             } 
               setfieldmainstate(!fieldmainstate)
-              handleCallback(ref)
+              fieldMainRenderTwo(ref)
         } catch (error) {
             alert(error)
             setfieldmainstate(!fieldmainstate)
-            handleCallback(error)
+            fieldMainRenderTwo(error)
         }
     }
 
@@ -309,40 +329,13 @@ export default function FieldMain({
                 const { error } = await supabase.from(ref.fieldmainidtwo).delete().match(ref.fieldmaindatatwo)
                 // alert(error)
 
-                // const parse = JSON.parse(window.localStorage.getItem(ref.fieldmainidthree));
-                // const filtertwo = parse.filter(data => Object.values(data).every(value => value !== Object.values(ref.fieldmaindatatwo)[0]))
-                // window.localStorage.setItem(ref.fieldmainidthree, JSON.stringify(filtertwo))
-                
                 setfieldmainstate(!fieldmainstate)
-                handleCallback(ref)
+                fieldMainRenderTwo(ref)
         }
     }
 
     //////////////////////////////////////
 
-    function handleCallback(first) {
-      // console.log('first', first)
-
-      if(!first.fieldmaindetail) return null
-          setfieldmainstate(!fieldmainstate)
-          // window.history.replaceState(null, "" , `app/apps`)
-          setappstate({
-              appid: 'backdropmain',
-              appidtwo: 'previewmain',
-              appidthree: 'apparticle',
-              appindex: 1,
-            })
-            setsignmainstate({
-              signmainid: 'appimg',
-              signmainindex: 0,
-              signmaindetail: first.fieldmaindetail,
-              signmainaction: first.fieldmainaction,
-            })
-
-      // setfieldmainstate(!fieldmainstate)
-      //   if(!first.fieldmainhref) return null
-      //     navigate(first.fieldmainhref + split[3])
-    }
 
   const authinput = [
     {

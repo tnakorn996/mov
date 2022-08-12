@@ -393,13 +393,27 @@ export const articleul = [
     {
         breadid: 'article-one',
         breadaction: `/article/articleindex/article-one`,
-        breadtitle: 'Article one',
-        breadsubtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi aperiam unde amet harum suscipit excepturi dolore incidunt. Esse, alias sit. ',
+        breadtitle: `Find the Perfect Fitness Circle for You.`,
+        breadsubtitle: `
+            StepsApp Pedometer is a powerful tracker that measures your daily steps, walking workouts, runs, and hikes (as well as wheelchair pushes, through its Apple Watch app). Customize your goals and track calories burned, floors climbed, and distance traveled. Beautiful charts help you visualize your weekly, monthly, and yearly progress.
+
+            Nike Run Club’s voice-guided sessions deliver motivation and guidance for experienced and novice runners alike. Programs designed to prep you for everything from 5Ks to full marathons help you figure out which days to run, how far, and at what pace, plus—just as important—what days to rest. Feeling stressed? Check out the mindfulness runs made in collaboration with meditation app Headspace.
+
+            For high-intensity interval training
+            HIIT is all about short, intense bursts of exercise that get your heart rate up and keep it there. The workouts in Seven last exactly (you guessed it) seven minutes, and are designed to help you burn calories and build muscle mass without eating into your precious free time.
+
+            Whether you’re looking to build overall muscle or focus on your abs, FitOn lets you tailor its high-intensity sessions to your needs and the equipment on hand (even if that’s none at all). Don’t miss the celebrity workouts with stars like Gabrielle Union and Jonathan Van Ness.
+
+        `,
     },
     {
         breadid: 'article-two',
         breadaction: `/article/articleindex/article-two`,
-        breadtitle: 'Article two',
-        breadsubtitle: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi aperiam unde amet harum suscipit excepturi dolore incidunt. Esse, alias sit.',
+        breadtitle: 'Hit Your Fitness Goals With Beasty',
+        breadsubtitle: `
+
+        Strength in numbers
+        Instead of being led by a single Nike Master Trainer, the Breakthrough Challenge features a team of five, each with a specific expertise. It’s the most varied program in the app—and every workout builds on the previous one. One day might be dedicated to building core strength, the next to yoga for increased mobility. Then that strength and flexibility you’ve been working on may feed into high-intensity training.“If you’ve never done something—whether it’s yoga or crab walks—you may wonder why you should give it a shot,” says Nike Master Trainer Alex Silver-Fagan. “We’ll show you how these relate to one another—and help you see you’re capable of things you might not have realized.”
+        `,
     },
 ]

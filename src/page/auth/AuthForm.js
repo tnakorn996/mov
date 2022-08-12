@@ -16,7 +16,7 @@ export default function AuthForm() {
         <main className="">
           <CardMain />
           <CardMain />
-            <section className="bg-slate-100">
+            <section className="">
               <SheetMain>
                 {authformstate === true && <FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 0}} />}
                 {authformstate === false && <FieldMain fieldmainstatic={{fieldmainid:'authinput', fieldmainindex: 1}} />}

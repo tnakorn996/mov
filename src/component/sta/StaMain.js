@@ -14,6 +14,7 @@ export default function StaMain({
 }) {
     const {
         appstate,
+        fieldmainstate,
 
         contractdl,
         textdl,
@@ -21,6 +22,7 @@ export default function StaMain({
     } = useContext(Context)
     const param = useParams()
     // const url = (new URL(window.location)).pathname
+    const [splitstatic, setsplitstatic] = useSplit(1)
     const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
@@ -91,7 +93,7 @@ export default function StaMain({
             setstamainrender(filtertwo)
         }
       }
-    }, [stamainstatic])
+    }, [stamainstatic, splitstatic, splitstatictwo, splitstaticthree, fieldmainstate])
 
     if(!splitstaticthree) return null
 

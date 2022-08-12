@@ -10,7 +10,7 @@ export default function UserForm() {
   return (
     <div>
         <main className="">
-          <SpreadMain>
+          {/* <SpreadMain> */}
             <section className="">
               <CardMain />
               <CardMain />
@@ -21,7 +21,7 @@ export default function UserForm() {
                 <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 0}} fieldmainstyle={{button: `!l-button`}} />
               </SheetMain>
             </section>
-          </SpreadMain>
+          {/* </SpreadMain> */}
         </main>
     </div>
   )

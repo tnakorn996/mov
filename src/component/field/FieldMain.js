@@ -8,7 +8,7 @@ import useSplit from '../../hook/useSplit'
 import CardMain from '../../layout/card/CardMain'
 import { supabase } from '../../lib/supabase'
 import ChoiceMain from '../choice/ChoiceMain'
-import AtaMain from '../ata/AtaMain.tsx'
+// import DtaMain from '../dta/DtaMain.tsx'
 import { workoutul } from '../../content/content'
 
 export default function FieldMain({
@@ -18,7 +18,8 @@ export default function FieldMain({
 
 }) {
   const {
-    setappstate,
+    setappstate, appstate,
+    choicemainstate,
     fieldmainstate, setfieldmainstate,
     signmainstate, setsignmainstate,
 
@@ -552,7 +553,7 @@ export default function FieldMain({
                 </>))}
               </figcaption>
               
-              <figure className="flex flex-row gap-2">
+              <figure className="flex flex-row gap-1">
 
                 <button onClick={() => {
                     data?.fieldmainaction()
@@ -561,12 +562,12 @@ export default function FieldMain({
                   {fieldmainboolean === false && <div className="w-[10px] h-[10px] border-2 border-slate-400 rounded-full animate-ping" />}
                    {data?.fieldmainentitle}
                 </button>
-
-                {data?.fieldmaindatatwo?.map(dat => (<>
+                
                 <button className="">
+                {data?.fieldmaindatatwo?.map(dat => (<>
                     {dat?.fieldmainrender}
+                </>))}
                 </button>
-                  </>))}
 
               </figure>
 

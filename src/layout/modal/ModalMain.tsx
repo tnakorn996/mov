@@ -11,6 +11,7 @@ import MessageIndex from '../../page/message/MessageIndex.tsx'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
+import WeightIndex from '../../page/weight/WeightIndex.tsx'
 
 export default function ModalMain() {
   const {
@@ -57,6 +58,17 @@ export default function ModalMain() {
     }
   ]
 
+  const weightdialog = [
+    {
+      modalmainindex: 0,
+      modalmainrender: () => {
+        return appDialogRender({
+          component: <WeightIndex />
+        })
+      }
+    }
+  ]
+
   const modalmain = [
     {
       modalmainid: 'appdialog',
@@ -69,6 +81,10 @@ export default function ModalMain() {
     {
       modalmainid: 'messagedialog',
       modalmainref: messagedialog,
+    },
+    {
+      previewmainid: 'weightdialog',
+      previewmainref: weightdialog,
     },
 
   ]

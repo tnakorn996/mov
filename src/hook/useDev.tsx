@@ -26,8 +26,6 @@ export default function useDev({
         const concat = devstaticdata
         const filter = concat.filter((data) => data.spreadrender().bool !== false)
         const filtertwo = filter.filter((data) => data.spreadrender().navigation.split(`/`)[1].includes(splitstatic))
-        // console.log('filter', filter)
-        // console.log('filtertwo', filtertwo)
         if(filtertwo.length > 0 
             && splitstatictwo && splitstatictwo.includes(`main`) ) {
             // && splitstatictwo) {

@@ -17,7 +17,7 @@ import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
 import ScreenMain from '../screen/ScreenMain.tsx'
 import AvaMain from '../ava/AvaMain.tsx'
-import AtaMain from '../../component/ata/AtaMain.tsx'
+import DtaMain from '../../component/dta/DtaMain.tsx'
 import BadgeMain from '../badge/BadgeMain'
 
 export default function PostMain({
@@ -425,6 +425,7 @@ export default function PostMain({
       }
     },
   ]
+// console.log('messagedl', messagedl)
 
   const postmain = [
     {
@@ -628,13 +629,13 @@ export default function PostMain({
     //   </div>
         <CardMain>
           <section className="grid grid-cols-12">
-            <figure className="col-span-3">
-              <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+            <figure onClick={navigate}  className="col-span-3">
+              <video src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
             </figure>
             <figcaption className="col-span-9 flex flex-row items-center justify-between">
                 <CardMain>
-                <h1 className="m-h5">{data?.breadtitle}</h1>
+                <h1 onClick={navigate} className="m-h5">{data?.breadtitle}</h1>
                 <h1 className="l-h2">With {data?.breadauthor}</h1>
                 </CardMain>
                 <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}}  />
@@ -663,16 +664,16 @@ export default function PostMain({
       </section>
               <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            <AvaMain>
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            </AvaMain>
-            <AvaMain>
+            {/* </AvaMain> */}
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            </AvaMain>
+            {/* </AvaMain> */}
         </section>
           </CardMain>
     </div>
@@ -683,10 +684,10 @@ export default function PostMain({
     return (
     <div className=" ">
       <section className="">
-        <motion.figure onClick={navigate} className={data.breadhead === choicemainstate && `!bg-slate-200 !duration-1000`}>
+        <motion.figure onClick={navigate} className={data.breadhead === choicemainstate && `!bg-slate-100  !duration-1000`}>
           <CardMain>
                 <CardMain>
-                <p className=" l-h4 uppercase">{data.breadbody}</p>
+                <p className=" m-h5 uppercase">{data.breadbody}</p>
                 </CardMain>
           </CardMain>
         </motion.figure>
@@ -749,16 +750,16 @@ export default function PostMain({
         </section>
          <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            <AvaMain>
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            </AvaMain>
-            <AvaMain>
+            {/* </AvaMain> */}
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            </AvaMain>
+            {/* </AvaMain> */}
         </section>
           </CardMain>
         <section className="">
@@ -816,16 +817,16 @@ export default function PostMain({
         </section>
           <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            <AvaMain>
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            </AvaMain>
-            <AvaMain>
+            {/* </AvaMain> */}
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            </AvaMain>
+            {/* </AvaMain> */}
         </section>
           </CardMain>
       </div>
@@ -869,16 +870,16 @@ export default function PostMain({
         </section>
         <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            <AvaMain>
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            </AvaMain>
-            <AvaMain>
+            {/* </AvaMain> */}
+            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            </AvaMain>
+            {/* </AvaMain> */}
         </section>
           </CardMain>
       </div>
@@ -992,7 +993,7 @@ export default function PostMain({
               </figure>
             </section>
             <section className="col-span-1 flex justify-end">
-                <AtaMain atamaindata={data} atamainstatic={{atamainid:'messageiframe', atamainindex: 0}} ><RiMoreLine /></AtaMain>
+                <DtaMain dtamaindata={data} dtamainstatic={{dtamainid:'messageiframe', dtamainindex: 0}} ><RiMoreLine /></DtaMain>
             </section>
           </article>
         </SheetMain>

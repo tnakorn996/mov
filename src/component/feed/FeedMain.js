@@ -19,6 +19,7 @@ export default function FeedMain({
         postmainstate, setpostmainstate,
         stamainstate,
 
+        // taskuserid,
         // appdl,
         userdl,
         contractdl,
@@ -42,7 +43,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: null,
-                    feedmainrender: appul.filter(data => data.breadid.includes('main') ),
+                    // feedmainrender: appul.filter(data => data.breadid.includes('main') ),
+                    feedmainrender: () => {
+                        return appul.filter(data => data.breadid.includes('main') )
+                    }
                 },
             ],
         },
@@ -55,7 +59,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'People you may know',
-                    feedmainrender:  userdl[2].spreaddata,
+                    // feedmainrender:  userdl[2].spreaddata,
+                    feedmainrender: () => {
+                        return  userdl[2].spreaddata
+                    }
                 },
             ],
         },
@@ -65,12 +72,18 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Recent followers',
-                    feedmainrender:  contractdl[1].spreaddata,
+                    // feedmainrender:  contractdl[1].spreaddata,
+                    feedmainrender: () => {
+                        return contractdl[1].spreaddata
+                    }
                     // feedmainrender: [],
                 },
                 {
                     feedmaintitle: `Who you're following`,
-                    feedmainrender:  contractdl[0].spreaddata,
+                    // feedmainrender:  contractdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return contractdl[0].spreaddata
+                    }
                     // feedmainrender: [],
                 },
             ],
@@ -84,7 +97,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New Workouts',
-                    feedmainrender: workoutdl[0].spreaddata,
+                    // feedmainrender: workoutdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return workoutdl[0].spreaddata
+                    }
                 },
             ],
         }
@@ -97,8 +113,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Your Workouts',
-                    // feedmainaction: `/task/taskmain/`,
-                    feedmainrender: taskdl[0].spreaddata,
+                    // feedmainrender: taskdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return taskdl[0].spreaddata
+                    }
                 },
             ],
         }
@@ -111,7 +129,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Join a Challenge',
-                    feedmainrender: clubdl[0].spreaddata,
+                    // feedmainrender: clubdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return  clubdl[0].spreaddata
+                    }
                 },
             ],
         }
@@ -124,8 +145,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'My Challenges',
-                    // feedmainaction: `/ticket/ticketmain/`,
-                    feedmainrender: ticketdl[0].spreaddata,
+                    // feedmainrender: ticketdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return  ticketdl[0].spreaddata
+                    }
                 },
             ],
         }
@@ -138,7 +161,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Favourite workouts',
-                    feedmainrender: favouritedl[0].spreaddata,
+                    // feedmainrender: favouritedl[0].spreaddata,
+                    feedmainrender: () => {
+                        return favouritedl[0].spreaddata
+                    }
                 },
             ],
         },
@@ -148,7 +174,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Favourite clubs',
-                    feedmainrender: favouritedl[1].spreaddata,
+                    // feedmainrender: favouritedl[1].spreaddata,
+                    feedmainrender: () => {
+                        return favouritedl[1].spreaddata
+                    }
                 },
             ],
         },
@@ -161,15 +190,24 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Ranks',
-                    feedmainrender: achievementdl[0].spreaddata,
+                    // feedmainrender: achievementdl[0].spreaddata,
+                    feedmainrender: () => {
+                        return achievementdl[0].spreaddata
+                    }
                 },
                  {
                     feedmaintitle: 'Workouts',
-                    feedmainrender: achievementdl[1].spreaddata,
+                    // feedmainrender: achievementdl[1].spreaddata,
+                    feedmainrender: () => {
+                        return achievementdl[1].spreaddata
+                    }
                 },
                  {
                     feedmaintitle: 'Clubs',
-                    feedmainrender: achievementdl[2].spreaddata,
+                    // feedmainrender: achievementdl[2].spreaddata,
+                    feedmainrender: () => {
+                        return achievementdl[2].spreaddata
+                    }
                 },
 
             ],
@@ -180,7 +218,10 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Your rewards',
-                    feedmainrender: awarddl[0].spreaddata,
+                    // feedmainrender: awarddl[0].spreaddata,
+                    feedmainrender: () => {
+                        return awarddl[0].spreaddata
+                    }
                 },
             ],
         },
@@ -193,11 +234,19 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New message',
-                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
+                    feedmainrender: () => {
+                                return (messagedl[0].spreaddata().concat(
+                                    messagedl[1].spreaddata(), 
+                                    messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
+                    }
                 },
                 {
                     feedmaintitle: 'Other messages',
-                    feedmainrender: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
+                    feedmainrender: () => {
+                                return  (messagedl[0].spreaddata().concat(
+                                    messagedl[1].spreaddata(), 
+                                    messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
+                    }
                 },
             ],
         },
@@ -207,15 +256,23 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New annoucement',
-                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
+                    // feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
+                    feedmainrender: () => {
+                        return  (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
+                    }
                 },
                 {
                     feedmaintitle: 'Other annoucement',
-                    feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
+                    // feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
+                    feedmainrender: () => {
+                        return (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
+                    }
                 },
             ],
         },
     ]
+
+    // console.log('messagedl', messagedl)
 
     const feedmain = [
         {
@@ -269,14 +326,23 @@ export default function FeedMain({
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.feedmaindata?.map(dat => (<>
-                        {dat?.feedmainrender?.length > 0 && (<>
+                        {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && (<>
                         {dat?.feedmaintitle !== null && (<>
+                        <div className="flex flex-row items-center justify-between">
                             <CardMain>
                             <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                             </CardMain>
+                            {/* {feedmainstatic.feedmainid === 'workoutarea' && 
+                            <CardMain>
+                                <button onClick={() => setfeedmainstate(!postmainstate)} className="l-button"><RiGridFill /></button>
+                                <button onClick={() => setfeedmainstate(!postmainstate)} className="l-button"><RiLayoutGridFill /></button>
+                            </CardMain>
+                            } */}
+                        </div>
+
                         </>)}
                         <figure className="">
-                            {dat?.feedmainrender?.map(post => (<>
+                            {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmainrender()?.map(post => (<>
                                 {(feedmainstatic.feedmainid === 'apparea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'appaddress', postmainindex: 0}} />}
 
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}

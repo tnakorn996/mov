@@ -11,7 +11,7 @@ import useSplit from '../../hook/useSplit'
 import BadgeMain from '../../layout/badge/BadgeMain'
 import CardMain from '../../layout/card/CardMain'
 import PostMain from '../../layout/post/PostMain'
-import AtaMain from '../ata/AtaMain.tsx'
+import DtaMain from '../dta/DtaMain.tsx'
 import PtaMain from '../pta/PtaMain'
 
 export default function BarMain() {
@@ -83,8 +83,8 @@ export default function BarMain() {
                                 // component: <BadgeMain badgemainstatic={{badgemainid: 'favouritespan', badgemainindex: 0}}  />,
                                 // icon:<RiBookmarkFill className="m-h5" />
                                 icon: <section className="flex flex-row items-center gap-5">
-                                    <AtaMain atamaindata={{}} atamainstatic={{atamainid: 'searchiframe', atamainindex: 0}}><RiSearchLine className="m-h6" /></AtaMain>
-                                    <AtaMain atamaindata={{}} atamainstatic={{atamainid: 'appiframe', atamainindex: 0}}><RiMenu5Line className="m-h6" /></AtaMain>
+                                    <DtaMain dtamaindata={{}} dtamainstatic={{dtamainid: 'searchiframe', dtamainindex: 0}}><RiSearchLine className="m-h6" /></DtaMain>
+                                    <DtaMain dtamaindata={{}} dtamainstatic={{dtamainid: 'appiframe', dtamainindex: 0}}><RiMenu5Line className="m-h6" /></DtaMain>
                                 </section>
                                 
                             },

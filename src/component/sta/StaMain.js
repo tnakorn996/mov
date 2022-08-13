@@ -15,6 +15,7 @@ export default function StaMain({
     const {
         appstate,
         fieldmainstate,
+        dtamainstate,
 
         contractdl,
         textdl,
@@ -93,9 +94,9 @@ export default function StaMain({
             setstamainrender(filtertwo)
         }
       }
-    }, [stamainstatic, splitstatic, splitstatictwo, splitstaticthree, fieldmainstate])
+    }, [stamainstatic, dtamainstate, splitstaticthree])
 
-    if(!splitstaticthree) return null
+    // if(!splitstaticthree) return null
 
   return (
     <div>

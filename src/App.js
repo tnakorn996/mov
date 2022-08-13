@@ -112,7 +112,7 @@ export default function App() {
 
               <Route path='/search/searchmain' element={<SearchMain />} /> 
 
-
+              {/* <Route path='/weight/weightindex/:id' element={<SearchMain />} />  */}
 
             </Routes> 
             {/* </AnimatePresence> */}

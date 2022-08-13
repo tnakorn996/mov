@@ -95,7 +95,7 @@ export default function BadgeMain({
     const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate, messagedl)
 
     function badgemainrender(first, second) {
-        if(!second) return null
+        if(second === undefined || first === undefined) return null
         return first?.[second].length
     }
 

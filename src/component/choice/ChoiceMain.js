@@ -7,6 +7,8 @@ import useSplit from '../../hook/useSplit'
 import CardMain from '../../layout/card/CardMain'
 import SheetMain from '../../layout/sheet/SheetMain'
 import ZoomMain from '../../layout/zoom/ZoomMain'
+import DtaMain from '../../component/dta/DtaMain.tsx'
+import { useLocation } from 'react-router-dom'
 
 export default function ChoiceMain({
     choicemainref,
@@ -14,20 +16,26 @@ export default function ChoiceMain({
 
 }) {
     const {
+        appstate,
 
         choicemainstate, setchoicemainstate,
 
     } = useContext(Context)
+    const location = useLocation()
+    // console.log('location', location)
+    const [splitstatictwo, setsplitstatictwo] = useSplit(2)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [choicemainbool, setchoicemainbool] = useState(true)
+    // console.log('splitstaticthree', splitstaticthree)
 
     const workoutlabel = [
         {
             choicemainindex: 0,
+            choicemainhref: `/weight/weightindex/${splitstaticthree}`,
             choicemaindatatwo: workoutul.filter(data => data.breadid === splitstaticthree),
-            choicemaindata: () => {
-                return <ZoomMain zoommainstatic={{zoommainid: 'workoutformtwo'}} />
-            }
+            // choicemaindata: () => {
+            //     return <ZoomMain zoommainstatic={{zoommainid: 'workoutformtwo'}} />
+            // }
         }
     ]
 
@@ -39,12 +47,18 @@ export default function ChoiceMain({
     ]
 
     const [appstatic, setappstatic] = useApp(choicemain, choicemainstatic.choicemainid, choicemainstatic.choicemainindex, splitstaticthree)
-
+console.log('appstatic', appstatic)
+console.log('splitstaticthree', splitstaticthree)
     useEffect(() => {
-      setchoicemainstate()
-    }, [])
+        if(appstatic) {
+            appstatic?.map(data => {
+                setchoicemainstate(data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead)
+            })
+        }
+    }, [appstatic])
+
+    console.log('choicemainstate', choicemainstate)
     
-    // console.log('choicemainstate', choicemainstate)
   return (
     <div>
         <main className="">
@@ -55,8 +69,10 @@ export default function ChoiceMain({
                     </>))}
                 </>))}
             </select> */}
+
+
             {appstatic?.map(data => (<>
-            <section className={`hidden fixed top-0 left-0 w-screen h-screen  bg-white ${choicemainbool === false && `!block`}`}>
+            {/* <section className={`hidden fixed top-0 left-0 w-screen h-screen  bg-white ${choicemainbool === false && `!block`}`}>
                 <figure className="h-[90vh]">
                     {data?.choicemaindata()}
                 </figure>
@@ -67,11 +83,17 @@ export default function ChoiceMain({
                     }} className="w-full h-[5vh]">CANCLE</button>
                     </SheetMain>
                 </figure>
-            </section>
+            </section> */}
             <section className="">
-                <input ref={choicemainref} value={ choicemainstate || data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead} onClick={() => {
-                    setchoicemainbool(!choicemainbool)
-                }} className="text-center  l-button" />
+                <DtaMain 
+                dtamaindata={{spreadhref: data?.choicemainhref}}
+                dtamainstatic={{dtamainid: 'weightiframe', dtamainindex: 0}} >
+                    <input ref={choicemainref} value={ choicemainstate } 
+                    // onClick={() => {
+                        //     setchoicemainbool(!choicemainbool)
+                        // }} 
+                        className="m-h5 text-center  l-button cursor-pointer shadow-md border-slate-200" />
+                </DtaMain>
             </section>
             </>))}
         </main>

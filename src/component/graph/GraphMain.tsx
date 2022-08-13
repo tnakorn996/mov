@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useDev from '../../hook/useDev.tsx'
+import SplashMain from '../../layout/splash/SplashMain'
 // import useDev from '../../hook/useDev.tsx'
 
 export default function GraphMain({
@@ -11,7 +12,8 @@ export default function GraphMain({
 }) {
     const {
         setappstate,
-        
+
+        // taskuserid,
         appdl,
         messagedl,
 
@@ -55,7 +57,10 @@ export default function GraphMain({
             graphmainindex: 0,
             graphmainrender: () => {
                 return {
-                    data: (messagedl[0].spreaddata().concat(messagedl[1].spreaddata(), messagedl[2].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
+                    data: (messagedl[0]?.spreaddata()?.concat(
+                        messagedl[1]?.spreaddata(), 
+                        // messagedl[2]?.spreaddata(),  
+                        messagedl[3]?.spreaddata()))?.filter(data => data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true),
                     action: {
                         appid:'backdropmain',
                         appidtwo: 'previewmain',
@@ -84,6 +89,7 @@ export default function GraphMain({
             devstaticdata: appstatic && appstatic[0].graphmainrender().data,
             devstaticaction: appstatic && appstatic[0].graphmainrender().action
         })
+
 
   return (
     <div>

@@ -23,6 +23,7 @@ export const Provider = ({
     const [ptamainstate, setptamainstate] = useState(true)
     const [signmainstate, setsignmainstate] = useState()
     const [choicemainstate, setchoicemainstate] = useState()
+    const [dtamainstate, setdtamainstate] = useState(true)
     // const [stamainstate, setstamainstate] = useState(true)
     // const [zoommainstate, setzoommainstate] = useState(true)
     
@@ -349,7 +350,7 @@ export const Provider = ({
         {
             spreadid: 'ticket',
             spreadtitle: `Ticket's message`,
-            spreadicon: `🏀`,
+            spreadicon: `🏀🎾⚽️`,
             spreaddata: () => {
                 return [
                     {
@@ -428,8 +429,9 @@ export const Provider = ({
         {
             spreadid: 'task',
             spreadtitle: `Task's message`,
-            spreadicon: `⚡️`,
+            spreadicon: `❤️‍🔥🙌🔥`,
             spreaddata: () => {
+                if(!taskuserid) return null
                 const array = [];
                 for(const data of workoutul) {
                     // delete data.breaddata
@@ -476,6 +478,7 @@ export const Provider = ({
         ptamainstate, setptamainstate,
         signmainstate, setsignmainstate,
         choicemainstate, setchoicemainstate,
+        dtamainstate, setdtamainstate,
         // stamainstate, setstamainstate,
         // zoommainstate, setzoommainstate,
         // fix this V parse get rid of it

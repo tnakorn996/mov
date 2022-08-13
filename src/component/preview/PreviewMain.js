@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { RiCloseLine } from 'react-icons/ri'
+import { useLocation } from 'react-router-dom'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -8,9 +10,9 @@ import AppState from '../../page/app/AppState.tsx'
 import AppIndex from '../../page/app/AppIndex.tsx'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
-import { RiCloseLine } from 'react-icons/ri'
 import CardMain from '../../layout/card/CardMain'
-import { useLocation } from 'react-router-dom'
+import WeightIndex from '../../page/weight/WeightIndex.tsx'
+
 
 export default function PreviewMain() {
   const {
@@ -47,7 +49,7 @@ export default function PreviewMain() {
           component: <AppIndex />
         })
       },
-    }
+    },
   ]
 
    const searcharticle = [
@@ -65,6 +67,21 @@ export default function PreviewMain() {
     },
   ]
 
+  // const weightarticle = [
+  //   {
+  //     previewmainindex: 0,
+  //     previewmainrender: () => {
+  //       return appArticleRender({
+  //         navigate: () => {
+  //           window.history.replaceState(null, "", location?.pathname)
+  //           setappstate()
+  //         },
+  //         component: <WeightIndex />
+  //       })
+  //     },
+  //   },
+  // ]
+
   const previewmain = [
     {
       previewmainid: 'apparticle',
@@ -74,7 +91,10 @@ export default function PreviewMain() {
       previewmainid: 'searcharticle',
       previewmainref: searcharticle,
     },
-
+    // {
+    //   previewmainid: 'weightarticle',
+    //   previewmainref: weightarticle,
+    // },
   ]
 
   const [appstatic, setappstatic] = useApp(previewmain, appstate.appidthree, appstate.appindex)
@@ -111,6 +131,16 @@ export default function PreviewMain() {
     return (
       <div>
         <section className="w-screen h-screen fixed top-0 right-0">
+          {component}
+        </section>
+      </div>
+    )
+  }
+
+  export function appArticleRenderThree({component}) {
+    return (
+      <div>
+        <section className="w-screen h-screen fixed top-0 right-0  bg-red-500">
           {component}
         </section>
       </div>

@@ -12,6 +12,7 @@ import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import CardMain from '../../layout/card/CardMain'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
+import UserIndex from '../../page/user/UserIndex'
 
 
 export default function PreviewMain() {
@@ -52,6 +53,21 @@ export default function PreviewMain() {
     },
   ]
 
+  const userarticle = [
+    {
+      previewmainindex: 0,
+      previewmainrender: () => {
+        return appArticleRender({
+          navigate: () => {
+             window.history.replaceState(null, "", location?.pathname)
+            setappstate()
+          },
+          component: <UserIndex />
+        })
+      },
+    },
+  ]
+
    const searcharticle = [
     {
       previewmainindex: 0,
@@ -86,6 +102,10 @@ export default function PreviewMain() {
     {
       previewmainid: 'apparticle',
       previewmainref: apparticle,
+    },
+    {
+      previewmainid: 'userarticle',
+      previewmainref: userarticle,
     },
     {
       previewmainid: 'searcharticle',

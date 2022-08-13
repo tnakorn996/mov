@@ -70,6 +70,22 @@ export default function AtaMain({
         },
     ]
 
+    const useriframe = [
+        {
+            dtamainindex: 0,
+            dtamainrender: () => {
+                return {
+                    navigate: dtaMainAction({
+                            appid: 'backdropmain',
+                            appidtwo: 'previewmain',
+                            appidthree: 'userarticle',
+                            appindex: 0,
+                        })
+                }
+            } 
+        },
+    ]
+
     const searchiframe = [
         {
             dtamainindex: 0,
@@ -122,6 +138,10 @@ export default function AtaMain({
         {
             dtamainid: 'appiframe',
             dtamainref: appiframe
+        },
+        {
+            dtamainid: 'useriframe',
+            dtamainref: useriframe
         },
         {
             dtamainid: 'searchiframe',

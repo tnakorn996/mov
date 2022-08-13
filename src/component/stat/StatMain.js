@@ -270,8 +270,8 @@ export default function StatMain({
             {data?.map(data => (<>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
-            <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-                <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+            <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+                <p className="text-3xl  uppercase">{data?.useremail.slice(0, 1)}</p>
             </figure>
             </CardMain>
             </section>

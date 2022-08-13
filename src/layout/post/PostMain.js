@@ -293,7 +293,9 @@ export default function PostMain({
           <TicketAddressRenderThree
           data={data}
           props={{
-            navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
+            // navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
+            navigate: `/user/userindex/${data?.userid?.userid}`
+
           
           }}
            />
@@ -890,14 +892,16 @@ export default function PostMain({
     const {navigate} = props
     return (
        <div className="" >
+        <DtaMain dtamaindata={{spreadhref: navigate}} dtamainstatic={{dtamainid: 'useriframe', dtamainindex: 0}} >
         <section className="w-full flex flex-row items-center justify-between">
-            <figcaption onClick={navigate} className="w-full  cursor-pointer">
+            <figcaption className="w-full  cursor-pointer">
               <p className="l-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
             <figure className="">
               <p className="l-h4 uppercase">{data?.weightid}</p>
             </figure>
         </section>
+        </DtaMain>
       </div>
     )
   }

@@ -69,7 +69,7 @@ export default function StaMain({
         {
             stamainid: 'useriframe',
             stamainref: useriframe,
-            stamaindata: contractdl && contractdl[0]?.spreaddata.filter(data => data.receiverid.userid === param.userid),
+            stamaindata: contractdl && contractdl[0]?.spreaddata.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree),
             // stamaindata: staMainRender(contractdl),
         },
         {
@@ -81,10 +81,11 @@ export default function StaMain({
     ]
 
     useEffect(() => {
-      if(stamainstatic){
-        const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
-        const ref = Object.assign(...filter).stamaindata
-        const reftwo = Object.assign(...filter).stamainref
+        if(stamainstatic){
+            const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
+            const ref = Object.assign(...filter).stamaindata
+            const reftwo = Object.assign(...filter).stamainref
+            console.log('ref', ref, reftwo)
         if(ref && ref.length !== 0){
             const filtertwo = reftwo.filter(data => data.stamainindex === 1)
             setstamainrender(filtertwo)
@@ -95,7 +96,7 @@ export default function StaMain({
         }
       }
     }, [stamainstatic, dtamainstate, splitstaticthree])
-
+console.log('dtamainstate', dtamainstate, splitstaticthree)
     // if(!splitstaticthree) return null
 
   return (

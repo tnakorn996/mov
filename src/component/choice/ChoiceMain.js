@@ -47,8 +47,8 @@ export default function ChoiceMain({
     ]
 
     const [appstatic, setappstatic] = useApp(choicemain, choicemainstatic.choicemainid, choicemainstatic.choicemainindex, splitstaticthree)
-console.log('appstatic', appstatic)
-console.log('splitstaticthree', splitstaticthree)
+// console.log('appstatic', appstatic)
+// console.log('splitstaticthree', splitstaticthree)
     useEffect(() => {
         if(appstatic) {
             appstatic?.map(data => {
@@ -57,7 +57,7 @@ console.log('splitstaticthree', splitstaticthree)
         }
     }, [appstatic])
 
-    console.log('choicemainstate', choicemainstate)
+    // console.log('choicemainstate', choicemainstate)
     
   return (
     <div>

@@ -149,6 +149,8 @@ export default function FieldMain({
   //       }
   // }
 
+  // console.log('split[3], param', split[3], splitstaticthree)
+
   const ss = async () => {
       // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
@@ -182,7 +184,7 @@ export default function FieldMain({
                   
                     userid: user?.id,
                     senderid: user?.id,
-                    receiverid: fieldmaindata?.userid || split[3],
+                    receiverid: fieldmaindata?.userid || splitstaticthree || split[3] || param?.userid,
                 },
                 fieldmaindatatwo: {contractid: undefined}
             },
@@ -246,7 +248,7 @@ export default function FieldMain({
             },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
-        const ref = filter[0]
+        const ref = Object.assign(...filter)
         // console.log('ref', ref)
         try {
             if(user && filter && Object.values(ref.fieldmaindatatwo)[0] === undefined){
@@ -279,7 +281,7 @@ export default function FieldMain({
                 // fieldmainaction: null,
                 fieldmaindatatwo: {
                   senderid: user?.id,
-                  receiverid: fieldmaindata?.userid || param?.userid, 
+                  receiverid: fieldmaindata?.userid || param?.userid || splitstaticthree, 
                 }
             },
             {

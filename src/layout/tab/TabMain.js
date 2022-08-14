@@ -56,10 +56,12 @@ export default function TabMain({
 
     function tabMainRender({feedmainstatic, zoommainstatic}) {
         return (
-            <section className="w-screen  snap-center overflow-hidden">
-                {feedmainstatic && <FeedMain feedmainstatic={feedmainstatic} />}
-                {zoommainstatic && <ZoomMain zoommainstatic={zoommainstatic} />}
-            </section>
+            <div className="">
+                <section className="w-screen  snap-center overflow-hidden">
+                    {feedmainstatic && <FeedMain feedmainstatic={feedmainstatic} />}
+                    {zoommainstatic && <ZoomMain zoommainstatic={zoommainstatic} />}
+                </section>
+            </div>
         )
     }
 
@@ -100,6 +102,15 @@ export default function TabMain({
             tabmainrender: () => {
                 return tabMainRender({
                     feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 1},
+                })
+            }
+        },
+        {
+            tabmainindex : 2,
+            tabmaintitle: 'Search',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'contractarea', feedmainindex: 2},
                 })
             }
         },

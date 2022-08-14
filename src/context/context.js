@@ -37,6 +37,7 @@ export const Provider = ({
     const [ticketuserid, setticketuserid] = useState()
     const [awarduserid, setawarduserid] = useState()
     const [textuserid, settextuserid] = useState()
+    const [search, setsearch] = useState([])
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
     const parsefavourite = JSON.parse(window.localStorage.getItem("mov.favouriteiframe"));
@@ -52,6 +53,7 @@ export const Provider = ({
         setauthstate(supabase.auth.session())
         supabase.auth.onAuthStateChange((_event, session) => {
             setauthstate(session)
+            setsearch([])
         })
     }, [])
 
@@ -216,7 +218,7 @@ export const Provider = ({
     const userdl = [
         {
             spreadid: 'my',
-            spreadtitle: 'My details',
+            spreadtitle: 'My user',
             spreaddata: useruserid && useruserid,
         },
         {
@@ -321,6 +323,14 @@ export const Provider = ({
             spreadid: 'my',
             spreadtitle: 'My texts',
             spreaddata: textuserid,
+        }
+    ]
+
+    const searchdl =[
+        {
+            spreadid: 'my',
+            spreadtitle: 'My search',
+            spreaddata: search,
         }
     ]
 
@@ -483,6 +493,7 @@ export const Provider = ({
         // zoommainstate, setzoommainstate,
         // fix this V parse get rid of it
         authstate, setauthstate,
+        search, setsearch,
         // V whts this
         useruserid, 
         appdl,
@@ -497,6 +508,7 @@ export const Provider = ({
         awarddl,
         messagedl,
         textdl,
+        searchdl,
         
         }} >
         {children}

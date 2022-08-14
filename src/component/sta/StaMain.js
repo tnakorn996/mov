@@ -29,9 +29,10 @@ export default function StaMain({
 
     const [stamainrender, setstamainrender] = useState()
 
-    // function staMainRender(first) {
-    //     if(!first || !first[0]['spreaddata']) return null
-    //     return first[0]['spreaddata'].filter(data => data.receiverid.userid === param.userid
+    // function staMainAction(first) {
+    //     if(!first || !Object.assign(...first).spreaddata) return null
+    //     return Object.assign(...first).spreaddata.filter(data => 
+    //         data.receiverid.userid === param.userid
     //         || data.spreadidtwo === url)
     // }
 
@@ -65,18 +66,20 @@ export default function StaMain({
         },
     ]
 
+    console.log('contractdl[0]?.spreaddata', contractdl[0]?.spreaddata)
+
     const stamain = [
         {
             stamainid: 'useriframe',
             stamainref: useriframe,
             stamaindata: contractdl && contractdl[0]?.spreaddata.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree),
-            // stamaindata: staMainRender(contractdl),
+            // stamaindata: staMainAction(contractdl),
         },
         {
             stamainid: 'messageiframe',
             stamainref: messageiframe,
             stamaindata: textdl && textdl[0]?.spreaddata.filter(data => data.spreadidtwo === splitstaticthree),
-            // stamaindata: staMainRender(textdl),
+            // stamaindata: staMainAction(textdl),
         },
     ]
 
@@ -85,7 +88,7 @@ export default function StaMain({
             const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
             const ref = Object.assign(...filter).stamaindata
             const reftwo = Object.assign(...filter).stamainref
-            console.log('ref', ref, reftwo)
+            // console.log('ref', ref, reftwo)
         if(ref && ref.length !== 0){
             const filtertwo = reftwo.filter(data => data.stamainindex === 1)
             setstamainrender(filtertwo)
@@ -95,8 +98,7 @@ export default function StaMain({
             setstamainrender(filtertwo)
         }
       }
-    }, [stamainstatic, dtamainstate, splitstaticthree])
-console.log('dtamainstate', dtamainstate, splitstaticthree)
+    }, [stamainstatic, fieldmainstate, dtamainstate, splitstaticthree])
     // if(!splitstaticthree) return null
 
   return (

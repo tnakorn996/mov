@@ -19,6 +19,7 @@ import ScreenMain from '../screen/ScreenMain.tsx'
 import AvaMain from '../ava/AvaMain.tsx'
 import DtaMain from '../../component/dta/DtaMain.tsx'
 import BadgeMain from '../badge/BadgeMain'
+import ChipMain from '../chip/ChipMain.tsx'
 
 export default function PostMain({
   postmainstatic,
@@ -119,6 +120,15 @@ export default function PostMain({
           }} />
         </>))
         )
+      }  
+    },
+    {
+      postmainindex: 2,
+      postmainrender:() => {
+        // const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
+        return userAddressRenderThree({
+          data: postmaindata,
+        })
       }  
     }
   ]
@@ -427,6 +437,16 @@ export default function PostMain({
       }
     },
   ]
+
+  const searchaddress = [
+    {
+      postmainindex: 0,
+      postmainrender:() => {
+        // const ref = [postmaindata]
+        return searchAddressRender()
+      }  
+    },
+  ]
 // console.log('messagedl', messagedl)
 
   const postmain = [
@@ -479,6 +499,10 @@ export default function PostMain({
     {
       postmainid: 'messageaddress',
       postmainref: messageaddress,
+    },
+    {
+      postmainid: 'searchaddress',
+      postmainref: searchaddress,
     },
 
 
@@ -557,11 +581,11 @@ export default function PostMain({
             <p className="text-base  uppercase">{data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
           </figure>
         </section>
-        <section className="">
+        {/* <section className="">
           {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
             <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />
             }
-        </section>
+        </section> */}
       </div>
     )
   }
@@ -572,8 +596,8 @@ export default function PostMain({
       <div>
         <section className="flex flex-col justify-center items-center">
           <CardMain>
-          <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-            <p className="text-4xl  uppercase">{data.useremail.slice(0, 1)}</p>
+          <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+            <p className="text-8xl  uppercase">{data.useremail.slice(0, 1)}</p>
           </figure>
           </CardMain>
         </section>
@@ -588,6 +612,41 @@ export default function PostMain({
             <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
           </CardMain>
         </section>
+      </div>
+    )
+  }
+
+  export function userAddressRenderThree({data}) {
+    // console.log('data', data)
+    return (
+      <div >
+        <SheetMain>
+        <section className='flex flex-row  justify-between items-center'>
+          <div className="col-span-11 flex flex-row items-center gap-3">
+            <figure className="">
+            <Link to={`/user/userindex/${data?.userid}`}>
+              <div className="w-[25px] h-[25px] flex justify-center items-center  text-white bg-slate-400 rounded-full">
+              <p className="m-h5  uppercase">{data?.username?.slice(0, 1)}</p>
+              </div>
+            </Link>
+            </figure>
+            <figcaption className="">
+              <Link to={`/user/userindex/${data?.userid}`}>
+                <p className="l-h4">{`@` + data?.username ||data?.useremail}</p>
+              </Link>
+            </figcaption>
+          </div>
+          <figure className="col-span-1 flex justify-end">
+              <DtaMain 
+              dtamaindata={{spreadhref: `/contract/contractindex/${data?.userid}`}}  
+              dtamainstatic={{
+                dtamainid:'contractiframe', 
+                dtamainindex: 0}} >
+                  <RiMoreLine />
+              </DtaMain>
+          </figure>
+        </section>
+        </SheetMain>
       </div>
     )
   }
@@ -632,8 +691,10 @@ export default function PostMain({
         <CardMain>
           <section className="grid grid-cols-12">
             <figure onClick={navigate}  className="col-span-3">
+            <ChipMain>
               <video src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
+            </ChipMain>
             </figure>
             <figcaption className="col-span-9 flex flex-row items-center justify-between">
                 <CardMain>
@@ -664,20 +725,16 @@ export default function PostMain({
         </CardMain>
         </figcaption>
       </section>
-              <CardMain>
+      <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            {/* <AvaMain> */}
            <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
+              <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            {/* </AvaMain> */}
-            {/* <AvaMain> */}
            <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
+              <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            {/* </AvaMain> */}
         </section>
-          </CardMain>
+      </CardMain>
     </div>
     )
   }
@@ -688,9 +745,9 @@ export default function PostMain({
       <section className="">
         <motion.figure onClick={navigate} className={data.breadhead === choicemainstate && `!bg-slate-100  !duration-1000`}>
           <CardMain>
-                <CardMain>
-                <p className=" m-h5 uppercase">{data.breadbody}</p>
-                </CardMain>
+            <CardMain>
+            <p className=" m-h5 uppercase">{data.breadbody}</p>
+            </CardMain>
           </CardMain>
         </motion.figure>
       </section>
@@ -719,8 +776,10 @@ export default function PostMain({
         <CardMain>
           <section className="grid grid-cols-12">
             <figure className="col-span-3">
+            <ChipMain>
               <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
+            </ChipMain>
             </figure>
             <figcaption className="col-span-9 flex flex-row items-center justify-between">
                 <CardMain>
@@ -785,18 +844,20 @@ export default function PostMain({
   export function ClubAddressRender({data, props}) {
     const {navigate} = props
     return (
-        <CardMain>
-        <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
-          <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-            <CardMain>
-            <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
-            </CardMain>
-            <CardMain>
-            <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
-            </CardMain>
-          </div>
-        </figure>
+      <CardMain>
+          <ChipMain>
+          <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
+            <img loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
+            <div className="z-20 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
+              <CardMain>
+              <h1 onClick={navigate} className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
+              </CardMain>
+              <CardMain>
+              <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
+              </CardMain>
+            </div>
+          </figure>
+          </ChipMain>
         </CardMain>
     )
   }
@@ -839,17 +900,19 @@ export default function PostMain({
     const {navigate} = props
     return (
         <CardMain>
-        <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-          <img onClick={navigate} loading='lazy' src={data?.breadimage} alt="" className="max-w-[100ch] max-h-full" />
-          <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-            <CardMain>
-            <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
-            </CardMain>
-            <CardMain>
-            <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
-            </CardMain>
-          </div>
-        </figure>
+          <ChipMain>
+          <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
+            <img loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
+            <div className="z-20 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
+              <CardMain>
+              <h1 onClick={navigate} className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
+              </CardMain>
+              <CardMain>
+              <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
+              </CardMain>
+            </div>
+          </figure>
+          </ChipMain>
         </CardMain>
     )
   }
@@ -1023,9 +1086,6 @@ export default function PostMain({
         </section>
         <section className="text-center">
           <CardMain>
-            {/* <CardMain>
-              <p className="text-2xl  m-h6">{first[0]?.spreadtitle}</p>
-            </CardMain> */}
             <CardMain>
               <p className="l-h5">{data?.spreaddetail}</p>
             </CardMain>
@@ -1040,15 +1100,23 @@ export default function PostMain({
             /> 
           </CardMain>
         </section>
-        {/* <hr />
-        <section className="">
-            <MessageForm />
-        </section> */}
         </>))}
       </div>
     )
   }
 
+  export function searchAddressRender() {
+    // const {navigate} = props
+    return (
+      <div className="" >
+        <section className="">
+          <SheetMain>
+            <FieldMain fieldmainstatic={{fieldmainid: 'searchinput', fieldmainindex: 0}}  />
+          </SheetMain>
+        </section>
+      </div>
+    )
+  }
 
 
 export function handleDate(data) {

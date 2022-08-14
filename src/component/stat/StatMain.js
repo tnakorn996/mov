@@ -16,6 +16,7 @@ import { RiLoaderLine } from 'react-icons/ri'
 import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
+import ChipMain from '../../layout/chip/ChipMain.tsx'
 
 export default function StatMain({
     statmainstatic,
@@ -79,6 +80,21 @@ export default function StatMain({
             statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
+            }
+        },
+    ]
+
+    const contracttable = [
+        {
+            statmaindex: 0,
+            statmainrender: () => {
+                return statMainRender(
+                    'userid', 
+                    contractTableRender({
+                        authstate, 
+                        splitstaticthree,
+                    })
+                )
             }
         },
     ]
@@ -194,6 +210,10 @@ export default function StatMain({
             statmainid: 'usertable',
             statmainref: usertable,
         },
+        {
+            statmainid: 'contracttable',
+            statmainref: contracttable,
+        },
 
         {
             statmainid: 'workouttable',
@@ -270,8 +290,8 @@ export default function StatMain({
             {data?.map(data => (<>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
-            <figure className="w-[70px] h-[70px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-                <p className="text-3xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+            <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+                <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
             </figure>
             </CardMain>
             </section>
@@ -290,6 +310,22 @@ export default function StatMain({
             </CardMain>
             </section>
             </>))}
+        </div>
+        )
+    }
+
+    export function contractTableRender({authstate, splitstaticthree}) {
+        // const {authstate, splitstaticthree} = props
+        // console.log('data', data)
+        return (
+        <div>
+            <section className="">
+            <CardMain>
+                {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
+                <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
+                <StaMain stamainstatic={{stamainid: 'useriframe'}}  /> }
+            </CardMain>
+            </section>
         </div>
         )
     }

@@ -24,7 +24,7 @@ export default function FieldMain({
     signmainstate, setsignmainstate,
 
     authstate, setauthstate,
-    userdl,
+    setsearch,
 
   } = useContext(Context)
   const navigate = useNavigate()
@@ -149,7 +149,7 @@ export default function FieldMain({
   //       }
   // }
 
-  // console.log('split[3], param', split[3], splitstaticthree)
+  console.log('split', splitstaticthree || split[3] || param?.userid)
 
   const ss = async () => {
       // console.log('fieldmaindata', fieldmaindata)
@@ -184,7 +184,7 @@ export default function FieldMain({
                   
                     userid: user?.id,
                     senderid: user?.id,
-                    receiverid: fieldmaindata?.userid || splitstaticthree || split[3] || param?.userid,
+                    receiverid: splitstaticthree || split[3] || param?.userid,
                 },
                 fieldmaindatatwo: {contractid: undefined}
             },
@@ -281,7 +281,7 @@ export default function FieldMain({
                 // fieldmainaction: null,
                 fieldmaindatatwo: {
                   senderid: user?.id,
-                  receiverid: fieldmaindata?.userid || param?.userid || splitstaticthree, 
+                  receiverid: splitstaticthree || param?.userid, 
                 }
             },
             {
@@ -326,11 +326,39 @@ export default function FieldMain({
             },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
-        const ref = filter[0]
+        const ref = Object.assign(...filter)
         // console.log('ref', ref)
         if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).delete().match(ref.fieldmaindatatwo)
                 // alert(error)
+
+                setfieldmainstate(!fieldmainstate)
+                fieldMainRenderTwo(ref)
+        }
+    }
+
+
+    const handleSearch = async () => {
+      const refsixvalue = refsix.current.value;
+        const user = supabase.auth.user()
+        const query = [
+            {
+                fieldmainid: 'searchinput',
+                fieldmainidtwo: 'user',
+                // fieldmaindetail: 'Successfully unfollow this person',
+                // fieldmainaction: null,
+                fieldmaindatatwo: {
+                  select: undefined,
+                }
+            },
+        ]
+        const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
+        const ref = Object.assign(...filter)
+        // console.log('ref', ref)
+        if(user && ref){
+                const { data, error } = await supabase.from(ref.fieldmainidtwo).select(`*`).textSearch(`username`, refsixvalue, { config: 'english' })
+                // alert(error)
+                setsearch(data)
 
                 setfieldmainstate(!fieldmainstate)
                 fieldMainRenderTwo(ref)
@@ -496,6 +524,21 @@ export default function FieldMain({
     },
   ]
 
+  const searchinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Search',
+      fieldmainaction: handleSearch,
+      fieldmaindata: [
+        {
+          fieldmainsubtitle: null,
+          fieldmainrender: <input ref={refsix} className="l-input" placeholder="Enter your friend's ID" />,
+        },
+      ],
+    },
+  ]
+
   const fieldmain = [
     {
       fieldmainid: 'authinput',
@@ -525,9 +568,13 @@ export default function FieldMain({
       fieldmainid: 'textinput',
       fieldmainref: textinput,
     },
+    {
+      fieldmainid: 'searchinput',
+      fieldmainref: searchinput,
+    },
   ]
 
-  const [appstatic, setappstatic] = useApp(fieldmain, fieldmainstatic.fieldmainid, fieldmainstatic.fieldmainindex)
+  const [appstatic, setappstatic] = useApp(fieldmain, fieldmainstatic.fieldmainid, fieldmainstatic.fieldmainindex, splitstaticthree)
   const fieldmainrender = appstatic && appstatic
 
   return (

@@ -33,6 +33,15 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           eq: ['userid', splitstaticthree],
           limit: 5,
         },
+        {
+          id: 'contractindex',
+          from: `user`,
+          select: `*`,
+          order: [`userid`, { ascending: false }],
+          eq: ['userid', splitstaticthree],
+          limit: 5,
+        },
+
 
         {
           id: 'workoutindex',

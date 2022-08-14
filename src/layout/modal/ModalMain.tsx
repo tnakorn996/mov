@@ -12,6 +12,7 @@ import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
+import ContractForm from '../../page/contract/ContractForm'
 
 export default function ModalMain() {
   const {
@@ -31,6 +32,17 @@ export default function ModalMain() {
       modalmainrender: () => {
         return appDialogRender({
           component: <AppMain />
+        })
+      }
+    }
+  ]
+
+  const contractdialog = [
+    {
+      modalmainindex: 0,
+      modalmainrender: () => {
+        return appDialogRender({
+          component: <ContractForm />
         })
       }
     }
@@ -73,6 +85,10 @@ export default function ModalMain() {
     {
       modalmainid: 'appdialog',
       modalmainref: appdialog,
+    },
+    {
+      modalmainid: 'contractdialog',
+      modalmainref: contractdialog,
     },
     {
       modalmainid: 'searchdialog',

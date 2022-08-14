@@ -31,6 +31,7 @@ export default function FeedMain({
         achievementdl,
         awarddl,
         messagedl,
+        searchdl,
 
     } = useContext(Context)
     // const navigate = useNavigate()
@@ -43,7 +44,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: null,
-                    // feedmainrender: appul.filter(data => data.breadid.includes('main') ),
                     feedmainrender: () => {
                         return appul.filter(data => data.breadid.includes('main') )
                     }
@@ -59,9 +59,8 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'People you may know',
-                    // feedmainrender:  userdl[2].spreaddata,
                     feedmainrender: () => {
-                        return  userdl[2].spreaddata
+                        return  userdl[1].spreaddata
                     }
                 },
             ],
@@ -72,7 +71,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Recent followers',
-                    // feedmainrender:  contractdl[1].spreaddata,
                     feedmainrender: () => {
                         return contractdl[1].spreaddata
                     }
@@ -80,9 +78,21 @@ export default function FeedMain({
                 },
                 {
                     feedmaintitle: `Who you're following`,
-                    // feedmainrender:  contractdl[0].spreaddata,
                     feedmainrender: () => {
                         return contractdl[0].spreaddata
+                    }
+                    // feedmainrender: [],
+                },
+            ],
+        },
+        {
+            feedmainindex: 2,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: null,
+                    feedmainrender: () => {
+                        return searchdl[0].spreaddata
                     }
                     // feedmainrender: [],
                 },
@@ -97,7 +107,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New Workouts',
-                    // feedmainrender: workoutdl[0].spreaddata,
                     feedmainrender: () => {
                         return workoutdl[0].spreaddata
                     }
@@ -113,7 +122,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Your Workouts',
-                    // feedmainrender: taskdl[0].spreaddata,
                     feedmainrender: () => {
                         return taskdl[0].spreaddata
                     }
@@ -129,7 +137,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Join a Challenge',
-                    // feedmainrender: clubdl[0].spreaddata,
                     feedmainrender: () => {
                         return  clubdl[0].spreaddata
                     }
@@ -145,7 +152,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'My Challenges',
-                    // feedmainrender: ticketdl[0].spreaddata,
                     feedmainrender: () => {
                         return  ticketdl[0].spreaddata
                     }
@@ -161,7 +167,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Favourite workouts',
-                    // feedmainrender: favouritedl[0].spreaddata,
                     feedmainrender: () => {
                         return favouritedl[0].spreaddata
                     }
@@ -174,7 +179,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Favourite clubs',
-                    // feedmainrender: favouritedl[1].spreaddata,
                     feedmainrender: () => {
                         return favouritedl[1].spreaddata
                     }
@@ -190,21 +194,19 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Ranks',
-                    // feedmainrender: achievementdl[0].spreaddata,
                     feedmainrender: () => {
                         return achievementdl[0].spreaddata
                     }
                 },
                  {
                     feedmaintitle: 'Workouts',
-                    // feedmainrender: achievementdl[1].spreaddata,
+                    // feedmainrender: achievemntdl[1].spreaddata,
                     feedmainrender: () => {
                         return achievementdl[1].spreaddata
                     }
                 },
                  {
                     feedmaintitle: 'Clubs',
-                    // feedmainrender: achievementdl[2].spreaddata,
                     feedmainrender: () => {
                         return achievementdl[2].spreaddata
                     }
@@ -218,7 +220,6 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'Your rewards',
-                    // feedmainrender: awarddl[0].spreaddata,
                     feedmainrender: () => {
                         return awarddl[0].spreaddata
                     }
@@ -256,14 +257,12 @@ export default function FeedMain({
             feedmaindata: [
                 {
                     feedmaintitle: 'New annoucement',
-                    // feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true),
                     feedmainrender: () => {
                         return  (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
                     }
                 },
                 {
                     feedmaintitle: 'Other annoucement',
-                    // feedmainrender: (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true),
                     feedmainrender: () => {
                         return (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
                     }
@@ -323,6 +322,10 @@ export default function FeedMain({
                 <button onClick={() => setpostmainstate(!postmainstate)} className="l-button"><RiGridFill /></button>
                 <button onClick={() => setpostmainstate(!postmainstate)} className="l-button"><RiLayoutGridFill /></button>
             </section> */}
+            {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 2) && 
+            <section className="">
+                <PostMain postmainstatic={{postmainid: 'searchaddress', postmainindex: 0}} />
+            </section>}
             <section className="">
                 {appstatic?.map(data => (<>
                     {data?.feedmaindata?.map(dat => (<>
@@ -345,8 +348,9 @@ export default function FeedMain({
                             {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmainrender()?.map(post => (<>
                                 {(feedmainstatic.feedmainid === 'apparea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'appaddress', postmainindex: 0}} />}
 
-                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 2}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'contractaddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 2) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 2}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
 
                                 {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
 
@@ -366,6 +370,7 @@ export default function FeedMain({
 
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
+
 
                             </>))}
                         </figure>

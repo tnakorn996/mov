@@ -135,8 +135,8 @@ export default function PreviewMain() {
   export function appArticleRender({component, navigate}) {
     return (
       <div>
-        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-500">
-          <div className="absolute top-0 right-0">
+        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-100">
+          <div className="z-30 absolute top-0 right-0">
           <CardMain>
           <RiCloseLine onClick={navigate} className="text-2xl" />
           </CardMain>

@@ -7,7 +7,7 @@ export default function WeightMain() {
     <div>
         <main className="">
             <section className="">
-                <ZoomMain zoommainstatic={{zoommainid: 'workoutformtwo'}} />
+                <ZoomMain zoommainstatic={{zoommainid: 'searchform'}} />
             </section>
         </main>
     </div>

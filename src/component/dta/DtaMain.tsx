@@ -30,6 +30,7 @@ export default function AtaMain({
     }) {
         
         return () => {
+            // console.log('dtamaindata', dtamaindata)
             setappstate(first)
             // setdtamainstate(!dtamainstate)
             
@@ -79,6 +80,22 @@ export default function AtaMain({
                             appid: 'backdropmain',
                             appidtwo: 'previewmain',
                             appidthree: 'userarticle',
+                            appindex: 0,
+                        })
+                }
+            } 
+        },
+    ]
+
+    const contractiframe = [
+        {
+            dtamainindex: 0,
+            dtamainrender: () => {
+                return {
+                    navigate: dtaMainAction({
+                            appid: 'backdropmain',
+                            appidtwo: 'modalmain',
+                            appidthree: 'contractdialog',
                             appindex: 0,
                         })
                 }
@@ -142,6 +159,10 @@ export default function AtaMain({
         {
             dtamainid: 'useriframe',
             dtamainref: useriframe
+        },
+        {
+            dtamainid: 'contractiframe',
+            dtamainref: contractiframe
         },
         {
             dtamainid: 'searchiframe',

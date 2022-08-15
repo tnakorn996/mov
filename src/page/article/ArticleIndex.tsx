@@ -18,7 +18,7 @@ export default function ArticleIndex() {
                 <PostMain 
                       postmainstatic={{ 
                         postmainid: 'articleaddress', 
-                        postmainindex: 1 }} 
+                        postmainindex: 0 }} 
                       postmaindata={undefined} 
                       postmainstyle={undefined} />
             </section>

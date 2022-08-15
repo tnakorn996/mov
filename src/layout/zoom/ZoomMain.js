@@ -129,11 +129,11 @@ export default function ZoomMain({
     
   return (
     <div>
-        <main autoFocus={true}  className="">
+        <main autoFocus={false}  className="">
             <section className="">
                 <CardMain>
                 <div className="relative flex items-center  l-h6">
-                    <input autoFocus={true} onChange={p => setzoommainvalue(p.target.value.toLowerCase())} value={zoommainvalue} className="l-input" placeholder='Search' />
+                    <input autoFocus={false} onChange={p => setzoommainvalue(p.target.value.toLowerCase())} value={zoommainvalue} className="l-input" placeholder='Search' />
                     <div className="absolute right-0">
                         <CardMain>
                         <RiSearchLine  />

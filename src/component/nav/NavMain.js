@@ -33,7 +33,7 @@ export default function NavbarMain({
     // console.log('first', first)
       if (first) {
         return <CardMain>
-         <motion.div  initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="">
+         <motion.div initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="duration-300">
           {component}
           </motion.div>
         </CardMain>

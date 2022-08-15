@@ -66,19 +66,19 @@ export default function StaMain({
         },
     ]
 
-    console.log('contractdl[0]?.spreaddata', contractdl[0]?.spreaddata)
+    // console.log('contractdl[0]?.spreaddata', contractdl[0]?.spreaddata)
 
     const stamain = [
         {
             stamainid: 'useriframe',
             stamainref: useriframe,
-            stamaindata: contractdl && contractdl[0]?.spreaddata.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree),
+            stamaindata: contractdl && contractdl[0]?.spreaddata?.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree),
             // stamaindata: staMainAction(contractdl),
         },
         {
             stamainid: 'messageiframe',
             stamainref: messageiframe,
-            stamaindata: textdl && textdl[0]?.spreaddata.filter(data => data.spreadidtwo === splitstaticthree),
+            stamaindata: textdl && textdl[0]?.spreaddata?.filter(data => data.spreadidtwo === splitstaticthree),
             // stamaindata: staMainAction(textdl),
         },
     ]

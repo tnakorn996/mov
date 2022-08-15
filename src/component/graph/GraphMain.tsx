@@ -89,6 +89,8 @@ export default function GraphMain({
             devstaticdata: appstatic && appstatic[0].graphmainrender().data,
             devstaticaction: appstatic && appstatic[0].graphmainrender().action
         })
+        
+    if(!appstatic || !devstatic) return null
 
 
   return (

@@ -1,5 +1,23 @@
 import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
 
+// export function contentAction(min = 5, max = 360, unit = 'rep', fullunit = 'reps') {
+export function contentAction(min, max, unit, fullunit) {
+    let number = 0;
+    const div = Math.floor(max / min)
+    const array = [];
+    for(let i = 1; i <= div; i++){
+        if(number < max){
+            number = (min * 1)
+            array.push({
+                breadhead: `${min * i}${unit}`,
+                breadbody: `${min * i} ${fullunit}`,
+            })
+        }
+    }
+    // console.log('number', number, array)
+  return array
+}
+
 export const appul = [
     {
         breadid: 'authmain',
@@ -68,20 +86,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-lateralbearcrawl-01-1625160521.mp4',
-        breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(30, 300, `s`, `seconds`)
     },
     {
         breadid: 'squat-to-broad-jump',
@@ -93,20 +98,8 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-squattobroadjump-01-1625160622.mp4',
-        breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(30, 300, `s`, `seconds`)
+
     },
     {
         breadid: 'single-side-kick-through',
@@ -118,20 +111,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-singelsidekickthrough-01-1625160738.mp4',
-        breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(30, 300, `s`, `seconds`)
     },
     {
         breadid: 'mixed-style-skater-lunge',
@@ -145,20 +125,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-mixedstyleskaterlunges-01-1625161797.mp4',
-                breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(30, 300, `s`, `seconds`)
     },
     {
         breadid: 'black-widow',
@@ -170,20 +137,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-backwidow-01-1625162059.mp4',
-        breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(10, 100, ``, `reps`)
     },
     {
         breadid: 'spiderman-crawl-pushup',
@@ -195,20 +149,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: 'https://hmg-h-cdn.hearstapps.com/videos/2021-mens-health-fitness-loops-ep17-ben-selects-spidermancrawlpushup-01-1625162163.mp4',
-        breaddata: [
-            {
-                breadhead: '20m',
-                breadbody: '20 minutes',
-            },
-            {
-                breadhead: '30m',
-                breadbody: '30 minutes',
-            },
-            {
-                breadhead: '60m',
-                breadbody: '60 minutes',
-            },
-        ]
+        breaddata: contentAction(10, 100, ``, `reps`)
     },
 
     {
@@ -221,20 +162,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: '',
-        breaddata: [
-            {
-                breadhead: '20kg',
-                breadbody: '20 kirograms',
-            },
-            {
-                breadhead: '30kg',
-                breadbody: '30 kirograms',
-            },
-            {
-                breadhead: '60kg',
-                breadbody: '60 kirograms',
-            },
-        ]
+        breaddata: contentAction(5, 360, `kg`, `kilograms`)
     },
     {
         breadid: 'squat',
@@ -246,20 +174,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: '',
-        breaddata: [
-            {
-                breadhead: '20kg',
-                breadbody: '20 kirograms',
-            },
-            {
-                breadhead: '30kg',
-                breadbody: '30 kirograms',
-            },
-            {
-                breadhead: '60kg',
-                breadbody: '60 kirograms',
-            },
-        ]
+        breaddata: contentAction(10, 500, `kg`, `kilograms`)
     },
     {
         breadid: 'deadlift',
@@ -271,20 +186,7 @@ export const workoutul = [
         breadauthor: 'Milo Bryant',
         breadimage: '',
         breadvideo: '',
-        breaddata: [
-            {
-                breadhead: '20kg',
-                breadbody: '20 kirograms',
-            },
-            {
-                breadhead: '30kg',
-                breadbody: '30 kirograms',
-            },
-            {
-                breadhead: '60kg',
-                breadbody: '60 kirograms',
-            },
-        ]
+        breaddata: contentAction(10, 510, `kg`, `kilograms`)
     },
 ]
 
@@ -296,7 +198,7 @@ export const clubul = [
         breadpoint: 90,
         breadsubtitle: 'Reach 100.0 kilogram this month',
         breadnumber: '100.0 KG',
-        breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/dda01e5d-e42e-4f67-9099-e41e2eedf35a/how-to-plan-your-ideal-recovery-day-workout.jpg',
+        breadimage: 'https://humbleteam.com/images/covers/blog/1x/blog-img-35.webp',
     },
     {
         breadid: 'squat',
@@ -305,7 +207,7 @@ export const clubul = [
         breadpoint: 90,
         breadsubtitle: 'Reach 100.0 kilogram this month100.0 KG',
         breadnumber: '100.0 KG',
-        breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/fc92ed90-d329-4d37-af2b-18bba7b3be35/how-to-prevent-plantar-fasciitis.jpg',
+        breadimage: 'https://media.gq.com/photos/59ef7115f964810d9a9b8ef5/16:9/w_2560%2Cc_limit/gq-fitness-squats.jpg',
     },
     {
         breadid: 'deadlift',
@@ -314,7 +216,7 @@ export const clubul = [
         breadpoint: 90,
         breadsubtitle: 'Reach 100.0 kilogram this month',
         breadnumber: '100.0 KG',
-        breadimage: 'https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/w_928,c_limit/7a333ef8-3351-4f98-8646-30e4aa1385b3/how-to-prevent-blisters-while-running.jpg',
+        breadimage: 'https://media.gq.com/photos/5955492a363481058b1b2159/16:9/w_2560%2Cc_limit/2017-06_GQ_Deadlifts-July_3x2.jpg',
     },
 
     {
@@ -324,7 +226,7 @@ export const clubul = [
         breadpoint: 90,
         breadsubtitle: 'Reach 60.0 minutes this month',
         breadnumber: '60.0 minutes',
-        breadimage: 'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1504,c_limit/08cc70ef-be31-48a7-b4e8-e23095d2342e/5-benefits-of-playing-basketball-according-to-experts.jpg',
+        breadimage: 'https://media.gq.com/photos/5b87ff48debb940f1cc007a3/16:9/w_2560%2Cc_limit/No-Gear-Workout-GQ-2018-082918.jpg',
     },
 ]
 
@@ -393,16 +295,9 @@ export const articleul = [
     {
         breadid: 'article-one',
         breadaction: `/article/articleindex/article-one`,
-        breadtitle: `Find the Perfect Fitness Circle for You.`,
+        breadtitle: `👋Welcome to Beasty V2.0 !`,
         breadsubtitle: `
-            StepsApp Pedometer is a powerful tracker that measures your daily steps, walking workouts, runs, and hikes (as well as wheelchair pushes, through its Apple Watch app). Customize your goals and track calories burned, floors climbed, and distance traveled. Beautiful charts help you visualize your weekly, monthly, and yearly progress.
-
-            Nike Run Club’s voice-guided sessions deliver motivation and guidance for experienced and novice runners alike. Programs designed to prep you for everything from 5Ks to full marathons help you figure out which days to run, how far, and at what pace, plus—just as important—what days to rest. Feeling stressed? Check out the mindfulness runs made in collaboration with meditation app Headspace.
-
-            For high-intensity interval training
-            HIIT is all about short, intense bursts of exercise that get your heart rate up and keep it there. The workouts in Seven last exactly (you guessed it) seven minutes, and are designed to help you burn calories and build muscle mass without eating into your precious free time.
-
-            Whether you’re looking to build overall muscle or focus on your abs, FitOn lets you tailor its high-intensity sessions to your needs and the equipment on hand (even if that’s none at all). Don’t miss the celebrity workouts with stars like Gabrielle Union and Jonathan Van Ness.
+           Have got some questions?, please contract development issues at: tnakorn996@gmail.com
 
         `,
     },

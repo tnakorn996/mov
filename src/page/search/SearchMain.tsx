@@ -7,7 +7,7 @@ export default function SearchMain() {
   return (
     <div>
         <main className="">
-            <section className="h-[90vh]">
+            <section className="h-[80vh]">
                 <TabMain 
                   tabmainstatic={{ 
                     tabmainid: 'searchfieldset', 

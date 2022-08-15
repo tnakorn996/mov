@@ -12,7 +12,7 @@ export default function UserIndex() {
             <section className="">
               <CardMain />
               <CardMain />
-              <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
+              <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 0}} />
               {/* <StatMain statmainstatic={{statmainid: 'awardtable', statmainindex: 1}} /> */}
             </section>
             <section className="">

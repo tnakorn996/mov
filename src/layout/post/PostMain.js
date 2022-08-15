@@ -94,36 +94,30 @@ export default function PostMain({
 
   const useraddress = [
     {
-      postmainindex: 0,
       postmainrender: () => {
         const ref = [postmaindata]
-        return ref.map(data => (<>
-          <UserAddressRender 
-          data={data} 
-          props={{  
-            navigate: () => {navigate(`/user/userindex/${data?.user?.id || data.userid}`)}  
-          }} />
-        </>))
+        return ref.map(data => (
+          userAddressRender({
+              data: data,
+          })
+        ))
       },
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
         return (
-        ref.map(data => (<>
-          <UserAddressRenderTwo 
-          data={data} 
-          props={{  
-            authstate: authstate,
-            splitstaticthree: splitstaticthree
-          }} />
-        </>))
+          ref.map(data => (
+            userAddressRenderTwo({
+              data: data,
+              authstate: authstate,
+              splitstaticthree: splitstaticthree
+            })
+          ))
         )
       }  
     },
     {
-      postmainindex: 2,
       postmainrender:() => {
         // const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
         return userAddressRenderThree({
@@ -151,30 +145,27 @@ export default function PostMain({
 
   const workoutaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
       const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        return ref.map(data => (<>
-            <WorkoutAddressRender 
-            data={data}
-            props={{
+          return ref.map(data => (
+            workoutAddressRender({
+              data: data,
               navigate: () => { navigate(`/workout/workoutindex/${data?.breadid}`)}
-            }} />
-            </>))
+            })
+          )) 
         }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
-          return ref.map(data => (<>
-          <WorkoutAddressRenderTwo
-          data={data} />
-        </>))
+        return ref.map(data => (
+          workoutAddressRenderTwo({
+            data: data,
+          })
+        ))
       }  
     },
     {
-      postmainindex: 2,
       postmainrender:() => {
         const ref = [postmaindata]
           return ref.map(data => 
@@ -268,7 +259,6 @@ export default function PostMain({
 
   const ticketaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, clubul.filter(data => [postmaindata].some(dat => dat.clubid === data.breadid))[0])]
         return (
@@ -282,7 +272,6 @@ export default function PostMain({
       }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
         const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
@@ -295,21 +284,16 @@ export default function PostMain({
       }  
     },
     {
-      postmainindex: 2,
       postmainrender:() => {
         const ref = [postmaindata]
         return (
-          ref.map((data) => (<>
-          <TicketAddressRenderThree
-          data={data}
-          props={{
-            // navigate: () => {navigate(`/user/userindex/${data?.userid?.userid}`)}
-            navigate: `/user/userindex/${data?.userid?.userid}`
-
-          
-          }}
-           />
-          </>)))
+          ref.map((data) => (
+            ticketAddressRenderThree({
+              data: data,
+              navigate: `/user/userindex/${data?.userid?.userid}`,
+            })
+          ))
+        )
       }  
     },
   ]
@@ -571,9 +555,7 @@ export default function PostMain({
     )
   }
   
-
-  export function UserAddressRender({data, props}) {
-    const {navigate, authstate} = props
+  export function userAddressRender({data, navigate}) {
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
@@ -590,8 +572,34 @@ export default function PostMain({
     )
   }
 
-  export function UserAddressRenderTwo({data, props}) {
-    const {authstate, splitstaticthree} = props
+  // export function UserAddressRenderTwo({data, props}) {
+  //   const {authstate, splitstaticthree} = props
+  //   return (
+  //     <div>
+  //       <section className="flex flex-col justify-center items-center">
+  //         <CardMain>
+  //         <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+  //           <p className="text-8xl  uppercase">{data.useremail.slice(0, 1)}</p>
+  //         </figure>
+  //         </CardMain>
+  //       </section>
+  //       <section className="flex flex-col justify-center text-center">
+  //         <p className="l-h4">{data?.useremail}</p>
+  //         <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
+  //       </section>
+  //       <section className="">
+  //         <CardMain>
+  //           {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
+  //           <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
+  //           <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
+  //         </CardMain>
+  //       </section>
+  //     </div>
+  //   )
+  // }
+
+
+  export function userAddressRenderTwo({data, authstate, splitstaticthree}) {
     return (
       <div>
         <section className="flex flex-col justify-center items-center">
@@ -621,22 +629,21 @@ export default function PostMain({
     return (
       <div >
         <SheetMain>
-        <section className='flex flex-row  justify-between items-center'>
-          <div className="col-span-11 flex flex-row items-center gap-3">
-            <figure className="">
+        <section className='flex flex-row items-center gap-3'>
+          <figure className="">
             <Link to={`/user/userindex/${data?.userid}`}>
-              <div className="w-[25px] h-[25px] flex justify-center items-center  text-white bg-slate-400 rounded-full">
-              <p className="m-h5  uppercase">{data?.username?.slice(0, 1)}</p>
+              <div className="w-[50px] h-[50px] flex justify-center items-center rounded-full bg-slate-400 text-white">
+              <p className="text-2xl m-h5  uppercase">{data?.username?.slice(0, 1)}</p>
               </div>
             </Link>
-            </figure>
+          </figure>
+          <div className="w-full flex flex-row justify-between items-center gap-3">
             <figcaption className="">
               <Link to={`/user/userindex/${data?.userid}`}>
                 <p className="l-h4">{`@` + data?.username ||data?.useremail}</p>
               </Link>
             </figcaption>
-          </div>
-          <figure className="col-span-1 flex justify-end">
+            <figure className="">
               <DtaMain 
               dtamaindata={{spreadhref: `/contract/contractindex/${data?.userid}`}}  
               dtamainstatic={{
@@ -644,7 +651,8 @@ export default function PostMain({
                 dtamainindex: 0}} >
                   <RiMoreLine />
               </DtaMain>
-          </figure>
+            </figure>
+          </div>
         </section>
         </SheetMain>
       </div>
@@ -667,32 +675,32 @@ export default function PostMain({
     )
   }
 
-  export function WorkoutAddressRender({data, props}) {
-    const {navigate} = props
+  export function workoutAddressRender({data, navigate}) {
     return (
-    // <div>
-    //     <CardMain>
-    //     <figure className="relative h-[50vh] overflow-hidden">
-    //         <video onClick={navigate} src={data?.breadvideo}  autoPlay={true} loop={true} >
-    //         </video>
-    //       {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
-    //       <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-    //         <CardMain>
-    //         <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-    //         <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
-    //         </CardMain>
-    //         <CardMain>
-    //         <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
-    //         </CardMain>
-    //       </div>
-    //     </figure>
-    //     </CardMain>
-    //   </div>
+  //   // <div>
+  //   //     <CardMain>
+  //   //     <figure className="relative h-[50vh] overflow-hidden">
+  //   //         <video onClick={navigate} src={data?.breadvideo}  autoPlay={true} loop={true} >
+  //   //         </video>
+  //   //       {/* <img loading='lazy' src={data?.breadimage} alt="" className="" /> */}
+  //   //       <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
+  //   //         <CardMain>
+  //   //         <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
+  //   //         <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
+  //   //         </CardMain>
+  //   //         <CardMain>
+  //   //         <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
+  //   //         </CardMain>
+  //   //       </div>
+  //   //     </figure>
+  //   //     </CardMain>
+  //   //   </div>
+    <div>
         <CardMain>
           <section className="grid grid-cols-12">
             <figure onClick={navigate}  className="col-span-3">
             <ChipMain>
-              <video src={data?.breadvideo} autoPlay={true} loop={true} >
+              <video className="w-full max-h-[100ch]" src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
             </ChipMain>
             </figure>
@@ -705,10 +713,11 @@ export default function PostMain({
             </figcaption>
           </section>
         </CardMain>
+      </div>
     )
   }
 
-  export function WorkoutAddressRenderTwo({data}) {
+  export function workoutAddressRenderTwo({data}) {
     return (
     <div className="">
       <section className="">
@@ -775,13 +784,13 @@ export default function PostMain({
         // </CardMain>
         <CardMain>
           <section className="grid grid-cols-12">
-            <figure className="col-span-3">
+            <figure onClick={navigate} className="col-span-3">
             <ChipMain>
-              <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
+              <video className="w-full max-h-[100ch]"  src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
             </ChipMain>
             </figure>
-            <figcaption className="col-span-9 flex flex-row items-center justify-between">
+            <figcaption onClick={navigate}  className="col-span-9 flex flex-row items-center justify-between">
                 <CardMain>
                 <h1 className="m-h5">{data?.breadtitle}</h1>
                 <h1 className="l-h2">With {data?.breadauthor}</h1>
@@ -867,7 +876,7 @@ export default function PostMain({
       <div className="">
         <section className="">
           <figure className="h-[65vh] flex justify-center overflow-hidden">
-            <img src={data?.breadimage} alt="" className="max-w-[100ch] max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
+            <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
           </figure>
           <figcaption className="text-center">
           <CardMain>
@@ -951,17 +960,20 @@ export default function PostMain({
     )
   }
 
-  export function TicketAddressRenderThree({data, props}) {
-    const {navigate} = props
+  export function ticketAddressRenderThree({data, navigate}) {
     return (
        <div className="" >
         <DtaMain dtamaindata={{spreadhref: navigate}} dtamainstatic={{dtamainid: 'useriframe', dtamainindex: 0}} >
         <section className="w-full flex flex-row items-center justify-between">
             <figcaption className="w-full  cursor-pointer">
-              <p className="l-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
+              <p className="m-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
-            <figure className="">
-              <p className="l-h4 uppercase">{data?.weightid}</p>
+            <figure className=" animate-pulse">
+              <AvaMain>
+                <CardMain>
+                <p className="m-h4 uppercase">{data?.weightid}</p>
+                </CardMain>
+              </AvaMain>
             </figure>
         </section>
         </DtaMain>
@@ -976,7 +988,7 @@ export default function PostMain({
           <CardMain>
           <AvaMain>
           <figure onClick={props.navigate} className={``}>
-            <p className="p-[10px] m-h6">{data?.breadicon}</p>
+            <p className="p-[10px] text-4xl  m-h6">{data?.breadicon}</p>
           </figure>
           </AvaMain>
           </CardMain>

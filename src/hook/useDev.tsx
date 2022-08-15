@@ -9,7 +9,7 @@ export default function useDev({
 
 }) {
     const {
-        setappstate,
+        setappstate, appstate, 
 
         // messagedl,
 
@@ -22,6 +22,8 @@ export default function useDev({
     
     useEffect(() => {
         if(!devstaticdata) return null
+        // if(appstate !== undefined) return null
+
         // console.log('devstaticdata', devstaticdata)
         const concat = devstaticdata
         const filter = concat.filter((data) => data.spreadrender().bool !== false)

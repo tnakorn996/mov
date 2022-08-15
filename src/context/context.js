@@ -53,7 +53,6 @@ export const Provider = ({
         setauthstate(supabase.auth.session())
         supabase.auth.onAuthStateChange((_event, session) => {
             setauthstate(session)
-            setsearch([])
         })
     }, [])
 
@@ -360,7 +359,7 @@ export const Provider = ({
         {
             spreadid: 'ticket',
             spreadtitle: `Ticket's message`,
-            spreadicon: `🏀🎾⚽️`,
+            spreadicon: `⚽️`,
             spreaddata: () => {
                 return [
                     {
@@ -439,14 +438,11 @@ export const Provider = ({
         {
             spreadid: 'task',
             spreadtitle: `Task's message`,
-            spreadicon: `❤️‍🔥🙌🔥`,
+            spreadicon: `❤️‍🔥`,
             spreaddata: () => {
                 if(!taskuserid) return null
                 const array = [];
                 for(const data of workoutul) {
-                    // delete data.breaddata
-                    // delete data.breadimage
-                    // delete data.breadsubtitle
                     array.push({
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,

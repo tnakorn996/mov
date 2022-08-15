@@ -13,7 +13,7 @@ export default function WorkoutIndex() {
               <PostMain postmainstatic={{postmainid: 'workoutaddress', postmainindex: 1}} />
             </section>
             <section className="">
-              <StatMain  statmainstatic={{statmainid:'workouttable', statmainindex: 1}} />
+              <StatMain  statmainstatic={{statmainid:'workouttable', statmainindex: 0}} />
             </section>
         </main>
     </div>

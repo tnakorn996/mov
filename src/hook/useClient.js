@@ -42,7 +42,6 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           limit: 5,
         },
 
-
         {
           id: 'workoutindex',
           from: `task`,

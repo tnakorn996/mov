@@ -6,7 +6,7 @@ export default function ChipMain({
   return (
     <div>
         <main className="">
-            <section className="relative rounded-3xl overflow-hidden shadow-md">
+            <section className="relative rounded-3xl overflow-hidden">
                 {children}
                 <div className="w-full h-full absolute top-0 left-0  bg-slate-400 opacity-10 " />
             </section>

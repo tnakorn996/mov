@@ -13,6 +13,7 @@ import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
 import ContractForm from '../../page/contract/ContractForm'
+import { RiCloseCircleLine, RiCloseFill } from 'react-icons/ri'
 
 export default function ModalMain() {
   const {
@@ -114,11 +115,9 @@ if(appstate.appidtwo !== 'modalmain') return null
         <main className="">
             <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white duration-100 rounded-t-3xl overflow-hidden">
               <motion.figcaption className={` overflow-y-scroll`}>
-                {/* <SheetMain> */}
                 {appstatic?.map(data => (<>
                   {data?.modalmainrender()}
                 </>))}
-                {/* </SheetMain> */}
               </motion.figcaption>
               <hr />
               <figure className="">
@@ -126,7 +125,7 @@ if(appstate.appidtwo !== 'modalmain') return null
                 <button onClick={() => {
                   setappstate()
                   window.history.replaceState(null, "", location?.pathname)
-                }} className="w-full  uppercase">Close</button>
+                }} className="l-h5 w-full flex flex-row items-center justify-center gap-2  uppercase"><RiCloseCircleLine /> Close</button>
                 </CardMain>
               </figure>
             </motion.section>

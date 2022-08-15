@@ -8,7 +8,9 @@ export default function useApp(appmain, appmainid, appmainindex, appmainstatic, 
         // console.log('appmain, appmainid, appmainindex', appmain, appmainid, appmainindex)
         const filter = appmain.filter(data => Object.values(data)[0] === appmainid)
         if(filter.length > 0 && appmainindex !== null){
-          const filtertwo = Object.values(filter[0])[1].filter(data => Object.values(data)[0] === appmainindex)
+          // const filtertwo = Object.values(filter[0])[1].filter(data => Object.values(data)[0] === appmainindex)
+          const ref = Object.values(filter[0])[1]
+          const filtertwo = ref.filter(data => ref.indexOf(data) === appmainindex)
           setappstatic(filtertwo)
         }
         if(filter.length > 0 && appmainindex === null){

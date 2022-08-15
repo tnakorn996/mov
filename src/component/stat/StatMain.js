@@ -68,7 +68,6 @@ export default function StatMain({
 
     const apptable = [
         {
-            statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('userid', appMainRenderTwo({data: clientstatic && clientstatic}))
             }
@@ -77,7 +76,6 @@ export default function StatMain({
 
     const usertable = [
         {
-            statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
             }
@@ -86,7 +84,6 @@ export default function StatMain({
 
     const contracttable = [
         {
-            statmaindex: 0,
             statmainrender: () => {
                 return statMainRender(
                     'userid', 
@@ -101,7 +98,6 @@ export default function StatMain({
 
     const workouttable = [
         {
-            statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('workoutid', <WorkoutTableRender />)
             }
@@ -110,7 +106,6 @@ export default function StatMain({
 
     const tasktable = [
         {
-            statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('workoutid', <TaskTableRender />)
             }
@@ -119,7 +114,6 @@ export default function StatMain({
 
     const clubtable = [
         {
-            statmaindex: 1,
             statmainrender: () => {
                 return statMainRender('clubid', <ClubTableRender />)
             }
@@ -128,23 +122,22 @@ export default function StatMain({
 
     const tickettable = [
         {
-            statmaindex: 0,
             statmainrender: () => {
-                return  statMainRender('workoutid', <TicketTableRender data={clientstatic && clientstatic} />)
+                const sort =  clientstatic?.sort((a, b) => b.weightid.length - a.weightid.length)
+                return  statMainRender('workoutid', ticketTableRender({data: sort && sort}))
             }
         },
         {
-            statmaindex: 1,
             statmainrender: () => {
-                // console.log('clientstagtic, authstate', clientstatic, authstate)
                 const filter = clientstatic?.filter(data => data.userid?.userid === authstate?.user?.id)
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
-                // console.log('filter, filtertwo', filter, filtertwo)
                 if(filter && filter.length > 0 && filtertwo.length > 0) {
                     const assign = [Object.assign(Object.assign(...filter), Object.assign(...filtertwo))]
-                    return assign?.map((data) => (<>
-                    <TicketTableRenderTwo data={data} />
-                    </>))
+                    return assign?.map((data) => (
+                        ticketTableRenderTwo({
+                            data: data
+                        })
+                    ))
                 } else {
                     return null
                 }
@@ -154,7 +147,6 @@ export default function StatMain({
 
     const acheivementtable = [
         {
-            statmaindex: 0,
             statmainrender: () => {
                 return statMainRender('achievementid', <AchievementTableRender data={clientstatic && clientstatic} />)
             }
@@ -163,7 +155,6 @@ export default function StatMain({
 
     const awardtable = [
         {
-            statmaindex: 0,
             statmainrender: () => {
                 return awardTableRender({
                     data: statMainRenderTwo('achievementid')
@@ -171,7 +162,6 @@ export default function StatMain({
             }
         },
         {
-            statmaindex: 1,
             statmainrender: () => {
                 // console.log('clientstagtic, authstate', clientstatic, authstate)
                 const filter = clientstatic?.filter(data => data.userid?.userid === splitstaticthree)
@@ -245,7 +235,7 @@ export default function StatMain({
         
     ]
 
-    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic)
+    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic, splitstaticthree)
     
     if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><RiLoaderLine className="m-h6  animate-spin" /></motion.section> 
     // if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><div className="m-h6  animate-bounce" ><SplashMain /></div></motion.section> 
@@ -367,27 +357,25 @@ export default function StatMain({
     )
     }
 
-    export function TicketTableRender({data}) {
+    export function ticketTableRender({data}) {
         // console.log('data', data)
         return (
             <div>
                 <section className="">
                     {data?.map((data, index) => (<>
-                    <SheetMain>
-                        <figcaption className="w-full grid grid-cols-12 gap-3">
+                    <CardMain>
+                        <figcaption className="w-full grid grid-cols-12 gap-3 items-center">
                             <div className="col-span-1">
                                 <article className={`w-[20px] h-[20px] flex items-center justify-center  bg-slate-200 rounded-full ${ll(index + 1)} ` }>
-                                    <p className="l-h1">{index + 1}</p>
+                                    <p className="l-h2">{index + 1}</p>
                                 </article>
-                                {/* <BadgeMain badgemainstyle={{button: ll(index + 1)}}>
-                                    {index + 1}
-                                </BadgeMain> */}
                             </div>
                             <div className="col-span-11">
                                 <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />
                             </div>
                         </figcaption>
-                    </SheetMain>
+                    </CardMain>
+                    <hr />
                     </>))}
                 </section>
                 <section className="">
@@ -399,8 +387,7 @@ export default function StatMain({
         )
     }
 
-    export function TicketTableRenderTwo({data}) {
-
+    export function ticketTableRenderTwo({data}) {
         return (
         <div>
             <section className="">

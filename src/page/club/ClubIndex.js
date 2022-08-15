@@ -14,7 +14,7 @@ export default function ClubIndex() {
                 <PostMain postmainstatic={{postmainid: 'clubaddress', postmainindex: 1}} />
             </section>
             <section className="">
-                <StatMain statmainstatic={{statmainid: 'clubtable', statmainindex: 1}} />
+                <StatMain statmainstatic={{statmainid: 'clubtable', statmainindex: 0}} />
             </section>
         </main>
     </div>

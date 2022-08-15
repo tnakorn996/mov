@@ -6,7 +6,7 @@ export default function WeightMain() {
   return (
     <div>
         <main className="">
-            <section className="">
+            <section className="max-h-[80vh]">
                 <ZoomMain zoommainstatic={{zoommainid: 'searchform'}} />
             </section>
         </main>

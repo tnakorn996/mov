@@ -11,7 +11,7 @@ export default function TaskIndex() {
           <PostMain postmainstatic={{postmainid: 'taskaddress', postmainindex: 1}} />
         </section>
         <section className="">
-          <StatMain statmainstatic={{statmainid: 'tasktable', statmainindex: 1}} />
+          <StatMain statmainstatic={{statmainid: 'tasktable', statmainindex: 0}} />
         </section>
       </main>
     </div>

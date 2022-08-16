@@ -110,7 +110,7 @@ export default function FieldMain({
               userid: user.id,
               useremail: user.email,
               username: user.email.split(`@`)[0],
-              userimage: '',
+              // userimage: '',
           }
           const { error } = await supabase.from('user').upsert(query, {returning: 'minimal'})
           navigate(`/workout/workoutmain`)

@@ -19,17 +19,23 @@ export default function BadgeMain({
         messagedl,
     } = useContext(Context)
 
+    function badgeMainAction(first, second) {
+        if(typeof second === 'undefined' 
+        || typeof second === 'undefined') return null
+        return first?.[second]?.length
+    }
+
     const taskspan = [
         {
             badgemainindex: 0,
-            badgemainrender: () => {return badgemainrender(taskdl[0], 'spreaddata')}
+            badgemainrender: () => {return badgeMainAction(taskdl[0], 'spreaddata')}
         }
     ]
 
     const ticketspan = [
         {
             badgemainindex: 0,
-            badgemainrender: () => { return badgemainrender(ticketdl[0], 'spreaddata')}
+            badgemainrender: () => { return badgeMainAction(ticketdl[0], 'spreaddata')}
         }
     ]
 
@@ -48,11 +54,11 @@ export default function BadgeMain({
         },
         {
             badgemainindex: 1,
-            badgemainrender: () => { return badgemainrender(favouritedl[0], 'spreaddata')}
+            badgemainrender: () => { return badgeMainAction(favouritedl[0], 'spreaddata')}
         },
         {
             badgemainindex: 2,
-            badgemainrender: () => { return badgemainrender(favouritedl[1], 'spreaddata')}
+            badgemainrender: () => { return badgeMainAction(favouritedl[1], 'spreaddata')}
         }
     ]
 
@@ -94,10 +100,7 @@ export default function BadgeMain({
 
     const [appstatic, setappstatic] = useApp(badgemain, badgemainstatic.badgemainid, badgemainstatic.badgemainindex, ptamainstate, fieldmainstate, messagedl)
 
-    function badgemainrender(first, second) {
-        if(second === undefined || first === undefined) return null
-        return first?.[second].length
-    }
+    if(typeof appstatic === 'undefined') return null
 
   return (
     <div>

@@ -114,7 +114,7 @@ if(appstate.appidtwo !== 'modalmain') return null
   return (
     <div>
         <main className="">
-            <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white rounded-3xl overflow-hidden duration-100">
+            <section className="w-full fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-hidden duration-100">
               {/* <CardMain> */}
               <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
                 {appstatic?.map(data => (<>
@@ -133,7 +133,7 @@ if(appstate.appidtwo !== 'modalmain') return null
                   </button>
                 </CardMain>
               </figure>
-            </motion.section>
+            </section>
         </main>
     </div>
   )

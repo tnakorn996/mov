@@ -124,7 +124,7 @@ export default function FieldMain({
           alert(error)
           // setauthstate()
           // setfieldmainstate(!fieldmainstate)
-          alert('jj ')
+          alert('Signed out successfully')
           navigate(`/auth/authmain`)
   }
 

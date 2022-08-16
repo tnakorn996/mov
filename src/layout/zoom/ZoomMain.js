@@ -119,8 +119,8 @@ export default function ZoomMain({
     ]
 
     useEffect(() => {
-        if(zoommainvalue === EMPTY){setzoommainindex(0)}
-        if(zoommainvalue !== EMPTY){setzoommainindex(1)}
+        if(typeof zoommainvalue === 'undefined'){setzoommainindex(0)}
+        if(typeof zoommainvalue !== 'undefined'){setzoommainindex(1)}
     }, [zoommainvalue])
 
     const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree)

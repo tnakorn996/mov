@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useSplit from '../../hook/useSplit'
 import useApp from '../../hook/useApp'
 import useClient from '../../hook/useClient'
-import PostMain, { userAddressRender } from '../../layout/post/PostMain'
+import PostMain, { postMainFunction, userAddressRender } from '../../layout/post/PostMain'
 import SheetMain from '../../layout/sheet/SheetMain'
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
@@ -257,18 +257,17 @@ export default function StatMain({
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic,  splitstatictwo, splitstaticthree, statmaindata)
     
-    if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center duration-100">
-        <div className="shadow-md rounded-full">
-        <div className=" bg-white rounded-full animate-spin">
-            <CardMain>
-                <RiLoaderLine className="m-h6  animate-ping" />
-                {/* <div className="w-[70px] h-[70px]  rounded-full border border-slate-700 animate-ping" /> */}
-                {/* <SplashMain splashmainstyle={`text-3xl   animate-ping`} /> */}
-            </CardMain>
-        </div>
-        </div>
-        </motion.section> 
-    // if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><div className="m-h6  animate-bounce" ><SplashMain /></div></motion.section> 
+    // if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="fixed top-0 left-0 w-full h-full flex justify-center items-center duration-100">
+    //     <div className="shadow-md rounded-full">
+    //     <div className=" bg-white rounded-full animate-spin">
+    //         <CardMain>
+    //             <RiLoaderLine className="m-h6  animate-ping" />
+    //         </CardMain>
+    //     </div>
+    //     </div>
+    //     </motion.section> 
+
+    if(typeof clientstatic === 'undefined') return null
 
     // console.log('clientstatic', clientstatic)
     return (
@@ -276,9 +275,9 @@ export default function StatMain({
             <main className="">
                 <section className="">
                     {appstatic?.map(data => (<>
-                        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
+                        {/* <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100"> */}
                         {data?.statmainrender()}
-                        </motion.div>
+                        {/* </motion.div> */}
                     </>))}
                 </section>
             </main>
@@ -502,7 +501,7 @@ export default function StatMain({
                 <CardMain>
                 <section className="flex flex-row justify-between">
                     <p className="m-h5">Started date</p>
-                    <p className="l-h5">{handleDate(data?.created_at)}</p>
+                    <p className="l-h5">{postMainFunction(data?.created_at)}</p>
                 </section>
                 </CardMain>
                 <section className="">
@@ -514,36 +513,6 @@ export default function StatMain({
         </div>
         )
     }
-
-    export function handleDate(data) {
-        // console.log('data', data)
-       const slice = data.slice(0, 19) + `Z`
-    // console.log('slicse', slice)
-
-            var floor = Math.floor((new Date() - slice) / 1000);
-            // console.log('floor', floor)
-            var interval = floor / 31536000;
-            if (interval > 1) {
-                return Math.floor(interval) + " years";
-            }
-            interval = floor / 2592000;
-            if (interval > 1) {
-                return Math.floor(interval) + " months";
-            }
-            interval = floor / 86400;
-            if (interval > 1) {
-                return Math.floor(interval) + " days";
-            }
-            interval = floor / 3600;
-            if (interval > 1) {
-                return Math.floor(interval) + " hours";
-            }
-            interval = floor / 60;
-            if (interval > 1) {
-                return Math.floor(interval) + " min";
-            }
-            return Math.floor(floor) + " seconds";
-        }
 
     export function ll(index) {
         const data = [

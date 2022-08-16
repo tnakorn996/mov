@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 // import { appul } from '../../content/content'
 import { Context } from '../../context/context'
@@ -11,86 +11,97 @@ export default function CtaMain({
 
 }) {
     const {
-        setauthmainstate,
+        setauthformstate,
 
 
     } = useContext(Context)
     const navigate = useNavigate()
-    const param = useParams()
+    // const param = useParams()
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
-
+    
     const authembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'Join Us',
             ctamainstyle: `l-button border-white`,
-            ctamainaction: `/auth/authform`,
+            ctamainaction: () => {
+                setauthformstate(true)
+                return `/auth/authform`
+            },
         },
         {
-            ctamainindex: 1,
             ctamainentitle: 'Sign In',
             ctamainstyle: `border-white bg-transparent`,
-            ctamainaction: `/auth/authform`,
+            ctamainaction: () => {
+                setauthformstate(false)
+                return `/auth/authform`
+            },
         },
     ]
 
     const userembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'Edit profile',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/user/userform/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/user/userform/${splitstaticthree}`
+            },
         },
     ]
 
     const contractembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'Unfollow',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/contract/contractform/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/contract/contractform/${splitstaticthree}`
+            },
         },
     ]
 
     const workoutembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'View your progress',
-            ctamainaction: `/task/taskindex/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/task/taskindex/${splitstaticthree}`
+            },
         },
     ]
 
     const taskembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'reset record',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/task/taskform/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/task/taskform/${splitstaticthree}`
+            },
         },
     ]
     
     const clubembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'View your program',
-            ctamainaction: `/ticket/ticketindex/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/ticket/ticketindex/${splitstaticthree}`
+            },
         },
     ]
 
     const ticketembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'End program',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/ticket/ticketform/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/ticket/ticketform/${splitstaticthree}`
+            }
         },
     ]
 
     const achievementembed = [
         {
-            ctamainindex: 0,
             ctamainentitle: 'View your reward',
-            ctamainaction: `/award/awardindex/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/award/awardindex/${splitstaticthree}`
+            },
         },
     ]
 
@@ -99,7 +110,9 @@ export default function CtaMain({
             ctamainindex: 0,
             ctamainentitle: 'Give it back',
             ctamainstyle: `l-button border-black`,
-            ctamainaction: `/award/awardform/${splitstaticthree}`,
+            ctamainaction: () => {
+                return `/award/awardform/${splitstaticthree}`
+            },
         },
     ]
 
@@ -152,9 +165,13 @@ export default function CtaMain({
         <main className="">
             <section className="flex flex-row items-center  gap-1">
                 {appstatic?.map(data => (<>
+                {/* <Link to={data?.ctamainaction()} className="w-full"> */}
                 <button onClick={() => {
-                    navigate(data?.ctamainaction)
-                }} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>{data?.ctamainentitle}</button>
+                    navigate(data?.ctamainaction())
+                }} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>
+                    {data?.ctamainentitle}
+                </button>
+                {/* </Link> */}
                 </>))}
             </section>
         </main>

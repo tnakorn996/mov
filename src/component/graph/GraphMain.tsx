@@ -91,7 +91,7 @@ export default function GraphMain({
             devstaticaction: appstatic && appstatic[0].graphmainrender().action
         })
         
-    if(!appstatic || !devstatic) return null
+    if(typeof appstatic === 'undefined' || typeof devstatic === 'undefined') return null
 
 
   return (

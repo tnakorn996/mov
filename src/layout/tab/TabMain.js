@@ -35,10 +35,11 @@ export default function TabMain({
       if(tabmainstatic){
           const filter = tabmain.filter(data => data.tabmainid === tabmainstatic.tabmainid)
           const array = []
-          for(let i = 0; i < filter[0].tabmainref.length; i++){
+          const assign = Object.assign(...filter).tabmainref
+          for(let i = 0; i < assign.length; i++){
             array.push({
-                tabmaintitle: filter[0].tabmainref[i].tabmaintitle,
-                tabmainindex: filter[0].tabmainref[i].tabmainindex
+                tabmaintitle: assign[i].tabmaintitle,
+                tabmainindex: assign.indexOf(assign[i])
             })
           }
           return  settabmainrender(array)
@@ -67,7 +68,6 @@ export default function TabMain({
 
     const userfieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'Recommend',
             tabmainrender: () => {
                 return tabMainRender({
@@ -76,7 +76,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'fix this',
             tabmainrender: () => {
                 return tabMainRender({
@@ -88,7 +87,6 @@ export default function TabMain({
 
     const contractfieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'Recommend',
             tabmainrender: () => {
                 return tabMainRender({
@@ -97,7 +95,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'Updates',
             tabmainrender: () => {
                 return tabMainRender({
@@ -106,7 +103,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 2,
             tabmaintitle: 'Search',
             tabmainrender: () => {
                 return tabMainRender({
@@ -118,7 +114,6 @@ export default function TabMain({
 
     const workoutfieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: () => {
                 return tabMainRender({
@@ -127,7 +122,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'History',
             tabmainrender: () => {
                 return tabMainRender({
@@ -139,7 +133,6 @@ export default function TabMain({
 
     const clubfieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: () => {
                 return tabMainRender({
@@ -148,7 +141,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'History',
             tabmainrender: () => {
                 return tabMainRender({
@@ -161,7 +153,6 @@ export default function TabMain({
 
     const favouritefieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'Workouts',
             tabmainrender: () => {
                 return tabMainRender({
@@ -170,7 +161,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'Challenges',
             tabmainrender: () => {
                 return tabMainRender({
@@ -182,7 +172,6 @@ export default function TabMain({
 
     const achievementfieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: () => {
                 return tabMainRender({
@@ -191,7 +180,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'History',
             tabmainrender: () => {
                 return tabMainRender({
@@ -203,7 +191,6 @@ export default function TabMain({
 
     const messagefieldset = [
         {
-            tabmainindex : 0,
             tabmaintitle: 'For You',
             tabmainrender: () => {
                 return tabMainRender({
@@ -212,7 +199,6 @@ export default function TabMain({
             }
         },
         {
-            tabmainindex : 1,
             tabmaintitle: 'Update',
             tabmainrender: () => {
                 return tabMainRender({
@@ -224,7 +210,14 @@ export default function TabMain({
 
     const searchfieldset = [
         {
-            tabmainindex : 0,
+            tabmaintitle: 'Workout',
+            tabmainrender: () => {
+                return tabMainRender({
+                    zoommainstatic:{zoommainid: 'workoutform'}
+                })
+            } 
+        },
+        {
             tabmaintitle: 'Challenge',
             tabmainrender: () => {
                 return tabMainRender({
@@ -232,15 +225,6 @@ export default function TabMain({
                 })
             } 
             
-        },
-        {
-            tabmainindex : 1,
-            tabmaintitle: 'Workout',
-            tabmainrender: () => {
-                return tabMainRender({
-                    zoommainstatic:{zoommainid: 'workoutform'}
-                })
-            } 
         },
     ]
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { RiFireLine, RiMailOpenLine, RiMoreLine, RiTimer2Line } from 'react-icons/ri'
+import { RiCheckboxCircleLine, RiFireLine, RiMailOpenLine, RiMoreLine, RiTimer2Line } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 
 import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
@@ -53,7 +53,11 @@ export default function PostMain({
   function postMainRender() {
       window.history.replaceState(null, "", location.pathname)
   }
-
+  
+  function postMainActionTwo(first) {
+    if(typeof first === 'undefined') return null
+  }
+  
   const appaddress = [
     {
       postmainindex: 0,
@@ -106,15 +110,13 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = userdl[1]?.spreaddata.filter(data => data.userid === splitstaticthree)
-        return (
-          ref.map(data => (
+        return ref.map(data => (
             userAddressRenderTwo({
               data: data,
               authstate: authstate,
               splitstaticthree: splitstaticthree
             })
           ))
-        )
       }  
     },
     {
@@ -147,6 +149,7 @@ export default function PostMain({
     {
       postmainrender:() => {
       const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
+          postMainActionTwo(ref)
           return ref.map(data => (
             workoutAddressRender({
               data: data,
@@ -158,6 +161,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
+        postMainActionTwo(ref)
         return ref.map(data => (
           workoutAddressRenderTwo({
             data: data,
@@ -168,6 +172,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [postmaindata]
+        postMainActionTwo(ref)
           return ref.map(data => 
             workoutAddressRenderThree({
               data: data,
@@ -183,31 +188,18 @@ export default function PostMain({
 
   const taskaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, workoutul.filter(data => [postmaindata].some(dat => dat.workoutid === data.breadid))[0])]
-        // if(ref.length > 0){
-        //  return ref.map(data => (<>
-        //   <TaskAddressRender 
-        //     data={data}
-        //     props={{
-        //       navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
-        //   }} />
-        //   </>))
-        // } else {
-        //   return null
-        // }
-         return ref.map(data => (<>
-          <TaskAddressRender 
-            data={data}
-            props={{
+        postMainActionTwo(ref)
+        return ref.map(data => (
+            taskAddressRender({
+              data: data,
               navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
-          }} />
-          </>))
+            })
+        ))
       }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const filter = taskdl[0].spreaddata?.filter(data => data?.workoutid === splitstaticthree)
         const filtertwo = workoutul?.filter(data => data.breadid === splitstaticthree)
@@ -229,29 +221,26 @@ export default function PostMain({
 
   const clubaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        return (
-          ref.map(data => (<>
-          <ClubAddressRender
-            data={data}
-            props={{
+        postMainActionTwo(ref)
+        return ref.map(data => (
+            clubAddressRender({
+              data: data,
               navigate: () => {navigate(`/club/clubindex/${data?.breadid}`)}
-          }} />
-          </>))
-        )
+            })
+          ))
       }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const ref = clubul.filter(data => data.breadid === splitstaticthree)
-        return (
-          ref.map(data => (<>
-          <ClubAddressRenderTwo
-          data={data} />
-        </>)))
+        postMainActionTwo(ref)
+        return ref.map(data => (
+          clubAddressRenderTwo({
+            data: data
+          })
+        ))
       }  
     },
   ]
@@ -260,39 +249,36 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, clubul.filter(data => [postmaindata].some(dat => dat.clubid === data.breadid))[0])]
-        return (
-          ref.map(data => (<>
-            <TicketAddressRender
-            data={data}
-            props={{
+        postMainActionTwo(ref)
+        return ref.map(data => (
+            ticketAddressRender({
+              data: data,
               navigate: () => {navigate(`/ticket/ticketindex/${data?.breadid}`)}
-            }} />
-        </>)))
+            })
+        ))
       }  
     },
     {
       postmainrender:() => {
         const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
         const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
-        return (
-          reftwo.map(data => (<>
-            <TicketAddressRenderTwo 
-            data={data}
-             />
-        </>)))
+        return reftwo.map(data => (
+            ticketAddressRenderTwo({
+              data: data
+            })
+        ))
       }  
     },
     {
       postmainrender:() => {
         const ref = [postmaindata]
-        return (
-          ref.map((data) => (
+        postMainActionTwo(ref)
+        return ref.map((data) => (
             ticketAddressRenderThree({
               data: data,
               navigate: `/user/userindex/${data?.userid?.userid}`,
             })
           ))
-        )
       }  
     },
   ]
@@ -303,26 +289,26 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        return (
-          ref.map(data => (<>
+        postMainActionTwo(ref)
+        return ref.map(data => (<>
             <AchievementAddressRender
             data={data}
             props={{
               navigate: () => {navigate(`/achievement/achievementindex/${data?.breadid}`)}
             }} />
-        </>)))
+        </>))
       }  
     },
     {
       postmainindex: 1,
       postmainrender:() => {
         const ref = achievementul?.filter(data => data?.breadid === splitstaticthree)
-        return (
-          ref.map(data => (<>
+        postMainActionTwo(ref)
+        return ref.map(data => (<>
             <AchievementAddressRenderTwo
             data={data}
             />
-        </>)))
+        </>))
       }  
     },
     
@@ -333,6 +319,7 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
+        postMainActionTwo(ref)
         return (
           ref.map(data => (<>
             <AchievementAddressRender
@@ -369,6 +356,7 @@ export default function PostMain({
     postmainindex: 1,
      postmainrender:() => {
         const filter = articleul?.filter(data => data.breadid === splitstaticthree)
+        postMainActionTwo(filter)
         if(filter.length > 0) {
           return  filter.map(data => (<>
           <ArticleAddressRenderTwo
@@ -387,6 +375,7 @@ export default function PostMain({
       postmainrender:() => {
         // const ref = [postmaindata].filter(data => data.spreadrender().bool === true)
         const ref = [postmaindata]
+        postMainActionTwo(ref)
           if(ref.length > 0){
             return ref.map(data => (<>
             <MessageAddressRender
@@ -504,9 +493,9 @@ export default function PostMain({
         <main className="">
              <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map(data => (<>
-              <ScreenMain>
+              {/* <ScreenMain> */}
                   {data?.postmainrender()}
-              </ScreenMain>
+              {/* </ScreenMain> */}
               </>))}
             </section>
         </main>
@@ -565,10 +554,12 @@ export default function PostMain({
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
-          <figure className={`relative w-[30px] h-[30px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 overflow-hidden`}>
+          <ChipMain>
+          <figure className={`relative w-[30px] h-[30px] flex flex-col justify-center text-center  text-white bg-gray-400`}>
             <p className="text-base  uppercase">{data?.username?.slice(0, 1) || data?.username?.slice(0, 1)}</p>
             <img src={data?.userimage} alt="" className="absolute z-10 h-full w-full" />
           </figure>
+          </ChipMain>
         </section>
       </div>
     )
@@ -630,19 +621,22 @@ export default function PostMain({
     // console.log('data', data)
     return (
       <div >
-        <SheetMain>
+        <CardMain>
         <section className='flex flex-row items-center gap-3'>
+          <Link to={`/user/userindex/${data?.userid}`}>
           <figure className="">
-            <Link to={`/user/userindex/${data?.userid}`}>
-              <div className="w-[50px] h-[50px] flex justify-center items-center rounded-full bg-slate-400 text-white">
-              <p className="text-2xl m-h5  uppercase">{data?.username?.slice(0, 1)}</p>
+            <ChipMain>
+              <div className="relative w-[50px] h-[50px] flex justify-center items-center  bg-slate-400 text-white">
+              <p className="absolute text-2xl m-h5  uppercase">{data?.username?.slice(0, 1)}</p>
+              <img src={data?.userimage} alt="" className="absolute " />
               </div>
-            </Link>
+            </ChipMain>
           </figure>
+          </Link>
           <div className="w-full flex flex-row justify-between items-center gap-3">
             <figcaption className="">
               <Link to={`/user/userindex/${data?.userid}`}>
-                <p className="l-h4">{`@` + data?.username ||data?.useremail}</p>
+                <p className="m-h4">{`@` + data?.username ||data?.useremail}</p>
               </Link>
             </figcaption>
             <figure className="">
@@ -656,7 +650,7 @@ export default function PostMain({
             </figure>
           </div>
         </section>
-        </SheetMain>
+        </CardMain>
       </div>
     )
   }
@@ -700,7 +694,7 @@ export default function PostMain({
     <div>
         <CardMain>
           <section className="grid grid-cols-12">
-            <figure onClick={navigate}  className="col-span-3">
+            <figure onClick={navigate}  className="w-[90px] h-[90px] md:w-full md:h-full col-span-3">
             <ChipMain>
               <video className="w-full max-h-[100ch]" src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
@@ -755,10 +749,13 @@ export default function PostMain({
     <div className=" ">
       <section className="">
           <CardMain>
-        <motion.figure onClick={navigate} className={`rounded-full ${data.breadhead === choicemainstate && `!bg-slate-900 !text-white  !duration-1000`}`}>
+        <motion.figure onClick={navigate} className={`relative  rounded-full ${data.breadhead === choicemainstate && `!bg-slate-900 !text-white  !duration-1000`}`}>
           <CardMain>
             <CardMain>
-            <p className="w-full text-center  m-h6 uppercase">{data.breadbody}</p>
+              <div className="flex items-center ">
+              {data.breadhead === choicemainstate && <RiCheckboxCircleLine className="text-6xl absolute left-3 " />} 
+              <p className="w-full text-center  m-h6 uppercase">{data.breadbody}</p>
+              </div>
             </CardMain>
           </CardMain>
         </motion.figure>
@@ -768,74 +765,18 @@ export default function PostMain({
     )
   }
 
-  export function TaskAddressRender({props, data}) {
-    const {navigate} = props
+  export function taskAddressRender({navigate, data}) {
     return (
-        // <CardMain>
-        // <figure className="relative h-[50vh]">
-        //   <video onClick={navigate} src={data?.breadvideo} autoPlay={true} loop={true} >
-        //   </video>
-        //   <div className="z-10 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-        //     <CardMain>
-        //     <h1 className="text-xl  text-white">{data?.breadtitle}</h1>
-        //     <h1 className="l-h2  text-white">With {data?.breadauthor}</h1>
-        //     </CardMain>
-        //     <CardMain>
-        //     <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}} ptamainstyle={`text-white`} />
-        //     </CardMain>
-        //   </div>
-        // </figure>
-        // </CardMain>
-        <CardMain>
-          <section className="grid grid-cols-12">
-            <figure onClick={navigate} className="col-span-3">
-            <ChipMain>
-              <video className="w-full max-h-[100ch]"  src={data?.breadvideo} autoPlay={true} loop={true} >
-              </video>
-            </ChipMain>
-            </figure>
-            <figcaption onClick={navigate}  className="col-span-9 flex flex-row items-center justify-between">
-                <CardMain>
-                <h1 className="m-h5">{data?.breadtitle}</h1>
-                <h1 className="l-h2">With {data?.breadauthor}</h1>
-                </CardMain>
-                <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}}  />
-            </figcaption>
-          </section>
-        </CardMain>
+      <React.Fragment>
+        {workoutAddressRender({navigate, data})}
+      </React.Fragment>
     )
   }
 
   export function taskAddressRenderTwo({data}) {
-    // console.log('data', data)
     return (
       <div className="">
-        <section className="">
-          <video src={data?.breadvideo} autoPlay={true} loop={true} >
-          </video>
-        </section>
-        <section className="text-center">
-          <CardMain>
-            <CardMain>
-            <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
-            </CardMain>
-            <h1 className="l-h4">{data?.breadsubtitle}</h1>                  
-          </CardMain>
-        </section>
-         <CardMain>
-        <section className="flex flex-row gap-1 justify-center">
-            {/* <AvaMain> */}
-           <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
-            </CardMain>
-            {/* </AvaMain> */}
-            {/* <AvaMain> */}
-           <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
-           </ CardMain>
-            {/* </AvaMain> */}
-        </section>
-          </CardMain>
+        {workoutAddressRenderTwo({data})}
         <section className="">
             <CardMain>
             <figcaption className="flex justify-between items-center">
@@ -846,7 +787,7 @@ export default function PostMain({
             <CardMain>
             <figcaption className="flex justify-between items-center">
                 <p className="m-h5">Date created</p>
-                <p className="l-h5">{handleDate(data?.created_at)}</p>
+                <p className="l-h5">{postMainFunction(data?.created_at)}</p>
             </figcaption>
             </CardMain>
         </section>
@@ -854,8 +795,7 @@ export default function PostMain({
     )
   }
 
-  export function ClubAddressRender({data, props}) {
-    const {navigate} = props
+  export function clubAddressRender({data, navigate}) {
     return (
       <CardMain>
           <ChipMain>
@@ -875,7 +815,7 @@ export default function PostMain({
     )
   }
 
-  export function ClubAddressRenderTwo({data}) {
+  export function clubAddressRenderTwo({data}) {
     return (
       <div className="">
         <section className="">
@@ -891,69 +831,30 @@ export default function PostMain({
           </CardMain>
           </figcaption>
         </section>
-          {/* <CardMain>
-        <section className="flex flex-row gap-1 justify-center">
-           <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
-            </CardMain>
-           <CardMain>
-                <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
-           </ CardMain>
-        </section>
-          </CardMain> */}
       </div>
     )
   }
 
-  export function TicketAddressRender({data, props}) {
-    const {navigate} = props
+  export function ticketAddressRender({data, navigate}) {
     return (
-        <CardMain>
-          <ChipMain>
-          <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
-            <img loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
-            <div className="z-20 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
-              <CardMain>
-              <h1 onClick={navigate} className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
-              </CardMain>
-              <CardMain>
-              <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
-              </CardMain>
-            </div>
-          </figure>
-          </ChipMain>
-        </CardMain>
+        <div className="">
+          {clubAddressRender({data, navigate})}
+        </div>
     )
   }
 
-  export function TicketAddressRenderTwo({data}) {
+  export function ticketAddressRenderTwo({data}) {
     return (
       <div className="">
-        <section className="">
-          <figure className="h-[65vh] flex justify-center overflow-hidden">
-            <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
-          </figure>
-          <figcaption className="text-center">
-          <CardMain>
-            <CardMain>
-            <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
-            </CardMain>
-            <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
-          </CardMain>
-          </figcaption>
-        </section>
+        {clubAddressRenderTwo({data})}
         <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            {/* </AvaMain> */}
-            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            {/* </AvaMain> */}
         </section>
           </CardMain>
       </div>
@@ -967,10 +868,12 @@ export default function PostMain({
           {/* <DtaMain dtamaindata={{spreadhref: navigate}} dtamainstatic={{dtamainid: 'useriframe', dtamainindex: 0}} > */}
           <Link to={`/user/userindex/${data?.userid?.userid}`}>
             <div className="grid grid-flow-col items-center gap-3">
-            <figure className="relative h-[50px] w-[50px] flex justify-center items-center  rounded-full overflow-hidden bg-slate-300 text-white">
-              <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
-              <p className="absolute m-h6  uppercase">{data?.userid?.username?.slice(0,1)}</p>
-            </figure>
+              <ChipMain>
+              <figure className="relative h-[50px] w-[50px] flex justify-center items-center  bg-slate-300 text-white">
+                <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
+                <p className="absolute m-h6  uppercase">{data?.userid?.username?.slice(0,1)}</p>
+              </figure>
+              </ChipMain>
             <figcaption className="w-full  cursor-pointer">
               <p className="m-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
@@ -1030,22 +933,6 @@ export default function PostMain({
     </div>
     )
   }
-
-  // export function AchievementAddressRenderThree({data, props}) {
-  //   return (
-  //   <div >
-  //       <section>
-  //         <CardMain>
-  //         <AvaMain>
-  //         <figure onClick={props.navigate}>
-  //           <p className="p-[10px] m-h6">{data?.breadicon}</p>
-  //         </figure>
-  //         </AvaMain>
-  //         </CardMain>
-  //       </section>
-  //     </div>
-  //   )
-  // }
 
   export function ArticleAddressRenderTwo({data}) {
     // console.log('data', data)
@@ -1138,32 +1025,51 @@ export default function PostMain({
     )
   }
 
-
-export function handleDate(data) {
-  // console.log('data', data)
-    const slice = data.slice(0, 19) + `Z`
-    // console.log('slice', slice)
-        var floor = Math.floor((new Date() - slice) / 1000);
-        // console.log('floor', floor)
-        var interval = floor / 31536000;
-        if (interval > 1) {
-            return Math.floor(interval) + " years";
-        }
-        interval = floor / 2592000;
-        if (interval > 1) {
-            return Math.floor(interval) + " months";
-        }
-        interval = floor / 86400;
-        if (interval > 1) {
-            return Math.floor(interval) + " days";
-        }
-        interval = floor / 3600;
-        if (interval > 1) {
-            return Math.floor(interval) + " hours";
-        }
-        interval = floor / 60;
-        if (interval > 1) {
-            return Math.floor(interval) + " min";
-        }
-        return Math.floor(floor) + " seconds";
+export function postMainFunction(data) {
+    var timeSince = function(date) {
+    if (typeof date !== 'object') {
+      date = new Date(date);
     }
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+    var intervalType;
+
+    var interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+      intervalType = 'year';
+    } else {
+      interval = Math.floor(seconds / 2592000);
+      if (interval >= 1) {
+        intervalType = 'month';
+      } else {
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+          intervalType = 'day';
+        } else {
+          interval = Math.floor(seconds / 3600);
+          if (interval >= 1) {
+            intervalType = "hour";
+          } else {
+            interval = Math.floor(seconds / 60);
+            if (interval >= 1) {
+              intervalType = "minute";
+            } else {
+              interval = seconds;
+              intervalType = "second";
+            }
+          }
+        }
+      }
+    }
+
+    if (interval > 1 || interval === 0) {
+      intervalType += 's';
+    }
+
+    return interval + ' ' + intervalType;
+  };
+  var aDay = 24 * 60 * 60 * 1000;
+  // console.log(timeSince(new Date(Date.now() - aDay)));
+  // console.log(timeSince(new Date(Date.now() - aDay * 2)));
+  return `${timeSince(new Date(Date.now() - aDay))} ago`
+}

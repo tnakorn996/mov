@@ -211,19 +211,18 @@ export default function PostMain({
       postmainrender:() => {
         const filter = taskdl[0].spreaddata?.filter(data => data?.workoutid === splitstaticthree)
         const filtertwo = workoutul?.filter(data => data.breadid === splitstaticthree)
-        const filterthree = workoutul[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
+        const filterthree = filtertwo[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
         // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
-        if(filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
+        if(filter && filtertwo && filterthree
+          && filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
         // if(filter.length > 0) {
           const assign = [Object.assign(filter[0], filtertwo[0], filterthree[0])]
-          return  assign.map(data => (<>
-          <TaskAddressRenderTwo
-            data={data} />
-          </>))
-        } else {
-          return null
-          // return <SignMain signmainstatic={{signmainid: 'appimg', signmainindex: 0, signmaindetail: `This workout is not available at this time.`, signmainaction: `/workout/workoutmain`, signmainentitle: 'explore workout'}} />
-        }
+          return  assign.map(data => (
+            taskAddressRenderTwo({
+              data:data
+            })
+          ))
+        } 
       }  
     },
   ]
@@ -413,7 +412,8 @@ export default function PostMain({
             })
           }
         }
-        const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
+        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true)
+        const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.bool === true)
         return messageAddressRenderTwo({
           data: filter,
           navigate: () => {postMainRender()}
@@ -494,6 +494,11 @@ export default function PostMain({
 
   const [appstatic, setappstatic] = useApp(postmain, postmainstatic.postmainid, postmainstatic.postmainindex, splitstatictwo, splitstaticthree, postmaindata, choicemainstate)
 
+  if(typeof appstatic === 'undefined') return null
+  for(const data of appstatic){
+    if(typeof data.postmainrender() === 'undefined') return null
+  }
+
   return (
     <div>
         <main className="">
@@ -555,19 +560,16 @@ export default function PostMain({
     )
   }
   
-  export function userAddressRender({data, navigate}) {
+  export function userAddressRender({data}) {
+  // console.log('data', data)
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
-          <figure className={`w-[25px] h-[25px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400`}>
-            <p className="text-base  uppercase">{data?.user?.email?.slice(0, 1) || data.useremail.slice(0, 1)}</p>
+          <figure className={`relative w-[30px] h-[30px] flex flex-col justify-center text-center  text-white rounded-full bg-gray-400 overflow-hidden`}>
+            <p className="text-base  uppercase">{data?.username?.slice(0, 1) || data?.username?.slice(0, 1)}</p>
+            <img src={data?.userimage} alt="" className="absolute z-10 h-full w-full" />
           </figure>
         </section>
-        {/* <section className="">
-          {authstate !== null && authstate !== undefined && authstate.user.id !== data?.user?.id &&
-            <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}} />
-            }
-        </section> */}
       </div>
     )
   }
@@ -752,13 +754,15 @@ export default function PostMain({
     return (
     <div className=" ">
       <section className="">
-        <motion.figure onClick={navigate} className={data.breadhead === choicemainstate && `!bg-slate-100  !duration-1000`}>
+          <CardMain>
+        <motion.figure onClick={navigate} className={`rounded-full ${data.breadhead === choicemainstate && `!bg-slate-900 !text-white  !duration-1000`}`}>
           <CardMain>
             <CardMain>
-            <p className=" m-h5 uppercase">{data.breadbody}</p>
+            <p className="w-full text-center  m-h6 uppercase">{data.breadbody}</p>
             </CardMain>
           </CardMain>
         </motion.figure>
+          </CardMain>
       </section>
     </div>
     )
@@ -802,7 +806,7 @@ export default function PostMain({
     )
   }
 
-  export function TaskAddressRenderTwo({data}) {
+  export function taskAddressRenderTwo({data}) {
     // console.log('data', data)
     return (
       <div className="">
@@ -887,20 +891,16 @@ export default function PostMain({
           </CardMain>
           </figcaption>
         </section>
-          <CardMain>
+          {/* <CardMain>
         <section className="flex flex-row gap-1 justify-center">
-            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiTimer2Line /> 1 month</p>
             </CardMain>
-            {/* </AvaMain> */}
-            {/* <AvaMain> */}
            <CardMain>
                 <p className="flex flex-row items-center gap-1  m-h4"><RiFireLine /> {data?.breadpoint} XP</p>
            </ CardMain>
-            {/* </AvaMain> */}
         </section>
-          </CardMain>
+          </CardMain> */}
       </div>
     )
   }
@@ -963,12 +963,21 @@ export default function PostMain({
   export function ticketAddressRenderThree({data, navigate}) {
     return (
        <div className="" >
-        <DtaMain dtamaindata={{spreadhref: navigate}} dtamainstatic={{dtamainid: 'useriframe', dtamainindex: 0}} >
         <section className="w-full flex flex-row items-center justify-between">
+          {/* <DtaMain dtamaindata={{spreadhref: navigate}} dtamainstatic={{dtamainid: 'useriframe', dtamainindex: 0}} > */}
+          <Link to={`/user/userindex/${data?.userid?.userid}`}>
+            <div className="grid grid-flow-col items-center gap-3">
+            <figure className="relative h-[50px] w-[50px] flex justify-center items-center  rounded-full overflow-hidden bg-slate-300 text-white">
+              <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
+              <p className="absolute m-h6  uppercase">{data?.userid?.username?.slice(0,1)}</p>
+            </figure>
             <figcaption className="w-full  cursor-pointer">
               <p className="m-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
             </figcaption>
-            <figure className=" animate-pulse">
+            </div>
+          </Link>
+          {/* </DtaMain> */}
+            <figure className="">
               <AvaMain>
                 <CardMain>
                 <p className="m-h4 uppercase">{data?.weightid}</p>
@@ -976,7 +985,6 @@ export default function PostMain({
               </AvaMain>
             </figure>
         </section>
-        </DtaMain>
       </div>
     )
   }

@@ -13,7 +13,7 @@ export default function ClubMain() {
       <main className="">
             {/* <GraphMain graphmainstatic={{graphmainid: 'messagebase', graphmainindex: 0}} /> */}
             <section className="">
-                      <CardMain />
+                <CardMain />
                 <CardMain />
                 <BreadMain />
                 <TabMain tabmainstatic={{tabmainid: 'clubfieldset', tabmainindex: null}} />

@@ -9,7 +9,7 @@ export function contentAction(min, max, unit, fullunit) {
         if(number < max){
             number = (min * 1)
             array.push({
-                breadhead: `${min * i}${unit}`,
+                breadhead: `${min * i}${unit !== undefined && unit}`,
                 breadbody: `${min * i} ${fullunit}`,
             })
         }
@@ -74,6 +74,22 @@ export const appul = [
         breadicon: <RiInboxLine  />,
     },
 ]
+
+export const settingul = [
+    {
+        breadid: 'picture',
+        breadaction: `/picture/pictureform`,
+        breadtitle: 'Updddd',
+        breadsubtitle: 'aaaaaa',
+    },
+    {
+        breadid: 'picture',
+        breadaction: `/picture/pictureform`,
+        breadtitle: 'Updddd',
+        breadsubtitle: 'aaaaaa',
+    },
+]
+
 
 export const workoutul = [
     {

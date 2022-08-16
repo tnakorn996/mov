@@ -38,6 +38,8 @@ export const Provider = ({
     const [awarduserid, setawarduserid] = useState()
     const [textuserid, settextuserid] = useState()
     const [search, setsearch] = useState([])
+    const [userimage, setuserimage] = useState()
+    // console.log('userimage', userimage)
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
     const parsefavourite = JSON.parse(window.localStorage.getItem("mov.favouriteiframe"));
@@ -58,46 +60,38 @@ export const Provider = ({
 
     useEffect(() => {
         if(authstate !== undefined && authstate !== null){
-            selectUser(authstate.user.id)
-            selectUserUserid(authstate.user.id)
-            selectContractSenderid(authstate.user.id)
-            selectContractReceiverid(authstate.user.id)
+            const ref = authstate.user.id
+            selectUser(ref)
+            selectUserUserid(ref)
+            selectContractSenderid(ref)
+            selectContractReceiverid(ref)
             // selectTask(authstate.user.id)
-            selectTaskUserid(authstate.user.id)
-            selectTicketUserid(authstate.user.id)
-            selectAwardUserid(authstate.user.id)
-            selectTextUserid(authstate.user.id)
-            // setstamainstate(!stamainstate)
-
+            selectTaskUserid(ref)
+            selectTicketUserid(ref)
+            selectAwardUserid(ref)
+            selectTextUserid(ref)
+            // contextSelectUserimage(ref)
         } 
     }, [authstate, fieldmainstate])
 
     const selectUser = async (first) => {
         const { data, error} = await supabase.from('user').select(`*`)
-        if(data) {
-            setuser(data)
-        }
+        if(data) {setuser(data)}
     }
 
     const selectUserUserid = async (first) => {
         const { data, error} = await supabase.from('user').select(`*`).eq('userid', first)
-        if(data) {
-            setuseruserid(data)
-        }
+        if(data) {setuseruserid(data)}
     }
 
     const selectContractSenderid = async (first) => {
         const { data, error} = await supabase.from('contract').select(`*, receiverid (*)`).eq('senderid', first)
-        if(data) {
-            setcontractsenderid(data)
-        }
+        if(data) {setcontractsenderid(data)}
     }
 
     const selectContractReceiverid = async (first) => {
         const { data, error} = await supabase.from('contract').select(`*, senderid (*)`).eq('receiverid', first)
-        if(data) {
-            setcontractreceiverid(data)
-        }
+        if(data) {setcontractreceiverid(data)}
     }
 
     // const selectTask = async (first) => {
@@ -109,31 +103,28 @@ export const Provider = ({
 
     const selectTaskUserid = async (first) => {
         const { data, error} = await supabase.from('task').select(`*`).eq('userid', first)
-        if(data) {
-            settaskuserid(data)
-        }
+        if(data) {settaskuserid(data)}
     }
 
     const selectTicketUserid = async (first) => {
         const { data, error} = await supabase.from('ticket').select(`*`).eq('userid', first)
-        if(data) {
-            setticketuserid(data)
-        }
+        if(data) {setticketuserid(data)}
     }
 
     const selectAwardUserid = async (first) => {
         const { data, error} = await supabase.from('award').select(`*`).eq('userid', first)
-        if(data) {
-            setawarduserid(data)
-        }
+        if(data) {setawarduserid(data)}
     }
 
     const selectTextUserid = async (first) => {
         const { data, error} = await supabase.from('text').select(`*`).eq('userid', first)
-        if(data) {
-            settextuserid(data)
-        }
+        if(data) {settextuserid(data)}
     }
+
+    // const contextSelectUserimage = async (first) => {
+    //     const { data, error } = await supabase.storage.from('image').download(`userimage/${first}`)
+    //     setuserimage(data)
+    // }
 
     function contextRender(first, second, third) {
         if(authstate === null && authstate === undefined ) return null
@@ -169,48 +160,14 @@ export const Provider = ({
         return contextRenderItem(second, {navigation: navigation, bool: false} )
     }
 
+
+
     function contextRenderFive(first, second, navigation) {
         if(first) {
             return {navigation: navigation, bool: true}
         }  
         return {navigation: navigation, bool: false}
     }
-
-    // function contextRenderTwo(first, second, navigation) {
-    //     if(first 
-    //         && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0
-    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-    //         ){
-    //         return {navigation: navigation, bool: true}
-    //     } 
-    //     return {navigation: navigation, bool: false}
-    // }
-
-    // function contextRenderThree(first, second, navigation) {
-    //     if(first 
-    //         && ticketuserid && ticketuserid.filter(data => data?.clubid === second).length === 0
-    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-    //         ){
-    //         return {navigation: navigation, bool: true}
-    //     } 
-    //     return {navigation: navigation, bool: false}
-    // }
-
-    // function contextRenderFour(first, second, navigation) {
-    //     if(first
-    //         && textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0
-    //         ) {
-    //         return {navigation: navigation, bool: true}
-    //     }  
-    //     return {navigation: navigation, bool: false}
-    // }
-
-    // function contextRenderFive(first, second, navigation) {
-    //     if(first) {
-    //         return {navigation: navigation, bool: true}
-    //     }  
-    //     return {navigation: navigation, bool: false}
-    // }
 
     ////////////////////////////////////////////////
 
@@ -219,6 +176,7 @@ export const Provider = ({
             spreadid: 'my',
             spreadtitle: 'My user',
             spreaddata: useruserid && useruserid,
+            // spreaddatatwo: userimage && userimage,
         },
         {
             spreadid: 'all',
@@ -335,21 +293,21 @@ export const Provider = ({
 
     const appdl = [
         {
-            spreadid: 'task',
-            spreadtitle: 'My task',
-            spreadicon: `💬`,
+            spreadid: 'setting',
+            spreadtitle: 'My setting',
+            spreadicon: `✅`,
             spreaddata: () => {
                 const array = [];
-                for(const data of workoutul) {
-                        array.push({
-                            spreadidtwo: data.breadid,
-                            spreadhref: `/app/appindex/` + data.breadid,
-                            spreaddetail: `You have successfully added ` + data.breadtitle,
-                            spreadrender: () => {
-                                return contextRenderFive(true, data.breadid, `/workout/workoutindex/` + data.breadid)
-                            },
-                        })
-                }
+                // for(const data of settingul) {
+                //         array.push({
+                //             spreadidtwo: data.breadid,
+                //             spreadhref: `/app/appindex/` + data.breadid,
+                //             spreaddetail: `You have successfully added ` + data.breadtitle,
+                //             spreadrender: () => {
+                //                 return contextRenderFive(true, data.breadid, `/setting/settingindex/` + data.breadid)
+                //             },
+                //         })
+                // }
                 return array
             }
         },
@@ -357,25 +315,27 @@ export const Provider = ({
 
     const messagedl =[
         {
-            spreadid: 'ticket',
-            spreadtitle: `Ticket's message`,
+            spreadid: 'club',
+            spreadtitle: `Club's message`,
             spreadicon: `⚽️`,
             spreaddata: () => {
-                return [
-                    {
-                        spreadidtwo: 'lateral-bear-crawl',
-                        spreadhref: `/message/messageindex/lateral-bear-crawl`,
-                        spreaddetail: `You unlocked a new club of 60MIN Lateral Bear Crawl`,
+                const array = [];
+                for(const data of clubul) {
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/message/messageindex/` + data.breadid,
+                        spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
                         spreadrender: () => {
-                            return contextRenderThree(true, `lateral-bear-crawl`, `/club/clubindex/lateral-bear-crawl`)
+                            return contextRenderThree(true , data.breadid, `/club/clubindex/` + data.breadid)
                         }
-                    },
-                ]
+                    })
+                }
+                return array
               } 
         },
         {
-            spreadid: 'award',
-            spreadtitle: 'Award unlocked!',
+            spreadid: 'achievement',
+            spreadtitle: 'Achievement unlocked!',
             spreadicon: `🎉🥳`,
             spreaddata: () => {
                 return [
@@ -451,6 +411,28 @@ export const Provider = ({
                             return contextRenderFour(
                             (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
                             , data.breadid, `/workout/workoutindex/` + data.breadid)
+                        }
+                    })
+                }
+                return array
+            }
+        },
+        {
+            spreadid: 'ticket',
+            spreadtitle: `Ticket's message`,
+            spreadicon: `❤️‍🔥❤️‍🔥`,
+            spreaddata: () => {
+                if(!ticketuserid) return null
+                const array = [];
+                for(const data of clubul) {
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/message/messageindex/` + data.breadid,
+                        spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s club`,
+                        spreadrender: () => {
+                            return contextRenderFour(
+                            (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
+                            , data.breadid, `/club/clubindex/` + data.breadid)
                         }
                     })
                 }

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import StatMain from '../../component/stat/StatMain'
+import '../modal/index.css'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -13,7 +14,7 @@ import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
 import ContractForm from '../../page/contract/ContractForm'
-import { RiCloseCircleLine, RiCloseFill } from 'react-icons/ri'
+import { RiCloseCircleFill, RiCloseCircleLine, RiCloseFill } from 'react-icons/ri'
 
 export default function ModalMain() {
   const {
@@ -113,19 +114,23 @@ if(appstate.appidtwo !== 'modalmain') return null
   return (
     <div>
         <main className="">
-            <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white duration-100 rounded-t-3xl overflow-hidden">
-              <motion.figcaption className={` overflow-y-scroll`}>
+            <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-full fixed bottom-0 left-0  bg-white rounded-3xl overflow-hidden duration-100">
+              {/* <CardMain> */}
+              <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
                 {appstatic?.map(data => (<>
                   {data?.modalmainrender()}
                 </>))}
               </motion.figcaption>
+              {/* </CardMain> */}
               <hr />
               <figure className="">
                 <CardMain>
                 <button onClick={() => {
                   setappstate()
                   window.history.replaceState(null, "", location?.pathname)
-                }} className="l-h5 w-full flex flex-row items-center justify-center gap-2  uppercase"><RiCloseCircleLine /> Close</button>
+                }} className="w-full flex flex-row items-center justify-center text-3xl  l-h6">
+                    <RiCloseCircleLine />
+                  </button>
                 </CardMain>
               </figure>
             </motion.section>

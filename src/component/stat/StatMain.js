@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import useSplit from '../../hook/useSplit'
 import useApp from '../../hook/useApp'
 import useClient from '../../hook/useClient'
-import PostMain from '../../layout/post/PostMain'
+import PostMain, { userAddressRender } from '../../layout/post/PostMain'
 import SheetMain from '../../layout/sheet/SheetMain'
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
@@ -20,6 +20,7 @@ import ChipMain from '../../layout/chip/ChipMain.tsx'
 
 export default function StatMain({
     statmainstatic,
+    statmaindata,
 
 }) {
     const {
@@ -33,7 +34,7 @@ export default function StatMain({
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     const [clientstatic, setclientstatic] = useClient()
 
-    function statMainRender(first, component) {
+    function statMainAction(first, component) {
         const filter = clientstatic?.filter(data => data[first] === splitstaticthree)
 
         if(filter !== undefined && filter !== null && filter.length > 0) {
@@ -42,7 +43,7 @@ export default function StatMain({
         return null
     }
 
-    function statMainRenderTwo(first) {
+    function statMainActionTwo(first) {
         const filter = clientstatic?.filter(data => data[first] === splitstaticthree)
         // console.log('clientstatic', clientstatic)
         // console.log('fisltesr', filter)
@@ -52,7 +53,7 @@ export default function StatMain({
         return null
     }
 
-    // function statMainRenderTwo(data, first, second) {
+    // function statMainActionTwo(data, first, second) {
     //     if(!clientstatic) return null
     //     const ref = data
     //     const filter = clientstatic?.filter(data => first === second)
@@ -69,7 +70,7 @@ export default function StatMain({
     const apptable = [
         {
             statmainrender: () => {
-                return statMainRender('userid', appMainRenderTwo({data: clientstatic && clientstatic}))
+                return statMainAction('userid', appMainRenderTwo({data: clientstatic && clientstatic}))
             }
         },
     ]
@@ -77,7 +78,7 @@ export default function StatMain({
     const usertable = [
         {
             statmainrender: () => {
-                return statMainRender('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
+                return statMainAction('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
             }
         },
     ]
@@ -85,7 +86,7 @@ export default function StatMain({
     const contracttable = [
         {
             statmainrender: () => {
-                return statMainRender(
+                return statMainAction(
                     'userid', 
                     contractTableRender({
                         authstate, 
@@ -99,7 +100,7 @@ export default function StatMain({
     const workouttable = [
         {
             statmainrender: () => {
-                return statMainRender('workoutid', <WorkoutTableRender />)
+                return statMainAction('workoutid', <WorkoutTableRender />)
             }
         },
     ]
@@ -107,7 +108,7 @@ export default function StatMain({
     const tasktable = [
         {
             statmainrender: () => {
-                return statMainRender('workoutid', <TaskTableRender />)
+                return statMainAction('workoutid', <TaskTableRender />)
             }
         },
     ]
@@ -115,7 +116,14 @@ export default function StatMain({
     const clubtable = [
         {
             statmainrender: () => {
-                return statMainRender('clubid', <ClubTableRender />)
+                return statMainAction('clubid', clubTableRender())
+            }
+        },
+        {
+            statmainrender: () => {
+                return statMainAction('clubid', clubTableRenderTwo({
+                    data: statmaindata && statmaindata
+                }))
             }
         },
     ]
@@ -123,8 +131,9 @@ export default function StatMain({
     const tickettable = [
         {
             statmainrender: () => {
-                const sort =  clientstatic?.sort((a, b) => b.weightid.length - a.weightid.length)
-                return  statMainRender('workoutid', ticketTableRender({data: sort && sort}))
+                // const sort =  statmaindata && statmaindata?.sort((a, b) => b.weightid.length - a.weightid.length)
+                const sort =  clientstatic && clientstatic?.sort((a, b) => b.weightid.length - a.weightid.length)
+                return  statMainAction('workoutid', ticketTableRender({data: sort && sort}))
             }
         },
         {
@@ -148,7 +157,7 @@ export default function StatMain({
     const acheivementtable = [
         {
             statmainrender: () => {
-                return statMainRender('achievementid', <AchievementTableRender data={clientstatic && clientstatic} />)
+                return statMainAction('achievementid', <AchievementTableRender data={clientstatic && clientstatic} />)
             }
         },
     ]
@@ -157,7 +166,7 @@ export default function StatMain({
         {
             statmainrender: () => {
                 return awardTableRender({
-                    data: statMainRenderTwo('achievementid')
+                    data: statMainActionTwo('achievementid')
                 })
             }
         },
@@ -231,13 +240,34 @@ export default function StatMain({
             statmainid: 'awardtable',
             statmainref: awardtable,
         },
-
-        
     ]
 
-    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic, splitstaticthree)
+//     const statmaintwo = (state, action) => {
+//         switch (action.type) {
+//             case "apptable":
+//                 return apptable
+//             case "decrement":
+//                 return state.count - 1
+//             default:
+//                 return state;
+//         }
+//     }
+//     const [appstatictwo, setappstatictwo] = useAppNew(statmaintwo, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic, splitstaticthree)
+// console.log('appstatictwo', appstatictwo)
+
+    const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic,  splitstatictwo, splitstaticthree, statmaindata)
     
-    if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><RiLoaderLine className="m-h6  animate-spin" /></motion.section> 
+    if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center duration-100">
+        <div className="shadow-md rounded-full">
+        <div className=" bg-white rounded-full animate-spin">
+            <CardMain>
+                <RiLoaderLine className="m-h6  animate-ping" />
+                {/* <div className="w-[70px] h-[70px]  rounded-full border border-slate-700 animate-ping" /> */}
+                {/* <SplashMain splashmainstyle={`text-3xl   animate-ping`} /> */}
+            </CardMain>
+        </div>
+        </div>
+        </motion.section> 
     // if(clientstatic === undefined || clientstatic === null) return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{ duration: 1 }}  className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center"><div className="m-h6  animate-bounce" ><SplashMain /></div></motion.section> 
 
     // console.log('clientstatic', clientstatic)
@@ -246,7 +276,9 @@ export default function StatMain({
             <main className="">
                 <section className="">
                     {appstatic?.map(data => (<>
+                        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
                         {data?.statmainrender()}
+                        </motion.div>
                     </>))}
                 </section>
             </main>
@@ -280,8 +312,9 @@ export default function StatMain({
             {data?.map(data => (<>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
-            <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
+            <figure className="relative w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400 overflow-hidden">
                 <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+                <img src={data?.userimage} alt="" className="absolute z-10 w-full h-full" />
             </figure>
             </CardMain>
             </section>
@@ -345,7 +378,7 @@ export default function StatMain({
         )
     }
 
-    export function ClubTableRender() {
+    export function clubTableRender() {
         return (
             <div>
             <section className="">
@@ -354,7 +387,33 @@ export default function StatMain({
                 </SheetMain>
             </section>
         </div>
-    )
+        )
+    }
+
+    export function clubTableRenderTwo({data, navigate}) {
+        // console.log('data', data)
+        return (
+            <div>
+            <section className="w-full">
+            <CardMain>
+                <div className="flex flex-row justify-center">
+                    {/* {data?.map(item => (
+                        userAddressRender({data: item?.userid})
+                    ))} */}
+                    {data?.map(data => (<>
+                    <Link to={`/user/userindex/${data?.userid?.userid}`} >
+                        <figure className="relative w-[50px] h-[50px] flex justify-center items-center  rounded-full overflow-hidden bg-slate-300 text-white">
+                            <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
+                            <p className="absolute  uppercase m-h6">{data?.userid?.username?.slice(0, 1)}</p>
+                        </figure>
+                    </Link>
+                    </>)
+                    )}
+                </div>
+            </CardMain>
+            </section>
+        </div>
+        )
     }
 
     export function ticketTableRender({data}) {

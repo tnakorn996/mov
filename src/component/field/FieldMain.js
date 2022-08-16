@@ -50,7 +50,8 @@ export default function FieldMain({
 
   function fieldMainRender(first, second) {
     for(const data of first) {
-      if(data.breadid === splitstaticthree || split[3]){
+      if(data.breadid === splitstaticthree 
+        || data.breadid === split[3]){
         // console.log('datdddddddda', data[second])
         return data[second]
       }
@@ -149,7 +150,7 @@ export default function FieldMain({
   //       }
   // }
 
-  console.log('split', splitstaticthree || split[3] || param?.userid)
+  // console.log('split', splitstaticthree || split[3] || param?.userid)
 
   const ss = async () => {
       // console.log('fieldmaindata', fieldmaindata)
@@ -270,7 +271,7 @@ export default function FieldMain({
         }
     }
 
-    const handleDelete = async () => {
+    const fieldMainDelete = async () => {
       // console.log('fieldmaindata', fieldmaindata)
         const user = supabase.auth.user()
         const query = [
@@ -338,7 +339,7 @@ export default function FieldMain({
     }
 
 
-    const handleSearch = async () => {
+    const fieldMainSearch = async () => {
       const refsixvalue = refsix.current.value;
         const user = supabase.auth.user()
         const query = [
@@ -365,7 +366,59 @@ export default function FieldMain({
         }
     }
 
+    
     //////////////////////////////////////
+    
+    const fieldMainUpload = async () => {
+      const user = supabase.auth.user()
+      const refseventarget = refseven.current.files[0]
+      // console.log('refseventarget', refseventarget)
+      const { data, error } = await supabase.storage
+        .from('image')
+        .upload(`userimage/${fieldmainid}`, refseventarget, {
+          cacheControl: '3600',
+          upsert: false,
+        })
+        // console.log('data', data)
+        // alert('error', error)
+        if(data) {
+          fieldMainGetpublicurl(fieldmainid, user)
+        }
+    }
+
+    // const fieldMainUpdate = async () => {
+    //   const user = supabase.auth.user()
+    //   const refseventarget = refseven.current.files[0]
+    //   // console.log('refseventarget', refseventarget)
+    //   const { data, error } = await supabase.storage
+    //     .from('image')
+    //     .update(`userimage/${user.id}`, refseventarget, {
+    //       cacheControl: '3600',
+    //       upsert: false,
+    //     })
+    //     // console.log('data', data)
+    //     // alert('error', error)
+    //     if(data) {
+    //       fieldMainGetpublicurl(user)
+    //     }
+    // }
+
+    const fieldMainGetpublicurl = async (first, second) => {
+      const { publicURL, error } = supabase.storage
+      .from('image')
+      .getPublicUrl(`userimage/${first}`)
+      if(publicURL) {
+        const { error } = await supabase
+        .from('user').update({userimage: publicURL})
+        .match({userid: second.id})
+        alert(`Successfully update image`)
+        setfieldmainstate(!fieldmainstate)
+        // fieldMainRenderTwo(ref)
+      }
+    }
+
+    //////////////////////////////////////
+
 
 
   const authinput = [
@@ -407,27 +460,37 @@ export default function FieldMain({
 
   const userinput = [
     {
-      fieldmainindex: 0,
       fieldmaintitle: 'Danger zone',
       fieldmainentitle: 'Sign out',
       fieldmainaction: jj,
       fieldmaindata: [],
     },
     {
-      fieldmainindex: 1,
       fieldmaintitle: 'User Settings',
       fieldmainentitle: 'Save changes',
       fieldmainaction: ss,
       fieldmaindata: [
          {
           fieldmainsubtitle: 'Full name',
-          fieldmainrender: <input ref={reffour} className="l-input" placeholder="eg. John Doe" />,
-          fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
+          fieldmainrender: <input ref={reffour} className="l-input" placeholder="Enter your full name" />,
+          // fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
+        // {
+        //   fieldmainsubtitle: 'Username',
+        //   fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
+        //   fieldmaindetail: `This will be displayed to viewers of your profile page.`,
+        // },
+      ],
+    },
+    {
+      fieldmaintitle: 'Profile picture',
+      fieldmainentitle: 'Upload picture',
+      fieldmainaction: fieldMainUpload,
+      fieldmaindata: [
         {
-          fieldmainsubtitle: 'Username',
-          fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
-          fieldmaindetail: `This will be displayed to viewers of your profile page.`,
+          fieldmainsubtitle: 'Upload profile photo',
+          fieldmainrender: <input ref={refseven} type={`file`} className="l-input" />,
+          // fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
       ],
     },
@@ -445,7 +508,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: null,
       fieldmainentitle: 'Following',
-      fieldmainaction: handleDelete,
+      fieldmainaction: fieldMainDelete,
       fieldmaindata: [],
     },
   ]
@@ -468,7 +531,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
-      fieldmainaction: handleDelete,
+      fieldmainaction: fieldMainDelete,
       fieldmaindata: [],
     },
   ]
@@ -485,7 +548,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
-      fieldmainaction: handleDelete,
+      fieldmainaction: fieldMainDelete,
       fieldmaindata: [],
     },
   ]
@@ -502,7 +565,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: 'Would you like to continue?',
       fieldmainentitle: 'Confirm',
-      fieldmainaction: handleDelete,
+      fieldmainaction: fieldMainDelete,
       fieldmaindata: [],
     },
   ]
@@ -519,7 +582,7 @@ export default function FieldMain({
       fieldmainindex: 1,
       fieldmaintitle: null,
       fieldmainentitle: 'Mark as un-read',
-      fieldmainaction: handleDelete,
+      fieldmainaction: fieldMainDelete,
       fieldmaindata: [],
     },
   ]
@@ -529,7 +592,7 @@ export default function FieldMain({
       fieldmainindex: 0,
       fieldmaintitle: null,
       fieldmainentitle: 'Search',
-      fieldmainaction: handleSearch,
+      fieldmainaction: fieldMainSearch,
       fieldmaindata: [
         {
           fieldmainsubtitle: null,

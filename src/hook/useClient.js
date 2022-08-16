@@ -115,14 +115,13 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
         // const join = func.eq[0] + `, ` + func.eq[1]
         // const stringify = func.eq.map(data => JSON.stringify(data)).join()
 
-        if(func !== null && func !== undefined) {
+        if(typeof func !== 'undefined') {
           const { data, error} = await supabase.from(func.from).select(func.select)
-          .order(
-            func.order[0], func.order[1], func.order[2], func.order[3]
-          )
-          .eq(
-            func.eq[0], func.eq[1], func.eq[2], func.eq[3]
-            ).limit(func.limit)
+          .order(func.order[0], func.order[1], func.order[2], func.order[3])
+          .eq(func.eq[0], func.eq[1], func.eq[2], func.eq[3])
+          .limit(func.limit)
+
+
           if(data) {
             // console.log('data.....', data)
             setclientstatic(data)

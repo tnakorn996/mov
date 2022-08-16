@@ -238,7 +238,8 @@ export default function FeedMain({
                     feedmainrender: () => {
                                 return (messagedl[0].spreaddata().concat(
                                     messagedl[1].spreaddata(), 
-                                    messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
+                                    messagedl[3].spreaddata(), 
+                                    messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
                     }
                 },
                 {
@@ -246,7 +247,8 @@ export default function FeedMain({
                     feedmainrender: () => {
                                 return  (messagedl[0].spreaddata().concat(
                                     messagedl[1].spreaddata(), 
-                                    messagedl[3].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
+                                    messagedl[3].spreaddata(), 
+                                    messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
                     }
                 },
             ],

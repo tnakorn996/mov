@@ -88,11 +88,10 @@ export default function ChoiceMain({
                 <DtaMain 
                 dtamaindata={{spreadhref: data?.choicemainhref}}
                 dtamainstatic={{dtamainid: 'weightiframe', dtamainindex: 0}} >
-                    <input ref={choicemainref} value={ choicemainstate } 
-                    // onClick={() => {
-                        //     setchoicemainbool(!choicemainbool)
-                        // }} 
-                        className="m-h5 text-center  l-button cursor-pointer shadow-md border-slate-200" />
+                    <input hidden ref={choicemainref} value={ choicemainstate } />
+                    <button className="w-[70px] flex justify-center  m-h5  l-button shadow-md border-slate-200" >
+                        {choicemainstate}
+                    </button>
                 </DtaMain>
             </section>
             </>))}

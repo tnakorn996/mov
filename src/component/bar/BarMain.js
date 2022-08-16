@@ -67,11 +67,14 @@ export default function BarMain() {
         {
             barmainindex: 0,
             barmainrender: () => {
+                // if(userdl[0]?.spreaddata === 'undefined') return null
+                const ref = userdl[0]?.spreaddata && Object.assign(...userdl[0]?.spreaddata)
+                // console.log('ref', ref)
                 return appTfootRender({
                             props:{
                                 navigate: () => {navigate(`/user/userindex/${authstate?.user?.id}`)},
                                 component: <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />,
-                                icon: <PostMain postmaindata={authstate && authstate} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />,
+                                icon: <PostMain postmaindata={ref && ref} postmainstatic={{postmainid: 'useraddress', postmainindex: 0}} />,
                             },
                         })
 

@@ -78,7 +78,21 @@ export default function StatMain({
     const usertable = [
         {
             statmainrender: () => {
-                return statMainAction('userid', <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />)
+                return statMainAction('userid', 
+                // <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />
+                userTableRender({
+                        data: clientstatic && clientstatic,
+                        authstate: authstate,
+                        splitstaticthree: splitstaticthree
+                    })
+                )
+            }
+        },
+        {
+            statmainrender: () => {
+                return userTableRenderTwo({
+                    data: statmaindata
+                })
             }
         },
     ]
@@ -293,9 +307,6 @@ export default function StatMain({
                 <SheetMain>
                     <CardMain>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, aliquid!
-                        {/* <StaMain 
-                        stamainstatic={{ stamainid: 'messageiframe' }} 
-                        />  */}
                     </CardMain>
                 </SheetMain>
                 </section>
@@ -303,18 +314,19 @@ export default function StatMain({
         )
     }
 
-    export function UserTableRender({data, props}) {
-        const {authstate, splitstaticthree} = props
+    export function userTableRender({data, authstate, splitstaticthree}) {
         // console.log('data', data)
         return (
         <div>
             {data?.map(data => (<>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
-            <figure className="relative w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400 overflow-hidden">
-                <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
-                <img src={data?.userimage} alt="" className="absolute z-10 w-full h-full" />
-            </figure>
+                <ChipMain chipmainstyle={{section: `!rounded-full`}}>
+                <figure className="relative w-[170px] h-[170px] flex flex-col justify-center items-center  text-white bg-gray-400">
+                    <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
+                    <img src={data?.userimage} alt="" className="absolute z-10 w-full h-full" />
+                </figure>
+                </ChipMain>
             </CardMain>
             </section>
             <section className="">
@@ -332,6 +344,15 @@ export default function StatMain({
             </CardMain>
             </section>
             </>))}
+        </div>
+        )
+    }
+
+    export function userTableRenderTwo({data}) {
+        // console.log('data', data)
+        return (
+        <div>
+            <PostMain postmaindata={data} postmainstatic={{postmainid: 'useraddress', postmainindex: 3}} />
         </div>
         )
     }
@@ -401,10 +422,12 @@ export default function StatMain({
                     ))} */}
                     {data?.map(data => (<>
                     <Link to={`/user/userindex/${data?.userid?.userid}`} >
-                        <figure className="relative w-[50px] h-[50px] flex justify-center items-center  rounded-full overflow-hidden bg-slate-300 text-white">
+                        <ChipMain chipmainstyle={{section: `!rounded-full`}}>
+                        <figure className="relative w-[50px] h-[50px] flex justify-center items-center bg-slate-300 text-white">
                             <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
                             <p className="absolute  uppercase m-h6">{data?.userid?.username?.slice(0, 1)}</p>
                         </figure>
+                        </ChipMain>
                     </Link>
                     </>)
                     )}
@@ -424,9 +447,11 @@ export default function StatMain({
                     <CardMain>
                         <figcaption className="w-full grid grid-cols-12 gap-3 items-center">
                             <div className="col-span-1">
-                                <article className={`w-[20px] h-[20px] flex items-center justify-center  bg-slate-200 rounded-full ${ll(index + 1)} ` }>
+                                <ChipMain chipmainstyle={{section: `!rounded-full`}}>
+                                <article className={`w-[20px] h-[20px] flex items-center justify-center  bg-slate-200 ${ll(index + 1)} ` }>
                                     <p className="l-h2">{index + 1}</p>
                                 </article>
+                                </ChipMain>
                             </div>
                             <div className="col-span-11">
                                 <PostMain postmaindata={data} postmainstatic={{postmainid:'ticketaddress', postmainindex: 2}} />

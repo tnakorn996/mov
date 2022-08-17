@@ -21,6 +21,7 @@ export default function NavbarMain({
     taskdl,
     ticketdl,
     awarddl,
+    messagedl,
 
   } = useContext(Context)
   const location = useLocation()
@@ -82,12 +83,15 @@ export default function NavbarMain({
     },
   ]
 
+// console.log('awarddl[0].spreaddata', awarddl[0].spreaddata)
   const achievementtbody = [
     {
       navmainindex: 0,
       navmainrender: () => {
-        const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
-        return navMainAction(awarddl[0]?.spreaddata && filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
+        if(typeof awarddl[0]?.spreaddata === 'undefined') return null
+        // const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
+        const filter = messagedl[1]?.spreaddata()?.filter(data => data.spreadrender().id === split[3])
+        return navMainAction(filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
 
       }
     },

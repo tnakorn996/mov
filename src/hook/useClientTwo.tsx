@@ -32,7 +32,7 @@ export default function useClientTwo(clientmaindata: any, clientmainstatic: any,
             // console.log('data.....', data)
             setclientstatic(data)
           } else {
-            alert(error)
+            // alert(error)
           }
         }
     }

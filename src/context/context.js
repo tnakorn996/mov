@@ -15,7 +15,7 @@ export const Provider = ({
     // const location = useLocation()
     // const param = useParams()
     const [appstate, setappstate] = useState()
-    const [authformstate, setauthformstate] = useState()
+    const [authformstate, setauthformstate] = useState(false)
     const [fieldmainstate, setfieldmainstate] = useState(true)
     const [tabmainstate, settabmainstate] = useState({tabmainindex: 0})
     const [feedmainstate, setfeedmainstate] = useState({feedmainindex: 0})
@@ -143,7 +143,7 @@ export const Provider = ({
         if(first  && awarduserid && awarduserid.filter(data => data?.achievementid === second).length === 0){
             return contextRenderItem(second, {navigation: navigation, bool: true} )
         } 
-        return contextRenderItem(second, {navigation: navigation, bool: false} )
+        return contextRenderItem(second, {id: second, navigation: navigation, bool: false} )
     }
 
     function contextRenderThree(first, second, navigation) {
@@ -265,6 +265,11 @@ export const Provider = ({
             spreadtitle: 'Club',
             spreaddata: contextRender(achievementul, 'breadid', 'ticket')
         },
+        {
+            spreadid: 'contract',
+            spreadtitle: 'Friends',
+            spreaddata: contextRender(achievementul, 'breadid', 'contract')
+        },
     ]
 
     const awarddl =[
@@ -319,6 +324,7 @@ export const Provider = ({
             spreadtitle: `Club's message`,
             spreadicon: `⚽️`,
             spreaddata: () => {
+                if(!taskuserid) return null
                 const array = [];
                 for(const data of clubul) {
                     array.push({
@@ -326,7 +332,9 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
                         spreadrender: () => {
-                            return contextRenderThree(true , data.breadid, `/club/clubindex/` + data.breadid)
+                            return contextRenderThree(
+                                (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
+                                , data.breadid, `/club/clubindex/` + data.breadid)
                         }
                     })
                 }
@@ -342,7 +350,7 @@ export const Provider = ({
                     {
                         spreadidtwo: 'task-one',
                         spreadhref: `/message/messageindex/task-one`,
-                        spreaddetail: `You unlocked a new reward of 1-workout`,
+                        spreaddetail: `You unlocked a new reward of 1 Workout`,
                         spreadrender: () => {
                             return contextRenderTwo(taskuserid && taskuserid.length > 0 && taskdl[0]?.spreaddata?.length >= 1, `task-one`, `/achievement/achievementindex/task-one`)
                         }
@@ -350,7 +358,7 @@ export const Provider = ({
                     {
                         spreadidtwo: 'task-three',
                         spreadhref: `/message/messageindex/task-three`,
-                        spreaddetail: `You unlocked a new reward of 3-workouts`,
+                        spreaddetail: `You unlocked a new reward of 3 Workouts`,
                         spreadrender: () => {
                             return contextRenderTwo(taskuserid && taskuserid.length > 0 && taskdl[0]?.spreaddata?.length >= 3, `task-three`, `/achievement/achievementindex/task-three`)
                         }
@@ -359,7 +367,7 @@ export const Provider = ({
                     {
                         spreadidtwo: 'ticket-one',
                         spreadhref: `/message/messageindex/ticket-one`,
-                        spreaddetail: `You unlocked a new reward of 1-club`,
+                        spreaddetail: `You unlocked a new reward of 1 Club`,
                         spreadrender: () => {
                             return contextRenderTwo(ticketuserid && ticketuserid.length > 0 && ticketdl[0]?.spreaddata?.length >= 1, `ticket-one`, `/achievement/achievementindex/ticket-one`)
                         }
@@ -367,9 +375,26 @@ export const Provider = ({
                     {
                         spreadidtwo: 'ticket-three',
                         spreadhref:`/message/messageindex/ticket-three`,
-                        spreaddetail: `You unlocked a new reward of 3-clubs`,
+                        spreaddetail: `You unlocked a new reward of 3 Clubs`,
                         spreadrender: () => {
                             return contextRenderTwo(ticketuserid && ticketuserid.length > 0 && ticketdl[0]?.spreaddata?.length >= 3, `ticket-three`, `/achievement/achievementindex/ticket-three`)
+                        }
+                    },
+
+                    {
+                        spreadidtwo: 'contract-one',
+                        spreadhref: `/message/messageindex/contract-one`,
+                        spreaddetail: `You unlocked a new reward of 1 Follower`,
+                        spreadrender: () => {
+                            return contextRenderTwo(contractreceiverid && contractreceiverid.length > 0 && ticketdl[0]?.spreaddata?.length >= 1, `contract-one`, `/achievement/achievementindex/contract-one`)
+                        }
+                    },
+                    {
+                        spreadidtwo: 'contract-three',
+                        spreadhref:`/message/messageindex/contract-three`,
+                        spreaddetail: `You unlocked a new reward of 3 Followers`,
+                        spreadrender: () => {
+                            return contextRenderTwo(contractreceiverid && contractreceiverid.length > 0 && ticketdl[0]?.spreaddata?.length >= 3, `contract-three`, `/achievement/achievementindex/contract-three`)
                         }
                     },
                 ]

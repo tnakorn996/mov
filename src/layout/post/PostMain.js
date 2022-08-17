@@ -126,6 +126,20 @@ export default function PostMain({
           data: postmaindata,
         })
       }  
+    },
+    {
+      postmainrender:() => {
+        postmaindata.forEach(data => {
+          for(const dat of achievementul){
+            if(data.achievementid === dat.breadid){
+              return Object.assign(data, dat)
+            }
+          }
+        })
+        return userAddressRenderFour({
+          data: postmaindata,
+        })
+      }  
     }
   ]
 
@@ -655,6 +669,33 @@ export default function PostMain({
     )
   }
 
+
+  export function userAddressRenderFour({data}) {
+    // console.log('dasssssta', data)
+    return (
+      <div >
+        <section className="w-full flex flex-row flex-wrap justify-center items-center">
+        {data?.map(data => (<>
+        <CardMain>
+          <DtaMain 
+          dtamaindata={{
+            spreadhref: `/achievement/achievementindex/` + data?.breadid
+          }}
+          dtamainstatic={{
+            dtamainid: 'achievementiframe',
+            dtamainindex: 0
+          }}>
+          <article className="text-6xl  m-h6">
+          {data?.breadicon}
+          </article>
+          </DtaMain>
+        </CardMain>
+        </>))}
+        </section>
+      </div>
+    )
+  }
+
   export function ContractAddressRender({data, props}) {
     const {navigate} = props
     return (
@@ -917,18 +958,18 @@ export default function PostMain({
   export function AchievementAddressRenderTwo({data}) {
     return (
     <div className="">
-        <figure className="flex flex-col h-[65vh] items-center justify-center  bg-slate-200">
+        <figure className="flex flex-col h-[40vh] items-center justify-center  bg-slate-200">
           <CardMain >
            <p className="text-9xl">{data?.breadicon}</p>
           </CardMain>
         </figure>
         <figcaption className="text-center">
-        <CardMain>
+          <CardMain >
           <CardMain>
           <h1 className="text-2xl  m-h6 font-medium">{data?.breadtitle}</h1>
           </CardMain>
           <h1 className="l-h5">{data?.breadsubtitle}</h1>                  
-        </CardMain>
+          </CardMain>
         </figcaption>
     </div>
     )
@@ -1025,7 +1066,7 @@ export default function PostMain({
     )
   }
 
-export function postMainFunction(data) {
+export function postMainFunction(date) {
     var timeSince = function(date) {
     if (typeof date !== 'object') {
       date = new Date(date);
@@ -1069,7 +1110,7 @@ export function postMainFunction(data) {
     return interval + ' ' + intervalType;
   };
   var aDay = 24 * 60 * 60 * 1000;
+  return `${timeSince(timeSince(new Date(date - aDay)))} ago`
   // console.log(timeSince(new Date(Date.now() - aDay)));
   // console.log(timeSince(new Date(Date.now() - aDay * 2)));
-  return `${timeSince(new Date(Date.now() - aDay))} ago`
 }

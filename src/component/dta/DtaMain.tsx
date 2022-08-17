@@ -44,28 +44,22 @@ export default function AtaMain({
 
     const appiframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'appdialog',
                             appindex: 0,
-                        })
                 }
             } 
         },
         {
-            dtamainindex: 1,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'previewmain',
                             appidthree: 'apparticle',
                             appindex: 1,
-                        })
                 }
             } 
         },
@@ -73,15 +67,12 @@ export default function AtaMain({
 
     const useriframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'previewmain',
                             appidthree: 'userarticle',
                             appindex: 0,
-                        })
                 }
             } 
         },
@@ -89,15 +80,12 @@ export default function AtaMain({
 
     const contractiframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'contractdialog',
                             appindex: 0,
-                        })
                 }
             } 
         },
@@ -105,15 +93,12 @@ export default function AtaMain({
 
     const searchiframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'searchdialog',
                             appindex: 0,
-                        }),
                 }
             } 
         }
@@ -121,15 +106,12 @@ export default function AtaMain({
         
     const messageiframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'messagedialog',
                             appindex: 0,
-                        })
                 }
             } 
         }
@@ -137,15 +119,25 @@ export default function AtaMain({
 
     const weightiframe = [
         {
-            dtamainindex: 0,
             dtamainrender: () => {
                 return {
-                    navigate: dtaMainAction({
                             appid: 'backdropmain',
                             appidtwo: 'modalmain',
                             appidthree: 'weightdialog',
                             appindex: 0,
-                        })
+                }
+            } 
+        }
+    ]
+
+    const achievementiframe = [
+        {
+            dtamainrender: () => {
+                return {
+                            appid: 'backdropmain',
+                            appidtwo: 'previewmain',
+                            appidthree: 'achievementarticle',
+                            appindex: 0,
                 }
             } 
         }
@@ -175,7 +167,11 @@ export default function AtaMain({
         {
             dtamainid: 'weightiframe',
             dtamainref: weightiframe
-        }
+        },
+        {
+            dtamainid: 'achievementiframe',
+            dtamainref: achievementiframe
+        },
     ]
 
     const [appstatic, setappstatic] = useApp(dtamain, dtamainstatic.dtamainid, dtamainstatic.dtamainindex, splitstaticthree)
@@ -187,7 +183,7 @@ export default function AtaMain({
                 setdtamainstate(!dtamainstate)
             }} className="">
                 {appstatic && appstatic?.map((data: { dtamainrender: () => any }) => (<>
-                    <section onClick={data?.dtamainrender()?.navigate} className="">
+                    <section onClick={dtaMainAction(data?.dtamainrender())} className="">
                         {children}
                     </section>
                 </>))}

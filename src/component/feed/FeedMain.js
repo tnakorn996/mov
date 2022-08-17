@@ -211,6 +211,12 @@ export default function FeedMain({
                         return achievementdl[2].spreaddata
                     }
                 },
+                {
+                    feedmaintitle: 'Followers',
+                    feedmainrender: () => {
+                        return achievementdl[3].spreaddata
+                    }
+                },
 
             ],
         },

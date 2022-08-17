@@ -23,7 +23,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`userid`, { ascending: false }],
           eq: ['userid', userid],
-          limit: 5,
+          limit: 100,
         },
         {
           id: 'userindex',
@@ -31,7 +31,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`userid`, { ascending: false }],
           eq: ['userid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
         {
           id: 'contractindex',
@@ -39,7 +39,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`userid`, { ascending: false }],
           eq: ['userid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
 
         {
@@ -48,7 +48,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`taskid`, { ascending: false }],
           eq: ['userid', userid, 'workoutid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
         {
           id: 'taskindex',
@@ -56,7 +56,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`taskid`, { ascending: false }],
           eq: ['userid', userid, 'workoutid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
 
         {
@@ -65,7 +65,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`ticketid`, { ascending: false }],
           eq: ['userid', userid, 'clubid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
         {
           id: 'ticketindex',
@@ -73,7 +73,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*, userid (*)`,
           order: [`weightid`, { ascending: false }],
           eq: ['workoutid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
 
         {
@@ -82,7 +82,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`awardid`, { ascending: false }],
           eq: ['userid', userid, 'clubid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
         {
           id: 'awardindex',
@@ -90,7 +90,7 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           select: `*`,
           order: [`awardid`, { ascending: false }],
           eq: ['userid', userid, 'achievementid', splitstaticthree],
-          limit: 5,
+          limit: 100,
         },
         // {
         //   id: 'messageindex',

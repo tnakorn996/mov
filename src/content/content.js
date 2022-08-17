@@ -1,4 +1,4 @@
-import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
+import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiStarSmileFill, RiStarSmileLine, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
 
 // export function contentAction(min = 5, max = 360, unit = 'rep', fullunit = 'reps') {
 export function contentAction(min, max, unit, fullunit) {
@@ -304,6 +304,23 @@ export const achievementul = [
         breadsubtitle: 'Join your third club to earn this achievement.',
         breadnumber: `3`,
         breadicon: <RiMedalFill />,
+    },
+    
+    {
+        breadid: 'contract-one',
+        breadaction: `/achievement/achievementindex/contract-one`,
+        breadtitle: '1 Follower',
+        breadsubtitle: 'Get your first follower to earn this achievement.',
+        breadnumber: `1`,
+        breadicon: <RiStarSmileLine />,
+    },
+    {
+        breadid: 'contract-three',
+        breadaction: `/achievement/achievementindex/contract-three`,
+        breadtitle: '3 Followers',
+        breadsubtitle: 'Get your third follower to earn this achievement.',
+        breadnumber: `3`,
+        breadicon: <RiStarSmileFill />,
     },
 ]
 

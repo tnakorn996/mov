@@ -30,7 +30,6 @@ export default function ModalMain() {
 
   const appdialog = [
     {
-      modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <AppMain />
@@ -41,7 +40,6 @@ export default function ModalMain() {
 
   const contractdialog = [
     {
-      modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <ContractForm />
@@ -52,7 +50,6 @@ export default function ModalMain() {
 
   const searchdialog = [
     {
-      modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <SearchMain />
@@ -63,7 +60,6 @@ export default function ModalMain() {
 
   const messagedialog = [
     {
-      modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <MessageForm />
@@ -74,7 +70,6 @@ export default function ModalMain() {
 
   const weightdialog = [
     {
-      modalmainindex: 0,
       modalmainrender: () => {
         return appDialogRender({
           component: <WeightIndex />
@@ -110,6 +105,7 @@ export default function ModalMain() {
   const [appstatic, setappstatic] = useApp(modalmain, appstate.appidthree, appstate.appindex)
 // console.log('appstatic', appstatic)
 if(appstate.appidtwo !== 'modalmain') return null
+if(typeof appstate === 'undefined') return null
 
   return (
     <div>

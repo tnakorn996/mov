@@ -7,10 +7,12 @@ import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 
 export default function CtaMain({
+
     ctamainstatic,
 
 }) {
     const {
+        setappstate,
         setauthformstate,
 
 

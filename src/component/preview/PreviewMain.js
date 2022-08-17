@@ -8,6 +8,7 @@ import useApp from '../../hook/useApp'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import AppState from '../../page/app/AppState.tsx'
 import AppIndex from '../../page/app/AppIndex.tsx'
+import AchievementIndex from '../../page/achievement/AchievementIndex.tsx'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import CardMain from '../../layout/card/CardMain'
@@ -26,8 +27,9 @@ export default function PreviewMain() {
   //     window.history.replaceState(null, "", location.pathname)
   // }, [])
 
-  function previewMainRender() {
-     window.history.replaceState(null, "", location?.pathname)
+  function previewMainAction() {
+    window.history.replaceState(null, "", location?.pathname)
+    setappstate()
   }
 
   const apparticle = [
@@ -35,11 +37,8 @@ export default function PreviewMain() {
       previewmainindex: 0,
       previewmainrender: () => {
         return appArticleRender({
-          navigate: () => {
-             window.history.replaceState(null, "", location?.pathname)
-            setappstate()
-          },
-          component: <MessageIndex />
+          component: <MessageIndex />,
+          navigate: () => {previewMainAction()}
         })
       },
     },
@@ -58,10 +57,7 @@ export default function PreviewMain() {
       previewmainindex: 0,
       previewmainrender: () => {
         return appArticleRender({
-          navigate: () => {
-             window.history.replaceState(null, "", location?.pathname)
-            setappstate()
-          },
+          navigate: () => {previewMainAction()},
           component: <UserIndex />
         })
       },
@@ -73,11 +69,20 @@ export default function PreviewMain() {
       previewmainindex: 0,
       previewmainrender: () => {
         return appArticleRender({
-          navigate: () => {
-            window.history.replaceState(null, "", location?.pathname)
-            setappstate()
-          },
+          navigate: () => {previewMainAction()},
           component: <SearchMain />
+        })
+      },
+    },
+  ]
+
+   const achievementarticle = [
+    {
+      previewmainindex: 0,
+      previewmainrender: () => {
+        return appArticleRender({
+          navigate: () => {previewMainAction()},
+          component: <AchievementIndex />
         })
       },
     },
@@ -111,6 +116,10 @@ export default function PreviewMain() {
       previewmainid: 'searcharticle',
       previewmainref: searcharticle,
     },
+    {
+      previewmainid: 'achievementarticle',
+      previewmainref: achievementarticle,
+    },
     // {
     //   previewmainid: 'weightarticle',
     //   previewmainref: weightarticle,
@@ -119,6 +128,8 @@ export default function PreviewMain() {
 
   const [appstatic, setappstatic] = useApp(previewmain, appstate.appidthree, appstate.appindex)
 // console.log('signmainstate, appstate', signmainstate, appstate)
+if(typeof appstate === 'undefined') return null
+
   return (
     <div>
       <main className="">

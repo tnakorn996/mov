@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import { motion } from 'framer-motion'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -33,7 +34,7 @@ export default function FieldMain({
   const split = location.pathname.split('/');
   const url = (new URL(window.location)).pathname.split('/')[3]
   const [fieldmainid, setfieldmainid] = useState(uuidv4())
-  const [fieldmainboolean, setfieldmainboolean] = useState(false)
+  const [fieldmainbool, setfieldmainbool] = useState(true)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
   const ref = useRef(null)
@@ -44,14 +45,9 @@ export default function FieldMain({
   const refsix = useRef(null)
   const refseven = useRef(null)
 
-  useEffect(() => {
-    setfieldmainboolean(!fieldmainboolean)
-  }, [fieldmainstate])
-
   function fieldMainRender(first, second) {
     for(const data of first) {
-      if(data.breadid === splitstaticthree 
-        || data.breadid === split[3]){
+      if(data.breadid === splitstaticthree || data.breadid === split[3]){
         // console.log('datdddddddda', data[second])
         return data[second]
       }
@@ -80,7 +76,6 @@ export default function FieldMain({
       //     navigate(first.fieldmainhref + split[3])
     }
 
-
   const ll = async () => {
     const refvalue = ref?.current?.value
     const reftwovalue = reftwo?.current?.value
@@ -89,9 +84,10 @@ export default function FieldMain({
         password: reftwovalue,
       }
     const { error } = await supabase.auth.signUp(query)
-      // setfieldmainstate(!fieldmainstate)
-      alert(error)
-      alert('Please check your email')
+    // setfieldmainstate(!fieldmainstate)
+    // alert(error)
+      // setfieldmainbool(!fieldmainbool)
+      alert(`Successfully sent email to ${refvalue}`)
   }
 
   const kk = async () => {
@@ -104,7 +100,7 @@ export default function FieldMain({
     const { data, error } = await supabase.auth.signIn(query)
       alert(error)
       if(data) {
-          alert('Successfully sign-in')
+          alert('Successfully sign you in')
           const user = supabase.auth.user()
           const query = {
               userid: user.id,
@@ -114,6 +110,7 @@ export default function FieldMain({
           }
           const { error } = await supabase.from('user').upsert(query, {returning: 'minimal'})
           navigate(`/workout/workoutmain`)
+          // setfieldmainbool(!fieldmainbool)
           // setfieldmainstate(!fieldmainstate)
       }
 
@@ -125,6 +122,7 @@ export default function FieldMain({
           // setauthstate()
           // setfieldmainstate(!fieldmainstate)
           alert('Signed out successfully')
+          // setfieldmainbool(!fieldmainbool)
           navigate(`/auth/authmain`)
   }
 
@@ -162,13 +160,13 @@ export default function FieldMain({
             {
                 fieldmainid: 'userinput',
                 fieldmainidtwo: 'user',
-                // fieldmainhref: `/user/userindex/`,
-                // fieldmaindetail: 'You are ready to go',
-                // fieldmainaction: `/workout/workoutmain`,
+                fieldmainhref: `/user/userindex/`,
+                fieldmaindetail: 'Successfully updated your profile',
+                fieldmainaction: `/club/clubmain`,
                 fieldmaindata: {
                   userid: user.id,
                   useremail: user.email,
-                  userimage: '',
+                  // userimage: '',
                   userfullname: refvaluefour,
                   username: refvaluefive,
                 },
@@ -193,7 +191,7 @@ export default function FieldMain({
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
                 fieldmainhref: `/task/taskindex/`,
-                fieldmaindetail: 'Successfully add your personal best.',
+                fieldmaindetail: 'Successfully added your personal best.',
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                     taskid: fieldmainid,
@@ -223,7 +221,7 @@ export default function FieldMain({
                 fieldmainid: 'awardinput',
                 fieldmainidtwo: 'award',
                 fieldmainhref: `/award/awardindex/`,
-                fieldmaindetail: 'Successfully claim your reward',
+                fieldmaindetail: 'Successfully claimed your reward',
                 fieldmainaction: `/achievement/achievementmain`,
                 fieldmaindata: {
                     awardid: fieldmainid,
@@ -263,10 +261,12 @@ export default function FieldMain({
 
             } 
               setfieldmainstate(!fieldmainstate)
+              // setfieldmainbool(!fieldmainbool)
               fieldMainRenderTwo(ref)
         } catch (error) {
             alert(error)
             setfieldmainstate(!fieldmainstate)
+            // setfieldmainbool(!fieldmainbool)
             fieldMainRenderTwo(error)
         }
     }
@@ -288,7 +288,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'taskinput',
                 fieldmainidtwo: 'task',
-                fieldmaindetail: 'Successfully delete this record',
+                fieldmaindetail: 'Successfully deleted your record',
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindatatwo: {
                   userid: user?.id, 
@@ -298,7 +298,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
-                fieldmaindetail: 'Successfully leave this program',
+                fieldmaindetail: 'Successfully left your program',
                 fieldmainaction: `/club/clubmain`,
                 fieldmaindatatwo: {
                   userid: user?.id, 
@@ -308,7 +308,7 @@ export default function FieldMain({
             {
                 fieldmainid: 'awardinput',
                 fieldmainidtwo: 'award',
-                fieldmaindetail: 'Successfully remove this reward',
+                fieldmaindetail: 'Successfully removed your reward',
                 fieldmainaction: `/achievement/achievementmain`,
                 fieldmaindatatwo: {
                   userid: user?.id, 
@@ -334,6 +334,7 @@ export default function FieldMain({
                 // alert(error)
 
                 setfieldmainstate(!fieldmainstate)
+                // setfieldmainbool(!fieldmainbool)
                 fieldMainRenderTwo(ref)
         }
     }
@@ -361,6 +362,7 @@ export default function FieldMain({
                 // alert(error)
                 setsearch(data)
 
+                // setfieldmainbool(!fieldmainbool)
                 setfieldmainstate(!fieldmainstate)
                 fieldMainRenderTwo(ref)
         }
@@ -411,7 +413,8 @@ export default function FieldMain({
         const { error } = await supabase
         .from('user').update({userimage: publicURL})
         .match({userid: second.id})
-        alert(`Successfully update image`)
+        alert(`Successfully updated your image`)
+        // setfieldmainbool(!fieldmainbool)
         setfieldmainstate(!fieldmainstate)
         // fieldMainRenderTwo(ref)
       }
@@ -640,11 +643,14 @@ export default function FieldMain({
   const [appstatic, setappstatic] = useApp(fieldmain, fieldmainstatic.fieldmainid, fieldmainstatic.fieldmainindex, splitstaticthree)
   const fieldmainrender = appstatic && appstatic
 
+  // console.log('fieldmainbool', fieldmainbool)
+
   return (
     <div>
         <main className="">
             <section className="">
-              {fieldmainrender?.map(data => (<>
+              {fieldmainrender?.map((data, index) => (<>
+              <div key={index}>
 
               <figure className="">
                 {data?.fieldmaintitle !== null && <div className="">
@@ -667,21 +673,25 @@ export default function FieldMain({
               
               <figure className="flex flex-row gap-1">
 
-                <button onClick={() => {
-                    data?.fieldmainaction()
-                    setfieldmainboolean(!fieldmainboolean)
-                }} className={`w-full flex flex-row gap-2 justify-center items-center  m-button uppercase ${fieldmainstyle?.button}`}>
-                  {fieldmainboolean === false && <div className="w-[10px] h-[10px] border-2 border-slate-400 rounded-full animate-ping" />}
+                <motion.button 
+                onClick={() => {
+                  // setfieldmainbool(!fieldmainbool)
+                  data?.fieldmainaction()
+                }}
+                // disabled={fieldmainbool === false} 
+                className={`w-full flex flex-row gap-2 justify-center items-center  m-button uppercase duration-100 ${fieldmainstyle?.button} ${fieldmainbool === false && `opacity-40`}`}>
                    {data?.fieldmainentitle}
-                </button>
-                
+                </motion.button>
+
                 <button className="">
                 {data?.fieldmaindatatwo?.map(dat => (<>
                     {dat?.fieldmainrender}
                 </>))}
                 </button>
 
+
               </figure>
+              </div>
 
               </>))}
             </section>

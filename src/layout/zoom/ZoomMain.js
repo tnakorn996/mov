@@ -142,9 +142,10 @@ export default function ZoomMain({
                 </div>
                 </CardMain>
             </section>
-            <section className="">
-                {appstatic?.map(data => (<>
-                    {data?.zoommaindata?.map(dat => (<>
+            {appstatic?.map((data, index) => (<>
+            <section key={index}className="">
+                    {data?.zoommaindata?.map((dat, inde) => (<>
+                    <div key={inde}>
                     <figcaption className="">
                         <CardMain>
                         <h1 className="m-h5">{dat?.zoommaintitle}</h1>
@@ -159,9 +160,10 @@ export default function ZoomMain({
                             {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
                         </>))}
                     </figure>
+                    </div>
                     </>))}
-                </>))}
             </section>
+            </>))}
             {/* <section className="">
                 <PostMain postmainstatic={{postmainid: 'searchaddress', postmainindex: 0}} />
             </section> */}

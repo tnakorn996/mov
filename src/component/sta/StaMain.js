@@ -105,8 +105,8 @@ export default function StaMain({
     <div>
         <main className="">
             <section className="">
-                {stamainrender && stamainrender.map(data => (<>
-                    <article className="z-20">
+                {stamainrender && stamainrender.map((data, index) => (<>
+                    <article key={index} className="z-20">
                         {data?.stamainrender}
                     </article>
                 </>))}

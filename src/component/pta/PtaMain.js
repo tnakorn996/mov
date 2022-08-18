@@ -103,8 +103,8 @@ export default function PtaMain({
     <div>
         <main className="">
             <section className="">
-                {ptamainrender && ptamainrender.map(data => (<>
-                    <article onClick={() => {
+                {ptamainrender && ptamainrender.map((data, index) => (<>
+                    <article key={index} onClick={() => {
                         data?.ptamainaction()
                     }} className="z-20">
                         {data?.ptamainrender}

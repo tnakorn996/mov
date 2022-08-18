@@ -14,7 +14,7 @@
     }
 
     button {
-        @apply cursor-pointer rounded-full;
+        @apply cursor-pointer rounded-3xl;
     }
 
     a {
@@ -22,7 +22,7 @@
     }
 
     input, textarea {
-        @apply w-full  focus:border-black font-extralight focus:outline-none duration-100 rounded-full;
+        @apply w-full  focus:border-black font-extralight focus:outline-none duration-100 rounded-3xl;
     }
 
     .m-section {

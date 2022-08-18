@@ -15,8 +15,10 @@ export default function ClubIndex() {
           select: `*, userid (*)`,
           order: [`ticketid`, { ascending: false }],
           eq: ['clubid', splitstaticthree],
-          limit: 5,
+          limit: 100,
   })
+
+//   console.log('clientstatic', clientstatic)
 
   return (
     <div>

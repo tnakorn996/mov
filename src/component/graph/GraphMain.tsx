@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
+import useSplit from '../../hook/useSplit'
 import useDev from '../../hook/useDev.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
 // import useDev from '../../hook/useDev.tsx'
@@ -11,43 +12,27 @@ export default function GraphMain({
 
 }) {
     const {
-        setappstate,
+        setappstate, appstate,
 
         // taskuserid,
-        appdl,
+        guidedl,
         messagedl,
 
     } = useContext(Context)
 
-
-    // useEffect(() => {
-    //   graphMainRender()
-    // }, [])
-
-    // function graphMainRender() {
-    //     if(!appstatic) return null
-    //     const filter = appstatic[0].graphmainrender.filter((data: { spreadrender: () => undefined }) => data.spreadrender() !== undefined)
-    //     setappstate({
-    //         appid:'backdropmain',
-    //         appidtwo: 'previewmain',
-    //         appidthree: 'apparticle',
-    //         appindextwo: 0
-    //     })
-    // }
-
-    const appbase = [
+    const guidebase = [
         {
             graphmainindex: 0,
             graphmainrender: () => {
                 return {
-                    data: appdl[0]?.spreaddata(),
+                    data: (guidedl[0]?.spreaddata()),
                     action: {
                         appid:'backdropmain',
                         appidtwo: 'previewmain',
-                        appidthree: 'apparticle',
-                        appindex: 1
+                        appidthree: 'guidearticle',
+                        appindex: 0
                     }
-                }
+                } 
             }
         }
     ]
@@ -75,8 +60,8 @@ export default function GraphMain({
 
     const graphmain = [
         {
-            graphmainid: 'appbase',
-            graphmainref: appbase,
+            graphmainid: 'guidebase',
+            graphmainref: guidebase,
         },
         {
             graphmainid: 'messagebase',
@@ -93,15 +78,19 @@ export default function GraphMain({
         
     if(typeof appstatic === 'undefined' || typeof devstatic === 'undefined') return null
 
-
   return (
     <div>
         <main className="">
             <section className="">
-
-
+                {appstatic?.map((data: { graphmainrender: () => any }) => (<>
+                    {data?.graphmainrender()}
+                </>))}
             </section>
         </main>
     </div>
   )
 }
+function include(include: any) {
+    throw new Error('Function not implemented.')
+}
+

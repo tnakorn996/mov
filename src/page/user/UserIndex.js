@@ -17,6 +17,15 @@ export default function UserIndex() {
     limit: 100,
   })
 
+  const [clientstatictwo, setclientstatictwo] = useClientTwo({
+    id: 'userindex',
+    from: `task`,
+    select: `*`,
+    order: [`taskid`, { ascending: false }],
+    eq: ['userid', splitstaticthree],
+    limit: 100,
+  })
+
   // console.log('clientstatic', clientstatic)
 
   return (
@@ -26,7 +35,7 @@ export default function UserIndex() {
               <CardMain />
               <CardMain />
               <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 0}} />
-              <StatMain statmaindata={clientstatic && clientstatic} statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
+              <StatMain statmaindatatwo={clientstatictwo && clientstatictwo} statmaindata={clientstatic && clientstatic} statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
             </section>
             <section className="">
               <TabMain tabmainstatic={{tabmainid: 'userfieldset'}} />

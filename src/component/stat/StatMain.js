@@ -21,6 +21,7 @@ import ChipMain from '../../layout/chip/ChipMain.tsx'
 export default function StatMain({
     statmainstatic,
     statmaindata,
+    statmaindatatwo,
 
 }) {
     const {
@@ -79,7 +80,6 @@ export default function StatMain({
         {
             statmainrender: () => {
                 return statMainAction('userid', 
-                // <UserTableRender data={clientstatic && clientstatic} props={{authstate: authstate, splitstaticthree: splitstaticthree}}  />
                 userTableRender({
                         data: clientstatic && clientstatic,
                         authstate: authstate,
@@ -90,8 +90,16 @@ export default function StatMain({
         },
         {
             statmainrender: () => {
+                if(typeof statmaindatatwo === 'undefined') return null
+                const array = []
+                for(const data of statmaindatatwo){
+                    array.push(data['taskpoint'] || data['ticketpoint'])
+                }
+                const reduce = array.reduce((a, b) => b + a)
+                // console.log('reduce', reduce)
                 return userTableRenderTwo({
-                    data: statmaindata
+                    data: statmaindata,
+                    datatwo: reduce && reduce,
                 })
             }
         },
@@ -288,9 +296,11 @@ export default function StatMain({
         <div>
             <main className="">
                 <section className="">
-                    {appstatic?.map(data => (<>
+                    {appstatic?.map((data, index) => (<>
                         {/* <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100"> */}
+                        <div key={index}>
                         {data?.statmainrender()}
+                        </div>
                         {/* </motion.div> */}
                     </>))}
                 </section>
@@ -329,13 +339,11 @@ export default function StatMain({
                 </ChipMain>
             </CardMain>
             </section>
-            <section className="">
-                
-            </section>
             <section className="flex flex-col justify-center text-center">
-            <p className="m-h5">{data?.username !== null ? `@` + data?.username : data?.useremail}</p>
-            <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
+            <p className="text-2xl  m-h5">{data?.username !== null ?  data?.username : data?.useremail}</p>
+            {/* <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p> */}
             </section>
+
             <section className="">
             <CardMain>
                 {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
@@ -348,11 +356,24 @@ export default function StatMain({
         )
     }
 
-    export function userTableRenderTwo({data}) {
+    export function userTableRenderTwo({data, datatwo}) {
         // console.log('data', data)
         return (
         <div>
+            <section className="text-center">
+                <CardMain>
+                <ChipMain>
+                    <CardMain>
+                        <p className="l-h4">Beasty experiences score</p>
+                        <br />
+                        <p className="text-2xl  m-h6">+{datatwo} XP</p>
+                    </CardMain>
+                </ChipMain>
+                </CardMain>
+            </section>
+            <section className="">
             <PostMain postmaindata={data} postmainstatic={{postmainid: 'useraddress', postmainindex: 3}} />
+            </section>
         </div>
         )
     }

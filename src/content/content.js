@@ -75,17 +75,17 @@ export const appul = [
     },
 ]
 
-export const settingul = [
+export const userul = [
     {
-        breadid: 'picture',
-        breadaction: `/picture/pictureform`,
-        breadtitle: 'Updddd',
+        breadid: 'userimage',
+        breadaction: `/user/userform`,
+        breadtitle: 'Pick a profile photo',
         breadsubtitle: 'aaaaaa',
     },
     {
-        breadid: 'picture',
-        breadaction: `/picture/pictureform`,
-        breadtitle: 'Updddd',
+        breadid: 'userfullname',
+        breadaction: `/user/userform`,
+        breadtitle: 'Add your full name to your profile',
         breadsubtitle: 'aaaaaa',
     },
 ]

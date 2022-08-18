@@ -323,8 +323,10 @@ export default function TabMain({
             <section className="no-scrollbar">
                 {/* <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}> */}
                 <figure ref={ref} className={`w-screen md:w-full grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
-                {appstatic && appstatic.map(data => (<>
+                {appstatic && appstatic.map((data, index) => (<>
+                <div key={index}>
                     {data?.tabmainrender()}
+                </div>
                 </>))}
                 </figure>
             </section>

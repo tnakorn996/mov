@@ -31,6 +31,7 @@ export default function FeedMain({
         achievementdl,
         awarddl,
         messagedl,
+        guidedl,
         searchdl,
 
     } = useContext(Context)
@@ -279,6 +280,21 @@ export default function FeedMain({
         },
     ]
 
+    const guidearea = [
+        {
+            feedmainindex: 0,
+            feedmainslice: 10,
+            feedmaindata: [
+                {
+                    feedmaintitle: null,
+                    feedmainrender: () => {
+                        return (guidedl[0].spreaddata())
+                    }
+                },
+            ],
+        },
+    ]
+
     // console.log('messagedl', messagedl)
 
     const feedmain = [
@@ -318,6 +334,10 @@ export default function FeedMain({
             feedmainid: 'messagearea',
             feedmainref: messagearea,
         },
+        {
+            feedmainid: 'guidearea',
+            feedmainref: guidearea,
+        },
 
     ]
 
@@ -334,12 +354,12 @@ export default function FeedMain({
             <section className="">
                 <PostMain postmainstatic={{postmainid: 'searchaddress', postmainindex: 0}} />
             </section>}
-            <section className="">
-                {appstatic?.map(data => (<>
-                    {data?.feedmaindata?.map(dat => (<>
+            {appstatic?.map((data, index) => (<>
+            <section key={index} className="">
+                    {data?.feedmaindata?.map((dat, index) => (<>
                         {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && (<>
                         {dat?.feedmaintitle !== null && (<>
-                        <div className="flex flex-row items-center justify-between">
+                        <div key={index} className="flex flex-row items-center justify-between">
                             <CardMain>
                             <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                             </CardMain>
@@ -379,14 +399,16 @@ export default function FeedMain({
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
 
+                                {(feedmainstatic.feedmainid === 'guidearea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
+
 
                             </>))}
                         </figure>
                         </>)}
 
                     </>))}
-                </>))}
             </section>
+        </>))}
         </main>
     </div>
   )

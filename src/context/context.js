@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { achievementul, appul, articleul, clubul, workoutul } from '../content/content'
+import { achievementul, appul, articleul, clubul, userul, workoutul } from '../content/content'
 import {supabase} from '../lib/supabase'
 import SplashMain from '../layout/splash/SplashMain'
 
@@ -160,15 +160,6 @@ export const Provider = ({
         return contextRenderItem(second, {navigation: navigation, bool: false} )
     }
 
-
-
-    function contextRenderFive(first, second, navigation) {
-        if(first) {
-            return {navigation: navigation, bool: true}
-        }  
-        return {navigation: navigation, bool: false}
-    }
-
     ////////////////////////////////////////////////
 
     const userdl = [
@@ -296,23 +287,25 @@ export const Provider = ({
         }
     ]
 
-    const appdl = [
+    const guidedl = [
         {
-            spreadid: 'setting',
-            spreadtitle: 'My setting',
-            spreadicon: `✅`,
+            spreadid: 'user',
+            spreadtitle: 'My user',
+            spreadicon: `🚀`,
             spreaddata: () => {
+                if(!useruserid) return null
                 const array = [];
-                // for(const data of settingul) {
-                //         array.push({
-                //             spreadidtwo: data.breadid,
-                //             spreadhref: `/app/appindex/` + data.breadid,
-                //             spreaddetail: `You have successfully added ` + data.breadtitle,
-                //             spreadrender: () => {
-                //                 return contextRenderFive(true, data.breadid, `/setting/settingindex/` + data.breadid)
-                //             },
-                //         })
-                // }
+                for(const data of userul) {
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/guide/guideindex/` + data.breadid,
+                        spreaddetail: `${data.breadtitle}`,
+                        spreadrender: () => {
+                            const ref = useruserid[0][data.breadid] === null
+                            return contextRenderFour(ref, data.breadid, `/user/userform/` + useruserid[0]['userid'])
+                        }
+                    })
+                }
                 return array
             }
         },
@@ -332,9 +325,8 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
                         spreadrender: () => {
-                            return contextRenderThree(
-                                (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
-                                , data.breadid, `/club/clubindex/` + data.breadid)
+                            const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
+                            return contextRenderThree(ref, data.breadid, `/club/clubindex/` + data.breadid)
                         }
                     })
                 }
@@ -433,9 +425,8 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s workout`,
                         spreadrender: () => {
-                            return contextRenderFour(
-                            (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
-                            , data.breadid, `/workout/workoutindex/` + data.breadid)
+                            const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
+                            return contextRenderFour(ref, data.breadid, `/workout/workoutindex/` + data.breadid)
                         }
                     })
                 }
@@ -455,9 +446,8 @@ export const Provider = ({
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s club`,
                         spreadrender: () => {
-                            return contextRenderFour(
-                            (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
-                            , data.breadid, `/club/clubindex/` + data.breadid)
+                            const ref = (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
+                            return contextRenderFour(ref, data.breadid, `/club/clubindex/` + data.breadid)
                         }
                     })
                 }
@@ -499,7 +489,6 @@ export const Provider = ({
         search, setsearch,
         // V whts this
         useruserid, 
-        appdl,
         userdl,
         contractdl,
         workoutdl,
@@ -509,9 +498,10 @@ export const Provider = ({
         favouritedl,
         achievementdl,
         awarddl,
-        messagedl,
         textdl,
         searchdl,
+        guidedl,
+        messagedl,
         
         }} >
         {children}

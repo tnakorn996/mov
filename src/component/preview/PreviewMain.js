@@ -12,8 +12,10 @@ import AchievementIndex from '../../page/achievement/AchievementIndex.tsx'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import CardMain from '../../layout/card/CardMain'
+import ChipMain from '../../layout/chip/ChipMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
 import UserIndex from '../../page/user/UserIndex'
+import GuideIndex from '../../page/guide/GuideIndex.tsx'
 
 
 export default function PreviewMain() {
@@ -103,6 +105,18 @@ export default function PreviewMain() {
   //   },
   // ]
 
+
+  const guidearticle = [
+    {
+      previewmainindex: 0,
+      previewmainrender: () => {
+        return appArticleRenderTwo({
+          component: <GuideIndex />
+        })
+      },
+    },
+  ]
+
   const previewmain = [
     {
       previewmainid: 'apparticle',
@@ -120,10 +134,10 @@ export default function PreviewMain() {
       previewmainid: 'achievementarticle',
       previewmainref: achievementarticle,
     },
-    // {
-    //   previewmainid: 'weightarticle',
-    //   previewmainref: weightarticle,
-    // },
+    {
+      previewmainid: 'guidearticle',
+      previewmainref: guidearticle,
+    },
   ]
 
   const [appstatic, setappstatic] = useApp(previewmain, appstate.appidthree, appstate.appindex)
@@ -134,8 +148,10 @@ if(typeof appstate === 'undefined') return null
     <div>
       <main className="">
         <section className="">
-          {appstatic?.map(data => (<>
+          {appstatic?.map((data, index) => (<>
+          <div key={index}>
             {data?.previewmainrender()}
+          </div>
           </>))}
         </section>
       </main>
@@ -147,9 +163,15 @@ if(typeof appstate === 'undefined') return null
     return (
       <div>
         <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-100">
-          <div className="z-30 absolute top-0 right-0">
+          <div onClick={navigate} className="z-30 absolute top-0 right-0">
           <CardMain>
-          <RiCloseLine onClick={navigate} className="text-2xl" />
+          <ChipMain>
+            <figure className=" bg-white">
+            <CardMain>
+            <RiCloseLine className="text-2xl" />
+            </CardMain>
+            </figure>
+          </ChipMain>
           </CardMain>
           </div>
           {component}
@@ -161,17 +183,7 @@ if(typeof appstate === 'undefined') return null
   export function appArticleRenderTwo({component}) {
     return (
       <div>
-        <section className="w-screen h-screen fixed top-0 right-0">
-          {component}
-        </section>
-      </div>
-    )
-  }
-
-  export function appArticleRenderThree({component}) {
-    return (
-      <div>
-        <section className="w-screen h-screen fixed top-0 right-0  bg-red-500">
+        <section className="w-screen h-screen fixed top-0 right-0  bg-white">
           {component}
         </section>
       </div>

@@ -39,6 +39,8 @@ import AppMain from './page/app/AppMain.tsx';
 import GraphMain from './component/graph/GraphMain.tsx';
 import SearchMain from './page/search/SearchMain.tsx';
 import AppIndex from './page/app/AppIndex.tsx';
+import GuideMain from './page/guide/GuideMain.tsx';
+import GuideIndex from './page/guide/GuideIndex.tsx';
 
 export default function App() {
   const {
@@ -48,20 +50,21 @@ export default function App() {
 
   } = useContext(Context)
   const location = useLocation()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   // console.log('appstate', appstate)
 
   return (
       <div className="App">
         <OverlayMain>
         <TopMain >
-        {/* <GraphMain graphmainstatic={{graphmainid: 'appbase', graphmainindex: 0}} /> */}
         <GraphMain graphmainstatic={{graphmainid: 'messagebase', graphmainindex: 0}} />
+        <GraphMain graphmainstatic={{graphmainid: 'guidebase', graphmainindex: 0}} />
         <motion.main className={`relative min-h-screen  duration-300 ${appstate && `!scale-95`}`}>
           <section className="z-30 fixed top-0 left-0 w-screen">
             {/* <button onClick={() => {
-             navigate(`/message/messagemain`)
+             navigate(`/guide/guidemain`)
             }} className="m-button">Message</button> */}
+
             {(authstate !== null && authstate !== undefined) && <BarMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
@@ -112,7 +115,11 @@ export default function App() {
 
               <Route path='/search/searchmain' element={<SearchMain />} /> 
 
+              <Route path='/guide/guidemain' element={<GuideMain />} /> 
+              <Route path='/guide/guideindex/:id' element={<GuideIndex />} /> 
+
               <Route path='/weight/weightindex/:id' element={<SearchMain />} /> 
+
 
             </Routes> 
             {/* </AnimatePresence> */}

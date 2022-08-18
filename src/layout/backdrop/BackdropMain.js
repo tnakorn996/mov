@@ -53,8 +53,8 @@ const {
     <div>
         <main className="">
           <section className="z-50 w-screen h-screen fixed top-0 left-0  bg-slate-900 bg-opacity-40">
-            {appstatic?.map(data => (<>
-                <motion.figure initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
+            {appstatic?.map((data, index) => (<>
+                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
                     {data?.backdropmainrender()}
                 </motion.figure>
               </>))}

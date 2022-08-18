@@ -15,16 +15,16 @@ export default function UserForm() {
               <CardMain />
               <CardMain />
               <SheetMain>
-                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 2}} />
+                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 2}} fieldmainstyle={{button: `!l-button`}} />
               </SheetMain>
               {/* <SheetMain>
                 <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 3}} />
               </SheetMain> */}
               <SheetMain>
-                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 1}} />
+                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 1}} fieldmainstyle={{button: `!l-button`}} />
               </SheetMain>
               <SheetMain>
-                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-rose-700 !border-rose-900`}} />
+                <FieldMain fieldmainstatic={{fieldmainid:'userinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-red-800 !border-red-800`}} />
               </SheetMain>
             </section>
           {/* </SpreadMain> */}

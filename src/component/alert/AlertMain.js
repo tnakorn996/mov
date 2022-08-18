@@ -26,8 +26,8 @@ export default function AlertMain({
   return (
     <div>
         <main className="">
-            {appstatic?.map(data => (<>
-            <section className={` ${data?.alertmainstyle}`}>
+            {appstatic?.map((data, index) => (<>
+            <section key={index} className={` ${data?.alertmainstyle}`}>
                 <figure className="">
 a
                 </figure>

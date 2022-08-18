@@ -51,9 +51,11 @@ export default function ChoiceMain({
 // console.log('splitstaticthree', splitstaticthree)
     useEffect(() => {
         if(appstatic) {
-            appstatic?.map(data => {
-                setchoicemainstate(data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead)
-            })
+            appstatic?.map((data, index) => (<>
+                <div key={index}>
+                    {setchoicemainstate(data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead)}
+                </div>
+            </>))
         }
     }, [appstatic])
 
@@ -71,7 +73,7 @@ export default function ChoiceMain({
             </select> */}
 
 
-            {appstatic?.map(data => (<>
+            {appstatic?.map((data, index) => (<>
             {/* <section className={`hidden fixed top-0 left-0 w-screen h-screen  bg-white ${choicemainbool === false && `!block`}`}>
                 <figure className="h-[90vh]">
                     {data?.choicemaindata()}
@@ -84,7 +86,7 @@ export default function ChoiceMain({
                     </SheetMain>
                 </figure>
             </section> */}
-            <section className="">
+            <section key={index} className="">
                 <DtaMain 
                 dtamaindata={{spreadhref: data?.choicemainhref}}
                 dtamainstatic={{dtamainid: 'weightiframe', dtamainindex: 0}} >

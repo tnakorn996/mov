@@ -35,12 +35,12 @@ export default function PostMain({
     setchoicemainstate, choicemainstate,
 
     authstate,
-    appdl,
     userdl,
     taskdl,
     ticketdl,
     awarddl,
     messagedl,
+    guidedl,
 
   } = useContext(Context)
   // console.log('choicemainstate', choicemainstate)
@@ -50,7 +50,7 @@ export default function PostMain({
   const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
-  function postMainRender() {
+  function postMainAction() {
       window.history.replaceState(null, "", location.pathname)
   }
   
@@ -85,12 +85,12 @@ export default function PostMain({
         //   return appAddressRenderTwo({
         //     data: filter,
         //     signmainstate: signmainstate,
-        //     navigate: () => {postMainRender()},
+        //     navigate: () => {postMainAction()},
         // })
           return appAddressRenderTwo({
             // data: filter,
             signmainstate: signmainstate,
-            navigate: () => {postMainRender()},
+            navigate: () => {postMainAction()},
         })
       },
     },
@@ -129,13 +129,13 @@ export default function PostMain({
     },
     {
       postmainrender:() => {
-        postmaindata.forEach(data => {
-          for(const dat of achievementul){
-            if(data.achievementid === dat.breadid){
-              return Object.assign(data, dat)
-            }
-          }
-        })
+        for(const data of achievementul){
+            postmaindata?.forEach(dat => {
+              if(dat.achievementid === data.breadid){
+                return Object.assign(dat, data)
+              } 
+            })
+        }
         return userAddressRenderFour({
           data: postmaindata,
         })
@@ -304,13 +304,12 @@ export default function PostMain({
       postmainrender:() => {
         const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
         postMainActionTwo(ref)
-        return ref.map(data => (<>
-            <AchievementAddressRender
-            data={data}
-            props={{
-              navigate: () => {navigate(`/achievement/achievementindex/${data?.breadid}`)}
-            }} />
-        </>))
+        return ref.map(data => (
+          achievementAddressRender({
+            data: data,
+            navigate: `/achievement/achievementindex/${data?.breadid}`
+          })
+        ))
       }  
     },
     {
@@ -318,11 +317,8 @@ export default function PostMain({
       postmainrender:() => {
         const ref = achievementul?.filter(data => data?.breadid === splitstaticthree)
         postMainActionTwo(ref)
-        return ref.map(data => (<>
-            <AchievementAddressRenderTwo
-            data={data}
-            />
-        </>))
+        return ref.map(data => (achievementAddressRenderTwo({data})
+        ))
       }  
     },
     
@@ -335,13 +331,12 @@ export default function PostMain({
         const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
         postMainActionTwo(ref)
         return (
-          ref.map(data => (<>
-            <AchievementAddressRender
-            data={data}
-            props={{
-              navigate: () => {navigate(`/award/awardindex/${data?.breadid}`)}
-            }} />
-        </>)))
+          ref.map(data => (
+              achievementAddressRender({
+              data: data,
+              navigate: `/achievement/achievementindex/${data?.breadid}`
+            })
+          )))
       }  
     },
     {
@@ -353,10 +348,9 @@ export default function PostMain({
         if(filter.length > 0 && filtertwo.length > 0) {
         // if(filter.length > 0) {
           const assign = [Object.assign(filter[0], filtertwo[0])]
-          return  assign.map(data => (<>
-          <AchievementAddressRenderTwo
-            data={data} />
-          </>))
+          return assign.map(data => (
+            achievementAddressRenderTwo({data})
+          ))
         } else {
           return null
         }
@@ -419,9 +413,40 @@ export default function PostMain({
         const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.bool === true)
         return messageAddressRenderTwo({
           data: filter,
-          navigate: () => {postMainRender()}
+          navigate: () => {postMainAction()}
         })
       }
+    },
+  ]
+
+  const guideaddress = [
+    {
+      postmainindex: 0,
+      postmainrender:() => {
+        const ref = [postmaindata]
+        return guideAddressRender({data: ref})
+      }  
+    },
+    {
+      postmainindex: 1,
+      postmainrender:() => {
+        const array = []
+        for(const data of guidedl) {
+          if(data.spreaddata().length > 0){
+            data.spreaddata().forEach(dat => {
+              array.push({
+                spreadicon: data.spreadicon, ...dat
+              })
+            })
+          }
+        }
+        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true)
+        const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
+        return guideAddressRenderTwo({
+          data: filter,
+          navigate: () => {postMainAction()}
+        })
+      }  
     },
   ]
 
@@ -486,6 +511,10 @@ export default function PostMain({
     {
       postmainid: 'messageaddress',
       postmainref: messageaddress,
+    },
+    {
+      postmainid: 'guideaddress',
+      postmainref: guideaddress,
     },
     {
       postmainid: 'searchaddress',
@@ -685,7 +714,7 @@ export default function PostMain({
             dtamainid: 'achievementiframe',
             dtamainindex: 0
           }}>
-          <article className="text-6xl  m-h6">
+          <article className="text-5xl  m-h6">
           {data?.breadicon}
           </article>
           </DtaMain>
@@ -933,17 +962,20 @@ export default function PostMain({
     )
   }
 
-  export function AchievementAddressRender({data, props}) {
+  export function achievementAddressRender({data, navigate}) {
+    // console.log('navigate', navigate)
     return (
       <div className="flex flex-row items-center justify-between" >
         <section>
+          <Link to={navigate}>
           <CardMain>
-          <AvaMain>
-          <figure onClick={props.navigate} className={``}>
-            <p className="p-[10px] text-4xl  m-h6">{data?.breadicon}</p>
-          </figure>
-          </AvaMain>
+            <ChipMain>
+            <figure onClick={navigate}>
+              <p className="p-[10px] text-4xl  m-h6">{data?.breadicon}</p>
+            </figure>
+            </ChipMain>
           </CardMain>
+          </Link>
         </section>
         <section className="">
           <CardMain>
@@ -955,12 +987,12 @@ export default function PostMain({
     )
   }
 
-  export function AchievementAddressRenderTwo({data}) {
+  export function achievementAddressRenderTwo({data}) {
     return (
     <div className="">
         <figure className="flex flex-col h-[40vh] items-center justify-center  bg-slate-200">
           <CardMain >
-           <p className="text-9xl">{data?.breadicon}</p>
+           <p className="text-8xl">{data?.breadicon}</p>
           </CardMain>
         </figure>
         <figcaption className="text-center">
@@ -1040,12 +1072,65 @@ export default function PostMain({
           </CardMain>
           <CardMain>
             <Link to={data?.spreadrender().navigation || `/club/clubmain`}>
-              <button onClick={navigate} className="w-full  m-button uppercase">Check the link</button>
+              <button onClick={navigate} className="w-full  m-button uppercase">Go to page</button>
             </Link>
             <br /><br />
              <StaMain 
              stamainstatic={{ stamainid: 'messageiframe' }} 
             /> 
+          </CardMain>
+        </section>
+        </>))}
+      </div>
+    )
+  }
+
+  export function guideAddressRender({data}) {
+    // console.log('data', data)
+    return (
+      <div className="" >
+        {data?.map(data => (<>
+        <section className="">
+          <Link to={data?.spreadhref}>
+          <SheetMain>
+            <p className="">{data?.spreaddetail}</p>
+          </SheetMain>
+          </Link>
+        </section>
+        </>))}
+      </div>
+    )
+  }
+
+export function guideAddressRenderTwo({data, navigate}) {
+    // console.log('data', data)
+    return (
+      <div className="">
+        {data?.map(data => (<>
+        <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
+            <CardMain />
+            <CardMain />
+            <CardMain>
+            {/* <RiMailOpenLine className="text-3xl" /> */}
+            <p className="text-7xl">{data?.spreadicon}</p>
+            </CardMain>
+            <CardMain />
+            <CardMain />
+        </section>
+        <section className="text-center">
+          <CardMain>
+            <CardMain>
+              <p className="l-h5">{data?.spreaddetail}</p>
+            </CardMain>
+          </CardMain>
+          <CardMain>
+            <Link to={data?.spreadrender().navigation || `/guide/guidemain`}>
+              <button onClick={navigate} className="w-full  m-button uppercase">Go to page</button>
+            </Link>
+            <br /><br />
+             {/* <StaMain 
+             stamainstatic={{ stamainid: 'messageiframe' }} 
+            />  */}
           </CardMain>
         </section>
         </>))}
@@ -1068,49 +1153,49 @@ export default function PostMain({
 
 export function postMainFunction(date) {
     var timeSince = function(date) {
-    if (typeof date !== 'object') {
-      date = new Date(date);
-    }
+      // if (typeof date !== 'object') {
+      //   date = new Date(date);
+      // }
 
-    var seconds = Math.floor((new Date() - date) / 1000);
-    var intervalType;
+      var seconds = Math.floor((new Date() - date) / 1000);
+      var intervalType;
 
-    var interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) {
-      intervalType = 'year';
-    } else {
-      interval = Math.floor(seconds / 2592000);
+      var interval = Math.floor(seconds / 31536000);
       if (interval >= 1) {
-        intervalType = 'month';
+        intervalType = 'year';
       } else {
-        interval = Math.floor(seconds / 86400);
+        interval = Math.floor(seconds / 2592000);
         if (interval >= 1) {
-          intervalType = 'day';
+          intervalType = 'month';
         } else {
-          interval = Math.floor(seconds / 3600);
+          interval = Math.floor(seconds / 86400);
           if (interval >= 1) {
-            intervalType = "hour";
+            intervalType = 'day';
           } else {
-            interval = Math.floor(seconds / 60);
+            interval = Math.floor(seconds / 3600);
             if (interval >= 1) {
-              intervalType = "minute";
+              intervalType = "hour";
             } else {
-              interval = seconds;
-              intervalType = "second";
+              interval = Math.floor(seconds / 60);
+              if (interval >= 1) {
+                intervalType = "minute";
+              } else {
+                interval = seconds;
+                intervalType = "second";
+              }
             }
           }
         }
       }
-    }
 
-    if (interval > 1 || interval === 0) {
-      intervalType += 's';
-    }
+      if (interval > 1 || interval === 0) {
+        intervalType += 's';
+      }
 
-    return interval + ' ' + intervalType;
-  };
-  var aDay = 24 * 60 * 60 * 1000;
-  return `${timeSince(timeSince(new Date(date - aDay)))} ago`
-  // console.log(timeSince(new Date(Date.now() - aDay)));
-  // console.log(timeSince(new Date(Date.now() - aDay * 2)));
+      return interval + ' ' + intervalType;
+    };
+    var aDay = 24 * 60 * 60 * 1000;
+    return `${timeSince(timeSince(new Date(date - aDay)))} ago`
+    // console.log(timeSince(new Date(Date.now() - aDay)));
+    // console.log(timeSince(new Date(Date.now() - aDay * 2)));
 }

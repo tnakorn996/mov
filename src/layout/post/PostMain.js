@@ -15,7 +15,6 @@ import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import CardMain from '../card/CardMain'
 import SheetMain from '../sheet/SheetMain'
-import ScreenMain from '../screen/ScreenMain.tsx'
 import AvaMain from '../ava/AvaMain.tsx'
 import DtaMain from '../../component/dta/DtaMain.tsx'
 import BadgeMain from '../badge/BadgeMain'
@@ -544,11 +543,9 @@ export default function PostMain({
         <main className="">
              <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map((data, index) => (<>
-              <div key={index}>
-              {/* <ScreenMain> */}
+                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
                   {data?.postmainrender()}
-              {/* </ScreenMain> */}
-              </div>
+                </motion.figure>
               </>))}
             </section>
         </main>

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import BreadMain from '../../component/bread/BreadMain'
 import { Context } from '../../context/context'
 import CardMain from '../../layout/card/CardMain'
-import ScreenMain from '../../layout/screen/ScreenMain.tsx'
 import TabMain from '../../layout/tab/TabMain'
 
 export default function WorkoutMain() {

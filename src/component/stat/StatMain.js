@@ -17,7 +17,6 @@ import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
-import ScreenMain from '../../layout/screen/ScreenMain.tsx'
 
 export default function StatMain({
     statmainstatic,
@@ -296,11 +295,9 @@ export default function StatMain({
             <main className="">
                 <section className="">
                     {appstatic?.map((data, index) => (<>
-                        {/* <ScreenMain> */}
-                        <div key={index}>
+                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
                         {data?.statmainrender()}
-                        </div>
-                        {/* </ScreenMain> */}
+                </motion.figure>    
                     </>))}
                 </section>
             </main>

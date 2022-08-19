@@ -17,6 +17,7 @@ import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
+import ScreenMain from '../../layout/screen/ScreenMain.tsx'
 
 export default function StatMain({
     statmainstatic,
@@ -91,12 +92,12 @@ export default function StatMain({
         {
             statmainrender: () => {
                 if(typeof statmaindatatwo === 'undefined') return null
+                // console.log('statmaindatatwo', statmaindatatwo)
                 const array = []
                 for(const data of statmaindatatwo){
                     array.push(data['taskpoint'] || data['ticketpoint'])
                 }
                 const reduce = array.reduce((a, b) => b + a)
-                // console.log('reduce', reduce)
                 return userTableRenderTwo({
                     data: statmaindata,
                     datatwo: reduce && reduce,
@@ -206,14 +207,12 @@ export default function StatMain({
                     }
                 })
                 if(array && array.length > 0) {
-                    return array?.map((data) => (<>
-                    <AchievementTableRenderTwo 
-                    data={data}
-                    props={{
-                        navigate: () => {navigate(`/achievement/achievementindex/${data?.breadid}`)}
-                    }}
-                    />
-                    </>))
+                    return array?.map((data) => (
+                    achievementTableRenderTwo({
+                        data: data,
+                        navigate: `/achievement/achievementindex/${data?.breadid}`
+                    })
+                ))
                 } else {
                     return null
                 }
@@ -298,9 +297,11 @@ export default function StatMain({
                 <section className="">
                     {appstatic?.map((data, index) => (<>
                         {/* <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100"> */}
+                        <ScreenMain>
                         <div key={index}>
                         {data?.statmainrender()}
                         </div>
+                        </ScreenMain>
                         {/* </motion.div> */}
                     </>))}
                 </section>
@@ -328,29 +329,37 @@ export default function StatMain({
         // console.log('data', data)
         return (
         <div>
-            {data?.map(data => (<>
+            {data?.map((data, index) => (<>
+            <div key={index}>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
                 <ChipMain chipmainstyle={{section: `!rounded-full`}}>
-                <figure className="relative w-[170px] h-[170px] flex flex-col justify-center items-center  text-white bg-gray-400">
-                    <p className="text-8xl  uppercase">{data?.useremail.slice(0, 1)}</p>
-                    <img src={data?.userimage} alt="" className="absolute z-10 w-full h-full" />
+                <figure className="relative w-[150px] h-[150px] flex flex-col justify-center items-center  text-white bg-gray-400">
+                    <p className="text-8xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
+                    <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
                 </figure>
                 </ChipMain>
             </CardMain>
             </section>
             <section className="flex flex-col justify-center text-center">
-            <p className="text-2xl  m-h5">{data?.username !== null ?  data?.username : data?.useremail}</p>
+            <p className="text-2xl  m-h5 first-letter:uppercase">{data?.username !== null ?  data?.username : data?.useremail}</p>
             {/* <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p> */}
+            <CardMain>
+            <p className="l-h5">{data?.userbio || `My Personal Best Collection`}</p>
+            </CardMain>
             </section>
 
             <section className="">
             <CardMain>
                 {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
-                <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
-                <StaMain stamainstatic={{stamainid: 'useriframe'}}  /> }
+                <div className="flex flex-col gap-3">
+                    <CtaMain ctamainstatic={{ctamainid: 'guideembed', ctamainindex: 0}} /> 
+                    <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> 
+                </div>
+                :<StaMain stamainstatic={{stamainid: 'useriframe'}}  /> }
             </CardMain>
             </section>
+            </div>
             </>))}
         </div>
         )
@@ -438,11 +447,8 @@ export default function StatMain({
             <section className="w-full">
             <CardMain>
                 <div className="flex flex-row justify-center">
-                    {/* {data?.map(item => (
-                        userAddressRender({data: item?.userid})
-                    ))} */}
-                    {data?.map(data => (<>
-                    <Link to={`/user/userindex/${data?.userid?.userid}`} >
+                    {data?.map((data, index) => (<>
+                    <Link key={index} to={`/user/userindex/${data?.userid?.userid}`} >
                         <ChipMain chipmainstyle={{section: `!rounded-full`}}>
                         <figure className="relative w-[50px] h-[50px] flex justify-center items-center bg-slate-300 text-white">
                             <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
@@ -523,15 +529,17 @@ export default function StatMain({
     )
     }
 
-    export function AchievementTableRenderTwo({data, props}) {
+    export function achievementTableRenderTwo({data, navigate}) {
         return (
         <div >
             <section>
             <CardMain>
             <AvaMain>
-            <figure onClick={props.navigate}>
-                <p className="p-[10px] m-h6">{data?.breadicon}</p>
-            </figure>
+                <Link to={navigate}>
+                <figure>
+                    <p className="p-[10px] m-h6">{data?.breadicon}</p>
+                </figure>
+                </Link>
             </AvaMain>
             </CardMain>
             </section>
@@ -543,7 +551,8 @@ export default function StatMain({
         // console.log('data', data)
         return (
             <div>
-                {data?.map(data => (<>
+                {data?.map((data, index) => (<>
+                <div key={index}>
                 <CardMain>
                 <section className="flex flex-row justify-between">
                     <p className="m-h5">Started date</p>
@@ -555,6 +564,7 @@ export default function StatMain({
                     <CtaMain ctamainstatic={{ctamainid: 'awardembed', ctamainindex: 0}} />
                     </SheetMain>
                 </section>
+                </div>
                 </>))}
         </div>
         )

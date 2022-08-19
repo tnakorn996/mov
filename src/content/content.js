@@ -85,7 +85,13 @@ export const userul = [
     {
         breadid: 'userfullname',
         breadaction: `/user/userform`,
-        breadtitle: 'Add your full name to your profile',
+        breadtitle: 'Add your name to profile',
+        breadsubtitle: 'aaaaaa',
+    },
+    {
+        breadid: 'userbio',
+        breadaction: `/user/userform`,
+        breadtitle: 'Customize your bio message',
         breadsubtitle: 'aaaaaa',
     },
 ]

@@ -8,7 +8,7 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import AppMain from '../../page/app/AppMain.tsx'
 import MessageForm from '../../page/message/MessageForm.tsx'
-import MessageIndex from '../../page/message/MessageIndex.tsx'
+import GuideForm from '../../page/guide/GuideForm.tsx'
 import CardMain from '../card/CardMain'
 import ChipMain from '../chip/ChipMain.tsx'
 import SheetMain from '../sheet/SheetMain'
@@ -69,6 +69,16 @@ export default function ModalMain() {
     }
   ]
 
+  const guidedialog = [
+    {
+      modalmainrender: () => {
+        return appDialogRender({
+          component: <GuideForm />
+        })
+      }
+    }
+  ]
+
   const weightdialog = [
     {
       modalmainrender: () => {
@@ -95,6 +105,10 @@ export default function ModalMain() {
     {
       modalmainid: 'messagedialog',
       modalmainref: messagedialog,
+    },
+    {
+      modalmainid: 'guidedialog',
+      modalmainref: guidedialog,
     },
     {
       previewmainid: 'weightdialog',
@@ -124,14 +138,6 @@ if(typeof appstate === 'undefined') return null
               </section>
               <hr />
               <section className="flex justify-center">
-                {/* <CardMain>
-                <button onClick={() => {
-                  setappstate()
-                  window.history.replaceState(null, "", location?.pathname)
-                }} className="w-full flex flex-row items-center justify-center text-3xl  l-h6">
-                    <RiCloseCircleLine />
-                  </button>
-                </CardMain> */}
                 <div onClick={() => {
                   setappstate()
                   window.history.replaceState(null, "", location?.pathname)}} className="">

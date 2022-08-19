@@ -30,6 +30,26 @@ export default function NavbarMain({
   const [splitstatic, setsplitstatic] = useSplit(1)
   const [navmainstate, setnavmainstate] = useState({navmainid: 'apptbody', navmainindex: 0})
 
+  useEffect(() => {
+    if((location.pathname.includes('main') || location.pathname.includes(''))) {
+      setnavmainstate({navmainid: 'apptbody', navmainindex: 0})
+    }
+    if((location.pathname.includes('form'))) {
+      setnavmainstate({navmainid: 'apptbody', navmainindex: 1})
+    }
+    if((location.pathname.includes('authmain'))) {
+      if( authstate === undefined ||  authstate ===  null){
+        setnavmainstate({navmainid: 'authtbody', navmainindex: 0})
+      }
+    }
+    if((location.pathname.includes('index'))) {
+      const split = location.pathname.split('/');
+      setnavmainstate({navmainid: `${split[1]}tbody`, navmainindex: 0})
+    }
+    }, [location])
+    // console.log('navmainstate', navmainstate)
+
+
   function navMainAction(first, component) {
     // console.log('first', first)
       if (first) {
@@ -65,6 +85,15 @@ export default function NavbarMain({
     }
   ]
 
+  const usertbody = [
+    {
+      navmainindex: 0,
+      navmainrender: () => {
+        return null
+      }
+    },
+  ]
+
   const workouttbody = [
     {
       navmainindex: 0,
@@ -97,20 +126,14 @@ export default function NavbarMain({
     },
   ]
 
-  const messagetbody = [
-    {
-      navmainindex: 0,
-      navmainrender: () => {
-        return null
-      }
-    },
-  ]
-
-
   const navbarmain = [
     {
       navmainid: 'authtbody',
       navmainref: authtbody,
+    },
+    {
+      navmainid: 'usertbody',
+      navmainref: usertbody,
     },
     {
       navmainid: 'apptbody',
@@ -130,31 +153,15 @@ export default function NavbarMain({
     },
     {
       navmainid: 'messagetbody',
-      navmainref: messagetbody,
+      navmainref: usertbody,
+    },
+    {
+      navmainid: 'guidetbody',
+      navmainref: usertbody,
     },
   ]
 
   const [appstatic, setappstatic] = useApp(navbarmain, navmainstate.navmainid, navmainstate.navmainindex, splitstatic)
-
-  useEffect(() => {
-    if((location.pathname.includes('main') || location.pathname.includes(''))) {
-      setnavmainstate({navmainid: 'apptbody', navmainindex: 0})
-    }
-    if((location.pathname.includes('form'))) {
-      setnavmainstate({navmainid: 'apptbody', navmainindex: 1})
-    }
-    if((location.pathname.includes('authmain'))) {
-      if( authstate === undefined ||  authstate ===  null){
-        setnavmainstate({navmainid: 'authtbody', navmainindex: 0})
-      }
-    }
-    if((location.pathname.includes('index'))) {
-      const split = location.pathname.split('/');
-      setnavmainstate({navmainid: `${split[1]}tbody`, navmainindex: 0})
-    }
-    }, [location])
-    // console.log('navmainstate', navmainstate)
-
 
   return (
     <div>
@@ -181,7 +188,7 @@ export function appTbodyRender({props, data}) {
               <figure className="grid grid-cols-3 text-center items-center  ">
                 {data?.slice(3, 6)?.map((data, index) => (<>
                 <Link to={data?.breadaction}>
-                  <div className={`m-h5 p-[10px] flex flex-col items-center  rounded-full duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-100` : ``} `}>
+                  <div className={`m-h5 p-[10px] flex flex-col items-center  rounded-3xl duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-100` : ``} `}>
                     {data.breadicon}
                     <p className="m-h2">{data.breadtitle}</p>
                   </div>

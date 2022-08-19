@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default function PictureFormComponent() {
-
+export default function SettingIndex() {
   return (
     <div>
         <main className="">
             <section className="">
-                imp
+                settt
             </section>
         </main>
     </div>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { RiMoreLine } from 'react-icons/ri'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -21,6 +21,7 @@ export default function AtaMain({
     } = useContext(Context)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     // const navigate = useNavigate()
+    const location = useLocation()
 
     function dtaMainAction(first: { 
         appid: string; 
@@ -28,9 +29,8 @@ export default function AtaMain({
         appidthree: string; 
         appindex: number 
     }) {
-        
-        return () => {
             // console.log('dtamaindata', dtamaindata)
+            // console.log('first', first)
             setappstate(first)
             // setdtamainstate(!dtamainstate)
             
@@ -39,7 +39,6 @@ export default function AtaMain({
             // window.location.href = dtamaindata.spreadhref
             if(dtamaindata.spreadhref) return  window.history.replaceState(null, "", dtamaindata.spreadhref)
             return null
-        }
     }
 
     const appiframe = [
@@ -117,6 +116,19 @@ export default function AtaMain({
         }
     ]
 
+    const guideiframe = [
+        {
+            dtamainrender: () => {
+                return {
+                            appid: 'backdropmain',
+                            appidtwo: 'modalmain',
+                            appidthree: 'guidedialog',
+                            appindex: 0,
+                }
+            } 
+        }
+    ]
+
     const weightiframe = [
         {
             dtamainrender: () => {
@@ -165,6 +177,10 @@ export default function AtaMain({
             dtamainref: messageiframe
         },
         {
+            dtamainid: 'guideiframe',
+            dtamainref: guideiframe
+        },
+        {
             dtamainid: 'weightiframe',
             dtamainref: weightiframe
         },
@@ -183,7 +199,9 @@ export default function AtaMain({
                 setdtamainstate(!dtamainstate)
             }} className="">
                 {appstatic && appstatic?.map((data: { dtamainrender: () => any }) => (<>
-                    <section onClick={dtaMainAction(data?.dtamainrender())} className="">
+                    <section onClick={() => {
+                        dtaMainAction(data?.dtamainrender())}
+                        } className="">
                         {children}
                     </section>
                 </>))}

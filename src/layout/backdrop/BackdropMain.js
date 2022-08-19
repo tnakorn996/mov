@@ -5,6 +5,7 @@ import { Context } from '../../context/context'
 import ModalMain from '../modal/ModalMain.tsx'
 import PreviewMain from '../../component/preview/PreviewMain'
 import useApp from '../../hook/useApp'
+import ScreenMain from '../screen/ScreenMain.tsx'
 
 export default function BackdropMain({
 
@@ -54,9 +55,11 @@ const {
         <main className="">
           <section className="z-50 w-screen h-screen fixed top-0 left-0  bg-slate-900 bg-opacity-40">
             {appstatic?.map((data, index) => (<>
-                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="duration-100">
+                <figure key={index} className="">
+                  <ScreenMain>
                     {data?.backdropmainrender()}
-                </motion.figure>
+                  </ScreenMain>
+                </figure>
               </>))}
           </section>
         </main>

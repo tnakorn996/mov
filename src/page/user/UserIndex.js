@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import StatMain from '../../component/stat/StatMain'
 import useClientTwo from '../../hook/useClientTwo.tsx'
@@ -20,13 +20,28 @@ export default function UserIndex() {
   const [clientstatictwo, setclientstatictwo] = useClientTwo({
     id: 'userindex',
     from: `task`,
-    select: `*`,
+    select: `taskpoint`,
     order: [`taskid`, { ascending: false }],
     eq: ['userid', splitstaticthree],
     limit: 100,
   })
 
-  // console.log('clientstatic', clientstatic)
+const [clientstaticthree, setclientstaticthree] = useClientTwo({
+    id: 'userindex',
+    from: `ticket`,
+    select: `ticketpoint`,
+    order: [`ticketid`, { ascending: false }],
+    eq: ['userid', splitstaticthree],
+    limit: 100,
+  })
+
+  const [userindexrender, setuserindexrender] = useState()
+
+  // console.log('clientstaticthree', clientstaticthree)
+  useEffect(() => {
+    if(Array.isArray(clientstatictwo) 
+    && Array.isArray(clientstaticthree)) return setuserindexrender(clientstatictwo.concat(clientstaticthree))
+  }, [clientstatictwo, clientstaticthree])
 
   return (
     <div>
@@ -35,11 +50,11 @@ export default function UserIndex() {
               <CardMain />
               <CardMain />
               <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 0}} />
-              <StatMain statmaindatatwo={clientstatictwo && clientstatictwo} statmaindata={clientstatic && clientstatic} statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
+              <StatMain statmaindatatwo={userindexrender && userindexrender} statmaindata={clientstatic && clientstatic} statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
             </section>
-            <section className="">
+            {/* <section className="">
               <TabMain tabmainstatic={{tabmainid: 'userfieldset'}} />
-            </section>
+            </section> */}
         </main>
     </div>
   )

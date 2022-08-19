@@ -197,11 +197,11 @@ export default function FeedMain({
                     feedmaintitle: 'Ranks',
                     feedmainrender: () => {
                         return achievementdl[0].spreaddata
+                        // return messagedl[1].spreaddata(), 
                     }
                 },
                  {
                     feedmaintitle: 'Workouts',
-                    // feedmainrender: achievemntdl[1].spreaddata,
                     feedmainrender: () => {
                         return achievementdl[1].spreaddata
                     }
@@ -286,9 +286,18 @@ export default function FeedMain({
             feedmainslice: 10,
             feedmaindata: [
                 {
-                    feedmaintitle: null,
+                    feedmaintitle: `All to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata())
+                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === false)
+                        // return (guidedl[0].spreaddata())
+                    }
+                },
+                {
+                    feedmaintitle: `Complete to-do's`,
+                    feedmainrender: () => {
+                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === false)
+                        // return (guidedl[0].spreaddata())
+
                     }
                 },
             ],
@@ -399,8 +408,8 @@ export default function FeedMain({
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
                                 {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
 
-                                {(feedmainstatic.feedmainid === 'guidearea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
-
+                                {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
+                                {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
 
                             </>))}
                         </figure>

@@ -19,6 +19,7 @@ export default function StaMain({
 
         contractdl,
         textdl,
+        questdl,
 
     } = useContext(Context)
     const param = useParams()
@@ -38,68 +39,86 @@ export default function StaMain({
 
     const useriframe = [
         {
-            stamainindex: 0,
-            stamainrender: <section className="">
-                <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 0}} />
-            </section>,
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 0}} />
+            }
         },
         {
-            stamainindex: 1,
-            stamainrender: <section className="duration-100">
-                <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
-            </section>,
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+            }
         },
     ]
 
     const messageiframe = [
         {
-            stamainindex: 0,
-            stamainrender: <section className="">
-                    <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-white l-button`}} />
-                </section>,
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-white l-button`}} />
+            }
         },
         {
-            stamainindex: 1,
-            stamainrender: <section className="duration-100">
-                    <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
-                </section>,
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+            }
         },
     ]
 
-    // console.log('contractdl[0]?.spreaddata', contractdl[0]?.spreaddata)
+    const guideiframe = [
+        {
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-white l-button`}} />
+            }
+        },
+        {
+            stamainrender: () => {
+                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+            }
+        },
+    ]
 
     const stamain = [
         {
             stamainid: 'useriframe',
             stamainref: useriframe,
-            stamaindata: contractdl && contractdl[0]?.spreaddata?.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree),
+            stamaindata: () => {
+                return contractdl && contractdl[0]?.spreaddata?.filter(data => data.receiverid.userid === param.userid || data.receiverid.userid === splitstaticthree)
+            } 
             // stamaindata: staMainAction(contractdl),
         },
         {
             stamainid: 'messageiframe',
             stamainref: messageiframe,
-            stamaindata: textdl && textdl[0]?.spreaddata?.filter(data => data.spreadidtwo === splitstaticthree),
+            stamaindata: () => {
+                return textdl && textdl[0]?.spreaddata?.filter(data => data.spreadidtwo === splitstaticthree)
+            } 
+            // stamaindata: staMainAction(textdl),
+        },
+        {
+            stamainid: 'guideiframe',
+            stamainref: guideiframe,
+            stamaindata: () => {
+                return questdl && questdl[0]?.spreaddata?.filter(data => data.spreadidtwo === splitstaticthree)
+            } 
             // stamaindata: staMainAction(textdl),
         },
     ]
 
     useEffect(() => {
-        if(stamainstatic){
-            const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
-            const ref = Object.assign(...filter).stamaindata
-            const reftwo = Object.assign(...filter).stamainref
-            // console.log('ref', ref, reftwo)
+        const filter = stamain.filter(data => data.stamainid === stamainstatic.stamainid)
+        const ref = Object.assign(...filter).stamaindata()
+        const reftwo = Object.assign(...filter).stamainref
+        // console.log('ref', ref, reftwo)
         if(ref && ref.length !== 0){
-            const filtertwo = reftwo.filter(data => data.stamainindex === 1)
+            const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 1)
             setstamainrender(filtertwo)
         }
         if(ref && ref.length === 0){
-            const filtertwo = reftwo.filter(data => data.stamainindex === 0)
+            const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 0)
             setstamainrender(filtertwo)
         }
-      }
     }, [stamainstatic, fieldmainstate, dtamainstate, splitstaticthree])
-    // if(!splitstaticthree) return null
+
+    if(typeof stamainstatic === 'undefined') return null
 
   return (
     <div>
@@ -107,7 +126,7 @@ export default function StaMain({
             <section className="">
                 {stamainrender && stamainrender.map((data, index) => (<>
                     <article key={index} className="z-20">
-                        {data?.stamainrender}
+                        {data?.stamainrender()}
                     </article>
                 </>))}
             </section>

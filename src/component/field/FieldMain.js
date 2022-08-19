@@ -10,7 +10,7 @@ import CardMain from '../../layout/card/CardMain'
 import { supabase } from '../../lib/supabase'
 import ChoiceMain from '../choice/ChoiceMain'
 // import DtaMain from '../dta/DtaMain.tsx'
-import { workoutul } from '../../content/content'
+import { clubul, workoutul } from '../../content/content'
 
 export default function FieldMain({
   fieldmainstatic,
@@ -35,6 +35,7 @@ export default function FieldMain({
   const url = (new URL(window.location)).pathname.split('/')[3]
   const [fieldmainid, setfieldmainid] = useState(uuidv4())
   const [fieldmainbool, setfieldmainbool] = useState(true)
+  const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
   const ref = useRef(null)
@@ -44,8 +45,9 @@ export default function FieldMain({
   const reffive = useRef(null)
   const refsix = useRef(null)
   const refseven = useRef(null)
+  const refuserbio = useRef(null)
 
-  function fieldMainRender(first, second) {
+  function fieldMainAction(first, second) {
     for(const data of first) {
       if(data.breadid === splitstaticthree || data.breadid === split[3]){
         // console.log('datdddddddda', data[second])
@@ -54,7 +56,7 @@ export default function FieldMain({
     }
   }
 
-  function fieldMainRenderTwo(first) {
+  function fieldMainActionTwo(first) {
       // console.log('first', first)
 
       if(!first.fieldmaindetail) return null
@@ -128,25 +130,27 @@ export default function FieldMain({
 
   //////////////////////////////////////
 
-  // const handleSelect = async (first =this.props.first) => {
-  //   const query = [       
-  //           {
-  //               fieldmainid: 'userinput',
-  //               fieldmainidtwo: 'user',
-  //               fieldmainidthree: 'username',
-  //           },     
-  //       ]
-  //       const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
-  //       const ref = filter[0]
-  //       // console.log('ref', ref)
+  const fieldMainSelect = async (first, second) => {
+    const user = supabase.auth.user()
+    const query = [       
+            {
+                fieldmainid: 'userinput',
+                fieldmainidtwo: 'user',
+            },     
+        ]
+        const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
+        const ref = Object.assign(...filter)
+        // console.log('ref', ref)
 
-  //       const { data, error} = await supabase.from(ref.fieldmainidtwo).select(`*`).eq(ref.fieldmainidthree, first)
-  //       if(data) {
-  //         return `handleselect${ref.fieldmainid}`
-  //       } else {
-  //         return first
-  //       }
-  // }
+        const { data, error} = await supabase.from(ref.fieldmainidtwo).select(first).eq('userid', user.id)
+        if(!Array.isArray(data)) return null
+          const assign = Object.assign(...data)[first]
+          // console.log('assign', assign)
+          if(typeof assign === 'undefined') return null
+          return second.current.value = assign
+          
+          // return `handleselect${ref.fieldmainid}`
+  }
 
   // console.log('split', splitstaticthree || split[3] || param?.userid)
 
@@ -155,6 +159,7 @@ export default function FieldMain({
         const user = supabase.auth.user()
         const refvaluefour = reffour?.current?.value
         const refvaluefive = reffive?.current?.value
+        const refuserbiovalue = refuserbio?.current?.value
         // console.log('user', user)
         const query = [       
             {
@@ -169,6 +174,7 @@ export default function FieldMain({
                   // userimage: '',
                   userfullname: refvaluefour,
                   username: refvaluefive,
+                  userbio: refuserbiovalue,
                 },
                 fieldmaindatatwo: {userid: split[3]}
             },     
@@ -195,7 +201,7 @@ export default function FieldMain({
                 fieldmainaction: `/workout/workoutmain`,
                 fieldmaindata: {
                     taskid: fieldmainid,
-                    taskpoint: fieldMainRender(workoutul, 'breadpoint'),
+                    taskpoint: fieldMainAction(workoutul, 'breadpoint'),
 
                     weightid: refthree?.current?.value,
                     workoutid: split[3],
@@ -211,6 +217,7 @@ export default function FieldMain({
                 fieldmainaction: `/club/clubmain`,
                 fieldmaindata: {
                     ticketid: fieldmainid,
+                    ticketpoint: fieldMainAction(clubul, 'breadpoint'),
                   
                     clubid: split[3],
                     userid: user?.id,
@@ -245,6 +252,20 @@ export default function FieldMain({
                 },
                 fieldmaindatatwo: {userid: undefined}
             },
+            {
+                fieldmainid: 'questinput',
+                fieldmainidtwo: 'quest',
+                // fieldmainhref: `//awardindex/`,
+                // fieldmaindetail: 'Successfully claim your reward',
+                // fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindata: {
+                    questid: fieldmainid,
+                  
+                    userid: user?.id,
+                    spreadidtwo: url,
+                },
+                fieldmaindatatwo: {userid: undefined}
+            },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = Object.assign(...filter)
@@ -262,12 +283,12 @@ export default function FieldMain({
             } 
               setfieldmainstate(!fieldmainstate)
               // setfieldmainbool(!fieldmainbool)
-              fieldMainRenderTwo(ref)
+              fieldMainActionTwo(ref)
         } catch (error) {
             alert(error)
             setfieldmainstate(!fieldmainstate)
             // setfieldmainbool(!fieldmainbool)
-            fieldMainRenderTwo(error)
+            fieldMainActionTwo(error)
         }
     }
 
@@ -325,6 +346,16 @@ export default function FieldMain({
                   spreadidtwo: url,
                 }
             },
+            {
+                fieldmainid: 'questinput',
+                fieldmainidtwo: 'quest',
+                // fieldmaindetail: 'Successfully mark this message',
+                // fieldmainaction: `/achievement/achievementmain`,
+                fieldmaindatatwo: {
+                  userid: user?.id, 
+                  spreadidtwo: url,
+                }
+            },
         ]
         const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
         const ref = Object.assign(...filter)
@@ -335,7 +366,7 @@ export default function FieldMain({
 
                 setfieldmainstate(!fieldmainstate)
                 // setfieldmainbool(!fieldmainbool)
-                fieldMainRenderTwo(ref)
+                fieldMainActionTwo(ref)
         }
     }
 
@@ -364,7 +395,7 @@ export default function FieldMain({
 
                 // setfieldmainbool(!fieldmainbool)
                 setfieldmainstate(!fieldmainstate)
-                fieldMainRenderTwo(ref)
+                fieldMainActionTwo(ref)
         }
     }
 
@@ -416,7 +447,7 @@ export default function FieldMain({
         alert(`Successfully updated your image`)
         // setfieldmainbool(!fieldmainbool)
         setfieldmainstate(!fieldmainstate)
-        // fieldMainRenderTwo(ref)
+        // fieldMainActionTwo(ref)
       }
     }
 
@@ -433,12 +464,16 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: 'email',
-          fieldmainrender: <input ref={ref} type="email" className="l-input" />,
+          fieldmainrender:() => {
+            return <input ref={ref} type="email" className="l-input" />
+          }
 
         },
         {
           fieldmainsubtitle: 'password',
-          fieldmainrender: <input ref={reftwo} type='password' className="l-input" />,
+          fieldmainrender:() => {
+            return <input ref={reftwo} type='password' className="l-input" />
+          }
         },
       ],
     },
@@ -450,12 +485,16 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: 'email',
-          fieldmainrender: <input ref={ref} type="email" className="l-input" />,
+          fieldmainrender:() => {
+            return <input ref={ref} type="email" className="l-input" />
+          }
 
         },
         {
           fieldmainsubtitle: 'password',
-          fieldmainrender: <input ref={reftwo} type='password' className="l-input" />,
+          fieldmainrender:() => {
+            return <input ref={reftwo} type='password' className="l-input" />
+          }
         },
       ],
     },
@@ -475,7 +514,9 @@ export default function FieldMain({
       fieldmaindata: [
          {
           fieldmainsubtitle: 'Full name',
-          fieldmainrender: <input ref={reffour} className="l-input" placeholder="Enter your full name" />,
+          fieldmainrender:() => {
+            return <input onLoad={fieldMainSelect(`userfullname`, reffour)} ref={reffour} className="l-input" placeholder={`Give your full name`} />
+          }
           // fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
         // {
@@ -483,6 +524,13 @@ export default function FieldMain({
         //   fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
         //   fieldmaindetail: `This will be displayed to viewers of your profile page.`,
         // },
+        {
+          fieldmainsubtitle: 'User bio',
+          fieldmainrender:() => {
+            return <textarea onLoad={fieldMainSelect(`userbio`, refuserbio)} ref={refuserbio} className="l-input" placeholder="Character 150" />
+          }
+          // fieldmaindetail: `This will be displayed to viewers of your profile page.`,
+        },
       ],
     },
     {
@@ -492,7 +540,9 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: 'Upload profile photo',
-          fieldmainrender: <input ref={refseven} type={`file`} className="l-input" />,
+          fieldmainrender:() => {
+            return <input ref={refseven} type={`file`} className="l-input" />
+          }
           // fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
       ],
@@ -526,7 +576,9 @@ export default function FieldMain({
       fieldmaindatatwo: [
         {
           fieldmainsubtitle: null,
-          fieldmainrender: <ChoiceMain choicemainref={refthree} choicemainstatic={{choicemainid: 'workoutlabel', choicemainindex: 0}} />,
+          fieldmainrender:() => {
+            return <ChoiceMain choicemainref={refthree} choicemainstatic={{choicemainid: 'workoutlabel', choicemainindex: 0}} />
+          }
         },
       ],
     },
@@ -599,9 +651,28 @@ export default function FieldMain({
       fieldmaindata: [
         {
           fieldmainsubtitle: null,
-          fieldmainrender: <input ref={refsix} className="l-input" placeholder="Enter your friend's ID" />,
+          fieldmainrender:() => {
+            return <input ref={refsix} className="l-input" placeholder="Enter your friend's ID" />
+          }
         },
       ],
+    },
+  ]
+
+  const questinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: '✔️ Mark as done',
+      fieldmainaction: ss,
+      fieldmaindata: [],
+    },
+    {
+      fieldmainindex: 1,
+      fieldmaintitle: null,
+      fieldmainentitle: 'Mark as un-done',
+      fieldmainaction: fieldMainDelete,
+      fieldmaindata: [],
     },
   ]
 
@@ -635,6 +706,10 @@ export default function FieldMain({
       fieldmainref: textinput,
     },
     {
+      fieldmainid: 'questinput',
+      fieldmainref: questinput,
+    },
+    {
       fieldmainid: 'searchinput',
       fieldmainref: searchinput,
     },
@@ -664,7 +739,7 @@ export default function FieldMain({
                 {data?.fieldmaindata?.map(dat => (<>
                   <h1 className="l-h4 py-[5px]   first-letter:uppercase">{dat?.fieldmainsubtitle}</h1>
                   <div className="">
-                  {dat?.fieldmainrender}
+                  {dat?.fieldmainrender()}
                   </div>
                   <h1 className="l-h1 py-[5px]">{dat?.fieldmaindetail}</h1>
                   <br />
@@ -685,7 +760,7 @@ export default function FieldMain({
 
                 <button className="">
                 {data?.fieldmaindatatwo?.map(dat => (<>
-                    {dat?.fieldmainrender}
+                    {dat?.fieldmainrender()}
                 </>))}
                 </button>
 

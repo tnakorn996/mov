@@ -208,6 +208,18 @@ export default function TabMain({
         },
     ]
 
+    const guidefieldset = [
+        {
+            tabmaintitle: 'Getting started',
+            tabmainrender: () => {
+                return tabMainRender({
+                    feedmainstatic:{feedmainid: 'guidearea', feedmainindex: 0}
+                })
+            }
+        },
+    ]
+
+
     const searchfieldset = [
         {
             tabmaintitle: 'Workout',
@@ -256,6 +268,10 @@ export default function TabMain({
         {
             tabmainid: 'messagefieldset',
             tabmainref: messagefieldset,
+        },
+        {
+            tabmainid: 'guidefieldset',
+            tabmainref: guidefieldset,
         },
         {
             tabmainid: 'searchfieldset',
@@ -313,6 +329,8 @@ export default function TabMain({
                                 {(tabmainstatic?.tabmainid === 'achievementfieldset' && index === 1) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
 
                                 {(tabmainstatic?.tabmainid === 'messagefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />}
+
+                                {/* {(tabmainstatic?.tabmainid === 'guidefieldset' && index === 0) &&  <BadgeMain badgemainstatic={{badgemainid: 'messagespan', badgemainindex: 0}}  />} */}
                                 </div>
                             </CardMain>
                         </article>

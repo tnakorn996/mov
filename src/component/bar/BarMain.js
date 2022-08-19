@@ -198,7 +198,7 @@ export default function BarMain() {
         return (
             <div>
                 <section className="">
-                    <button onClick={navigate} className="relative m-h6">
+                    <button onClick={() => {navigate()}} className="relative m-h6">
                         <div className="absolute -top-[10px] -right-[10px]">
                         {component}
                         </div>

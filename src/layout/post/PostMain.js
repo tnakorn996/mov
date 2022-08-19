@@ -90,7 +90,6 @@ export default function PostMain({
           return appAddressRenderTwo({
             // data: filter,
             signmainstate: signmainstate,
-            navigate: () => {postMainAction()},
         })
       },
     },
@@ -148,13 +147,12 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata]
-        return ref.map(data => (<>
-          <ContractAddressRender 
-          data={data}
-          props={{
-            navigate: () => {navigate(`/user/userindex/${data?.receiverid?.userid || data?.senderid?.userid}`)}
-          }} />
-        </>))
+        return ref.map(data => (
+          contractAddressRender({
+            data: data,
+            navigate: `/user/userindex/${data?.receiverid?.userid || data?.senderid?.userid}`
+          })
+      ))
       }  
     },
   ]
@@ -167,7 +165,7 @@ export default function PostMain({
           return ref.map(data => (
             workoutAddressRender({
               data: data,
-              navigate: () => { navigate(`/workout/workoutindex/${data?.breadid}`)}
+              navigate: `/workout/workoutindex/${data?.breadid}`
             })
           )) 
         }  
@@ -208,7 +206,7 @@ export default function PostMain({
         return ref.map(data => (
             taskAddressRender({
               data: data,
-              navigate: () => {navigate(`/task/taskindex/${data?.breadid}`)}
+              navigate: `/task/taskindex/${data?.breadid}`
             })
         ))
       }  
@@ -241,7 +239,7 @@ export default function PostMain({
         return ref.map(data => (
             clubAddressRender({
               data: data,
-              navigate: () => {navigate(`/club/clubindex/${data?.breadid}`)}
+              navigate: `/club/clubindex/${data?.breadid}`
             })
           ))
       }  
@@ -267,7 +265,7 @@ export default function PostMain({
         return ref.map(data => (
             ticketAddressRender({
               data: data,
-              navigate: () => {navigate(`/ticket/ticketindex/${data?.breadid}`)}
+              navigate: `/ticket/ticketindex/${data?.breadid}`
             })
         ))
       }  
@@ -302,9 +300,14 @@ export default function PostMain({
     {
       postmainindex: 0,
       postmainrender:() => {
-        const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        postMainActionTwo(ref)
-        return ref.map(data => (
+        // const ref = [postmaindata]
+
+        if(!Array.isArray(awarddl[0].spreaddata)) return null
+        const filter = awarddl[0].spreaddata.filter(data => data.achievementid === postmaindata.breadid)
+        const assign = [Object.assign(postmaindata, filter.length > 0 ? Object.assign(...filter) : null)]
+
+        postMainActionTwo(assign)
+        return assign.map(data => (
           achievementAddressRender({
             data: data,
             navigate: `/achievement/achievementindex/${data?.breadid}`
@@ -334,7 +337,7 @@ export default function PostMain({
           ref.map(data => (
               achievementAddressRender({
               data: data,
-              navigate: `/achievement/achievementindex/${data?.breadid}`
+              navigate: `/award/awardindex/${data?.breadid}`
             })
           )))
       }  
@@ -385,14 +388,12 @@ export default function PostMain({
         const ref = [postmaindata]
         postMainActionTwo(ref)
           if(ref.length > 0){
-            return ref.map(data => (<>
-            <MessageAddressRender
-            data={data}
-            props={{
-              // navigate: () => {navigate(data?.spreadrcender())}
-              navigate: () => {navigate(data?.spreadhref)}
-            }} />
-          </>))
+            return ref.map(data => (
+              messageAddressRender({
+                data: data,
+                navigate: data?.spreadhref
+              })
+            ))
           }
       }
     },
@@ -409,8 +410,8 @@ export default function PostMain({
             })
           }
         }
-        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true)
         const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.bool === true)
+        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
         return messageAddressRenderTwo({
           data: filter,
           navigate: () => {postMainAction()}
@@ -424,7 +425,15 @@ export default function PostMain({
       postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata]
-        return guideAddressRender({data: ref})
+        postMainActionTwo(ref)
+          if(ref.length > 0){
+            return ref.map(data => (
+              guideAddressRender({
+                data: data,
+                navigate: data?.spreadhref
+              })
+            ))
+          }
       }  
     },
     {
@@ -440,7 +449,6 @@ export default function PostMain({
             })
           }
         }
-        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true)
         const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
         return guideAddressRenderTwo({
           data: filter,
@@ -535,10 +543,12 @@ export default function PostMain({
     <div>
         <main className="">
              <section className={postmainstyle && postmainstyle.section}>
-              {appstatic?.map(data => (<>
-              {/* <ScreenMain> */}
+              {appstatic?.map((data, index) => (<>
+              <div key={index}>
+              <ScreenMain>
                   {data?.postmainrender()}
-              {/* </ScreenMain> */}
+              </ScreenMain>
+              </div>
               </>))}
             </section>
         </main>
@@ -550,8 +560,8 @@ export default function PostMain({
     return (
       <div className="">
         <section className="">
-        {data?.map(data => (<>
-        <article className="h-[10vh]">
+        {data?.map((data, index) => (<>
+        <article key={index}className="h-[10vh]">
           <Link to={data?.breadaction}>
           <CardMain>
             <button className="w-full flex flex-row gap-2 justify-center items-center  m-h5 first-letter:uppercase">
@@ -569,7 +579,7 @@ export default function PostMain({
     )
   }
   
-  export function appAddressRenderTwo({data, navigate, signmainstate}) {
+  export function appAddressRenderTwo({signmainstate}) {
     // console.log('data', data)
     // console.log('signmainstate', signmainstate)
     return (
@@ -704,7 +714,8 @@ export default function PostMain({
     return (
       <div >
         <section className="w-full flex flex-row flex-wrap justify-center items-center">
-        {data?.map(data => (<>
+        {data?.map((data, index) => (<>
+        <div key={index}>
         <CardMain>
           <DtaMain 
           dtamaindata={{
@@ -714,26 +725,38 @@ export default function PostMain({
             dtamainid: 'achievementiframe',
             dtamainindex: 0
           }}>
-          <article className="text-5xl  m-h6">
-          {data?.breadicon}
-          </article>
+          <ChipMain>
+            <CardMain>
+            <article className="text-3xl  m-h6">
+            {data?.breadicon}
+            </article>
+              </CardMain>
+            </ChipMain>
           </DtaMain>
         </CardMain>
+        </div>
         </>))}
         </section>
       </div>
     )
   }
 
-  export function ContractAddressRender({data, props}) {
-    const {navigate} = props
+  export function contractAddressRender({data, navigate}) {
     return (
       <div className="" >
         <section className="">
           <SheetMain>
-            <figcaption onClick={navigate} className="w-full l-h2  cursor-pointer">
-              {data?.receiverid?.useremail && <p className="">You just followed {data?.receiverid?.useremail}</p>}
-              {data?.senderid?.useremail && <p className=""> {data?.senderid?.useremail} started to follow you.</p>}
+            <figcaption className="w-full l-h2  cursor-pointer">
+              {data?.receiverid?.useremail && <p className="">You just followed 
+              <Link to={navigate}>
+              {data?.receiverid?.useremail}
+              </Link>
+              </p>}
+              {data?.senderid?.useremail && <p className=""> 
+              <Link to={navigate}>
+              {data?.senderid?.useremail} 
+              </Link>
+              started to follow you.</p>}
             </figcaption>
           </SheetMain>
         </section>
@@ -764,15 +787,19 @@ export default function PostMain({
     <div>
         <CardMain>
           <section className="grid grid-cols-12">
-            <figure onClick={navigate}  className="w-[90px] h-[90px] md:w-full md:h-full col-span-3">
+            <figure  className="w-[90px] h-[90px] md:w-full md:h-full col-span-3">
+            <Link to={navigate}>
             <ChipMain>
               <video className="w-full max-h-[100ch]" src={data?.breadvideo} autoPlay={true} loop={true} >
               </video>
             </ChipMain>
+            </Link>
             </figure>
             <figcaption className="col-span-9 flex flex-row items-center justify-between">
                 <CardMain>
-                <h1 onClick={navigate} className="m-h5">{data?.breadtitle}</h1>
+                <Link to={navigate}>
+                <h1 className="m-h5">{data?.breadtitle}</h1>
+                </Link>
                 <h1 className="l-h2">With {data?.breadauthor}</h1>
                 </CardMain>
                 <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'workoutiframe'}}  />
@@ -819,7 +846,7 @@ export default function PostMain({
     <div className=" ">
       <section className="">
           <CardMain>
-        <motion.figure onClick={navigate} className={`relative  rounded-full ${data.breadhead === choicemainstate && `!bg-slate-900 !text-white  !duration-1000`}`}>
+        <motion.figure onClick={() => navigate()} className={`relative  rounded-full ${data.breadhead === choicemainstate && `!bg-slate-900 !text-white  !duration-1000`}`}>
           <CardMain>
             <CardMain>
               <div className="flex items-center ">
@@ -868,12 +895,15 @@ export default function PostMain({
   export function clubAddressRender({data, navigate}) {
     return (
       <CardMain>
+            <Link to={navigate}>
           <ChipMain>
           <figure className="relative flex justify-center h-[30vh]  overflow-hidden">
             <img loading='lazy' src={data?.breadimage} alt="" className="min-w-full max-h-[100ch] md:min-w-full md:min-h-[100ch]" />
             <div className="z-20 absolute bottom-0 left-0 w-full flex flex-row justify-between items-center  bg-gradient-to-b from-transparent to-slate-700">
               <CardMain>
-              <h1 onClick={navigate} className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
+                <Link to={navigate}>
+                <h1 className="max-w-[90%] text-xl  text-white">{data?.breadtitle}</h1>
+                </Link>
               </CardMain>
               <CardMain>
               <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'clubiframe'}}  ptamainstyle={`text-white`} />
@@ -881,6 +911,7 @@ export default function PostMain({
             </div>
           </figure>
           </ChipMain>
+            </Link>
         </CardMain>
     )
   }
@@ -963,27 +994,43 @@ export default function PostMain({
   }
 
   export function achievementAddressRender({data, navigate}) {
-    // console.log('navigate', navigate)
+    // console.log('data', data)
     return (
-      <div className="flex flex-row items-center justify-between" >
-        <section>
-          <Link to={navigate}>
+      <Link to={navigate}>
+      <div className="w-full flex flex-row items-center justify-start" >
+        <section className="">
           <CardMain>
             <ChipMain>
-            <figure onClick={navigate}>
+            <figure onClick={() => {navigate()}}>
               <p className="p-[10px] text-4xl  m-h6">{data?.breadicon}</p>
             </figure>
             </ChipMain>
           </CardMain>
-          </Link>
         </section>
-        <section className="">
-          <CardMain>
+        <section className="w-full grid grid-flow-col items-center justify-between">
           <figcaption className="">{data?.breadtitle}</figcaption>
           {/* <figcaption className="">{handleDate(data?.created_at)}</figcaption> */}
+          <CardMain>
+            <ChipMain>
+            {data?.achievementid ? (<>
+            <figure className="uppercase bg-emerald-100">
+            <CardMain>
+            <figure className="m-h3  text-emerald-700">CLAIMED</figure>
+            </CardMain>
+            </figure>
+            </>) : (<>
+            <figure className="uppercase bg-slate-100">
+            <CardMain>
+            <figure className="m-h3  text-slate-700">NOT CLAIMED</figure>
+            </CardMain>
+            </figure>
+            </>)}
+            </ChipMain>
           </CardMain>
+          {/* <figcaption className="">{handleDate(data?.created_at)}</figcaption> */}
         </section>
       </div>
+      </Link>
     )
   }
 
@@ -1027,17 +1074,21 @@ export default function PostMain({
   }
 
 
-  export function MessageAddressRender({data, props}) {
-    const {navigate} = props
+  export function messageAddressRender({data, navigate}) {
     return (
       <div>
-        <section className={data?.spreadrender().booltwo && `bg-slate-100`}>
+        <section className={data?.spreadrender()?.booltwo && `bg-slate-100`}>
         <SheetMain>
-          <article className="grid grid-cols-11">
+          <article className="grid grid-cols-12">
+            <section className="col-span-1">
+              <p className="">💬</p>
+            </section>
             <section className="col-span-10">
-              <figure onClick={navigate} className="l-h4  cursor-pointer">
+              <Link to={navigate}>
+              <figure className="l-h4  cursor-pointer">
                 {data?.spreaddetail}
               </figure>
+              </Link>
             </section>
             <section className="col-span-1 flex justify-end">
                 <DtaMain dtamaindata={data} dtamainstatic={{dtamainid:'messageiframe', dtamainindex: 0}} ><RiMoreLine /></DtaMain>
@@ -1053,7 +1104,8 @@ export default function PostMain({
     // console.log('data', data)
     return (
       <div className="">
-        {data?.map(data => (<>
+        {data?.map((data, index) => (<>
+        <div key={index}>
         <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
             <CardMain />
             <CardMain />
@@ -1072,32 +1124,43 @@ export default function PostMain({
           </CardMain>
           <CardMain>
             <Link to={data?.spreadrender().navigation || `/club/clubmain`}>
-              <button onClick={navigate} className="w-full  m-button uppercase">Go to page</button>
+              <button onClick={() => {navigate()}} className="w-full  m-button uppercase">Go to page</button>
             </Link>
             <br /><br />
              <StaMain 
              stamainstatic={{ stamainid: 'messageiframe' }} 
-            /> 
+             /> 
           </CardMain>
         </section>
+        </div>
         </>))}
       </div>
     )
   }
 
-  export function guideAddressRender({data}) {
+  export function guideAddressRender({data, navigate}) {
     // console.log('data', data)
     return (
-      <div className="" >
-        {data?.map(data => (<>
-        <section className="">
-          <Link to={data?.spreadhref}>
-          <SheetMain>
-            <p className="">{data?.spreaddetail}</p>
-          </SheetMain>
-          </Link>
+       <div>
+        <section className={data?.spreadrender()?.booltwo}>
+        <SheetMain>
+          <article className="grid grid-cols-12">
+            <section className="col-span-1">
+              <p className="">✔️</p>
+            </section>
+            <section className="col-span-10">
+              <Link to={navigate}>
+              <figure className="l-h4  cursor-pointer">
+                {data?.spreaddetail}
+              </figure>
+              </Link>
+            </section>
+            <section className="col-span-1 flex justify-end">
+                <DtaMain dtamaindata={data} dtamainstatic={{dtamainid:'guideiframe', dtamainindex: 0}} ><RiMoreLine /></DtaMain>
+            </section>
+          </article>
+        </SheetMain>
         </section>
-        </>))}
       </div>
     )
   }
@@ -1106,7 +1169,8 @@ export function guideAddressRenderTwo({data, navigate}) {
     // console.log('data', data)
     return (
       <div className="">
-        {data?.map(data => (<>
+        {data?.map((data, index) => (<>
+        <div key={index}>
         <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
             <CardMain />
             <CardMain />
@@ -1125,14 +1189,15 @@ export function guideAddressRenderTwo({data, navigate}) {
           </CardMain>
           <CardMain>
             <Link to={data?.spreadrender().navigation || `/guide/guidemain`}>
-              <button onClick={navigate} className="w-full  m-button uppercase">Go to page</button>
+              <button onClick={() => {navigate()}} className="w-full  m-button uppercase">Go to page</button>
             </Link>
             <br /><br />
-             {/* <StaMain 
-             stamainstatic={{ stamainid: 'messageiframe' }} 
-            />  */}
+             <StaMain 
+             stamainstatic={{ stamainid: 'guideiframe' }} 
+             /> 
           </CardMain>
         </section>
+        </div>
         </>))}
       </div>
     )

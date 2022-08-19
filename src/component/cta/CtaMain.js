@@ -118,6 +118,17 @@ export default function CtaMain({
         },
     ]
 
+    const guideembed = [
+        {
+            ctamainindex: 0,
+            ctamainentitle: 'To do list (3)',
+            // ctamainstyle: `l-button border-black`,
+            ctamainaction: () => {
+                return `/guide/guidemain`
+            },
+        },
+    ]
+
     const ctamain = [
         {
             ctamainid: 'authembed',
@@ -158,6 +169,10 @@ export default function CtaMain({
             ctamainid: 'awardembed',
             ctamainref: awardembed
         },
+        {
+            ctamainid: 'guideembed',
+            ctamainref: guideembed
+        },
     ]
 
     const [appstatic, setappstatic] = useApp(ctamain, ctamainstatic.ctamainid, ctamainstatic.ctamainindex, splitstaticthree)
@@ -167,13 +182,11 @@ export default function CtaMain({
         <main className="">
             <section className="flex flex-row items-center  gap-1">
                 {appstatic?.map((data, index) => (<>
-                {/* <Link to={data?.ctamainaction()} className="w-full"> */}
-                <button key={index} onClick={() => {
-                    navigate(data?.ctamainaction())
-                }} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>
+                <Link to={data?.ctamainaction()} className="w-full">
+                <button key={index} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>
                     {data?.ctamainentitle}
                 </button>
-                {/* </Link> */}
+                </Link>
                 </>))}
             </section>
         </main>

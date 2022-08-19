@@ -13,14 +13,12 @@ export default function GuieMain() {
             <CardMain children={undefined} />
             <CardMain children={undefined} />
             <section className="">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam, repellendus?
               {/* <BreadMain /> */}
-              <FeedMain feedmainstatic={{feedmainid:'guidearea', feedmainindex: 0}} />
             </section>
             <section className="">
-              {/* <TabMain tabmainstatic={{ tabmainid: 'messagefieldset', tabmainindex: null}}
+              <TabMain tabmainstatic={{ tabmainid: 'guidefieldset', tabmainindex: null}}
               tabmainref={undefined} 
-              tabmainstyle={undefined} /> */}
+              tabmainstyle={undefined} />
             </section>
         </main>
     </div>

@@ -37,8 +37,8 @@ export const Provider = ({
     const [ticketuserid, setticketuserid] = useState()
     const [awarduserid, setawarduserid] = useState()
     const [textuserid, settextuserid] = useState()
+    const [questuserid, setquestuserid] = useState()
     const [search, setsearch] = useState([])
-    const [userimage, setuserimage] = useState()
     // console.log('userimage', userimage)
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
@@ -70,6 +70,7 @@ export const Provider = ({
             selectTicketUserid(ref)
             selectAwardUserid(ref)
             selectTextUserid(ref)
+            selectQuestUserid(ref)
             // contextSelectUserimage(ref)
         } 
     }, [authstate, fieldmainstate])
@@ -121,10 +122,10 @@ export const Provider = ({
         if(data) {settextuserid(data)}
     }
 
-    // const contextSelectUserimage = async (first) => {
-    //     const { data, error } = await supabase.storage.from('image').download(`userimage/${first}`)
-    //     setuserimage(data)
-    // }
+    const selectQuestUserid = async (first) => {
+        const { data, error} = await supabase.from('quest').select(`*`).eq('userid', first)
+        if(data) {setquestuserid(data)}
+    }
 
     function contextRender(first, second, third) {
         if(authstate === null && authstate === undefined ) return null
@@ -133,7 +134,14 @@ export const Provider = ({
     }
 
     function contextRenderItem(second, result) {
-        if(textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0){
+        if(textuserid && textuserid.filter(data => data?.spreadidtwo === second).length === 0) {
+            return Object.assign({booltwo: true}, result)
+        } 
+        return Object.assign({booltwo: false}, result)
+    }
+
+    function contextRenderItemTwo(second, result) {
+        if(questuserid && questuserid.filter(data => data?.spreadidtwo === second).length === 0) {
             return Object.assign({booltwo: true}, result)
         } 
         return Object.assign({booltwo: false}, result)
@@ -158,6 +166,14 @@ export const Provider = ({
             return contextRenderItem(second, {navigation: navigation, bool: true} )
         }  
         return contextRenderItem(second, {navigation: navigation, bool: false} )
+    }
+
+
+    function contextRenderFive(first, second, navigation) {
+        if(first) {
+            return contextRenderItemTwo(second, {navigation: navigation, bool: true} )
+        }  
+        return contextRenderItemTwo(second, {navigation: navigation, bool: false} )
     }
 
     ////////////////////////////////////////////////
@@ -271,11 +287,21 @@ export const Provider = ({
         }
     ]
 
+    // console.log('aw', awarduserid && awarddl[0].spreaddata)
+
     const textdl =[
         {
             spreadid: 'my',
             spreadtitle: 'My texts',
             spreaddata: textuserid,
+        }
+    ]
+
+    const questdl =[
+        {
+            spreadid: 'my',
+            spreadtitle: 'My quests',
+            spreaddata: questuserid,
         }
     ]
 
@@ -291,9 +317,9 @@ export const Provider = ({
         {
             spreadid: 'user',
             spreadtitle: 'My user',
-            spreadicon: `🚀`,
+            spreadicon: `🪄`,
             spreaddata: () => {
-                if(!useruserid) return null
+                if(typeof useruserid === 'undefined') return null
                 const array = [];
                 for(const data of userul) {
                     array.push({
@@ -302,7 +328,7 @@ export const Provider = ({
                         spreaddetail: `${data.breadtitle}`,
                         spreadrender: () => {
                             const ref = useruserid[0][data.breadid] === null
-                            return contextRenderFour(ref, data.breadid, `/user/userform/` + useruserid[0]['userid'])
+                            return contextRenderFive(ref, data.breadid, `/user/userform/` + useruserid[0]['userid'])
                         }
                     })
                 }
@@ -317,7 +343,7 @@ export const Provider = ({
             spreadtitle: `Club's message`,
             spreadicon: `⚽️`,
             spreaddata: () => {
-                if(!taskuserid) return null
+                if(typeof taskuserid === 'undefined') return null
                 const array = [];
                 for(const data of clubul) {
                     array.push({
@@ -417,7 +443,7 @@ export const Provider = ({
             spreadtitle: `Task's message`,
             spreadicon: `❤️‍🔥`,
             spreaddata: () => {
-                if(!taskuserid) return null
+                if(typeof taskuserid === 'undefined') return null
                 const array = [];
                 for(const data of workoutul) {
                     array.push({
@@ -458,13 +484,13 @@ export const Provider = ({
 
     if(
         authstate !== null 
-        && authstate !== undefined 
-        && !user 
-        && !useruserid  
-        && !taskuserid 
-        && !task 
-        && !ticketuserid
-        && !awarduserid) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
+        && typeof authstate !== 'undefined' 
+        && typeof user === 'undefined'  
+        && typeof useruserid  === 'undefined'  
+        && typeof taskuserid === 'undefined'  
+        && typeof task === 'undefined'  
+        && typeof ticketuserid === 'undefined'  
+        && typeof awarduserid === 'undefined') return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>=== 'undefined'  
 
     // if (taskuserid === null && taskuserid=== undefined) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
@@ -498,10 +524,11 @@ export const Provider = ({
         favouritedl,
         achievementdl,
         awarddl,
-        textdl,
         searchdl,
-        guidedl,
         messagedl,
+        textdl,
+        guidedl,
+        questdl,
         
         }} >
         {children}

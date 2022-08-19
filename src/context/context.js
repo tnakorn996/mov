@@ -317,7 +317,7 @@ export const Provider = ({
         {
             spreadid: 'user',
             spreadtitle: 'My user',
-            spreadicon: `🪄`,
+            spreadicon: `🥊`,
             spreaddata: () => {
                 if(typeof useruserid === 'undefined') return null
                 const array = [];

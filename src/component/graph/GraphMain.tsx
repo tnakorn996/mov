@@ -25,7 +25,7 @@ export default function GraphMain({
             graphmainindex: 0,
             graphmainrender: () => {
                 return {
-                    data: (guidedl[0]?.spreaddata()),
+                    data: (guidedl[0]?.spreaddata())?.filter((data) => data?.spreadrender()?.booltwo === true),
                     action: {
                         appid:'backdropmain',
                         appidtwo: 'previewmain',

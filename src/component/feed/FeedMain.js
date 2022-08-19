@@ -246,6 +246,7 @@ export default function FeedMain({
                                 return (messagedl[0].spreaddata().concat(
                                     messagedl[1].spreaddata(), 
                                     messagedl[3].spreaddata(), 
+                                    // messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
                                     messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
                     }
                 },
@@ -255,6 +256,7 @@ export default function FeedMain({
                                 return  (messagedl[0].spreaddata().concat(
                                     messagedl[1].spreaddata(), 
                                     messagedl[3].spreaddata(), 
+                                    // messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
                                     messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
                     }
                 },
@@ -288,14 +290,14 @@ export default function FeedMain({
                 {
                     feedmaintitle: `All to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === false)
+                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === true)
                         // return (guidedl[0].spreaddata())
                     }
                 },
                 {
                     feedmaintitle: `Complete to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === false)
+                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === false)
                         // return (guidedl[0].spreaddata())
 
                     }

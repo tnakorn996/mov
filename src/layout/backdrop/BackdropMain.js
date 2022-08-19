@@ -56,9 +56,9 @@ const {
           <section className="z-50 w-screen h-screen fixed top-0 left-0  bg-slate-900 bg-opacity-40">
             {appstatic?.map((data, index) => (<>
                 <figure key={index} className="">
-                  <ScreenMain>
+                  {/* <ScreenMain> */}
                     {data?.backdropmainrender()}
-                  </ScreenMain>
+                  {/* </ScreenMain> */}
                 </figure>
               </>))}
           </section>

@@ -6,7 +6,7 @@ export default function ScreenMain({
 }) {
   return (
     <div>
-        <motion.main initial={{opacity: 0}} animate={{opacity: 1}} className="duration-[1ms]">
+        <motion.main initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
             <section className="">
                 {children}
             </section>

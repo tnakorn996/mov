@@ -104,22 +104,24 @@ export default function App() {
 
               <Route path='/award/awardindex/:awardid' element={<AwardIndex />} /> 
               <Route path='/award/awardform/:awardid' element={<AwardForm />} /> 
+{/* 
+              <Route path='/setting/settingmain' element={<GuideMain />} /> 
+              <Route path='/setting/settingindex/:id' element={<GuideIndex />} />  */}
 
               <Route path='/message/messagemain' element={<MessageMain />} /> 
               <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 
               <Route path='/message/messageform' element={<MessageForm />} /> 
+
+              <Route path='/guide/guidemain' element={<GuideMain />} /> 
+              <Route path='/guide/guideindex/:guideid' element={<GuideIndex />} /> 
+
+              <Route path='/weight/weightindex/:id' element={<SearchMain />} /> 
 
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
 
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
 
               <Route path='/search/searchmain' element={<SearchMain />} /> 
-
-              <Route path='/guide/guidemain' element={<GuideMain />} /> 
-              <Route path='/guide/guideindex/:id' element={<GuideIndex />} /> 
-
-              <Route path='/weight/weightindex/:id' element={<SearchMain />} /> 
-
 
             </Routes> 
             {/* </AnimatePresence> */}

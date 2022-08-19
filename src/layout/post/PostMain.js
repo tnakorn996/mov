@@ -545,9 +545,9 @@ export default function PostMain({
              <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map((data, index) => (<>
               <div key={index}>
-              <ScreenMain>
+              {/* <ScreenMain> */}
                   {data?.postmainrender()}
-              </ScreenMain>
+              {/* </ScreenMain> */}
               </div>
               </>))}
             </section>

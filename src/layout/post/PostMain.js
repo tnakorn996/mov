@@ -19,6 +19,7 @@ import AvaMain from '../ava/AvaMain.tsx'
 import DtaMain from '../../component/dta/DtaMain.tsx'
 import BadgeMain from '../badge/BadgeMain'
 import ChipMain from '../chip/ChipMain.tsx'
+import ThemeMainTwo from '../theme/ThemeMainTwo.tsx'
 
 export default function PostMain({
   postmainstatic,
@@ -59,7 +60,6 @@ export default function PostMain({
   
   const appaddress = [
     {
-      postmainindex: 0,
       postmainrender: () => {
         const ref = [postmaindata]
         return appAddressRender({
@@ -68,24 +68,7 @@ export default function PostMain({
       },
     },
      {
-      postmainindex: 1,
       postmainrender: () => {
-        //  const array = []
-        //   for(const data of appdl) {
-        //     if(data.spreaddata().length > 0){
-        //       data.spreaddata().forEach(dat => {
-        //         array.push({
-        //           spreadicon: data.spreadicon, ...dat
-        //         })
-        //       })
-        //     }
-        //   }
-        //   const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
-        //   return appAddressRenderTwo({
-        //     data: filter,
-        //     signmainstate: signmainstate,
-        //     navigate: () => {postMainAction()},
-        // })
           return appAddressRenderTwo({
             // data: filter,
             signmainstate: signmainstate,
@@ -93,6 +76,30 @@ export default function PostMain({
       },
     },
   ]
+
+   const settingaddress = [
+    {
+      postmainrender: () => {
+        const ref = [postmaindata]
+        return settingAddressRender({
+            data: ref
+          })
+      },
+    },
+  ]
+
+  // const themeaddress = [
+  //   {
+  //     postmainrender: () => {
+  //       const ref = 
+  //       return ref.map(data => (
+  //         themeAddressRender({
+  //             data: ref
+  //         })
+  //       )) 
+  //     },
+  //   },
+  // ]
 
   const useraddress = [
     {
@@ -143,7 +150,6 @@ export default function PostMain({
 
   const contractaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata]
         return ref.map(data => (
@@ -297,7 +303,6 @@ export default function PostMain({
 
   const achievementaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         // const ref = [postmaindata]
 
@@ -315,7 +320,6 @@ export default function PostMain({
       }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const ref = achievementul?.filter(data => data?.breadid === splitstaticthree)
         postMainActionTwo(ref)
@@ -328,7 +332,6 @@ export default function PostMain({
 
   const awardaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
         postMainActionTwo(ref)
@@ -342,7 +345,6 @@ export default function PostMain({
       }  
     },
     {
-    postmainindex: 1,
      postmainrender:() => {
         const filter = awarddl[0].spreaddata?.filter(data => data?.achievementid === splitstaticthree)
         const filtertwo = achievementul?.filter(data => data.breadid === splitstaticthree)
@@ -363,7 +365,6 @@ export default function PostMain({
 
   const articleaddress = [
     {
-    postmainindex: 1,
      postmainrender:() => {
         const filter = articleul?.filter(data => data.breadid === splitstaticthree)
         postMainActionTwo(filter)
@@ -381,7 +382,6 @@ export default function PostMain({
 
   const messageaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         // const ref = [postmaindata].filter(data => data.spreadrender().bool === true)
         const ref = [postmaindata]
@@ -397,7 +397,6 @@ export default function PostMain({
       }
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const array = []
         for(const data of messagedl) {
@@ -421,7 +420,6 @@ export default function PostMain({
 
   const guideaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         const ref = [postmaindata]
         postMainActionTwo(ref)
@@ -436,7 +434,6 @@ export default function PostMain({
       }  
     },
     {
-      postmainindex: 1,
       postmainrender:() => {
         const array = []
         for(const data of guidedl) {
@@ -459,7 +456,6 @@ export default function PostMain({
 
   const searchaddress = [
     {
-      postmainindex: 0,
       postmainrender:() => {
         // const ref = [postmaindata]
         return searchAddressRender()
@@ -473,6 +469,16 @@ export default function PostMain({
       postmainid: 'appaddress',
       postmainref: appaddress,
     },
+    {
+      postmainid: 'settingaddress',
+      postmainref: settingaddress,
+    },
+
+    // {
+    //   postmainid: 'themeaddress',
+    //   postmainref: themeaddress,
+    // },
+
 
     {
       postmainid: 'useraddress',
@@ -543,9 +549,11 @@ export default function PostMain({
         <main className="">
              <section className={postmainstyle && postmainstyle.section}>
               {appstatic?.map((data, index) => (<>
-                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
+                {/* <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75"> */}
+                <figure key={index}>
                   {data?.postmainrender()}
-                </motion.figure>
+                </figure>
+                {/* </motion.figure> */}
               </>))}
             </section>
         </main>
@@ -553,7 +561,7 @@ export default function PostMain({
   )
 }
 
-  export function appAddressRender({data, props}) {
+  export function appAddressRender({data}) {
     return (
       <div className="">
         <section className="">
@@ -575,6 +583,28 @@ export default function PostMain({
       </div>
     )
   }
+
+  export function settingAddressRender({data}) {
+    return (
+        appAddressRender({
+          data, 
+        })
+    )
+  }
+
+  export function themeAddressRender({data}) {
+    return (
+      <div className="">
+        <figcaption className="">
+          <p className="">{data?.breadtitle}</p>
+        </figcaption>
+        <figure className="">
+          <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'themeiframe'}} />
+        </figure>
+      </div>
+    )
+  }
+  
   
   export function appAddressRenderTwo({signmainstate}) {
     // console.log('data', data)
@@ -1010,15 +1040,15 @@ export default function PostMain({
           <CardMain>
             <ChipMain>
             {data?.achievementid ? (<>
-            <figure className="uppercase bg-emerald-100">
+            <figure className="uppercase bg-emerald-100 dark:bg-emerald-700">
             <CardMain>
-            <figure className="m-h3  text-emerald-700">CLAIMED</figure>
+            <figure className="m-h1  text-emerald-700 dark:text-emerald-100">CLAIMED</figure>
             </CardMain>
             </figure>
             </>) : (<>
-            <figure className="uppercase bg-slate-100">
+            <figure className="uppercase  bg-slate-100 dark:bg-slate-800">
             <CardMain>
-            <figure className="m-h3  text-slate-700">NOT CLAIMED</figure>
+            <figure className="m-h1  text-slate-800 dark:text-slate-100">NOT CLAIMED</figure>
             </CardMain>
             </figure>
             </>)}
@@ -1034,11 +1064,13 @@ export default function PostMain({
   export function achievementAddressRenderTwo({data}) {
     return (
     <div className="">
-        <figure className="flex flex-col h-[40vh] items-center justify-center  bg-slate-200">
+      <ThemeMainTwo>
+        <figure className="flex flex-col h-[40vh] items-center justify-center">
           <CardMain >
            <p className="text-8xl">{data?.breadicon}</p>
           </CardMain>
         </figure>
+      </ThemeMainTwo>
         <figcaption className="text-center">
           <CardMain >
           <CardMain>
@@ -1070,11 +1102,10 @@ export default function PostMain({
     )
   }
 
-
   export function messageAddressRender({data, navigate}) {
     return (
       <div>
-        <section className={data?.spreadrender()?.booltwo && `bg-slate-100`}>
+        <section className={data?.spreadrender()?.booltwo && `!bg-slate-100 dark:!bg-slate-700`}>
         <SheetMain>
           <article className="grid grid-cols-12">
             <section className="col-span-1">
@@ -1103,7 +1134,8 @@ export default function PostMain({
       <div className="">
         {data?.map((data, index) => (<>
         <div key={index}>
-        <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
+        <ThemeMainTwo>
+        <section className="max-h-[60vh] grid justify-items-center">
             <CardMain />
             <CardMain />
             <CardMain>
@@ -1113,6 +1145,7 @@ export default function PostMain({
             <CardMain />
             <CardMain />
         </section>
+        </ThemeMainTwo>
         <section className="text-center">
           <CardMain>
             <CardMain>

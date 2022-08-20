@@ -91,7 +91,7 @@ export default function ChoiceMain({
                 dtamaindata={{spreadhref: data?.choicemainhref}}
                 dtamainstatic={{dtamainid: 'weightiframe', dtamainindex: 0}} >
                     <input hidden ref={choicemainref} value={ choicemainstate } />
-                    <button className="w-[70px] flex justify-center  m-h5  l-button shadow-md border-slate-200" >
+                    <button className="w-[70px] flex justify-center  m-h5  l-button shadow-md" >
                         {choicemainstate}
                     </button>
                 </DtaMain>

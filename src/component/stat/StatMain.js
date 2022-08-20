@@ -295,9 +295,11 @@ export default function StatMain({
             <main className="">
                 <section className="">
                     {appstatic?.map((data, index) => (<>
-                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
+                    {/* <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75"> */}
+                    <figure key={index}>
                         {data?.statmainrender()}
-                </motion.figure>    
+                    </figure>    
+                    {/* </motion.figure> */}
                     </>))}
                 </section>
             </main>
@@ -330,7 +332,7 @@ export default function StatMain({
             <CardMain>
                 <ChipMain chipmainstyle={{section: `!rounded-full`}}>
                 <figure className="relative w-[150px] h-[150px] flex flex-col justify-center items-center  text-white bg-gray-400">
-                    <p className="text-8xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
+                    <p className="text-6xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
                     <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
                 </figure>
                 </ChipMain>

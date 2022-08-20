@@ -194,7 +194,8 @@ export default function TabMain({
             tabmaintitle: 'For You',
             tabmainrender: () => {
                 return tabMainRender({
-                    feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+                    // feedmainstatic:{feedmainid: 'messagearea', feedmainindex: 0}
+                    zoommainstatic:{zoommainid: 'messageform'}
                 })
             }
         },
@@ -315,7 +316,7 @@ export default function TabMain({
                     {tabmainrender?.map((data, index) => (<>
                         <article onClick={() => {
                             settabmainstate({tabmainindex: index})
-                        }} className={`l-h4 border-b-[2.5px]  rounded-sm border-white duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-slate-700 text-black font-medium'}`}>
+                        }} className={`l-h4 border-b-[2.5px]  rounded-sm border-white dark:border-slate-800 duration-1000 ${data?.tabmainindex === tabmainstate?.tabmainindex && 'border-slate-700 dark:border-white text-black dark:text-white font-medium'}`}>
                             <CardMain>
                                 <div className="flex flex-row gap-2">
                                 {data.tabmaintitle}
@@ -337,8 +338,7 @@ export default function TabMain({
                     </>))}
                 </figcaption>
             </section>
-            <hr />
-            <section className="no-scrollbar">
+            <section className="no-scrollbar border-t dark:border-t-slate-700">
                 {/* <figure ref={ref} onTouchStart={p => ll(p)} onTouchMove={p => kk(p)} onTouchEnd={() => jj()} className={`w-screen md:w-full min-h-screen grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}> */}
                 <figure ref={ref} className={`w-screen md:w-full grid grid-flow-col justify-start  overflow-x-scroll overflow-y-clip no-scrollbar snap-x snap-mandatory scroll-smooth duration-100 ${tabmainstyle && tabmainstyle}`}>
                 {appstatic && appstatic.map((data, index) => (<>

@@ -42,14 +42,12 @@ export const Provider = ({
     // console.log('userimage', userimage)
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
-    const parsefavourite = JSON.parse(window.localStorage.getItem("mov.favouriteiframe"));
+    const parsetheme = JSON.parse(window.localStorage.getItem("mov.themeiframe"));
     if(!parseworkout) {window.localStorage.setItem("mov.workoutiframe", JSON.stringify([]))}
     if(!parseclub) {window.localStorage.setItem("mov.clubiframe", JSON.stringify([]))}
-    if(!parsefavourite) {window.localStorage.setItem("mov.favouriteiframe", JSON.stringify([]))}
+    if(!parsetheme) {window.localStorage.setItem("mov.themeiframe", JSON.stringify([]))}
     
-    useEffect(() => {
-        navigate(`/auth/authmain`)
-    }, [])
+    useEffect(() => {navigate(`/auth/authmain`)}, [])
 
     useEffect(() => {
         setauthstate(supabase.auth.session())
@@ -194,6 +192,14 @@ export const Provider = ({
             spreadid: 'else',
             spreadtitle: 'Anyone else',
             spreaddata: user && contextRender(user, 'userid', authstate?.user?.id)
+        },
+    ]
+
+    const themedl = [
+        {
+            spreadid: 'my',
+            spreadtitle: 'My theme',
+            spreaddata: parsetheme && parsetheme,
         },
     ]
 
@@ -492,6 +498,8 @@ export const Provider = ({
         && typeof ticketuserid === 'undefined'  
         && typeof awarduserid === 'undefined') return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>=== 'undefined'  
 
+    // if(typeof authstate === 'undefined' || authstate === null) return navigate(`/auth/authmain`)
+
     // if (taskuserid === null && taskuserid=== undefined) return <div className="w-screen h-screen flex justify-center items-center"><SplashMain splashmainstyle={`text-6xl`} /></div>
 
     ////////////////////////////////////////////////
@@ -516,6 +524,7 @@ export const Provider = ({
         // V whts this
         useruserid, 
         userdl,
+        themedl,
         contractdl,
         workoutdl,
         taskdl,

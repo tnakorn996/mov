@@ -7,6 +7,7 @@ import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import CardMain from '../../layout/card/CardMain'
+import ThemeMain from '../../layout/theme/ThemeMain.tsx'
 import CtaMain from '../cta/CtaMain'
 import FieldMain from '../field/FieldMain'
 
@@ -183,12 +184,13 @@ export function appTbodyRender({props, data}) {
   return (
     <div>
       <div className="p-[10px]">
-      <section className="w-full rounded-full bg-white border shadow-xl">
+      <section className="w-full  rounded-full border dark:border-slate-600 shadow-xl overflow-hidden">
+      <ThemeMain>
         <CardMain>
               <figure className="grid grid-cols-3 text-center items-center  ">
                 {data?.slice(3, 6)?.map((data, index) => (<>
                 <Link to={data?.breadaction}>
-                  <div className={`m-h5 p-[10px] flex flex-col items-center  rounded-3xl duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-100` : ``} `}>
+                  <div className={`m-h5 p-[10px] flex flex-col items-center  rounded-3xl duration-500 ${data?.breadid?.includes(splitstatic) ? `!bg-slate-100 dark:!bg-slate-700` : ``} `}>
                     {data.breadicon}
                     <p className="m-h2">{data.breadtitle}</p>
                   </div>
@@ -196,6 +198,7 @@ export function appTbodyRender({props, data}) {
                 </>))}
               </figure>
         </CardMain>
+      </ThemeMain>
           </section>
       </div>
     </div>

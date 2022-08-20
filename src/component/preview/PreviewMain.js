@@ -13,6 +13,7 @@ import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
 import CardMain from '../../layout/card/CardMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
+import ThemeMain from '../../layout/theme/ThemeMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
 import UserIndex from '../../page/user/UserIndex'
 import GuideIndex from '../../page/guide/GuideIndex.tsx'
@@ -162,11 +163,12 @@ if(typeof appstate === 'undefined') return null
   export function appArticleRender({component, navigate}) {
     return (
       <div>
-        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-y-scroll duration-100">
+        <motion.section initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="w-screen max-h-[85vh] fixed bottom-0 left-0  rounded-t-3xl overflow-y-scroll duration-100">
+        <ThemeMain>
           <div onClick={() => {navigate()}} className="z-30 absolute top-0 right-0">
           <CardMain>
           <ChipMain>
-            <figure className=" bg-white">
+            <figure className="">
             <CardMain>
             <RiCloseLine className="text-2xl" />
             </CardMain>
@@ -175,6 +177,7 @@ if(typeof appstate === 'undefined') return null
           </CardMain>
           </div>
           {component}
+        </ThemeMain>
         </motion.section>
       </div>
     )

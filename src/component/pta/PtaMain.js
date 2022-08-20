@@ -20,15 +20,13 @@ export default function PtaMain({
 
     const workoutiframe = [
         {
-            ptamainindex: 0,
-            ptamainaction: ll,
+            ptamainaction: ptaMainAction,
             ptamainrender: <section className="">
                 <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
             </section>,
         },
         {
-            ptamainindex: 1,
-            ptamainaction: kk,
+            ptamainaction: ptaMainActionTwo,
             ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
                 <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
             </motion.section>,
@@ -37,18 +35,31 @@ export default function PtaMain({
 
     const clubiframe = [
         {
-            ptamainindex: 0,
-            ptamainaction: ll,
-            ptamainrender: <section className="">
+            ptamainaction: ptaMainAction,
+            ptamainrender: <div className="">
                 <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
-            </section>,
+            </div>,
         },
         {
-            ptamainindex: 1,
-            ptamainaction: kk,
-            ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
+            ptamainaction: ptaMainActionTwo,
+            ptamainrender: <motion.div initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
                 <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
-            </motion.section>,
+            </motion.div>,
+        },
+    ]
+
+    const themeiframe = [
+        {
+            ptamainaction: ptaMainAction,
+            ptamainrender: <div className="">
+                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
+            </div>,
+        },
+        {
+            ptamainaction: ptaMainActionTwo,
+            ptamainrender: <motion.div initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
+                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
+            </motion.div>,
         },
     ]
 
@@ -65,25 +76,32 @@ export default function PtaMain({
             ptamainref: clubiframe,
             ptamaindata: (JSON.parse(window.localStorage.getItem("mov.clubiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
         },
+        {
+            ptamainid: 'themeiframe',
+            ptamainidtwo: 'mov.themeiframe',
+            ptamainref: themeiframe,
+            ptamaindata: (JSON.parse(window.localStorage.getItem("mov.themeiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
+        },
     ]
 
     useEffect(() => {
       if(ptamainstatic){
         const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
         const ref = Object.assign(...filter).ptamaindata
+        const reftwo = Object.assign(...filter).ptamainref
             if(ref && ref.length !== 0){
-                const filtertwo = Object.assign(...filter).ptamainref.filter(data => data.ptamainindex === 1)
+                const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 1)
                 setptamainrender(filtertwo)
             }
             if(ref && ref.length === 0){
-                const filtertwo = Object.assign(...filter).ptamainref.filter(data => data.ptamainindex === 0)
+                const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 0)
                 setptamainrender(filtertwo)
             } 
       }
     }, [ptamainstatic, ptamainstate])
 
-    function ll() {
-        const name = `mov.` + ptamainstatic.ptamainid
+    function ptaMainAction() {
+        const name = `mov.${ptamainstatic.ptamainid}`
         const parse = JSON.parse(window.localStorage.getItem(name));
             const ref = parse || []
             ref.push(ptamaindata)
@@ -91,8 +109,8 @@ export default function PtaMain({
             setptamainstate(!ptamainstate)
     }
 
-    function kk() {
-        const name = `mov.` + ptamainstatic.ptamainid
+    function ptaMainActionTwo() {
+        const name = `mov.${ptamainstatic.ptamainid}`
         const parse = JSON.parse(window.localStorage.getItem(name)).filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
             const ref = parse || []
             window.localStorage.setItem(name, JSON.stringify(ref))

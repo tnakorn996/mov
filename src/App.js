@@ -41,6 +41,9 @@ import SearchMain from './page/search/SearchMain.tsx';
 import AppIndex from './page/app/AppIndex.tsx';
 import GuideMain from './page/guide/GuideMain.tsx';
 import GuideIndex from './page/guide/GuideIndex.tsx';
+import SettingMain from './page/setting/SettingMain.tsx';
+import SettingIndex from './page/setting/SettingIndex.tsx';
+import ThemeForm from './page/setting/theme/ThemeForm.tsx';
 
 export default function App() {
   const {
@@ -104,16 +107,6 @@ export default function App() {
 
               <Route path='/award/awardindex/:awardid' element={<AwardIndex />} /> 
               <Route path='/award/awardform/:awardid' element={<AwardForm />} /> 
-{/* 
-              <Route path='/setting/settingmain' element={<GuideMain />} /> 
-              <Route path='/setting/settingindex/:id' element={<GuideIndex />} />  */}
-
-              <Route path='/message/messagemain' element={<MessageMain />} /> 
-              <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 
-              <Route path='/message/messageform' element={<MessageForm />} /> 
-
-              <Route path='/guide/guidemain' element={<GuideMain />} /> 
-              <Route path='/guide/guideindex/:guideid' element={<GuideIndex />} /> 
 
               <Route path='/weight/weightindex/:id' element={<SearchMain />} /> 
 
@@ -122,6 +115,20 @@ export default function App() {
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
 
               <Route path='/search/searchmain' element={<SearchMain />} /> 
+
+              <Route path='/setting/settingmain' element={<SettingMain />} /> 
+              <Route path='/setting/settingindex/:id' element={<SettingIndex />} /> 
+
+              <Route path='/theme/themeform' element={<ThemeForm />} /> 
+
+              <Route path='/message/messagemain' element={<MessageMain />} /> 
+              <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 
+              {/* <Route path='/message/messageform' element={<MessageForm />} />  */}
+
+              <Route path='/guide/guidemain' element={<GuideMain />} /> 
+              <Route path='/guide/guideindex/:guideid' element={<GuideIndex />} /> 
+
+              
 
             </Routes> 
             {/* </AnimatePresence> */}

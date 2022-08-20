@@ -45,7 +45,7 @@ export default function StaMain({
         },
         {
             stamainrender: () => {
-                return <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                return <FieldMain fieldmainstatic={{fieldmainid: 'contractinput', fieldmainindex: 1}} fieldmainstyle={{button: `!l-button`}} />
             }
         },
     ]
@@ -53,12 +53,12 @@ export default function StaMain({
     const messageiframe = [
         {
             stamainrender: () => {
-                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 0}} fieldmainstyle={{button: `!l-button`}} />
             }
         },
         {
             stamainrender: () => {
-                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                return <FieldMain fieldmainstatic={{fieldmainid: 'textinput', fieldmainindex: 1}} fieldmainstyle={{button: `!l-button`}} />
             }
         },
     ]
@@ -66,12 +66,12 @@ export default function StaMain({
     const guideiframe = [
         {
             stamainrender: () => {
-                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 0}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 0}} fieldmainstyle={{button: `!l-button`}} />
             }
         },
         {
             stamainrender: () => {
-                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 1}} fieldmainstyle={{button: `!bg-white l-button`}} />
+                return <FieldMain fieldmainstatic={{fieldmainid: 'questinput', fieldmainindex: 1}} fieldmainstyle={{button: `!l-button`}} />
             }
         },
     ]

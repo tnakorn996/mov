@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { RiSearchLine } from 'react-icons/ri'
-import { workoutul } from '../../content/content'
+import { settingul, workoutul } from '../../content/content'
 
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
@@ -22,14 +22,36 @@ export default function ZoomMain({
         clubdl,
         ticketdl,
         searchdl,
+        messagedl,
         
     } = useContext(Context)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
-    const EMPTY = ''
+
+    const settingform = [
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    zoommainrender: () => {
+                        return settingul
+                    },
+                },
+            ]
+        },
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    zoommainrender: () => {
+                        return settingul.filter(data => data.breadid?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                    } 
+                },
+            ]
+        },
+    ]
 
     const workoutform = [
         {
-            zoommainindex: 0,
             zoommaindata: [
                 {
                     zoommainrender: () => {
@@ -39,7 +61,6 @@ export default function ZoomMain({
             ]
         },
         {
-            zoommainindex: 1,
             zoommaindata: [
                 {
                     zoommaintitle: 'All workout',
@@ -54,7 +75,6 @@ export default function ZoomMain({
 
     const clubform = [
         {
-            zoommainindex: 0,
             zoommaindata: [
                 {
                     zoommainrender: () => {
@@ -64,7 +84,6 @@ export default function ZoomMain({
             ]
         },
         {
-            zoommainindex: 1,
             zoommaindata: [
                 {
                     zoommaintitle: 'All club',
@@ -76,9 +95,8 @@ export default function ZoomMain({
         },
     ]
 
-        const searchform = [
+    const searchform = [
         {
-            zoommainindex: 0,
             zoommaindata: [
                 {
                     zoommaintitle: null,
@@ -90,7 +108,6 @@ export default function ZoomMain({
             ]
         },
         {
-            zoommainindex: 1,
             zoommaindata: [
                 {
                     zoommaintitle: null,
@@ -103,7 +120,49 @@ export default function ZoomMain({
         },
     ]
 
+
+    const messageform = [
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: `New message`,
+                    zoommainrender: () => {
+                        const filter = messageFormAction()?.filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
+                        return filter
+                    },
+                },
+                {
+                    zoommaintitle: `Other messages`,
+                    zoommainrender: () => {
+                        const filter = messageFormAction()?.filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
+                        return filter
+                    } 
+                },
+            ]
+        },
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: `Search results`,
+                    zoommainrender: () => {
+                        const filter = messageFormAction()?.filter(data => (data.spreadrender().booltwo === true && data.spreadrender().bool === true)
+                        || (data.spreadrender().booltwo === false && data.spreadrender().bool === true))
+                        const filtertwo=  filter?.filter(data => data.spreadidtwo?.toLowerCase().includes(zoommainvalue) || data.spreaddetail?.toLowerCase().includes(zoommainvalue))
+                        return filtertwo
+                    } 
+                },
+            ]
+        },
+    ]
+
+    
+
+
     const zoommain = [
+        {
+            zoommainid: 'settingform',
+            zoommainref: settingform,
+        },
         {
             zoommainid: 'workoutform',
             zoommainref: workoutform,
@@ -116,15 +175,29 @@ export default function ZoomMain({
             zoommainid: 'searchform',
             zoommainref: searchform,
         },
+        {
+            zoommainid: 'messageform',
+            zoommainref: messageform,
+        }
     ]
 
     useEffect(() => {
-        if(typeof zoommainvalue === 'undefined'){setzoommainindex(0)}
-        if(typeof zoommainvalue !== 'undefined'){setzoommainindex(1)}
+        if(zoommainvalue === ''){setzoommainindex(0)}
+        if(zoommainvalue !== ''){setzoommainindex(1)}
     }, [zoommainvalue])
 
-    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree)
 
+    function messageFormAction() {
+        const concat = messagedl[0].spreaddata().concat(
+            messagedl[1].spreaddata(), 
+            messagedl[3].spreaddata(), 
+            messagedl[4].spreaddata())
+        if(!Array.isArray(concat)) return null
+        return concat
+    }
+
+    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree)
+// console.log('appstatic', appstatic)
     // if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
     
   return (
@@ -142,31 +215,34 @@ export default function ZoomMain({
                 </div>
                 </CardMain>
             </section>
+
             {appstatic?.map((data, index) => (<>
             <section key={index}className="">
-                    {data?.zoommaindata?.map((dat, inde) => (<>
-                    <div key={inde}>
-                    <figcaption className="">
-                        <CardMain>
-                        <h1 className="m-h5">{dat?.zoommaintitle}</h1>
-                        </CardMain>
-                    </figcaption>
-                    <figure className="">
-                        {dat?.zoommainrender()?.map(post => (<>
-                            {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
-                            {zoommainstatic.zoommainid === 'searchform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 2}} />}
-                            {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
-                            {zoommainstatic.zoommainid === 'clubform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
-                            {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
-                        </>))}
-                    </figure>
+                {data?.zoommaindata?.map((dat, i) => (<>
+                    <div key={i}>
+                        <figcaption className="">
+                            <CardMain>
+                            <h1 className="m-h5">{dat?.zoommaintitle}</h1>
+                            </CardMain>
+                        </figcaption>
+                        <figure className="">
+                            {dat?.zoommainrender()?.map((post, d) => (<>
+                                <div key={d}>
+                                {zoommainstatic.zoommainid === 'settingform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'settingaddress', postmainindex: 0}} />}
+                                {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
+                                {zoommainstatic.zoommainid === 'searchform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 2}} />}
+                                {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
+                                {zoommainstatic.zoommainid === 'clubform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
+                                {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
+                                {zoommainstatic.zoommainid === 'messageform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
+                                </div>
+                            </>))}
+                        </figure>
                     </div>
-                    </>))}
+                </>))}
             </section>
             </>))}
-            {/* <section className="">
-                <PostMain postmainstatic={{postmainid: 'searchaddress', postmainindex: 0}} />
-            </section> */}
+
         </main>
     </div>
   )

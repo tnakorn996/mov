@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import React, { useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import StatMain from '../../component/stat/StatMain'
+import ThemeMain from '../theme/ThemeMain.tsx'
 import '../modal/index.css'
 
 import { Context } from '../../context/context'
@@ -124,26 +125,24 @@ if(typeof appstate === 'undefined') return null
 
   return (
     <div>
-        <main className="w-full fixed bottom-0 left-0  bg-white rounded-t-3xl overflow-hidden duration-100">
+        <main className="w-full fixed bottom-0 left-0  rounded-t-3xl overflow-hidden duration-100">
+        <ThemeMain>
             <section className="">
-              {/* <CardMain> */}
               <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
                 {appstatic?.map((data, index) => (<>
-                <div key={index}>
+                {/* <div key={index}> */}
                   {data?.modalmainrender()}
-                </div>
+                {/* </div> */}
                 </>))}
               </motion.figcaption>
-              {/* </CardMain> */}
               </section>
-              <hr />
               <section className="flex justify-center">
                 <div onClick={() => {
                   setappstate()
                   window.history.replaceState(null, "", location?.pathname)}} className="">
                   <CardMain>
                   <ChipMain>
-                    <figure className=" bg-white">
+                    <figure className="">
                     <CardMain>
                     <RiCloseLine className="text-2xl" />
                     </CardMain>
@@ -152,6 +151,7 @@ if(typeof appstate === 'undefined') return null
                   </CardMain>
                 </div>
             </section>
+        </ThemeMain>
         </main>
     </div>
   )

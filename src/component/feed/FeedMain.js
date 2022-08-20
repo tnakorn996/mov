@@ -40,7 +40,6 @@ export default function FeedMain({
 
     const apparea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -55,7 +54,6 @@ export default function FeedMain({
 
     const contractarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -67,7 +65,6 @@ export default function FeedMain({
             ],
         },
         {
-            feedmainindex: 1,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -87,7 +84,6 @@ export default function FeedMain({
             ],
         },
         {
-            feedmainindex: 2,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -103,7 +99,6 @@ export default function FeedMain({
 
     const workoutarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -118,7 +113,6 @@ export default function FeedMain({
 
     const taskarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 3,
             feedmaindata: [
                 {
@@ -133,7 +127,6 @@ export default function FeedMain({
     
     const clubarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -148,7 +141,6 @@ export default function FeedMain({
     
     const ticketarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 3,
             feedmaindata: [
                 {
@@ -163,7 +155,6 @@ export default function FeedMain({
 
      const favouritearea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -175,7 +166,6 @@ export default function FeedMain({
             ],
         },
         {
-            feedmainindex: 1,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -190,16 +180,15 @@ export default function FeedMain({
 
      const achievementarea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
-                {
-                    feedmaintitle: 'Ranks',
-                    feedmainrender: () => {
-                        return achievementdl[0].spreaddata
-                        // return messagedl[1].spreaddata(), 
-                    }
-                },
+                // {
+                //     feedmaintitle: 'Ranks',
+                //     feedmainrender: () => {
+                //         return achievementdl[0].spreaddata
+                //         // return messagedl[1].spreaddata(), 
+                //     }
+                // },
                  {
                     feedmaintitle: 'Workouts',
                     feedmainrender: () => {
@@ -222,7 +211,6 @@ export default function FeedMain({
             ],
         },
         {
-            feedmainindex: 1,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -235,56 +223,8 @@ export default function FeedMain({
         },
     ]
 
-    const messagearea = [
-        {
-            feedmainindex: 0,
-            feedmainslice: 10,
-            feedmaindata: [
-                {
-                    feedmaintitle: 'New message',
-                    feedmainrender: () => {
-                                return (messagedl[0].spreaddata().concat(
-                                    messagedl[1].spreaddata(), 
-                                    messagedl[3].spreaddata(), 
-                                    // messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
-                                    messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
-                    }
-                },
-                {
-                    feedmaintitle: 'Other messages',
-                    feedmainrender: () => {
-                                return  (messagedl[0].spreaddata().concat(
-                                    messagedl[1].spreaddata(), 
-                                    messagedl[3].spreaddata(), 
-                                    // messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
-                                    messagedl[4].spreaddata())).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
-                    }
-                },
-            ],
-        },
-         {
-            feedmainindex: 1,
-            feedmainslice: 10,
-            feedmaindata: [
-                {
-                    feedmaintitle: 'New annoucement',
-                    feedmainrender: () => {
-                        return  (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
-                    }
-                },
-                {
-                    feedmaintitle: 'Other annoucement',
-                    feedmainrender: () => {
-                        return (messagedl[2].spreaddata()).filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
-                    }
-                },
-            ],
-        },
-    ]
-
     const guidearea = [
         {
-            feedmainindex: 0,
             feedmainslice: 10,
             feedmaindata: [
                 {
@@ -342,18 +282,16 @@ export default function FeedMain({
             feedmainref: achievementarea,
         },
         {
-            feedmainid: 'messagearea',
-            feedmainref: messagearea,
-        },
-        {
             feedmainid: 'guidearea',
             feedmainref: guidearea,
         },
+
 
     ]
 
     const [appstatic, setappstatic] = useApp(feedmain, feedmainstatic.feedmainid, feedmainstatic.feedmainindex, fieldmainstate, messagedl)
 
+    // if(Array.isArray(appstatic) && )
   return (
     <div>
         <main className="">
@@ -367,24 +305,19 @@ export default function FeedMain({
             </section>}
             {appstatic?.map((data, index) => (<>
             <section key={index} className="">
-                    {data?.feedmaindata?.map((dat, index) => (<>
-                        {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && (<>
-                        {dat?.feedmaintitle !== null && (<>
-                        <div key={index} className="flex flex-row items-center justify-between">
-                            <CardMain>
-                            <h1 className="m-h5">{dat?.feedmaintitle}</h1>
-                            </CardMain>
-                            {/* {feedmainstatic.feedmainid === 'workoutarea' && 
-                            <CardMain>
-                                <button onClick={() => setfeedmainstate(!postmainstate)} className="l-button"><RiGridFill /></button>
-                                <button onClick={() => setfeedmainstate(!postmainstate)} className="l-button"><RiLayoutGridFill /></button>
-                            </CardMain>
-                            } */}
-                        </div>
+                    {data?.feedmaindata?.map((dat, i) => (<>
+                        <article key={i}>
 
+                        {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmaintitle !== null && (<>
+                        <div className="flex flex-row items-center justify-between">
+                        <CardMain>
+                        <h1 className="m-h5">{dat?.feedmaintitle}</h1>
+                        </CardMain>
+                        </div>
                         </>)}
-                        <figure className="">
-                            {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmainrender()?.map(post => (<>
+
+                            {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmainrender()?.map((post, x) => (<>
+                            <div key={x}>
                                 {(feedmainstatic.feedmainid === 'apparea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'appaddress', postmainindex: 0}} />}
 
                                 {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 2}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
@@ -412,11 +345,10 @@ export default function FeedMain({
 
                                 {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
                                 {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
-
+                            </div>
                             </>))}
-                        </figure>
-                        </>)}
 
+                        </article>
                     </>))}
             </section>
         </>))}

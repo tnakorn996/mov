@@ -9,7 +9,7 @@ export default function AvaMain({
     <div>
         <main className="">
             <section className="">
-            <figure className={`rounded-full  bg-slate-100 ${avamainstyle?.figure}`}>
+            <figure className={`rounded-full  bg-slate-100 dark:bg-slate-700 ${avamainstyle?.figure}`}>
                 {children}
             </figure>
             </section>

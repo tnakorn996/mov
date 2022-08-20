@@ -1,4 +1,4 @@
-import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiStarSmileFill, RiStarSmileLine, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
+import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiSettingsLine, RiStarSmileFill, RiStarSmileLine, RiSunCloudyLine, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
 
 // export function contentAction(min = 5, max = 360, unit = 'rep', fullunit = 'reps') {
 export function contentAction(min, max, unit, fullunit) {
@@ -73,6 +73,22 @@ export const appul = [
         breadtitle: 'Messages',
         breadicon: <RiInboxLine  />,
     },
+    {
+        breadid: 'settingmain',
+        breadaction: `/setting/settingmain`,
+        breadtitle: 'Settings',
+        breadicon: <RiSettingsLine />,
+    },
+]
+
+
+export const settingul = [
+    {
+        breadid: 'themeform',
+        breadaction: `/theme/themeform`,
+        breadtitle: 'Theme',
+        breadicon: <RiSunCloudyLine />,
+    },
 ]
 
 export const userul = [
@@ -96,6 +112,14 @@ export const userul = [
     },
 ]
 
+export const themeul = [
+    {
+        breadid: 'themeid',
+        breadaction: `/theme/themeform`,
+        breadtitle: 'Pick a theme',
+        breadsubtitle: 'aaaaaa',
+    },
+]
 
 export const workoutul = [
     {

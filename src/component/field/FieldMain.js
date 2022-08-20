@@ -730,7 +730,6 @@ export default function FieldMain({
               <figure className="">
                 {data?.fieldmaintitle !== null && <div className="">
                   <h1 className="m-h5 pb-[20px] first-letter:uppercase">{data?.fieldmaintitle}</h1>
-                  <hr />
                   <br />
                 </div> }
               </figure>

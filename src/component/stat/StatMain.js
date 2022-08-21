@@ -294,13 +294,9 @@ export default function StatMain({
         <div>
             <main className="">
                 <section className="">
-                    {appstatic?.map((data, index) => (<>
-                    {/* <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75"> */}
-                    <figure key={index}>
-                        {data?.statmainrender()}
-                    </figure>    
-                    {/* </motion.figure> */}
-                    </>))}
+                    {appstatic?.map((data) => (
+                        data?.statmainrender()
+                    ))}
                 </section>
             </main>
         </div>

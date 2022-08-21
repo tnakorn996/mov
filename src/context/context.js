@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { achievementul, appul, articleul, clubul, userul, workoutul } from '../content/content'
+import { achievementul, appul, articleul, clubul, themeul, userul, workoutul } from '../content/content'
 import {supabase} from '../lib/supabase'
 import SplashMain from '../layout/splash/SplashMain'
 
@@ -21,6 +21,7 @@ export const Provider = ({
     const [feedmainstate, setfeedmainstate] = useState({feedmainindex: 0})
     const [postmainstate, setpostmainstate] = useState(true)
     const [ptamainstate, setptamainstate] = useState(true)
+    const [ttamainstate, setttamainstate] = useState(true)
     const [signmainstate, setsignmainstate] = useState()
     const [choicemainstate, setchoicemainstate] = useState()
     const [dtamainstate, setdtamainstate] = useState(true)
@@ -42,10 +43,10 @@ export const Provider = ({
     // console.log('userimage', userimage)
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
-    const parsetheme = JSON.parse(window.localStorage.getItem("mov.themeiframe"));
+    const parsetheme = JSON.parse(window.localStorage.getItem("mov.themetframe"));
     if(!parseworkout) {window.localStorage.setItem("mov.workoutiframe", JSON.stringify([]))}
     if(!parseclub) {window.localStorage.setItem("mov.clubiframe", JSON.stringify([]))}
-    if(!parsetheme) {window.localStorage.setItem("mov.themeiframe", JSON.stringify([]))}
+    if(!parsetheme) {window.localStorage.setItem("mov.themetframe", JSON.stringify([{themeid: undefined}]))}
     
     useEffect(() => {navigate(`/auth/authmain`)}, [])
 
@@ -173,6 +174,15 @@ export const Provider = ({
         }  
         return contextRenderItemTwo(second, {navigation: navigation, bool: false} )
     }
+
+    // function contextRenderSix(first, second, third) {
+    //   if(typeof first === 'undefined') return null
+    //     const array = [];
+    //     for(const data of second) {
+    //         array.push(third)
+    //     }
+    //     return array
+    // }
 
     ////////////////////////////////////////////////
 
@@ -341,7 +351,31 @@ export const Provider = ({
                 return array
             }
         },
+        {
+            spreadid: 'theme',
+            spreadtitle: 'My theme',
+            spreadicon: `🌙`,
+            spreaddata: () => {
+                if(typeof parsetheme === 'undefined') return null
+                const array = [];
+                for(const data of themeul) {
+                    array.push({
+                        spreadidtwo: data.breadid,
+                        spreadhref: `/guide/guideindex/` + data.breadid,
+                        spreaddetail: `Activate your ${data.breadtitle}`,
+                        spreadrender: () => {
+                            const ref = typeof parsetheme[0][data.breadid] === 'undefined'
+                            // console.log('ref', ref)
+                            return contextRenderFive(ref, data.breadid, `/theme/themeform/`)
+                        }
+                    })
+                }
+                return array
+            }
+        },
     ]
+
+    // console.log('if(typeof parsetheme ', typeof parsetheme[0][`themeid`] === 'undefined')
 
     const messagedl =[
         {
@@ -513,6 +547,7 @@ export const Provider = ({
         feedmainstate, setfeedmainstate,
         postmainstate, setpostmainstate,
         ptamainstate, setptamainstate,
+        ttamainstate, setttamainstate,
         signmainstate, setsignmainstate,
         choicemainstate, setchoicemainstate,
         dtamainstate, setdtamainstate,

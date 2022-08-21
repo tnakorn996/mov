@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { RiCheckboxCircleLine, RiFireLine, RiMailOpenLine, RiMoreLine, RiTimer2Line } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 
-import { achievementul, appul, articleul, clubul, workoutul } from '../../content/content'
+import { achievementul, appul, articleul, clubul, themeul, workoutul } from '../../content/content'
 import { Context } from '../../context/context'
 import MessageForm from '../../page/message/MessageForm.tsx'
 import CtaMain from '../../component/cta/CtaMain'
@@ -20,6 +20,7 @@ import DtaMain from '../../component/dta/DtaMain.tsx'
 import BadgeMain from '../badge/BadgeMain'
 import ChipMain from '../chip/ChipMain.tsx'
 import ThemeMainTwo from '../theme/ThemeMainTwo.tsx'
+import TtaMain from '../../component/tta/TtaMain.tsx'
 
 export default function PostMain({
   postmainstatic,
@@ -88,18 +89,20 @@ export default function PostMain({
     },
   ]
 
-  // const themeaddress = [
-  //   {
-  //     postmainrender: () => {
-  //       const ref = 
-  //       return ref.map(data => (
-  //         themeAddressRender({
-  //             data: ref
-  //         })
-  //       )) 
-  //     },
-  //   },
-  // ]
+  const themeaddress = [
+    {
+      postmainrender: () => {
+        return themeul.map(data => (
+          themeAddressRender({
+            data: data,
+            component: <TtaMain 
+              ttamainstatic={{ttamainid: 'themetframe'}} 
+              />
+          })
+        )) 
+      },
+    },
+  ]
 
   const useraddress = [
     {
@@ -474,10 +477,10 @@ export default function PostMain({
       postmainref: settingaddress,
     },
 
-    // {
-    //   postmainid: 'themeaddress',
-    //   postmainref: themeaddress,
-    // },
+    {
+      postmainid: 'themeaddress',
+      postmainref: themeaddress,
+    },
 
 
     {
@@ -548,13 +551,9 @@ export default function PostMain({
     <div>
         <main className="">
              <section className={postmainstyle && postmainstyle.section}>
-              {appstatic?.map((data, index) => (<>
-                {/* <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75"> */}
-                <figure key={index}>
-                  {data?.postmainrender()}
-                </figure>
-                {/* </motion.figure> */}
-              </>))}
+              {appstatic?.map((data) => (
+                  data?.postmainrender()
+              ))}
             </section>
         </main>
     </div>
@@ -592,15 +591,19 @@ export default function PostMain({
     )
   }
 
-  export function themeAddressRender({data}) {
+  export function themeAddressRender({data, component}) {
     return (
       <div className="">
-        <figcaption className="">
-          <p className="">{data?.breadtitle}</p>
-        </figcaption>
-        <figure className="">
-          <PtaMain ptamaindata={data} ptamainstatic={{ptamainid: 'themeiframe'}} />
-        </figure>
+        <SheetMain>
+          <article className="flex flex-row w-full justify-between items-center">
+          <figcaption className="">
+            <p className="l-h4">{data?.breadtitle}</p>
+          </figcaption>
+          <figure className="">
+            {component}
+          </figure>
+          </article>
+        </SheetMain>
       </div>
     )
   }
@@ -644,33 +647,6 @@ export default function PostMain({
       </div>
     )
   }
-
-  // export function UserAddressRenderTwo({data, props}) {
-  //   const {authstate, splitstaticthree} = props
-  //   return (
-  //     <div>
-  //       <section className="flex flex-col justify-center items-center">
-  //         <CardMain>
-  //         <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
-  //           <p className="text-8xl  uppercase">{data.useremail.slice(0, 1)}</p>
-  //         </figure>
-  //         </CardMain>
-  //       </section>
-  //       <section className="flex flex-col justify-center text-center">
-  //         <p className="l-h4">{data?.useremail}</p>
-  //         <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p>
-  //       </section>
-  //       <section className="">
-  //         <CardMain>
-  //           {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
-  //           <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
-  //           <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
-  //         </CardMain>
-  //       </section>
-  //     </div>
-  //   )
-  // }
-
 
   export function userAddressRenderTwo({data, authstate, splitstaticthree}) {
     return (
@@ -1154,7 +1130,7 @@ export default function PostMain({
           </CardMain>
           <CardMain>
             <Link to={data?.spreadrender().navigation || `/club/clubmain`}>
-              <button onClick={() => {navigate()}} className="w-full  m-button uppercase">Go to page</button>
+              <button className="w-full  m-button uppercase">Go to page</button>
             </Link>
             <br /><br />
              <StaMain 
@@ -1195,13 +1171,14 @@ export default function PostMain({
     )
   }
 
-export function guideAddressRenderTwo({data, navigate}) {
+export function guideAddressRenderTwo({data}) {
     // console.log('data', data)
     return (
       <div className="">
         {data?.map((data, index) => (<>
         <div key={index}>
-        <section className="max-h-[60vh] grid justify-items-center bg-slate-200">
+        <ThemeMainTwo>
+        <section className="max-h-[60vh] grid justify-items-center">
             <CardMain />
             <CardMain />
             <CardMain>
@@ -1211,6 +1188,7 @@ export function guideAddressRenderTwo({data, navigate}) {
             <CardMain />
             <CardMain />
         </section>
+        </ThemeMainTwo>
         <section className="text-center">
           <CardMain>
             <CardMain>
@@ -1219,7 +1197,7 @@ export function guideAddressRenderTwo({data, navigate}) {
           </CardMain>
           <CardMain>
             <Link to={data?.spreadrender().navigation || `/guide/guidemain`}>
-              <button onClick={() => {navigate()}} className="w-full  m-button uppercase">Go to page</button>
+              <button className="w-full  m-button uppercase">Go to page</button>
             </Link>
             <br /><br />
              <StaMain 

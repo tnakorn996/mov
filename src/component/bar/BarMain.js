@@ -166,11 +166,9 @@ export default function BarMain() {
         <motion.main className={`h-[70px] grid grid-cols-12 items-center duration-500 ${barmainstyle?.main}`}>
             <section className="col-span-3">
                 <CardMain>
-                {appstatic?.map((data, index) => (<>
-                    <div key={index}>
-                    {data?.barmainrender()}
-                    </div>
-                </>))}
+                {appstatic?.map((data) => (
+                    data?.barmainrender()
+                ))}
                 </CardMain>
             </section>
             <section className="col-span-6 flex justify-center items-center gap-1">
@@ -181,11 +179,9 @@ export default function BarMain() {
             </section>
             <section className="col-span-3 flex justify-end items-center">
                 <CardMain>
-                {appstatic?.map((data, index) => (<>
-                <div key={index}>
-                    {data?.barmainrenderthree()}
-                </div>
-                </>))}
+                {appstatic?.map((data) => (
+                    data?.barmainrenderthree()
+                ))}
                 </CardMain>
             </section>
         </motion.main>

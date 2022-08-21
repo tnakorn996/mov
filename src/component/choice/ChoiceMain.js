@@ -51,11 +51,9 @@ export default function ChoiceMain({
 // console.log('splitstaticthree', splitstaticthree)
     useEffect(() => {
         if(appstatic) {
-            appstatic?.map((data, index) => (<>
-                <div key={index}>
-                    {setchoicemainstate(data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead)}
-                </div>
-            </>))
+            appstatic?.map((data) => (
+                    setchoicemainstate(data?.choicemaindatatwo[0]?.breaddata[0]?.breadhead)
+            ))
         }
     }, [appstatic])
 

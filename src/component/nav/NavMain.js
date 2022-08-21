@@ -168,11 +168,9 @@ export default function NavbarMain({
     <div>
         <main className="">
         <section className="z-30 fixed bottom-0 left-0 w-screen items-center">
-            {appstatic?.map((data, index) => (<>
-            <div key={index} className="w-full">
-              {data?.navmainrender()}
-            </div>
-            </>))}
+            {appstatic?.map((data) => (
+              data?.navmainrender()
+            ))}
         </section>
         </main>
     </div>

@@ -10,7 +10,7 @@ export default function useClientTwo(clientmaindata: any, clientmainstatic: any,
 
     useEffect(() => {
         if(typeof clientmaindata !== 'undefined') {
-            clientAction(clientmaindata)
+           return clientAction(clientmaindata)
         }
     }, [splitstatictwo, splitstaticthree])
 
@@ -30,7 +30,7 @@ export default function useClientTwo(clientmaindata: any, clientmainstatic: any,
           .limit(first.limit)
           if(data) {
             // console.log('data.....', data)
-            setclientstatic(data)
+            return setclientstatic(data)
           } else {
             // alert(error)
           }

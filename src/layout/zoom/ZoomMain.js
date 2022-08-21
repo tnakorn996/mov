@@ -16,6 +16,7 @@ export default function ZoomMain({
     const [zoommainindex, setzoommainindex] = useState(0)
     const {
         zoommainstate, setzoommainstate,
+        fieldmainstate,
 
         workoutdl,
         taskdl,
@@ -196,10 +197,10 @@ export default function ZoomMain({
         return concat
     }
 
-    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree)
+    const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree, messagedl)
 // console.log('appstatic', appstatic)
     // if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
-    
+    console.log('fieldmainstate', fieldmainstate)
   return (
     <div>
         <main autoFocus={false}  className="">
@@ -221,9 +222,11 @@ export default function ZoomMain({
                 {data?.zoommaindata?.map((dat, i) => (<>
                     <div key={i}>
                         <figcaption className="">
+                            {dat?.zoommainrender()?.length > 0 && (<>
                             <CardMain>
                             <h1 className="m-h5">{dat?.zoommaintitle}</h1>
                             </CardMain>
+                            </>)}
                         </figcaption>
                         <figure className="">
                             {dat?.zoommainrender()?.map((post, d) => (<>

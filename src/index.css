@@ -22,7 +22,7 @@
     }
 
     input, textarea {
-        @apply w-full  focus:border-black focus:outline-none font-extralight duration-100 rounded-3xl;
+        @apply w-full  focus:outline-none font-extralight duration-100 rounded-3xl;
     }
 
     /* .m-section {

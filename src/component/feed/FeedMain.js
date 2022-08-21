@@ -230,14 +230,18 @@ export default function FeedMain({
                 {
                     feedmaintitle: `All to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === true)
+                        return (guidedl[0].spreaddata().concat(
+                            guidedl[1].spreaddata()
+                        )).filter(data => data.spreadrender().booltwo === true)
                         // return (guidedl[0].spreaddata())
                     }
                 },
                 {
                     feedmaintitle: `Complete to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata()).filter(data => data.spreadrender().booltwo === false)
+                        return (guidedl[0].spreaddata().concat(
+                            guidedl[1].spreaddata()
+                        )).filter(data => data.spreadrender().booltwo === false)
                         // return (guidedl[0].spreaddata())
 
                     }

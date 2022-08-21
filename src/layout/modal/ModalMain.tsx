@@ -129,11 +129,9 @@ if(typeof appstate === 'undefined') return null
         <ThemeMain>
             <section className="">
               <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
-                {appstatic?.map((data, index) => (<>
-                {/* <div key={index}> */}
-                  {data?.modalmainrender()}
-                {/* </div> */}
-                </>))}
+                {appstatic?.map((data) => (
+                  data?.modalmainrender()
+                ))}
               </motion.figcaption>
               </section>
               <section className="flex justify-center">

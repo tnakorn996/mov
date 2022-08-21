@@ -116,7 +116,7 @@ export const themeul = [
     {
         breadid: 'themeid',
         breadaction: `/theme/themeform`,
-        breadtitle: 'Pick a theme',
+        breadtitle: 'Dark mode',
         breadsubtitle: 'aaaaaa',
     },
 ]

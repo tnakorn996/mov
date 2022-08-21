@@ -149,11 +149,9 @@ if(typeof appstate === 'undefined') return null
     <div>
       <main className="">
         <section className="">
-          {appstatic?.map((data, index) => (<>
-          <div key={index}>
-            {data?.previewmainrender()}
-          </div>
-          </>))}
+          {appstatic?.map((data) => (
+            data?.previewmainrender()
+          ))}
         </section>
       </main>
     </div>
@@ -186,7 +184,7 @@ if(typeof appstate === 'undefined') return null
   export function appArticleRenderTwo({component}) {
     return (
       <div>
-        <section className="w-screen h-screen fixed top-0 right-0  bg-white">
+        <section className="w-screen h-screen fixed top-0 right-0  bg-white dark:bg-slate-800">
           {component}
         </section>
       </div>

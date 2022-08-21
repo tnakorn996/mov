@@ -106,13 +106,13 @@ export default function BadgeMain({
     <div>
         <main className="">
             <section className="">
-                {appstatic?.map((data, index) => (<>
-                    {data?.badgemainrender() !== 0 ? (<>
+                {appstatic?.map((data, index) => (
+                    data?.badgemainrender() !== 0 ? (<>
                         <button key={index} className={`px-[7px] flex flex-row  bg-slate-200 ${badgemainstyle?.button}`}>
                         <p className="m-h1">{data?.badgemainrender()}</p>
                         </button>
-                    </>) : null}
-                </>))}
+                    </>) : null
+                ))}
                 {children}
             </section>
         </main>

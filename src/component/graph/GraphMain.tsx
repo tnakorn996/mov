@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 
 import { Context } from '../../context/context'
+import useAd from '../../hook/useAd.tsx'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
 import useDev from '../../hook/useDev.tsx'
@@ -25,7 +26,8 @@ export default function GraphMain({
             graphmainindex: 0,
             graphmainrender: () => {
                 return {
-                    data: (guidedl[0]?.spreaddata())?.filter((data) => data?.spreadrender()?.booltwo === true),
+                    data: (guidedl[0]?.spreaddata()?.concat(
+                        guidedl[1]?.spreaddata()))?.filter((data) => data?.spreadrender()?.booltwo === true),
                     action: {
                         appid:'backdropmain',
                         appidtwo: 'previewmain',
@@ -70,6 +72,7 @@ export default function GraphMain({
     ]
 
     // console.log('graphmainstatic', graphmainstatic)
+    const [adstatic, setadstatic] = useAd()
     const [appstatic, setappstatic] = useApp(graphmain, graphmainstatic.graphmainid, graphmainstatic.graphmainindex, graphmainstatic)
     const [devstatic, setdevstatic] = useDev({
             devstaticdata: appstatic && appstatic[0].graphmainrender().data,
@@ -90,7 +93,3 @@ export default function GraphMain({
     </div>
   )
 }
-function include(include: any) {
-    throw new Error('Function not implemented.')
-}
-

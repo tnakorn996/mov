@@ -53,11 +53,9 @@ const {
     <div>
         <main className="">
           <section className="z-50 w-screen h-screen fixed top-0 left-0  bg-slate-900 bg-opacity-40">
-            {appstatic?.map((data, index) => (<>
-                <motion.figure key={index} initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
-                    {data?.backdropmainrender()}
-                </motion.figure>
-              </>))}
+            {appstatic?.map((data) => (
+              data?.backdropmainrender()
+            ))}
           </section>
         </main>
     </div>
@@ -67,7 +65,9 @@ const {
 export function backDropMainRender(component) {
   return (
     <div>
+      <motion.figure initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
       {component}
+      </motion.figure>
     </div>
   )
 }

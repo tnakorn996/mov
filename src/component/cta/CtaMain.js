@@ -182,8 +182,8 @@ export default function CtaMain({
         <main className="">
             <section className="flex flex-row items-center  gap-1">
                 {appstatic?.map((data, index) => (<>
-                <Link to={data?.ctamainaction()} className="w-full">
-                <button key={index} className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>
+                <Link key={index} to={data?.ctamainaction()} className="w-full">
+                <button className={`w-full  m-button uppercase ${data?.ctamainstyle}`}>
                     {data?.ctamainentitle}
                 </button>
                 </Link>

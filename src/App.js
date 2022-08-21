@@ -6,7 +6,6 @@ import {AnimatePresence, motion} from 'framer-motion'
 import './App.css';
 import { Context } from './context/context';
 import OverlayMain from './layout/overlay/OverlayMain';
-import TopMain from './layout/top/TopMain';
 import NavMain from './component/nav/NavMain';
 import BarMain from './component/bar/BarMain';
 import AuthForm from './page/auth/AuthForm';
@@ -59,7 +58,6 @@ export default function App() {
   return (
       <div className="App">
         <OverlayMain>
-        <TopMain >
         <GraphMain graphmainstatic={{graphmainid: 'messagebase', graphmainindex: 0}} />
         <GraphMain graphmainstatic={{graphmainid: 'guidebase', graphmainindex: 0}} />
         <motion.main className={`relative min-h-screen  duration-300 ${appstate && `!scale-95`}`}>
@@ -140,7 +138,6 @@ export default function App() {
         <main className="">
             {(appstate && appstate.appid === 'backdropmain') && <BackdropMain />}
         </main>
-        </TopMain>
         </OverlayMain>
       </div>
 

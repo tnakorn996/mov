@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri'
+import { BsToggleOn, BsToggleOff } from 'react-icons/bs'
 
 import { Context } from '../../context/context'
 import FieldMain from '../field/FieldMain'
@@ -18,48 +19,39 @@ export default function PtaMain({
     } = useContext(Context)
     const [ptamainrender, setptamainrender] = useState()
 
+    const name = `mov.${ptamainstatic.ptamainid}`
+
     const workoutiframe = [
         {
             ptamainaction: ptaMainAction,
-            ptamainrender: <section className="">
-                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
-            </section>,
+            ptamainrender: () => {
+                return  <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
+            } 
         },
         {
             ptamainaction: ptaMainActionTwo,
-            ptamainrender: <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
-            </motion.section>,
-        },
+            ptamainrender: () => {
+                return appIframeRender({
+                    component:  <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
+                })
+            } 
+        }
     ]
 
     const clubiframe = [
         {
             ptamainaction: ptaMainAction,
-            ptamainrender: <div className="">
-                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
-            </div>,
+            ptamainrender: () => {
+                return <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
+            } 
         },
         {
             ptamainaction: ptaMainActionTwo,
-            ptamainrender: <motion.div initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
-            </motion.div>,
-        },
-    ]
-
-    const themeiframe = [
-        {
-            ptamainaction: ptaMainAction,
-            ptamainrender: <div className="">
-                <RiBookmarkLine className={ptamainstyle && ptamainstyle} />
-            </div>,
-        },
-        {
-            ptamainaction: ptaMainActionTwo,
-            ptamainrender: <motion.div initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
-                <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
-            </motion.div>,
+            ptamainrender: () => {
+                return appIframeRender({
+                    component: <RiBookmarkFill className={ptamainstyle && ptamainstyle} />
+                })
+            } 
         },
     ]
 
@@ -68,54 +60,66 @@ export default function PtaMain({
             ptamainid: 'workoutiframe',
             ptamainidtwo: 'mov.workoutiframe',
             ptamainref: workoutiframe,
-            ptamaindata: (JSON.parse(window.localStorage.getItem("mov.workoutiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
+            ptamaindata: (first) => {
+                return first.filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid)
+            },
+            ptamaindatatwo: (first) => {
+                return first.filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
+            },
         },
         {
             ptamainid: 'clubiframe',
             ptamainidtwo: 'mov.clubiframe',
             ptamainref: clubiframe,
-            ptamaindata: (JSON.parse(window.localStorage.getItem("mov.clubiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
-        },
-        {
-            ptamainid: 'themeiframe',
-            ptamainidtwo: 'mov.themeiframe',
-            ptamainref: themeiframe,
-            ptamaindata: (JSON.parse(window.localStorage.getItem("mov.themeiframe"))).filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid),
+            ptamaindata: (first) => {
+                return first.filter(data => data.breadid === ptamaindata.breadid && data.userid === ptamaindata.userid)
+            },
+            ptamaindatatwo: (first) => {
+                return first.filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
+            },
         },
     ]
+
+    // console.log('postmaindata', ptamaindata)
 
     useEffect(() => {
       if(ptamainstatic){
         const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
-        const ref = Object.assign(...filter).ptamaindata
-        const reftwo = Object.assign(...filter).ptamainref
-            if(ref && ref.length !== 0){
-                const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 1)
+        const parse =  Object.assign(...filter).ptamaindata(JSON.parse(localStorage[`mov.${ptamainstatic.ptamainid}`]))
+        // console.log('parse', parse)
+        const assign = Object.assign(...filter).ptamainref
+            if(parse && parse.length !== 0){
+                const filtertwo = assign.filter(data => assign.indexOf(data) === 1)
                 setptamainrender(filtertwo)
             }
-            if(ref && ref.length === 0){
-                const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 0)
+            if(parse && parse.length === 0){
+                const filtertwo = assign.filter(data => assign.indexOf(data) === 0)
                 setptamainrender(filtertwo)
             } 
       }
     }, [ptamainstatic, ptamainstate])
 
     function ptaMainAction() {
-        const name = `mov.${ptamainstatic.ptamainid}`
-        const parse = JSON.parse(window.localStorage.getItem(name));
-            const ref = parse || []
-            ref.push(ptamaindata)
-            window.localStorage.setItem(name, JSON.stringify(ref))
-            setptamainstate(!ptamainstate)
+        // const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
+        const parse = JSON.parse(localStorage[name])
+        // const assign = Object.assign(...filter).ptamaindata(parse)
+        parse.push(ptamaindata)
+
+        localStorage.setItem(name, JSON.stringify(parse))
+        setptamainstate(!ptamainstate)
     }
 
     function ptaMainActionTwo() {
-        const name = `mov.${ptamainstatic.ptamainid}`
-        const parse = JSON.parse(window.localStorage.getItem(name)).filter(data => data.breadid !== ptamaindata.breadid && data.userid === ptamaindata.userid)
-            const ref = parse || []
-            window.localStorage.setItem(name, JSON.stringify(ref))
-            setptamainstate(!ptamainstate)
+        const filter = ptamain.filter(data => data.ptamainid === ptamainstatic.ptamainid)
+        const parse = JSON.parse(localStorage[name])
+        // console.log('parse', parse)
+        const assign = Object.assign(...filter).ptamaindatatwo(parse)
+
+        localStorage.setItem(name, JSON.stringify(assign))
+        setptamainstate(!ptamainstate)
     }
+
+    ////////////////////////////////////////////////////
 
   return (
     <div>
@@ -125,11 +129,21 @@ export default function PtaMain({
                     <article key={index} onClick={() => {
                         data?.ptamainaction()
                     }} className="z-20">
-                        {data?.ptamainrender}
+                        {data?.ptamainrender()}
                     </article>
                 </>))}
             </section>
         </main>
+    </div>
+  )
+}
+
+export function appIframeRender({component}) {
+  return (
+    <div>
+        <motion.section initial={{scale: 0.5}} animate={{scale: 1}} className="duration-100">
+        {component}
+        </motion.section>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { appul } from '../../content/content'
+import { appul, settingul } from '../../content/content'
 import CardMain from '../../layout/card/CardMain'
 
 export default function BreadMain() {
@@ -22,20 +22,27 @@ export default function BreadMain() {
     // ]
 
     useEffect(() => {
-        for(const data of appul){
+        for(const data of appul.concat(settingul)){
             if(location && location.pathname === data.breadaction){
-                setbreadmainrender(data.breadtitle)
+                setbreadmainrender({
+                    title: data.breadtitle, subtitle: data.breadsubtitle})
             }
 
         }
     }, [location])
+
+    if(typeof breadmainrender === 'undefined') return null
 
   return (
     <div>
         <main className="">
             <section className="">
                 <CardMain>
-                <h1 className="text-2xl">{breadmainrender && breadmainrender}</h1>
+                <h1 className="text-2xl  m-h6">{breadmainrender.title}</h1>
+                {breadmainrender.subtitle && (<>
+                <br />
+                 <p className="l-h5">{breadmainrender.subtitle}</p>
+                </>)}
                 </CardMain>
             </section>
         </main>

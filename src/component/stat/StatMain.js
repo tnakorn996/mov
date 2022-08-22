@@ -12,11 +12,13 @@ import CardMain from '../../layout/card/CardMain'
 import { achievementul, clubul } from '../../content/content'
 import CtaMain from '../cta/CtaMain'
 import StaMain from '../sta/StaMain'
-import { RiLoaderLine } from 'react-icons/ri'
+import DtaMain from '../dta/DtaMain.tsx'
+import { RiAddCircleFill, RiLoaderLine } from 'react-icons/ri'
 import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
+import ThemeMainTwo from '../../layout/theme/ThemeMainTwo.tsx'
 
 export default function StatMain({
     statmainstatic,
@@ -119,10 +121,20 @@ export default function StatMain({
         },
     ]
 
+    const imagetable = [
+        {
+            statmainrender: () => {
+                return imageTableRenderTwo({
+                    data: clientstatic
+                })
+            }
+        },
+    ]
+
     const workouttable = [
         {
             statmainrender: () => {
-                return statMainAction('workoutid', <WorkoutTableRender />)
+                return statMainAction('workoutid',  workoutTableRender())
             }
         },
     ]
@@ -130,7 +142,7 @@ export default function StatMain({
     const tasktable = [
         {
             statmainrender: () => {
-                return statMainAction('workoutid', <TaskTableRender />)
+                return statMainAction('workoutid',  taskTableRender())
             }
         },
     ]
@@ -138,12 +150,12 @@ export default function StatMain({
     const clubtable = [
         {
             statmainrender: () => {
-                return statMainAction('clubid', clubTableRender())
+                return  statMainAction('clubid',  clubTableRender())
             }
         },
         {
             statmainrender: () => {
-                return statMainAction('clubid', clubTableRenderTwo({
+                return  statMainAction('clubid',  clubTableRenderTwo({
                     data: statmaindata && statmaindata
                 }))
             }
@@ -155,23 +167,21 @@ export default function StatMain({
             statmainrender: () => {
                 // const sort =  statmaindata && statmaindata?.sort((a, b) => b.weightid.length - a.weightid.length)
                 const sort =  clientstatic && clientstatic?.sort((a, b) => b.weightid.length - a.weightid.length)
-                return  statMainAction('workoutid', ticketTableRender({data: sort && sort}))
+                return  ticketTableRender({data: sort && sort})
             }
         },
         {
             statmainrender: () => {
                 const filter = clientstatic?.filter(data => data.userid?.userid === authstate?.user?.id)
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
-                if(filter && filter.length > 0 && filtertwo.length > 0) {
+                if(filter && filter.length > 0 && filtertwo && filtertwo.length > 0) {
                     const assign = [Object.assign(Object.assign(...filter), Object.assign(...filtertwo))]
                     return assign?.map((data) => (
                         ticketTableRenderTwo({
                             data: data
                         })
                     ))
-                } else {
-                    return null
-                }
+                } 
             }
         }
     ]
@@ -233,6 +243,10 @@ export default function StatMain({
             statmainid: 'contracttable',
             statmainref: contracttable,
         },
+        {
+            statmainid: 'imagetable',
+            statmainref: imagetable,
+        },
 
         {
             statmainid: 'workouttable',
@@ -276,20 +290,26 @@ export default function StatMain({
 // console.log('appstatictwo', appstatictwo)
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic,  splitstatictwo, splitstaticthree, statmaindata)
-    
-    // if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="fixed top-0 left-0 w-full h-full flex justify-center items-center duration-100">
-    //     <div className="shadow-md rounded-full">
-    //     <div className=" bg-white rounded-full animate-spin">
+
+    // if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="w-full h-full flex justify-center items-center duration-100">
+    //     {/* <div className=" rounded-full animate-spin">
     //         <CardMain>
     //             <RiLoaderLine className="m-h6  animate-ping" />
     //         </CardMain>
-    //     </div>
-    //     </div>
-    //     </motion.section> 
+    //     </div> */}
 
-    if(typeof clientstatic === 'undefined') return null
+    //     <div className="animate-spin">
+    //         <CardMain>
+    //         <CardMain>
+    //             {/* <RiLoaderLine className="m-h6  animate-ping" /> */}
+    //             <figure className="w-[50px] h-[50px] border border-r-slate-700 animate-spin rounded-full" />
+    //         </CardMain>
+    //         </CardMain>
+    //     </div>
+    // </motion.section> 
 
-    // console.log('clientstatic', clientstatic)
+    // if(typeof clientstatic === 'undefined') return null
+
     return (
         <div>
             <main className="">
@@ -326,12 +346,24 @@ export default function StatMain({
             <div key={index}>
             <section className="flex flex-col justify-center items-center">
             <CardMain>
+                <div className="relative">
+                    {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree &&
+                    <Link to={`/image/imageform`}>
+                    <RiAddCircleFill className="absolute z-20 right-0 bottom-0 text-4xl" />
+                    </Link>}
                 <ChipMain chipmainstyle={{section: `!rounded-full`}}>
-                <figure className="relative w-[150px] h-[150px] flex flex-col justify-center items-center  text-white bg-gray-400">
-                    <p className="text-6xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
-                    <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
-                </figure>
+                    <DtaMain 
+                    dtamaindata={{spreadhref: `/image/imageindex/${data?.userid}`}}  
+                    dtamainstatic={{
+                        dtamainid:'imageiframe', 
+                        dtamainindex: 0}} >
+                        <figure className="w-[150px] h-[150px] flex flex-col justify-center items-center  text-white bg-gray-400">
+                            <p className="text-6xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
+                            <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
+                        </figure>
+                    </DtaMain>
                 </ChipMain>
+                </div>
             </CardMain>
             </section>
             <section className="flex flex-col justify-center text-center">
@@ -396,7 +428,22 @@ export default function StatMain({
         )
     }
 
-    export function WorkoutTableRender() {
+    export function imageTableRenderTwo({data}) {
+        return (
+        <div>
+            {data?.map((data, index) => (<>
+            <section key={index} className="">
+                <figure className="w-full h-[90vh] flex justify-center items-center  bg-slate-400">
+                    <p className="text-9xl  uppercase">{data.username.slice(0, 1)}</p>
+                    <img src={data.userimage} alt="" className="absolute z-20 max-h-[100ch] w-full" />
+                </figure>
+            </section>
+            </>))}
+        </div>
+        )
+    }
+
+    export function workoutTableRender() {
         return (
             <div>
             <section className="">
@@ -408,7 +455,7 @@ export default function StatMain({
         )
     }
 
-    export function TaskTableRender({data}) {
+    export function taskTableRender() {
         // console.log('data', data)
         return (
             <div>
@@ -478,7 +525,6 @@ export default function StatMain({
                             </div>
                         </figcaption>
                     </CardMain>
-                    <hr />
                     </>))}
                 </section>
                 <section className="">

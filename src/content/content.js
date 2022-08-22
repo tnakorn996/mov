@@ -1,4 +1,4 @@
-import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiSettingsLine, RiStarSmileFill, RiStarSmileLine, RiSunCloudyLine, RiTrophyLine, RiUserAddLine } from "react-icons/ri"
+import { RiBookmarkLine, RiClipboardLine, RiHomeLine, RiImageLine, RiInboxLine, RiLifebuoyFill, RiLifebuoyLine, RiMedal2Fill, RiMedal2Line, RiMedalFill, RiMedalLine, RiParentLine, RiSettings4Fill, RiSettings5Fill, RiSettingsFill, RiSettingsLine, RiStarSmileFill, RiStarSmileLine, RiSunCloudyLine, RiTrophyLine, RiUser3Line, RiUserAddLine } from "react-icons/ri"
 
 // export function contentAction(min = 5, max = 360, unit = 'rep', fullunit = 'reps') {
 export function contentAction(min, max, unit, fullunit) {
@@ -83,10 +83,25 @@ export const appul = [
 
 
 export const settingul = [
+     {
+        breadid: 'imageform',
+        breadaction: `/image/imageform`,
+        breadtitle: 'Profile image',
+        breadsubtitle: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, voluptatum! `,
+        breadicon: <RiImageLine />,
+    },
+    {
+        breadid: 'userform',
+        breadaction: `/user/userform`,
+        breadtitle: 'User settings',
+        breadsubtitle: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, voluptatum! `,
+        breadicon: <RiUser3Line />,
+    },
     {
         breadid: 'themeform',
         breadaction: `/theme/themeform`,
-        breadtitle: 'Theme',
+        breadtitle: 'Display and accessibility',
+        breadsubtitle: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, voluptatum! `,
         breadicon: <RiSunCloudyLine />,
     },
 ]
@@ -94,7 +109,7 @@ export const settingul = [
 export const userul = [
     {
         breadid: 'userimage',
-        breadaction: `/user/userform`,
+        breadaction: `/image/imageform`,
         breadtitle: 'Pick a profile photo',
         breadsubtitle: 'aaaaaa',
     },
@@ -117,7 +132,13 @@ export const themeul = [
         breadid: 'themeid',
         breadaction: `/theme/themeform`,
         breadtitle: 'Dark mode',
-        breadsubtitle: 'aaaaaa',
+        // breadsubtitle: 'aaaaaa',
+    },
+    {
+        breadid: 'autoplayid',
+        breadaction: `/theme/themeform`,
+        breadtitle: 'Auto-play video',
+        breadsubtitle: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta, doloribus? ',
     },
 ]
 

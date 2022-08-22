@@ -45,7 +45,8 @@ export default function CtaMain({
             ctamainentitle: 'Edit profile',
             ctamainstyle: `l-button border-black`,
             ctamainaction: () => {
-                return `/user/userform/${splitstaticthree}`
+                // return `/user/userform/${splitstaticthree}`
+                return `/user/userform/`
             },
         },
     ]

@@ -15,6 +15,7 @@ import ChipMain from '../chip/ChipMain.tsx'
 import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
+import ImageIndex from '../../page/image/ImageIndex.tsx'
 import ContractForm from '../../page/contract/ContractForm'
 import { RiCloseCircleFill, RiCloseCircleLine, RiCloseFill, RiCloseLine } from 'react-icons/ri'
 

@@ -44,9 +44,11 @@ export const Provider = ({
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
     const parseclub = JSON.parse(window.localStorage.getItem("mov.clubiframe"));
     const parsetheme = JSON.parse(window.localStorage.getItem("mov.themetframe"));
+    const parseautoplay = JSON.parse(window.localStorage.getItem("mov.autoplaytframe"));
     if(!parseworkout) {window.localStorage.setItem("mov.workoutiframe", JSON.stringify([]))}
     if(!parseclub) {window.localStorage.setItem("mov.clubiframe", JSON.stringify([]))}
     if(!parsetheme) {window.localStorage.setItem("mov.themetframe", JSON.stringify([{themeid: undefined}]))}
+    if(!parseautoplay) {window.localStorage.setItem("mov.autoplaytframe", JSON.stringify([{autoplayid: true}]))}
     
     useEffect(() => {navigate(`/auth/authmain`)}, [])
 
@@ -333,44 +335,69 @@ export const Provider = ({
         {
             spreadid: 'user',
             spreadtitle: 'My user',
-            spreadicon: `🥊`,
+            spreadicon: `🪄`,
             spreaddata: () => {
                 if(typeof useruserid === 'undefined') return null
-                const array = [];
-                for(const data of userul) {
-                    array.push({
+                // const array = [];
+                // for(const data of userul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/guide/guideindex/` + data.breadid,
+                //         spreaddetail: `${data.breadtitle}`,
+                //         spreadrender: () => {
+                //             const ref = useruserid[0][data.breadid] === null
+                //             return contextRenderFive(ref, data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+
+                return userul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/guide/guideindex/` + data.breadid,
                         spreaddetail: `${data.breadtitle}`,
                         spreadrender: () => {
                             const ref = useruserid[0][data.breadid] === null
-                            return contextRenderFive(ref, data.breadid, `/user/userform/` + useruserid[0]['userid'])
+                            return contextRenderFive(ref, data.breadid, data.breadaction)
                         }
-                    })
-                }
-                return array
+                    }
+                ))
             }
         },
         {
-            spreadid: 'theme',
-            spreadtitle: 'My theme',
+            spreadid: 'display',
+            spreadtitle: 'My display and accessibility',
             spreadicon: `🌙`,
             spreaddata: () => {
                 if(typeof parsetheme === 'undefined') return null
-                const array = [];
-                for(const data of themeul) {
-                    array.push({
+                // const array = [];
+                // for(const data of themeul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/guide/guideindex/` + data.breadid,
+                //         spreaddetail: `Activate your ${data.breadtitle}`,
+                //         spreadrender: () => {
+                //             const ref = typeof parsetheme[0][data.breadid] === 'undefined'
+                //             // console.log('ref', ref)
+                //             return contextRenderFive(ref, data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+
+                return themeul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/guide/guideindex/` + data.breadid,
                         spreaddetail: `Activate your ${data.breadtitle}`,
                         spreadrender: () => {
                             const ref = typeof parsetheme[0][data.breadid] === 'undefined'
                             // console.log('ref', ref)
-                            return contextRenderFive(ref, data.breadid, `/theme/themeform/`)
+                            return contextRenderFive(ref, data.breadid, data.breadaction)
                         }
                     })
-                }
-                return array
+                )
             }
         },
     ]
@@ -384,19 +411,31 @@ export const Provider = ({
             spreadicon: `⚽️`,
             spreaddata: () => {
                 if(typeof taskuserid === 'undefined') return null
-                const array = [];
-                for(const data of clubul) {
-                    array.push({
+                // const array = [];
+                // for(const data of clubul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/message/messageindex/` + data.breadid,
+                //         spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
+                //         spreadrender: () => {
+                //             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
+                //             return contextRenderThree(ref, data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+
+                return clubul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
                         spreadrender: () => {
                             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
-                            return contextRenderThree(ref, data.breadid, `/club/clubindex/` + data.breadid)
+                            return contextRenderThree(ref, data.breadid, data.breadaction)
                         }
-                    })
-                }
-                return array
+                    }
+                ))
               } 
         },
         {
@@ -464,18 +503,28 @@ export const Provider = ({
             spreadtitle: `Article's message`,
             spreadicon: `💬`,
             spreaddata: () => {
-                const array = [];
-                for(const data of articleul) {
-                    array.push({
+                // const array = [];
+                // for(const data of articleul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/message/messageindex/` + data.breadid,
+                //         spreaddetail: data.breadtitle,
+                //         spreadrender: () => {
+                //             return contextRenderFour(true , data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+                return articleul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: data.breadtitle,
                         spreadrender: () => {
-                            return contextRenderFour(true , data.breadid, `/article/articleindex/` + data.breadid)
+                            return contextRenderFour(true , data.breadid, data.breadaction)
                         }
-                    })
-                }
-                return array
+                    }
+                ))
             }
         },
         {
@@ -484,19 +533,31 @@ export const Provider = ({
             spreadicon: `❤️‍🔥`,
             spreaddata: () => {
                 if(typeof taskuserid === 'undefined') return null
-                const array = [];
-                for(const data of workoutul) {
-                    array.push({
+                // const array = [];
+                // for(const data of workoutul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/message/messageindex/` + data.breadid,
+                //         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s workout`,
+                //         spreadrender: () => {
+                //             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
+                //             return contextRenderFour(ref, data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+
+                return workoutul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s workout`,
                         spreadrender: () => {
                             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
-                            return contextRenderFour(ref, data.breadid, `/workout/workoutindex/` + data.breadid)
+                            return contextRenderFour(ref, data.breadid, data.breadaction)
                         }
-                    })
-                }
-                return array
+                    }
+                ))
             }
         },
         {
@@ -504,20 +565,32 @@ export const Provider = ({
             spreadtitle: `Ticket's message`,
             spreadicon: `❤️‍🔥❤️‍🔥`,
             spreaddata: () => {
-                if(!ticketuserid) return null
-                const array = [];
-                for(const data of clubul) {
-                    array.push({
+                if(typeof ticketuserid === 'undefined') return null
+                // const array = [];
+                // for(const data of clubul) {
+                //     array.push({
+                //         spreadidtwo: data.breadid,
+                //         spreadhref: `/message/messageindex/` + data.breadid,
+                //         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s club`,
+                //         spreadrender: () => {
+                //             const ref = (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
+                //             return contextRenderFour(ref, data.breadid, data.breadaction)
+                //         }
+                //     })
+                // }
+                // return array
+
+                return clubul.map(data => (
+                    {
                         spreadidtwo: data.breadid,
                         spreadhref: `/message/messageindex/` + data.breadid,
                         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s club`,
                         spreadrender: () => {
                             const ref = (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
-                            return contextRenderFour(ref, data.breadid, `/club/clubindex/` + data.breadid)
+                            return contextRenderFour(ref, data.breadid, data.breadaction)
                         }
-                    })
-                }
-                return array
+                    }
+                ))
             }
         },
     ]
@@ -556,6 +629,8 @@ export const Provider = ({
         // fix this V parse get rid of it
         authstate, setauthstate,
         search, setsearch,
+
+        parseautoplay,
         // V whts this
         useruserid, 
         userdl,

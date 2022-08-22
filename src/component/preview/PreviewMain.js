@@ -8,6 +8,7 @@ import useApp from '../../hook/useApp'
 import MessageIndex from '../../page/message/MessageIndex.tsx'
 import AppState from '../../page/app/AppState.tsx'
 import AppIndex from '../../page/app/AppIndex.tsx'
+import ImageIndex from '../../page/image/ImageIndex.tsx'
 import AchievementIndex from '../../page/achievement/AchievementIndex.tsx'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import SignMain from '../sign/SignMain.tsx'
@@ -62,6 +63,18 @@ export default function PreviewMain() {
         return appArticleRender({
           navigate: () => {previewMainAction()},
           component: <UserIndex />
+        })
+      },
+    },
+  ]
+
+  const imagearticle = [
+    {
+      previewmainindex: 0,
+      previewmainrender: () => {
+        return appArticleRender({
+          navigate: () => {previewMainAction()},
+          component: <ImageIndex />
         })
       },
     },
@@ -126,6 +139,10 @@ export default function PreviewMain() {
     {
       previewmainid: 'userarticle',
       previewmainref: userarticle,
+    },
+    {
+      previewmainid: 'imagearticle',
+      previewmainref: imagearticle,
     },
     {
       previewmainid: 'searcharticle',

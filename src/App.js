@@ -42,7 +42,9 @@ import GuideMain from './page/guide/GuideMain.tsx';
 import GuideIndex from './page/guide/GuideIndex.tsx';
 import SettingMain from './page/setting/SettingMain.tsx';
 import SettingIndex from './page/setting/SettingIndex.tsx';
-import ThemeForm from './page/setting/theme/ThemeForm.tsx';
+import ThemeForm from './page/theme/ThemeForm.tsx';
+import ImageForm from './page/image/ImageForm.tsx';
+import ImageIndex from './page/image/ImageIndex.tsx';
 
 export default function App() {
   const {
@@ -79,7 +81,7 @@ export default function App() {
               <Route path='/auth/authform' element={<AuthForm />} /> 
 
               <Route path='/user/userindex/:userid' element={<UserIndex />} /> 
-              <Route path='/user/userform/:userid' element={<UserForm />} /> 
+              <Route path='/user/userform' element={<UserForm />} /> 
 
               <Route path='/contract/contractmain' element={<ContractMain />} /> 
               {/* <Route path='/contract/contractform/:contractid' element={<ContractForm />} />  */}
@@ -118,6 +120,9 @@ export default function App() {
               <Route path='/setting/settingindex/:id' element={<SettingIndex />} /> 
 
               <Route path='/theme/themeform' element={<ThemeForm />} /> 
+
+              <Route path='/image/imageform' element={<ImageForm />} /> 
+              <Route path='/image/imageindex/:id' element={<ImageIndex />} /> 
 
               <Route path='/message/messagemain' element={<MessageMain />} /> 
               <Route path='/message/messageindex/:messageid' element={<MessageIndex />} /> 

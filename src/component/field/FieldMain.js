@@ -508,10 +508,17 @@ export default function FieldMain({
       fieldmaindata: [],
     },
     {
-      fieldmaintitle: 'User Settings',
+      fieldmaintitle: 'Profile info',
       fieldmainentitle: 'Save changes',
       fieldmainaction: ss,
       fieldmaindata: [
+        {
+          fieldmainsubtitle: 'Username',
+          fieldmainrender: () => {
+            return <input  onLoad={fieldMainSelect(`username`, reffive)} disabled={true} ref={reffive} className="l-input" placeholder="eg. @johndoe" />
+          },
+          // fieldmaindetail: `This will be displayed to viewers of your profile page.`,
+        },
          {
           fieldmainsubtitle: 'Full name',
           fieldmainrender:() => {
@@ -519,11 +526,6 @@ export default function FieldMain({
           }
           // fieldmaindetail: `Help people discover your account by using the name you're known by: either your full name, nickname or business name.` ,
         },
-        // {
-        //   fieldmainsubtitle: 'Username',
-        //   fieldmainrender: <input ref={reffive} className="l-input" placeholder="eg. @johndoe" />,
-        //   fieldmaindetail: `This will be displayed to viewers of your profile page.`,
-        // },
         {
           fieldmainsubtitle: 'User bio',
           fieldmainrender:() => {

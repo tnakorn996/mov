@@ -28,29 +28,7 @@ export default function ZoomMain({
     } = useContext(Context)
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
 
-    const settingform = [
-        {
-            zoommaindata: [
-                {
-                    zoommaintitle: null,
-                    zoommainrender: () => {
-                        return settingul
-                    },
-                },
-            ]
-        },
-        {
-            zoommaindata: [
-                {
-                    zoommaintitle: null,
-                    zoommainrender: () => {
-                        return settingul.filter(data => data.breadid?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
-                    } 
-                },
-            ]
-        },
-    ]
-
+ 
     const workoutform = [
         {
             zoommaindata: [
@@ -156,14 +134,31 @@ export default function ZoomMain({
         },
     ]
 
-    
-
+    const settingform = [
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    zoommainrender: () => {
+                        return settingul
+                    },
+                },
+            ]
+        },
+        {
+            zoommaindata: [
+                {
+                    zoommaintitle: null,
+                    zoommainrender: () => {
+                        return settingul.filter(data => data.breadid?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                    } 
+                },
+            ]
+        },
+    ]
 
     const zoommain = [
-        {
-            zoommainid: 'settingform',
-            zoommainref: settingform,
-        },
+
         {
             zoommainid: 'workoutform',
             zoommainref: workoutform,
@@ -179,7 +174,11 @@ export default function ZoomMain({
         {
             zoommainid: 'messageform',
             zoommainref: messageform,
-        }
+        },
+        {
+            zoommainid: 'settingform',
+            zoommainref: settingform,
+        },
     ]
 
     useEffect(() => {
@@ -200,7 +199,7 @@ export default function ZoomMain({
     const [appstatic, setappstatic] = useApp(zoommain, zoommainstatic.zoommainid, zoommainindex, zoommainvalue, splitstaticthree, messagedl)
 // console.log('appstatic', appstatic)
     // if(!workoutdl && !taskdl && !clubdl && !ticketdl) return null
-    console.log('fieldmainstate', fieldmainstate)
+    // console.log('fieldmainstate', fieldmainstate)
   return (
     <div>
         <main autoFocus={false}  className="">
@@ -217,10 +216,10 @@ export default function ZoomMain({
                 </CardMain>
             </section>
 
-            {appstatic?.map((data, index) => (<>
-            <section key={index}className="">
-                {data?.zoommaindata?.map((dat, i) => (<>
-                    <div key={i}>
+            <section className="">
+            {appstatic?.map((data) => (<>
+                {data?.zoommaindata?.map((dat, index) => (<>
+                    <div key={index}>
                         <figcaption className="">
                             {dat?.zoommainrender()?.length > 0 && (<>
                             <CardMain>
@@ -229,8 +228,8 @@ export default function ZoomMain({
                             </>)}
                         </figcaption>
                         <figure className="">
-                            {dat?.zoommainrender()?.map((post, d) => (<>
-                                <div key={d}>
+                            {dat?.zoommainrender()?.map((post, i) => (<>
+                                <div key={i}>
                                 {zoommainstatic.zoommainid === 'settingform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'settingaddress', postmainindex: 0}} />}
                                 {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
                                 {zoommainstatic.zoommainid === 'searchform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 2}} />}
@@ -243,8 +242,8 @@ export default function ZoomMain({
                         </figure>
                     </div>
                 </>))}
-            </section>
             </>))}
+            </section>
 
         </main>
     </div>

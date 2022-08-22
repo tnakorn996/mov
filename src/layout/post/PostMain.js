@@ -36,6 +36,7 @@ export default function PostMain({
     setchoicemainstate, choicemainstate,
 
     authstate,
+    parseautoplay,
     userdl,
     taskdl,
     ticketdl,
@@ -50,6 +51,8 @@ export default function PostMain({
   // const param = useParams()
   const [splitstatictwo, setsplitstatictwo] = useSplit(2)
   const [splitstaticthree, setsplitstaticthree] = useSplit(3)
+
+  const assign = Object.assign(...parseautoplay).autoplayid
 
   function postMainAction() {
       window.history.replaceState(null, "", location.pathname)
@@ -95,9 +98,6 @@ export default function PostMain({
         return themeul.map(data => (
           themeAddressRender({
             data: data,
-            component: <TtaMain 
-              ttamainstatic={{ttamainid: 'themetframe'}} 
-              />
           })
         )) 
       },
@@ -173,6 +173,7 @@ export default function PostMain({
           return ref.map(data => (
             workoutAddressRender({
               data: data,
+              autoplay: assign,
               navigate: `/workout/workoutindex/${data?.breadid}`
             })
           )) 
@@ -185,6 +186,7 @@ export default function PostMain({
         return ref.map(data => (
           workoutAddressRenderTwo({
             data: data,
+            autoplay: assign,
           })
         ))
       }  
@@ -582,32 +584,6 @@ export default function PostMain({
       </div>
     )
   }
-
-  export function settingAddressRender({data}) {
-    return (
-        appAddressRender({
-          data, 
-        })
-    )
-  }
-
-  export function themeAddressRender({data, component}) {
-    return (
-      <div className="">
-        <SheetMain>
-          <article className="flex flex-row w-full justify-between items-center">
-          <figcaption className="">
-            <p className="l-h4">{data?.breadtitle}</p>
-          </figcaption>
-          <figure className="">
-            {component}
-          </figure>
-          </article>
-        </SheetMain>
-      </div>
-    )
-  }
-  
   
   export function appAddressRenderTwo({signmainstate}) {
     // console.log('data', data)
@@ -651,7 +627,7 @@ export default function PostMain({
   export function userAddressRenderTwo({data, authstate, splitstaticthree}) {
     return (
       <div>
-        <section className="flex flex-col justify-center items-center">
+        {/* <section className="flex flex-col justify-center items-center">
           <CardMain>
           <figure className="w-[170px] h-[170px] flex flex-col justify-center items-center  text-white rounded-full bg-gray-400">
             <p className="text-8xl  uppercase">{data.useremail.slice(0, 1)}</p>
@@ -668,7 +644,7 @@ export default function PostMain({
             <CtaMain ctamainstatic={{ctamainid: 'userembed', ctamainindex: 0}} /> :
             <StaMain stamaindata={data} stamainstatic={{stamainid: 'useriframe'}}  /> }
           </CardMain>
-        </section>
+        </section> */}
       </div>
     )
   }
@@ -767,7 +743,7 @@ export default function PostMain({
     )
   }
 
-  export function workoutAddressRender({data, navigate}) {
+  export function workoutAddressRender({data, navigate, autoplay}) {
     return (
   //   // <div>
   //   //     <CardMain>
@@ -793,7 +769,7 @@ export default function PostMain({
             <figure  className="w-[90px] h-[90px] md:w-full md:h-full col-span-3">
             <Link to={navigate}>
             <ChipMain>
-              <video className="w-full max-h-[100ch]" src={data?.breadvideo} autoPlay={true} loop={true} >
+              <video autoPlay={autoplay} loop={true} className="w-full max-h-[100ch]" src={data?.breadvideo} >
               </video>
             </ChipMain>
             </Link>
@@ -813,12 +789,12 @@ export default function PostMain({
     )
   }
 
-  export function workoutAddressRenderTwo({data}) {
+  export function workoutAddressRenderTwo({data, autoplay}) {
     return (
     <div className="">
       <section className="">
         <figure className="">
-            <video src={data?.breadvideo} autoPlay={true} loop={true} >
+            <video src={data?.breadvideo} autoPlay={autoplay} loop={true} >
             </video>
         </figure>
         <figcaption className="text-center">
@@ -1220,6 +1196,61 @@ export function guideAddressRenderTwo({data}) {
             <FieldMain fieldmainstatic={{fieldmainid: 'searchinput', fieldmainindex: 0}}  />
           </SheetMain>
         </section>
+      </div>
+    )
+  }
+
+  export function settingAddressRender({data}) {
+    return (
+      <div className="">
+        {data?.map((data, index) => (<>
+        <Link key={index} to={data.breadaction}>
+          <section className="flex flex-row items-center  m-h5 border-t dark:border-t-slate-700">
+            <CardMain>
+            <ChipMain>
+            <CardMain>
+            <figure className="">
+              <p className="">{data.breadicon}</p>
+            </figure>
+            </CardMain>
+            </ChipMain>
+            </CardMain>
+            <figcaption className="w-full flex flex-row justify-between items-center">
+              <p className="">{data.breadtitle}</p>
+            <CardMain>
+              <p className="">→</p>
+            </CardMain>
+            </figcaption>
+          </section>
+        </Link>
+        </>))}
+      </div>
+    )
+  }
+
+  export function themeAddressRender({data}) {
+    const replace = data?.breadid?.replace(`id`, ``)
+    return (
+      <div className="">
+        <SheetMain>
+          <article className="flex flex-row w-full justify-between items-center">
+          <figcaption className="">
+            <p className="m-h5">{data?.breadtitle}</p>
+          </figcaption>
+          <figure className="">
+             <TtaMain 
+              ttamainstatic={{ttamainid: `${replace}tframe`}} 
+              />
+          </figure>
+          </article>
+          {data?.breadsubtitle && (<>
+          <article className="">
+            <br />
+            <p className="l-h4">{data?.breadsubtitle}</p>
+          </article>
+          </>)
+          }
+        </SheetMain>
       </div>
     )
   }

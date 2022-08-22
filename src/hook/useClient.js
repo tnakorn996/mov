@@ -41,6 +41,14 @@ export default function useClient(clientmainstatic, clientmainstatictwo, clientm
           eq: ['userid', splitstaticthree],
           limit: 100,
         },
+        {
+          id: 'imageindex',
+          from: `user`,
+          select: `username, userimage`,
+          order: [`userid`, { ascending: false }],
+          eq: ['userid', splitstaticthree],
+          limit: 100,
+        },
 
         {
           id: 'workoutindex',

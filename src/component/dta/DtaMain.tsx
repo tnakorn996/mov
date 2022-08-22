@@ -90,6 +90,19 @@ export default function AtaMain({
         },
     ]
 
+    const imageiframe = [
+        {
+            dtamainrender: () => {
+                return {
+                            appid: 'backdropmain',
+                            appidtwo: 'previewmain',
+                            appidthree: 'imagearticle',
+                            appindex: 0,
+                }
+            } 
+        },
+    ]
+
     const searchiframe = [
         {
             dtamainrender: () => {
@@ -167,6 +180,10 @@ export default function AtaMain({
         {
             dtamainid: 'contractiframe',
             dtamainref: contractiframe
+        },
+        {
+            dtamainid: 'imageiframe',
+            dtamainref: imageiframe
         },
         {
             dtamainid: 'searchiframe',

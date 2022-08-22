@@ -4,7 +4,7 @@ import { RiBookmark3Fill, RiBookmarkFill, RiCss3Fill, RiInboxLine, RiMenu5Line, 
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
-import { appul } from '../../content/content'
+import { appul, settingul } from '../../content/content'
 import { Context } from '../../context/context'
 import useApp from '../../hook/useApp'
 import useSplit from '../../hook/useSplit'
@@ -38,21 +38,22 @@ export default function BarMain() {
         //     setbarmainstate({barmainid: 'apptfoot', barmainindex: 2})
         // }
         setappstate()
-        if(location && location.pathname.includes('main')){
+        if(location.pathname.includes('main')){
             setbarmainstate({barmainid: 'apptfoot', barmainindex: 0})
         }
-        if(location && location.pathname.includes('index')) {
+        if(location.pathname.includes('index')
+        || location.pathname.includes('form')) {
             setbarmainstate({barmainid: 'apptfoot', barmainindex: 1})
         }
 
-    }, [location])
+    }, [location.pathname])
 
     useEffect(() => {
-        const filter = appul?.filter(data => data?.breadaction.includes(location.pathname.split(`/`)[1]))        
+        const filter = appul.concat(settingul)?.filter(data => data?.breadaction.includes(location.pathname.split(`/`)[1]))        
         if(filter && filter.length !== 0){
             setbarmainrendertwo(filter[0].breadtitle)
         }
-    }, [location])
+    }, [location.pathname])
 
     window.onscroll = function (){
         if (((window.innerHeight + document.documentElement.scrollTop) >= window.innerHeight + (window.innerHeight * 0.07))) {
@@ -160,6 +161,8 @@ export default function BarMain() {
     
 
     const [appstatic, setappstatic] = useApp(barmain, barmainstate.barmainid, barmainstate.barmainindex)
+
+    if(!location && !location.pathname) return null
 
   return (
     <div>

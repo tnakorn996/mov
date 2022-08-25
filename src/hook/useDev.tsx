@@ -13,7 +13,9 @@ export default function useDev({
         setappstate, appstate, 
         ttamainstate,
 
+
     } = useContext(Context)
+    const location = useLocation()
     // console.log('appstate', appstate)
     const [splitstatic, setsplitstatic] = useSplit(1)
     const [splitstatictwo, setsplitstatictwo] = useSplit(2)
@@ -32,7 +34,9 @@ export default function useDev({
         //     && splitstatictwo
         //     && (splitstatictwo.includes(`main`) 
         //     || splitstatictwo.includes(`userindex`)) ) {
-        if(filter.length > 0  && splitstatictwo && splitstatictwo.includes(`main`)) {
+        if(filter.length > 0  
+            && splitstatictwo 
+            && splitstatictwo.includes(`main`)) {
             setTimeout(() => {
                 window.history.replaceState(null, "" , filter[0].spreadhref)
                 setappstate(devstaticaction)

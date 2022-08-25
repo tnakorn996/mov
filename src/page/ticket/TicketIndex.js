@@ -13,6 +13,7 @@ import StatMain from '../../component/stat/StatMain'
 
 export default function TicketIndex() {
   const {
+    authstate
 
 
   } = useContext(Context)
@@ -27,7 +28,17 @@ export default function TicketIndex() {
     limit: 5,
   })
 
-  // console.log('clientstatic', clientstatic)
+  // const [clientstatictwo, setclientstatictwo] = useClientTwo({
+  //   id: 'ticketindex',
+  //   from: `task`,
+  //   select: `*, userid (*)`,
+  //   order: [`userid`, { ascending: false }],
+  //   eq: ['userid', authstate?.user?.id, 'workoutid', splitstaticthree],
+  //   limit: 5,
+  // })
+
+
+  // console.log('clientstatictwso', clientstatictwo)
 
   return (
     <div>
@@ -37,7 +48,7 @@ export default function TicketIndex() {
           </section>
           <section className="">
             {/* <StatMain statmainstatic={{statmainid:'tickettable', statmainindex: 0}} /> */}
-            <StatMain statmainstatic={{statmainid:'tickettable', statmainindex: 1}} />
+            <StatMain  statmainstatic={{statmainid:'tickettable', statmainindex: 1}} />
           </section>
           <section className="">
             <StatMain stamaindata={clientstatic && clientstatic} statmainstatic={{statmainid:'tickettable', statmainindex: 0}} />

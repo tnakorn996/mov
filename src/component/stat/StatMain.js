@@ -18,6 +18,7 @@ import BadgeMain from '../../layout/badge/BadgeMain'
 import AvaMain from '../../layout/ava/AvaMain.tsx'
 import SplashMain from '../../layout/splash/SplashMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
+import ThemeMain from '../../layout/theme/ThemeMain.tsx'
 import ThemeMainTwo from '../../layout/theme/ThemeMainTwo.tsx'
 
 export default function StatMain({
@@ -174,14 +175,24 @@ export default function StatMain({
             statmainrender: () => {
                 const filter = clientstatic?.filter(data => data.userid?.userid === authstate?.user?.id)
                 const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
-                if(filter && filter.length > 0 && filtertwo && filtertwo.length > 0) {
+                if(Array.isArray(filter) && Array.isArray(filtertwo)
+                && filter.length > 0 && filtertwo.length > 0) {
+                    // console.log('filter, filtertwo', filter, filtertwo)
                     const assign = [Object.assign(Object.assign(...filter), Object.assign(...filtertwo))]
                     return assign?.map((data) => (
                         ticketTableRenderTwo({
                             data: data
                         })
                     ))
-                } 
+                }
+
+                // console.log('statmaindata', statmaindata)
+                // statmaindata?.map((data) => (
+                //     ticketTableRenderTwo({
+                //         data: data
+                //     })
+                // ))
+
             }
         }
     ]
@@ -291,24 +302,28 @@ export default function StatMain({
 
     const [appstatic, setappstatic] = useApp(statmain, statmainstatic.statmainid, statmainstatic.statmainindex, clientstatic,  splitstatictwo, splitstaticthree, statmaindata)
 
-    // if(typeof clientstatic === 'undefined') return <motion.section  initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="w-full h-full flex justify-center items-center duration-100">
-    //     {/* <div className=" rounded-full animate-spin">
-    //         <CardMain>
-    //             <RiLoaderLine className="m-h6  animate-ping" />
-    //         </CardMain>
+    // if(typeof clientstatic === 'undefined') return <section className="w-full h-full flex justify-center items-center duration-100">
+        
+    //     {/* <div className="w-full">
+    //     <CardMain>
+    //         <div className="animate-pulse">
+    //         <ChipMain>
+    //         <figure className="min-h-[10vh] " />
+    //         </ChipMain>
+    //         </div>
+    //     </CardMain>
     //     </div> */}
 
-    //     <div className="animate-spin">
+    //     {/* <div className="animate-spin">
     //         <CardMain>
     //         <CardMain>
-    //             {/* <RiLoaderLine className="m-h6  animate-ping" /> */}
-    //             <figure className="w-[50px] h-[50px] border border-r-slate-700 animate-spin rounded-full" />
+    //             <figure className="w-[50px] h-[50px] border animate-ping rounded-full" />
     //         </CardMain>
     //         </CardMain>
-    //     </div>
-    // </motion.section> 
+    //     </div> */}
+    // </section> 
 
-    // if(typeof clientstatic === 'undefined') return null
+    if(typeof clientstatic === 'undefined') return null
 
     return (
         <div>
@@ -320,7 +335,7 @@ export default function StatMain({
                 </section>
             </main>
         </div>
-    )
+        )
     }
 
     export function appMainRenderTwo({data}) {
@@ -537,6 +552,7 @@ export default function StatMain({
     }
 
     export function ticketTableRenderTwo({data}) {
+        // console.log('datassx', data)
         return (
         <div>
             <section className="">

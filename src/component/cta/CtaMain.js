@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 // import { appul } from '../../content/content'
@@ -17,7 +17,7 @@ export default function CtaMain({
 
 
     } = useContext(Context)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     // const param = useParams()
     const [splitstaticthree, setsplitstaticthree] = useSplit(3)
     
@@ -178,6 +178,155 @@ export default function CtaMain({
 
     const [appstatic, setappstatic] = useApp(ctamain, ctamainstatic.ctamainid, ctamainstatic.ctamainindex, splitstaticthree)
 
+    // function authembed(state, action) {
+    //     switch (action) {
+    //         case 0:
+    //             return {
+    //                 ctamainentitle: 'Join Us',
+    //                 ctamainstyle: `l-button border-white`,
+    //                 ctamainaction: () => {
+    //                     setauthformstate(true)
+    //                     return `/auth/authform`
+    //                 },
+    //             } 
+    //         case 1:
+    //             return  {
+    //                 ctamainentitle: 'Sign In',
+    //                 ctamainstyle: `border-white bg-transparent`,
+    //                 ctamainaction: () => {
+    //                     setauthformstate(false)
+    //                     return `/auth/authform`
+    //                 },
+    //             }
+    //         default:
+    //             return null;
+    //     }
+    // }
+    // const [authembedstatic, setauthembedstatic] = useReducer(authembed,  {});
+
+    // function userembed(state, action) {
+    //     switch (action) {
+    //         case 0:
+    //             return {
+    //                 ctamainentitle: 'Edit profile',
+    //                 ctamainstyle: `l-button border-black`,
+    //                 ctamainaction: () => {
+    //                     // return `/user/userform/${splitstaticthree}`
+    //                     return `/user/userform/`
+    //                 },
+    //             }
+    //         default:
+    //             return null;
+    //     }
+    // }
+    // const [userembedstatic, setuserembedstatic] = useReducer(userembed,  {});
+
+    // function contractembed(state, action) {
+    //     switch (action) {
+    //         case 0:
+    //             return {
+    //                 ctamainentitle: 'Unfollow',
+    //                 ctamainstyle: `l-button border-black`,
+    //                 ctamainaction: () => {
+    //                     return `/contract/contractform/${splitstaticthree}`
+    //                 },
+    //             }
+    //         default:
+    //             return null;
+    //     }
+    // }
+    // const [contractembedstatic, setcontractembedstatic] = useReducer(contractembed,  {});
+
+    // function workoutembed(state, action) {
+    //     switch (action) {
+    //         case 0:
+    //             return {
+    //                 ctamainentitle: 'View your progress',
+    //                 ctamainaction: () => {
+    //                 return `/task/taskindex/${splitstaticthree}`
+    //                 },
+    //             }
+    //         default:
+    //             return null;
+    //     }
+    // }
+    // const [workoutembedstatic, setworkoutembedstatic] = useReducer(workoutembed,  {});
+
+    // function ctamain(state, action) {
+    //     switch (action) {
+    //         case "authembed":
+    //             return () => {
+
+    //                 setauthembedstatic(ctamainstatic.ctamainindex)
+    //                 return authembedstatic
+    //             } 
+    //         case "userembed":
+    //             return () => {
+
+    //                 setuserembedstatic(ctamainstatic.ctamainindex)
+    //                 return userembedstatic
+    //             } 
+    //         case "contractembed":
+    //             return () => {
+
+    //                 setcontractembedstatic(ctamainstatic.ctamainindex)
+    //                 return contractembedstatic
+    //             } 
+    //         case "workoutembed":
+    //             return () => {
+
+    //                 setworkoutembedstatic(ctamainstatic.ctamainindex)
+    //                 return workoutembedstatic
+    //             } 
+    //         case "taskembed":
+    //             return () => {
+
+    //                 settaskembedstatic(ctamainstatic.ctamainindex)
+    //                 return taskembedstatic
+    //             } 
+    //         case "clubembed":
+    //             return () => {
+
+    //                 setclubembedstatic(ctamainstatic.ctamainindex)
+    //                 return clubembedstatic
+    //             } 
+    //         case "ticketembed":
+    //             return () => {
+
+    //                 setticketembedstatic(ctamainstatic.ctamainindex)
+    //                 return ticketembedstatic
+    //             } 
+    //         case "achievementembed":
+    //             return () => {
+
+    //                 setachievementembedstatic(ctamainstatic.ctamainindex)
+    //                 return achievementembedstatic
+    //             } 
+    //         case "awardembed":
+    //             return () => {
+
+    //                 setawardembedstatic(ctamainstatic.ctamainindex)
+    //                 return awardembedstatic
+    //             } 
+    //         case "guideembed":
+    //             return () => {
+
+    //                 setguideembedstatic(ctamainstatic.ctamainindex)
+    //                 return guideembedstatic
+    //             } 
+    //         default:
+    //             return null;
+    //     }
+    // }
+
+    // const [appstatic, setappstatic] = useReducer(ctamain,  {});
+
+    // useEffect(() => {
+    //   setappstatic(ctamainstatic.ctamainid)
+    // }, [])
+
+    if(typeof appstatic === 'undefined') return null
+    
   return (
     <div>
         <main className="">

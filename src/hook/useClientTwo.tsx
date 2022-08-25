@@ -26,7 +26,7 @@ export default function useClientTwo(clientmaindata: any, clientmainstatic: any,
         if(typeof first !== 'undefined' && user) {
           const { data, error} = await supabase.from(first.from).select(first.select)
           .order(first.order[0], first.order[1])
-          .eq(first.eq[0], first.eq[1])
+          .eq(first.eq[0], first.eq[1], first.eq[2], first.eq[3])
           .limit(first.limit)
           if(data) {
             // console.log('data.....', data)

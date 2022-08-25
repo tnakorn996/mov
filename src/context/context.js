@@ -371,28 +371,13 @@ export const Provider = ({
             spreadicon: `🌙`,
             spreaddata: () => {
                 if(typeof parsetheme === 'undefined') return null
-                // const array = [];
-                // for(const data of themeul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/guide/guideindex/` + data.breadid,
-                //         spreaddetail: `Activate your ${data.breadtitle}`,
-                //         spreadrender: () => {
-                //             const ref = typeof parsetheme[0][data.breadid] === 'undefined'
-                //             // console.log('ref', ref)
-                //             return contextRenderFive(ref, data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
-
                 return themeul.map(data => (
                     {
                         spreadidtwo: data.breadid,
                         spreadhref: `/guide/guideindex/` + data.breadid,
                         spreaddetail: `Activate your ${data.breadtitle}`,
                         spreadrender: () => {
-                            const ref = typeof parsetheme[0][data.breadid] === 'undefined'
+                            const ref = parsetheme[0][data.breadid] === undefined
                             // console.log('ref', ref)
                             return contextRenderFive(ref, data.breadid, data.breadaction)
                         }
@@ -411,20 +396,6 @@ export const Provider = ({
             spreadicon: `⚽️`,
             spreaddata: () => {
                 if(typeof taskuserid === 'undefined') return null
-                // const array = [];
-                // for(const data of clubul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/message/messageindex/` + data.breadid,
-                //         spreaddetail: `You unlocked a new club of ${data.breadtitle}`,
-                //         spreadrender: () => {
-                //             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1 
-                //             return contextRenderThree(ref, data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
-
                 return clubul.map(data => (
                     {
                         spreadidtwo: data.breadid,
@@ -503,18 +474,6 @@ export const Provider = ({
             spreadtitle: `Article's message`,
             spreadicon: `💬`,
             spreaddata: () => {
-                // const array = [];
-                // for(const data of articleul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/message/messageindex/` + data.breadid,
-                //         spreaddetail: data.breadtitle,
-                //         spreadrender: () => {
-                //             return contextRenderFour(true , data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
                 return articleul.map(data => (
                     {
                         spreadidtwo: data.breadid,
@@ -533,20 +492,6 @@ export const Provider = ({
             spreadicon: `❤️‍🔥`,
             spreaddata: () => {
                 if(typeof taskuserid === 'undefined') return null
-                // const array = [];
-                // for(const data of workoutul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/message/messageindex/` + data.breadid,
-                //         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s workout`,
-                //         spreadrender: () => {
-                //             const ref = (taskuserid?.filter(dat => dat.workoutid === data.breadid)).length === 1
-                //             return contextRenderFour(ref, data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
-
                 return workoutul.map(data => (
                     {
                         spreadidtwo: data.breadid,
@@ -566,20 +511,6 @@ export const Provider = ({
             spreadicon: `❤️‍🔥❤️‍🔥`,
             spreaddata: () => {
                 if(typeof ticketuserid === 'undefined') return null
-                // const array = [];
-                // for(const data of clubul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/message/messageindex/` + data.breadid,
-                //         spreaddetail: `You earned XP of ` + data.breadpoint + ` from ` + data.breadtitle +`'s club`,
-                //         spreadrender: () => {
-                //             const ref = (ticketuserid?.filter(dat => dat.clubid === data.breadid)).length === 1
-                //             return contextRenderFour(ref, data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
-
                 return clubul.map(data => (
                     {
                         spreadidtwo: data.breadid,

@@ -10,7 +10,7 @@ export default function TicketForm() {
   return (
     <div>
         <main className="">
-          <SpreadMain>
+          {/* <SpreadMain> */}
             <section className="">
                 <CardMain />
                 <CardMain />
@@ -18,7 +18,7 @@ export default function TicketForm() {
                 <FieldMain fieldmainstatic={{fieldmainid: 'ticketinput', fieldmainindex: 1}} />
                 </SheetMain>
             </section>
-          </SpreadMain>
+          {/* </SpreadMain> */}
         </main>
     </div>
   )

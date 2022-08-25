@@ -59,7 +59,7 @@ export default function PostMain({
   }
   
   function postMainActionTwo(first) {
-    if(typeof first === 'undefined') return null
+    if(typeof first === 'undefined' || first === undefined) return null
   }
   
   const appaddress = [
@@ -169,7 +169,7 @@ export default function PostMain({
     {
       postmainrender:() => {
       const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-          postMainActionTwo(ref)
+          if(typeof ref === 'undefined') return null
           return ref.map(data => (
             workoutAddressRender({
               data: data,
@@ -182,7 +182,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = workoutul?.filter(data => data?.breadid === splitstaticthree)
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (
           workoutAddressRenderTwo({
             data: data,
@@ -194,7 +194,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [postmaindata]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
           return ref.map(data => 
             workoutAddressRenderThree({
               data: data,
@@ -212,7 +212,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, workoutul.filter(data => [postmaindata].some(dat => dat.workoutid === data.breadid))[0])]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (
             taskAddressRender({
               data: data,
@@ -226,9 +226,9 @@ export default function PostMain({
         const filter = taskdl[0].spreaddata?.filter(data => data?.workoutid === splitstaticthree)
         const filtertwo = workoutul?.filter(data => data.breadid === splitstaticthree)
         const filterthree = filtertwo[0]?.breaddata?.filter(data => data.breadhead === filter[0]?.weightid)
-        // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
         if(filter && filtertwo && filterthree
           && filter.length > 0 && filtertwo.length > 0 && filterthree.length > 0) {
+            // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
         // if(filter.length > 0) {
           const assign = [Object.assign(filter[0], filtertwo[0], filterthree[0])]
           return  assign.map(data => (
@@ -245,7 +245,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = (userdl[0].spreaddata) && [Object.assign(postmaindata, userdl[0].spreaddata[0])]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (
             clubAddressRender({
               data: data,
@@ -256,8 +256,10 @@ export default function PostMain({
     },
     {
       postmainrender:() => {
+        console.log('this', this)
         const ref = clubul.filter(data => data.breadid === splitstaticthree)
-        postMainActionTwo(ref)
+        // if(!Array.isArray(ref)) return null
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (
           clubAddressRenderTwo({
             data: data
@@ -271,7 +273,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, clubul.filter(data => [postmaindata].some(dat => dat.clubid === data.breadid))[0])]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (
             ticketAddressRender({
               data: data,
@@ -284,6 +286,7 @@ export default function PostMain({
       postmainrender:() => {
         const ref = ticketdl[0]?.spreaddata?.filter(data => data.breadid === splitstaticthree)
         const reftwo = [Object.assign(ref, clubul.filter(data => ref.some(dat => dat.clubid === data.breadid))[0])]
+        if(typeof reftwo === 'undefined') return null
         return reftwo.map(data => (
             ticketAddressRenderTwo({
               data: data
@@ -294,7 +297,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [postmaindata]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map((data) => (
             ticketAddressRenderThree({
               data: data,
@@ -315,7 +318,7 @@ export default function PostMain({
         const filter = awarddl[0].spreaddata.filter(data => data.achievementid === postmaindata.breadid)
         const assign = [Object.assign(postmaindata, filter.length > 0 ? Object.assign(...filter) : null)]
 
-        postMainActionTwo(assign)
+        if(typeof assign === 'undefined') return null
         return assign.map(data => (
           achievementAddressRender({
             data: data,
@@ -327,7 +330,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = achievementul?.filter(data => data?.breadid === splitstaticthree)
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return ref.map(data => (achievementAddressRenderTwo({data})
         ))
       }  
@@ -339,7 +342,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [Object.assign(postmaindata, achievementul.filter(data => [postmaindata].some(dat => dat.achievementid === data.breadid))[0])]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
         return (
           ref.map(data => (
               achievementAddressRender({
@@ -353,8 +356,8 @@ export default function PostMain({
      postmainrender:() => {
         const filter = awarddl[0].spreaddata?.filter(data => data?.achievementid === splitstaticthree)
         const filtertwo = achievementul?.filter(data => data.breadid === splitstaticthree)
-        // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
         if(filter.length > 0 && filtertwo.length > 0) {
+          // console.log('filter, filtertwo, filteddrthree', filter, filtertwo, filterthree)
         // if(filter.length > 0) {
           const assign = [Object.assign(filter[0], filtertwo[0])]
           return assign.map(data => (
@@ -372,15 +375,13 @@ export default function PostMain({
     {
      postmainrender:() => {
         const filter = articleul?.filter(data => data.breadid === splitstaticthree)
-        postMainActionTwo(filter)
+        if(typeof filter === 'undefined') return null
         if(filter.length > 0) {
           return  filter.map(data => (<>
           <ArticleAddressRenderTwo
             data={data} />
           </>))
-        } else {
-          return null
-        }
+        } 
       }  
     },
   ]
@@ -390,7 +391,7 @@ export default function PostMain({
       postmainrender:() => {
         // const ref = [postmaindata].filter(data => data.spreadrender().bool === true)
         const ref = [postmaindata]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
           if(ref.length > 0){
             return ref.map(data => (
               messageAddressRender({
@@ -414,7 +415,6 @@ export default function PostMain({
           }
         }
         const filter = array.filter(data => data.spreadidtwo === splitstaticthree && data?.spreadrender()?.bool === true)
-        // const filter = array.filter(data => data.spreadidtwo === splitstaticthree)
         return messageAddressRenderTwo({
           data: filter,
           navigate: () => {postMainAction()}
@@ -427,7 +427,7 @@ export default function PostMain({
     {
       postmainrender:() => {
         const ref = [postmaindata]
-        postMainActionTwo(ref)
+        if(typeof ref === 'undefined') return null
           if(ref.length > 0){
             return ref.map(data => (
               guideAddressRender({
@@ -766,10 +766,10 @@ export default function PostMain({
     <div>
         <CardMain>
           <section className="grid grid-cols-12">
-            <figure  className="w-[90px] h-[90px] md:w-full md:h-full col-span-3">
+            <figure  className=" col-span-3">
             <Link to={navigate}>
             <ChipMain>
-              <video autoPlay={autoplay} loop={true} className="w-full max-h-[100ch]" src={data?.breadvideo} >
+              <video autoPlay={autoplay} loop={true} className="w-[90px] h-[90px] md:w-full md:h-full" src={data?.breadvideo} >
               </video>
             </ChipMain>
             </Link>
@@ -955,7 +955,7 @@ export default function PostMain({
               </figure>
               </ChipMain>
             <figcaption className="w-full  cursor-pointer">
-              <p className="m-h4">{data?.userid?.username !== null ? `@` + data?.userid?.username : data?.userid?.useremail}</p>
+              <p className="m-h4 first-letter:uppercase">{data?.userid?.username || data?.userid?.useremail}</p>
             </figcaption>
             </div>
           </Link>
@@ -1205,7 +1205,7 @@ export function guideAddressRenderTwo({data}) {
       <div className="">
         {data?.map((data, index) => (<>
         <Link key={index} to={data.breadaction}>
-          <section className="flex flex-row items-center  m-h5 border-t dark:border-t-slate-700">
+          <section className="flex flex-row items-center  m-h5">
             <CardMain>
             <ChipMain>
             <CardMain>

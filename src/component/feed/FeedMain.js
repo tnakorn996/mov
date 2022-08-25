@@ -45,7 +45,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: null,
                     feedmainrender: () => {
-                        return appul.filter(data => data.breadid.includes('main') )
+                        return appAreaRender({
+                            data: appul.filter(data => data.breadid.includes('main') ),
+                            postmainstatic: {postmainid: 'appaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -59,7 +62,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'People you may know',
                     feedmainrender: () => {
-                        return  userdl[1].spreaddata
+                        return appAreaRender({
+                            data:  userdl[1].spreaddata,
+                            postmainstatic: {postmainid: 'useraddress', postmainindex: 2}
+                        })
                     }
                 },
             ],
@@ -70,14 +76,20 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Recent followers',
                     feedmainrender: () => {
-                        return contractdl[1].spreaddata
+                        return appAreaRender({
+                            data: contractdl[1].spreaddata,
+                            postmainstatic: {postmainid: 'contractaddress', postmainindex: 0}
+                        })
                     }
                     // feedmainrender: [],
                 },
                 {
                     feedmaintitle: `Who you're following`,
                     feedmainrender: () => {
-                        return contractdl[0].spreaddata
+                        return appAreaRender({
+                            data: contractdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'contractaddress', postmainindex: 0}
+                        })
                     }
                     // feedmainrender: [],
                 },
@@ -89,7 +101,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: null,
                     feedmainrender: () => {
-                        return searchdl[0].spreaddata
+                        return appAreaRender({
+                            data: searchdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'useraddress', postmainindex: 2}
+                        })
                     }
                     // feedmainrender: [],
                 },
@@ -104,7 +119,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'New Workouts',
                     feedmainrender: () => {
-                        return workoutdl[0].spreaddata
+                        return appAreaRender({
+                            data: workoutdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -118,7 +136,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Your Workouts',
                     feedmainrender: () => {
-                        return taskdl[0].spreaddata
+                        return appAreaRender({
+                            data: taskdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'taskaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -132,7 +153,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Join a Challenge',
                     feedmainrender: () => {
-                        return  clubdl[0].spreaddata
+                        return appAreaRender({
+                            data: clubdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'clubaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -146,7 +170,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'My Challenges',
                     feedmainrender: () => {
-                        return  ticketdl[0].spreaddata
+                        return appAreaRender({
+                            data: ticketdl[0].spreaddata,
+                            postmainstatic: {postmainid: 'ticketaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -160,7 +187,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Favourite workouts',
                     feedmainrender: () => {
-                        return favouritedl[0].spreaddata
+                        return appAreaRender({
+                            data: favouritedl[0].spreaddata,
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 0},
+                        })
                     }
                 },
             ],
@@ -171,7 +201,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Favourite clubs',
                     feedmainrender: () => {
-                        return favouritedl[1].spreaddata
+                        return appAreaRender({
+                            data: favouritedl[1].spreaddata,
+                            postmainstatic: {postmainid: 'clubaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -192,19 +225,28 @@ export default function FeedMain({
                  {
                     feedmaintitle: 'Workouts',
                     feedmainrender: () => {
-                        return achievementdl[1].spreaddata
+                        return appAreaRender({
+                            data: achievementdl[1].spreaddata,
+                            postmainstatic: {postmainid: 'achievementaddress', postmainindex: 0}
+                        })
                     }
                 },
                  {
                     feedmaintitle: 'Clubs',
                     feedmainrender: () => {
-                        return achievementdl[2].spreaddata
+                        return appAreaRender({
+                            data: achievementdl[2].spreaddata,
+                            postmainstatic: {postmainid: 'achievementaddress', postmainindex: 0}
+                        })
                     }
                 },
                 {
                     feedmaintitle: 'Followers',
                     feedmainrender: () => {
-                        return achievementdl[3].spreaddata
+                        return appAreaRender({
+                            data: achievementdl[3].spreaddata,
+                            postmainstatic: {postmainid: 'achievementaddress', postmainindex: 0}
+                        })
                     }
                 },
 
@@ -216,7 +258,10 @@ export default function FeedMain({
                 {
                     feedmaintitle: 'Your rewards',
                     feedmainrender: () => {
-                        return awarddl[0].spreaddata
+                        return appAreaRender({
+                            data: awarddl[0].spreaddata,
+                            postmainstatic: {postmainid: 'awardaddress', postmainindex: 0}
+                        })
                     }
                 },
             ],
@@ -230,19 +275,21 @@ export default function FeedMain({
                 {
                     feedmaintitle: `All to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata().concat(
-                            guidedl[1].spreaddata()
-                        )).filter(data => data.spreadrender().booltwo === true)
-                        // return (guidedl[0].spreaddata())
+                        return appAreaRender({
+                            data:  (guidedl[0].spreaddata().concat(
+                                    guidedl[1].spreaddata())).filter(data => data.spreadrender().booltwo === true),
+                            postmainstatic: {postmainid: 'guideaddress', postmainindex: 0}
+                        })
                     }
                 },
                 {
                     feedmaintitle: `Complete to-do's`,
                     feedmainrender: () => {
-                        return (guidedl[0].spreaddata().concat(
-                            guidedl[1].spreaddata()
-                        )).filter(data => data.spreadrender().booltwo === false)
-                        // return (guidedl[0].spreaddata())
+                        return appAreaRender({
+                            data: (guidedl[0].spreaddata().concat(
+                                    guidedl[1].spreaddata())).filter(data => data.spreadrender().booltwo === false),
+                            postmainstatic: {postmainid: 'guideaddress', postmainindex: 0}
+                        })
 
                     }
                 },
@@ -311,47 +358,14 @@ export default function FeedMain({
             <section key={index} className="">
                     {data?.feedmaindata?.map((dat, i) => (<>
                         <article key={i}>
-
-                        {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmaintitle !== null && (<>
+                        {dat?.feedmaintitle !== null && (<>
                         <div className="flex flex-row items-center justify-between">
                         <CardMain>
                         <h1 className="m-h5">{dat?.feedmaintitle}</h1>
                         </CardMain>
                         </div>
                         </>)}
-
-                            {dat?.feedmainrender() && dat?.feedmainrender()?.length > 0 && dat?.feedmainrender()?.map((post, x) => (<>
-                            <div key={x}>
-                                {(feedmainstatic.feedmainid === 'apparea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'appaddress', postmainindex: 0}} />}
-
-                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 2}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
-                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'contractaddress', postmainindex: 0}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
-                                {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 2) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'useraddress', postmainindex: 2}} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
-
-                                {feedmainstatic.feedmainid === 'workoutarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
-
-                                {feedmainstatic.feedmainid === 'taskarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: 0}} />}
-
-                                {feedmainstatic.feedmainid === 'clubarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
-
-                                {feedmainstatic.feedmainid === 'ticketarea' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: 0}} />}
-
-                                {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
-                                {(feedmainstatic.feedmainid === 'favouritearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: 0}} />}
-
-                                {(feedmainstatic.feedmainid === 'achievementarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'achievementaddress', postmainindex: 0}} />}
-                                {(feedmainstatic.feedmainid === 'achievementarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'awardaddress', postmainindex: 0}} />}
-
-                                {/* {(feedmainstatic.feedmainid === 'awardarea') && <PostMain postmaindata={post} postmainstatic={{postmainid: 'awardaddress', postmainindex: 0}} />} */}
-
-                                {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
-                                {(feedmainstatic.feedmainid === 'messagearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
-
-                                {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
-                                {(feedmainstatic.feedmainid === 'guidearea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={{postmainid: 'guideaddress', postmainindex: 0}} />}
-                            </div>
-                            </>))}
-
+                        {dat?.feedmainrender()}
                         </article>
                     </>))}
             </section>
@@ -360,3 +374,19 @@ export default function FeedMain({
     </div>
   )
 }
+
+export function appAreaRender({data, postmainstatic}) {
+  return (
+    <div>
+        <section className="">
+            {data?.map((data, index) => (<>
+            <PostMain key={index} postmaindata={data} postmainstatic={postmainstatic} />
+            </>))}
+        </section>
+    </div>
+  )
+}
+
+ // {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 0) && <PostMain postmaindata={post} postmainstatic={} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                // {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 1) && <PostMain postmaindata={post} postmainstatic={} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}
+                                // {(feedmainstatic.feedmainid === 'contractarea' && feedmainstatic.feedmainindex === 2) && <PostMain postmaindata={post} postmainstatic={} postmainstyle={{figure: `!w-[50px] !h-[50px]`}} />}

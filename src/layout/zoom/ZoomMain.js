@@ -34,7 +34,10 @@ export default function ZoomMain({
             zoommaindata: [
                 {
                     zoommainrender: () => {
-                        return []
+                        return appFormRender({
+                            data: [],
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 0}
+                        })
                     },
                 },
             ]
@@ -44,7 +47,10 @@ export default function ZoomMain({
                 {
                     zoommaintitle: 'All workout',
                     zoommainrender: () => {
-                        return workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                         return appFormRender({
+                            data:  workoutdl[0].spreaddata && workoutdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 0}
+                        })
                     },
 
                 },
@@ -57,7 +63,10 @@ export default function ZoomMain({
             zoommaindata: [
                 {
                     zoommainrender: () => {
-                        return []
+                         return appFormRender({
+                            data:  [],
+                            postmainstatic: {postmainid: 'clubaddress', postmainindex: null}
+                        })
                     },
                 },
             ]
@@ -67,7 +76,10 @@ export default function ZoomMain({
                 {
                     zoommaintitle: 'All club',
                     zoommainrender: () => {
-                        return clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                         return appFormRender({
+                            data:  clubdl[0].spreaddata && clubdl[0].spreaddata.filter(data => data.breadauthor?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                            postmainstatic: {postmainid: 'clubaddress', postmainindex: null}
+                        })
                     } 
                 },
             ]
@@ -81,7 +93,10 @@ export default function ZoomMain({
                     zoommaintitle: null,
                     zoommainrender: () => {
                         const filter = workoutul.filter(data => data.breadid === splitstaticthree)
-                        return filter[0]?.breaddata
+                         return appFormRender({
+                            data:  filter[0]?.breaddata,
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 2}
+                        })
                     },
                 },
             ]
@@ -92,7 +107,10 @@ export default function ZoomMain({
                     zoommaintitle: null,
                     zoommainrender: () => {
                         const filter = workoutul.filter(data => data.breadid === splitstaticthree)
-                        return filter[0]?.breaddata.filter(data => data.breadhead?.toLowerCase().includes(zoommainvalue) || data.breadbody?.toLowerCase().includes(zoommainvalue))
+                         return appFormRender({
+                            data:  filter[0]?.breaddata.filter(data => data.breadhead?.toLowerCase().includes(zoommainvalue) || data.breadbody?.toLowerCase().includes(zoommainvalue)),
+                            postmainstatic: {postmainid: 'workoutaddress', postmainindex: 2}
+                        })
                     } 
                 },
             ]
@@ -107,14 +125,20 @@ export default function ZoomMain({
                     zoommaintitle: `New message`,
                     zoommainrender: () => {
                         const filter = messageFormAction()?.filter(data => data.spreadrender().booltwo === true && data.spreadrender().bool === true)
-                        return filter
+                         return appFormRender({
+                            data:  filter,
+                            postmainstatic: {postmainid: 'messageaddress', postmainindex: 0}
+                        })
                     },
                 },
                 {
                     zoommaintitle: `Other messages`,
                     zoommainrender: () => {
                         const filter = messageFormAction()?.filter(data => data.spreadrender().booltwo === false && data.spreadrender().bool === true)
-                        return filter
+                         return appFormRender({
+                            data:  filter,
+                            postmainstatic: {postmainid: 'messageaddress', postmainindex: 0}
+                        })
                     } 
                 },
             ]
@@ -127,7 +151,10 @@ export default function ZoomMain({
                         const filter = messageFormAction()?.filter(data => (data.spreadrender().booltwo === true && data.spreadrender().bool === true)
                         || (data.spreadrender().booltwo === false && data.spreadrender().bool === true))
                         const filtertwo=  filter?.filter(data => data.spreadidtwo?.toLowerCase().includes(zoommainvalue) || data.spreaddetail?.toLowerCase().includes(zoommainvalue))
-                        return filtertwo
+                         return appFormRender({
+                            data:  filtertwo,
+                            postmainstatic: {postmainid: 'messageaddress', postmainindex: 0}
+                        })
                     } 
                 },
             ]
@@ -140,7 +167,10 @@ export default function ZoomMain({
                 {
                     zoommaintitle: null,
                     zoommainrender: () => {
-                        return settingul
+                         return appFormRender({
+                            data:  settingul,
+                            postmainstatic: {postmainid: 'settingaddress', postmainindex: 0}
+                        })
                     },
                 },
             ]
@@ -150,7 +180,10 @@ export default function ZoomMain({
                 {
                     zoommaintitle: null,
                     zoommainrender: () => {
-                        return settingul.filter(data => data.breadid?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue))
+                         return appFormRender({
+                            data:  settingul.filter(data => data.breadid?.toLowerCase().includes(zoommainvalue) || data.breadtitle?.toLowerCase().includes(zoommainvalue)),
+                            postmainstatic: {postmainid: 'settingaddress', postmainindex: 0}
+                        })
                     } 
                 },
             ]
@@ -216,8 +249,8 @@ export default function ZoomMain({
                 </CardMain>
             </section>
 
-            <section className="">
-            {appstatic?.map((data) => (<>
+            {appstatic?.map((data, i) => (<>
+            <section key={i} className="">
                 {data?.zoommaindata?.map((dat, index) => (<>
                     <div key={index}>
                         <figcaption className="">
@@ -228,24 +261,26 @@ export default function ZoomMain({
                             </>)}
                         </figcaption>
                         <figure className="">
-                            {dat?.zoommainrender()?.map((post, i) => (<>
-                                <div key={i}>
-                                {zoommainstatic.zoommainid === 'settingform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'settingaddress', postmainindex: 0}} />}
-                                {zoommainstatic.zoommainid === 'workoutform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 0}} />}
-                                {zoommainstatic.zoommainid === 'searchform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'workoutaddress', postmainindex: 2}} />}
-                                {zoommainstatic.zoommainid === 'taskform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'taskaddress', postmainindex: null}} />}
-                                {zoommainstatic.zoommainid === 'clubform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'clubaddress', postmainindex: null}} />}
-                                {zoommainstatic.zoommainid === 'ticketform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'ticketaddress', postmainindex: null}} />}
-                                {zoommainstatic.zoommainid === 'messageform' && <PostMain postmaindata={post} postmainstatic={{postmainid: 'messageaddress', postmainindex: 0}} />}
-                                </div>
-                            </>))}
+                            {dat?.zoommainrender()}
                         </figure>
                     </div>
                 </>))}
-            </>))}
             </section>
+            </>))}
 
         </main>
+    </div>
+  )
+}
+
+export function appFormRender({data, postmainstatic}) {
+  return (
+    <div>
+        <section className="">
+            {data?.map((data, index) => (<>
+                <PostMain key={index} postmaindata={data} postmainstatic={postmainstatic} />
+            </>))}
+        </section>
     </div>
   )
 }

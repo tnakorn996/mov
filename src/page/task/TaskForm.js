@@ -9,7 +9,7 @@ export default function TaskForm() {
 
   return (
     <div>
-      <SpreadMain>
+      {/* <SpreadMain> */}
         <main className="">
             <section className="">
                 <CardMain />
@@ -19,7 +19,7 @@ export default function TaskForm() {
                 </SheetMain>
             </section>
         </main>
-      </SpreadMain>
+      {/* </SpreadMain> */}
     </div>
   )
 }

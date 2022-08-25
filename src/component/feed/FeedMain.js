@@ -380,7 +380,7 @@ export function appAreaRender({data, postmainstatic}) {
     <div>
         <section className="">
             {data?.map((data, index) => (<>
-            <PostMain key={index} postmaindata={data} postmainstatic={postmainstatic} />
+            <PostMain key={Object.values[0] || index} postmaindata={data} postmainstatic={postmainstatic} />
             </>))}
         </section>
     </div>

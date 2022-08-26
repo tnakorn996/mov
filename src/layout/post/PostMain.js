@@ -21,6 +21,7 @@ import BadgeMain from "../badge/BadgeMain";
 import ChipMain from "../chip/ChipMain.tsx";
 import ThemeMainTwo from "../theme/ThemeMainTwo.tsx";
 import TtaMain from "../../component/tta/TtaMain.tsx";
+import ScrollMain from "../scroll/ScrollMain";
 
 export default function PostMain({ postmainstatic, postmaindata, postmainstyle }) {
   const {
@@ -835,9 +836,13 @@ export function workoutAddressRenderTwo({ data, autoplay }) {
   return (
     <div className="">
       <section className="">
+        <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
         <figure className="">
+          <ScrollMain scrollmainstatic={{scrollmaintransform: 0.3}}>
           <video src={data?.breadvideo} autoPlay={autoplay} loop={true}></video>
+          </ScrollMain>
         </figure>
+        </ChipMain>
         <figcaption className="text-center">
           <CardMain>
             <CardMain>
@@ -940,9 +945,13 @@ export function clubAddressRenderTwo({ data }) {
   return (
     <div className="">
       <section className="">
+        <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
         <figure className="h-[65vh] flex justify-center overflow-hidden">
+        <ScrollMain scrollmainstatic={{scrollmaintransform: 0.3}}>
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
+        </ScrollMain>
         </figure>
+        </ChipMain>
         <figcaption className="text-center">
           <CardMain>
             <CardMain>
@@ -1021,11 +1030,7 @@ export function achievementAddressRender({ data, navigate }) {
         <section className="">
           <CardMain>
             <ChipMain>
-              <figure
-                onClick={() => {
-                  navigate();
-                }}
-              >
+              <figure onClick={() => {navigate()}}>
                 <p className="p-[10px] text-4xl  m-h6">{data?.breadicon}</p>
               </figure>
             </ChipMain>
@@ -1036,23 +1041,19 @@ export function achievementAddressRender({ data, navigate }) {
           {/* <figcaption className="">{handleDate(data?.created_at)}</figcaption> */}
           <CardMain>
             <ChipMain>
-              {data?.achievementid ? (
-                <>
+              {data?.achievementid ? (<>
                   <figure className="uppercase bg-emerald-100 dark:bg-emerald-700">
                     <CardMain>
-                      <figure className="m-h1  text-emerald-700 dark:text-emerald-100">CLAIMED</figure>
+                      <figure className="m-h2  text-emerald-700 dark:text-emerald-100">CLAIMED</figure>
                     </CardMain>
                   </figure>
-                </>
-              ) : (
-                <>
+                </>) : (<>
                   <figure className="uppercase  bg-slate-100 dark:bg-slate-800">
                     <CardMain>
-                      <figure className="m-h1  text-slate-800 dark:text-slate-100">NOT CLAIMED</figure>
+                      <figure className="m-h2  text-slate-800 dark:text-slate-100">NOT CLAIMED</figure>
                     </CardMain>
                   </figure>
-                </>
-              )}
+              </>)}
             </ChipMain>
           </CardMain>
           {/* <figcaption className="">{handleDate(data?.created_at)}</figcaption> */}
@@ -1065,6 +1066,7 @@ export function achievementAddressRender({ data, navigate }) {
 export function achievementAddressRenderTwo({ data }) {
   return (
     <div className="">
+      <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
       <ThemeMainTwo>
         <figure className="flex flex-col h-[40vh] items-center justify-center">
           <CardMain>
@@ -1072,6 +1074,7 @@ export function achievementAddressRenderTwo({ data }) {
           </CardMain>
         </figure>
       </ThemeMainTwo>
+      </ChipMain>
       <figcaption className="text-center">
         <CardMain>
           <CardMain>
@@ -1149,6 +1152,7 @@ export function messageAddressRenderTwo({ data, navigate }) {
       {data?.map((data, index) => (
         <>
           <div key={index}>
+            <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
             <ThemeMainTwo>
               <section className="max-h-[60vh] grid justify-items-center">
                 <CardMain />
@@ -1161,6 +1165,7 @@ export function messageAddressRenderTwo({ data, navigate }) {
                 <CardMain />
               </section>
             </ThemeMainTwo>
+            </ChipMain>
             <section className="text-center">
               <CardMain>
                 <CardMain>
@@ -1217,6 +1222,7 @@ export function guideAddressRenderTwo({ data }) {
       {data?.map((data, index) => (
         <>
           <div key={index}>
+            <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
             <ThemeMainTwo>
               <section className="max-h-[60vh] grid justify-items-center">
                 <CardMain />
@@ -1229,6 +1235,7 @@ export function guideAddressRenderTwo({ data }) {
                 <CardMain />
               </section>
             </ThemeMainTwo>
+            </ChipMain>
             <section className="text-center">
               <CardMain>
                 <CardMain>
@@ -1241,7 +1248,7 @@ export function guideAddressRenderTwo({ data }) {
                 </Link>
                 <br />
                 <br />
-                {/* <StaMain stamainstatic={{ stamainid: "guideiframe" }} /> */}
+                <StaMain stamainstatic={{ stamainid: "guideiframe" }} />
               </CardMain>
             </section>
           </div>

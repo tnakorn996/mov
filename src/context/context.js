@@ -130,26 +130,19 @@ export const Provider = ({
         if(data) {setquestuserid(data)}
     }
 
-    const date1 = new Date(Date.now());
-    const date2 = new Date(
+    const date = new Date(
     new Date().getFullYear(),
     new Date().getMonth() - 1, 
     new Date().getDate()
 );
-    const dateString1 = date1.toISOString();
-    const dateString2 = date2.toISOString();
-    const object = [dateString1, dateString2]
-    console.log('object', object)
-
+    const toisostring = date.toISOString();
     const selectStarUserid = async (first) => {
       const { data, error } = await supabase.from("star").select(`*`)
-    //   .or(`userid.gt.(${first}),created_at.cs.{${[dateString1, dateString2]}}`);
     .filter("userid", "eq", first)
-    .filter("created_at", "gt", dateString2);
+    .filter("created_at", "gt", toisostring);
       if (data) {setstaruserid(data)}
       console.log('data', data)
     };
-
 
     function contextRender(first, second, third) {
         if(authstate === null && authstate === undefined ) return null

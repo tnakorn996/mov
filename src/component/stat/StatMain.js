@@ -20,6 +20,7 @@ import SplashMain from '../../layout/splash/SplashMain'
 import ChipMain from '../../layout/chip/ChipMain.tsx'
 import ThemeMain from '../../layout/theme/ThemeMain.tsx'
 import ThemeMainTwo from '../../layout/theme/ThemeMainTwo.tsx'
+import ScrollMain from '../../layout/scroll/ScrollMain'
 
 export default function StatMain({
     statmainstatic,
@@ -359,36 +360,47 @@ export default function StatMain({
         <div>
             {data?.map((data, index) => (<>
             <div key={index}>
-            <section className="flex flex-col justify-center items-center">
-            <CardMain>
-                <div className="relative">
-                    {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree &&
-                    <Link to={`/image/imageform`}>
-                    <RiAddCircleFill className="absolute z-20 right-0 bottom-0 text-4xl" />
-                    </Link>}
-                <ChipMain chipmainstyle={{section: `!rounded-full`}}>
-                    <DtaMain 
-                    dtamaindata={{spreadhref: `/image/imageindex/${data?.userid}`}}  
-                    dtamainstatic={{
-                        dtamainid:'imageiframe', 
-                        dtamainindex: 0}} >
-                        <figure className="w-[150px] h-[150px] flex flex-col justify-center items-center  text-white bg-gray-400">
-                            <p className="text-6xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
-                            <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
-                        </figure>
-                    </DtaMain>
-                </ChipMain>
-                </div>
-            </CardMain>
-            </section>
-            <section className="flex flex-col justify-center text-center">
-            <p className="text-2xl  m-h5 first-letter:uppercase">{data?.username !== null ?  data?.username : data?.useremail}</p>
-            {/* <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p> */}
-            <CardMain>
-            <p className="l-h5">{data?.userbio || `My Personal Best Collection`}</p>
-            </CardMain>
+            <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
+            <ScrollMain scrollmainstatic={{scrollmaintransform: 0.3}} >
+            <div className="w-full flex flex-row justify-start">
+            <section className="">
+                <CardMain />
+                <CardMain />
+                <CardMain >
+                    <div className="relative">
+                        {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree &&
+                        <Link to={`/image/imageform`}>
+                        <RiAddCircleFill className="absolute z-20 right-0 bottom-0 text-4xl" />
+                        </Link>}
+                    <ChipMain chipmainstyle={{section: `!rounded-full`}}>
+                        <DtaMain 
+                        dtamaindata={{spreadhref: `/image/imageindex/${data?.userid}`}}  
+                        dtamainstatic={{
+                            dtamainid:'imageiframe', 
+                            dtamainindex: 0}} >
+                            <figure className="w-[100px] h-[100px] flex flex-col justify-center items-center  text-white bg-gray-400">
+                                <p className="text-4xl  uppercase">{data?.useremail?.slice(0, 1)}</p>
+                                <img src={data?.userimage} alt="" className="absolute z-10 min-w-full min-h-full" />
+                            </figure>
+                        </DtaMain>
+                    </ChipMain>
+                    </div>
+                </CardMain>
+                <CardMain />
             </section>
 
+            <section className="">
+            <CardMain />
+            <CardMain />
+            <CardMain />
+                <p className="text-2xl  m-h5 first-letter:uppercase">{data?.username !== null ?  data?.username : data?.useremail}</p>
+                {/* <p className="l-h4">Member since {data?.created_at?.slice(0, 10)}</p> */}
+                <p className="l-h5">{data?.userbio || `My Personal Best Collection`}</p>
+            <CardMain />
+            </section>      
+            </div>
+            </ScrollMain>
+            </ChipMain>
             <section className="">
             <CardMain>
                 {authstate !== null && authstate !== undefined && authstate.user.id === splitstaticthree ?
@@ -448,7 +460,7 @@ export default function StatMain({
         <div>
             {data?.map((data, index) => (<>
             <section key={index} className="">
-                <figure className="w-full h-[90vh] flex justify-center items-center  bg-slate-400">
+                <figure className="w-full h-[50ch] flex justify-center items-center  bg-slate-400">
                     <p className="text-9xl  uppercase">{data.username.slice(0, 1)}</p>
                     <img src={data.userimage} alt="" className="absolute z-20 max-h-[100ch] w-full" />
                 </figure>

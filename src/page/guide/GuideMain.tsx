@@ -9,18 +9,18 @@ export default function GuieMain() {
 
   return (
     <div>
-        <main className="">
-            <CardMain children={undefined} />
-            <CardMain children={undefined} />
-            <section className="">
-              {/* <BreadMain /> */}
-            </section>
-            <section className="">
-              <TabMain tabmainstatic={{ tabmainid: 'guidefieldset', tabmainindex: null}}
-              tabmainref={undefined} 
-              tabmainstyle={undefined} />
-            </section>
-        </main>
+      <main className="">
+        <CardMain children={undefined} />
+        <CardMain children={undefined} />
+        <section className="">
+          {/* <BreadMain /> */}
+        </section>
+        <section className="">
+          <TabMain tabmainstatic={{ tabmainid: 'guidefieldset', tabmainindex: null }}
+            tabmainref={undefined}
+            tabmainstyle={undefined} />
+        </section>
+      </main>
     </div>
   )
 }

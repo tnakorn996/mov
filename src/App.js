@@ -74,7 +74,7 @@ export default function App() {
             {(authstate !== null && authstate !== undefined) && <BarMain />}
           </section>
           <section className="w-screen min-h-[80vh]">
-            {/* <AnimatePresence> */}
+            {/* <AnimatePresence exitBeforeEnter> */}
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<AuthMain />} /> 
               <Route path='/app/appmain' element={<AppMain />} /> 

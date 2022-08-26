@@ -47,8 +47,8 @@ const [clientstaticthree, setclientstaticthree] = useClientTwo({
     <div>
         <main className="">
             <section className="">
-              <CardMain />
-              <CardMain />
+              {/* <CardMain /> */}
+              {/* <CardMain /> */}
               <StatMain statmainstatic={{statmainid: 'usertable', statmainindex: 0}} />
               <StatMain statmaindatatwo={userindexrender && userindexrender} statmaindata={clientstatic && clientstatic} statmainstatic={{statmainid: 'usertable', statmainindex: 1}} />
             </section>

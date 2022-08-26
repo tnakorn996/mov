@@ -65,7 +65,7 @@ const {
 export function backDropMainRender(component) {
   return (
     <div>
-      <motion.figure initial={{opacity: 0}} animate={{opacity: 1}} className="duration-75">
+      <motion.figure initial={{opacity: 0}} animate={{opacity: 1}} className={`relative  duration-200 `}>
       {component}
       </motion.figure>
     </div>

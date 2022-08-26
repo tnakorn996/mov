@@ -8,10 +8,6 @@
     body {
         @apply text-sm bg-white text-black dark:bg-slate-800 dark:text-white;
     }
-/* 
-    article {
-        @apply cursor-pointer duration-1000 border-black;
-    } */
 
     button {
         @apply cursor-pointer rounded-3xl;
@@ -24,10 +20,6 @@
     input, textarea {
         @apply w-full  focus:outline-none font-extralight duration-100 rounded-3xl;
     }
-
-    /* .m-section {
-        @apply bg-white dark:bg-slate-800;
-    } */
 
     .m-button {
         @apply text-sm py-[20px] px-[20px] bg-black text-white dark:bg-white dark:text-black font-medium border border-black;
@@ -46,19 +38,19 @@
     }
 
     .m-h1 {
-        @apply text-[10px] font-normal leading-normal;
+        @apply text-[7px] font-normal leading-normal;
     }
 
     .l-h1 {
-        @apply text-[10px] text-gray-400 font-light leading-normal;
+        @apply text-[7px] text-gray-400 font-light leading-normal;
     }
 
     .m-h2 {
-        @apply text-[12px] font-normal leading-normal;
+        @apply text-[9px] font-normal leading-normal;
     }
 
     .l-h2 {
-        @apply text-[12px] text-gray-400 font-light leading-normal;
+        @apply text-[9px] text-gray-400 font-light leading-normal;
     }
 
     .m-h3 {
@@ -78,19 +70,19 @@
     }
 
     .m-h5 {
-        @apply text-[16px] md:text-[18px] font-normal leading-normal;
+        @apply text-[15px] md:text-[18px] font-normal leading-normal;
     }
 
     .l-h5 {
-        @apply text-[16px] md:text-[18px]  text-gray-400 font-light leading-normal;
+        @apply text-[15px] md:text-[18px]  text-gray-400 font-light leading-normal;
     }
 
     .m-h6 {
-        @apply text-[19px] md:text-[22px]  font-normal leading-normal;
+        @apply text-[17px] md:text-[22px]  font-normal leading-normal;
     }
 
     .l-h6 {
-        @apply text-[19px] md:text-[22px]  text-gray-400 font-light leading-normal; 
+        @apply text-[17px] md:text-[22px]  text-gray-400 font-light leading-normal; 
     }
 
 }

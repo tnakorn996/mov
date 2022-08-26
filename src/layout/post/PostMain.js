@@ -577,7 +577,11 @@ export default function PostMain({ postmainstatic, postmaindata, postmainstyle }
   return (
     <div>
       <main className="">
-        <section className={postmainstyle && postmainstyle.section}>{appstatic?.map((data) => data?.postmainrender())}</section>
+          {appstatic?.map((data, index) => (<>
+          <motion.section key={index} initial={{opacity: 0}} animate={{opacity: 1}} className={`duration-100 ${postmainstyle && postmainstyle.section}`}>
+            {data?.postmainrender()}
+          </motion.section>
+          </>))}
       </main>
     </div>
   );

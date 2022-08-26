@@ -9,17 +9,17 @@ import SplashMain from '../../layout/splash/SplashMain'
 interface SignMainProps {
     signmainstatic: {
         signmainid: string,
-        signmainindex:  number,
+        signmainindex: number,
         signmaindetail: string,
         signmainaction: string,
         signmainentitle: string,
     }
 }
 
-export default function SignMain({signmainstatic}: SignMainProps) {
+export default function SignMain({ signmainstatic }: SignMainProps) {
     const navigate = useNavigate()
     const {
-    setappstate,
+        setappstate,
 
     } = useContext(Context)
     // const [clientstatic, setclientstatic] = useClient()
@@ -39,13 +39,13 @@ export default function SignMain({signmainstatic}: SignMainProps) {
         {
             signmainindex: 0,
             signmainstyle: {
-                section: `bg-slate-900 w-screen h-screen`, 
+                section: `bg-slate-900 w-screen h-screen`,
             },
         },
         {
             signmainindex: 1,
             signmainstyle: {
-                section: `bg-rose-700`, 
+                section: `bg-rose-700`,
             },
         },
         {
@@ -70,48 +70,48 @@ export default function SignMain({signmainstatic}: SignMainProps) {
         }
     ]
 
-    const[appstatic, setappstatic] = useApp(signmain, signmainstatic.signmainid, signmainstatic.signmainindex)
+    const [appstatic, setappstatic] = useApp(signmain, signmainstatic.signmainid, signmainstatic.signmainindex)
 
-  return (
-    <div>
-        <main>
-            {appstatic?.map((data: { signmainstyle: { section: any } }) => (<>
-            <section className={`w-full text-2xl flex items-center ${data?.signmainstyle?.section}`}>
-                <div className="">
-                <figcaption className="">
-                    <CardMain>
-                    <p className="flex flex-row items-center gap-1 text-slate-200"><SplashMain splashmainstyle={`text-2xl`} /> BEASTY TRAINING CLUB</p>
-                    <p className="text-slate-400">{signmainstatic?.signmaindetail}</p>
-                    </CardMain>
-                </figcaption>
-                <figure className="">
-                    <CardMain>
-                    {signmainstatic?.signmainaction && 
-                    <button onClick={() => {
-                        // navigate(-1)
-                        navigate(signmainstatic?.signmainaction)
-                        setappstate()
-                    }} className="l-button uppercase">
-                        {signmainstatic?.signmainentitle || 'Continue'}
-                    </button>}
-                    </CardMain>
-                </figure>
+    return (
+        <div>
+            <main>
+                {appstatic?.map((data: { signmainstyle: { section: any } }) => (<>
+                    <section className={`w-full text-2xl flex items-center ${data?.signmainstyle?.section}`}>
+                        <div className="">
+                            <figcaption className="">
+                                <CardMain>
+                                    <p className="flex flex-row items-center gap-1 text-slate-200"><SplashMain splashmainstyle={`text-2xl`} /> BEASTY TRAINING CLUB</p>
+                                    <p className="text-slate-400">{signmainstatic?.signmaindetail}</p>
+                                </CardMain>
+                            </figcaption>
+                            <figure className="">
+                                <CardMain>
+                                    {signmainstatic?.signmainaction &&
+                                        <button onClick={() => {
+                                            // navigate(-2)
+                                            navigate(signmainstatic?.signmainaction)
+                                            setappstate()
+                                        }} className="l-button uppercase">
+                                            {signmainstatic?.signmainentitle || 'Continue'}
+                                        </button>}
+                                </CardMain>
+                            </figure>
 
-                </div>
-            </section>
-            </>))}
-        </main>
-    </div>
-  )
+                        </div>
+                    </section>
+                </>))}
+            </main>
+        </div>
+    )
 }
 
 
-export function appImgRender({component}) {
-  return (
-    <div>
-        <section className="">
-            {component}
-        </section>
-    </div>
-  )
+export function appImgRender({ component }) {
+    return (
+        <div>
+            <section className="">
+                {component}
+            </section>
+        </div>
+    )
 }

@@ -27,14 +27,16 @@ export default function GraphMain({
             graphmainrender: () => {
                 return {
                     data: (guidedl[0]?.spreaddata()?.concat(
-                        guidedl[1]?.spreaddata()))?.filter((data) => data?.spreadrender()?.booltwo === true),
+                        guidedl[1]?.spreaddata(),
+
+                        guidedl[2]?.spreaddata()))?.filter((data) => data?.spreadrender()?.booltwo === true),
                     action: {
-                        appid:'backdropmain',
+                        appid: 'backdropmain',
                         appidtwo: 'previewmain',
                         appidthree: 'guidearticle',
                         appindex: 0
                     }
-                } 
+                }
             }
         }
     ]
@@ -45,17 +47,17 @@ export default function GraphMain({
             graphmainrender: () => {
                 return {
                     data: (messagedl[0]?.spreaddata()?.concat(
-                        messagedl[1]?.spreaddata(), 
+                        messagedl[1]?.spreaddata(),
                         // messagedl[2]?.spreaddata(),  
-                        messagedl[3]?.spreaddata(), 
+                        messagedl[3]?.spreaddata(),
                         messagedl[4]?.spreaddata()))?.filter(data => data?.spreadrender()?.booltwo === true && data?.spreadrender()?.bool === true),
                     action: {
-                        appid:'backdropmain',
+                        appid: 'backdropmain',
                         appidtwo: 'previewmain',
                         appidthree: 'apparticle',
                         appindex: 0
                     }
-                } 
+                }
             }
         }
     ]
@@ -75,21 +77,21 @@ export default function GraphMain({
     const [adstatic, setadstatic] = useAd()
     const [appstatic, setappstatic] = useApp(graphmain, graphmainstatic.graphmainid, graphmainstatic.graphmainindex, graphmainstatic)
     const [devstatic, setdevstatic] = useDev({
-            devstaticdata: appstatic && appstatic[0].graphmainrender().data,
-            devstaticaction: appstatic && appstatic[0].graphmainrender().action
-        })
-        
-    if(typeof appstatic === 'undefined' || typeof devstatic === 'undefined') return null
+        devstaticdata: appstatic && appstatic[0].graphmainrender().data,
+        devstaticaction: appstatic && appstatic[0].graphmainrender().action
+    })
 
-  return (
-    <div>
-        <main className="">
-            <section className="">
-                {appstatic?.map((data: { graphmainrender: () => any }) => (<>
-                    {data?.graphmainrender()}
-                </>))}
-            </section>
-        </main>
-    </div>
-  )
+    if (typeof appstatic === 'undefined' || typeof devstatic === 'undefined') return null
+
+    return (
+        <div>
+            <main className="">
+                <section className="">
+                    {appstatic?.map((data: { graphmainrender: () => any }) => (<>
+                        {data?.graphmainrender()}
+                    </>))}
+                </section>
+            </main>
+        </div>
+    )
 }

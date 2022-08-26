@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { achievementul, appul, articleul, clubul, themeul, userul, workoutul } from '../content/content'
+import { achievementul, appul, articleul, clubul, feedbackul, themeul, userul, workoutul } from '../content/content'
 import {supabase} from '../lib/supabase'
 import SplashMain from '../layout/splash/SplashMain'
 
@@ -39,6 +39,7 @@ export const Provider = ({
     const [awarduserid, setawarduserid] = useState()
     const [textuserid, settextuserid] = useState()
     const [questuserid, setquestuserid] = useState()
+    const [staruserid, setstaruserid] = useState()
     const [search, setsearch] = useState([])
     // console.log('userimage', userimage)
     const parseworkout = JSON.parse(window.localStorage.getItem("mov.workoutiframe"));
@@ -72,6 +73,7 @@ export const Provider = ({
             selectAwardUserid(ref)
             selectTextUserid(ref)
             selectQuestUserid(ref)
+            selectStarUserid(ref)
             // contextSelectUserimage(ref)
         } 
     }, [authstate, fieldmainstate])
@@ -127,6 +129,27 @@ export const Provider = ({
         const { data, error} = await supabase.from('quest').select(`*`).eq('userid', first)
         if(data) {setquestuserid(data)}
     }
+
+    const date1 = new Date(Date.now());
+    const date2 = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() - 1, 
+    new Date().getDate()
+);
+    const dateString1 = date1.toISOString();
+    const dateString2 = date2.toISOString();
+    const object = [dateString1, dateString2]
+    console.log('object', object)
+
+    const selectStarUserid = async (first) => {
+      const { data, error } = await supabase.from("star").select(`*`)
+    //   .or(`userid.gt.(${first}),created_at.cs.{${[dateString1, dateString2]}}`);
+    .filter("userid", "eq", first)
+    .filter("created_at", "gt", dateString2);
+      if (data) {setstaruserid(data)}
+      console.log('data', data)
+    };
+
 
     function contextRender(first, second, third) {
         if(authstate === null && authstate === undefined ) return null
@@ -305,8 +328,6 @@ export const Provider = ({
         }
     ]
 
-    // console.log('aw', awarduserid && awarddl[0].spreaddata)
-
     const textdl =[
         {
             spreadid: 'my',
@@ -331,61 +352,83 @@ export const Provider = ({
         }
     ]
 
-    const guidedl = [
+    const stardl =[
         {
-            spreadid: 'user',
-            spreadtitle: 'My user',
-            spreadicon: `🪄`,
-            spreaddata: () => {
-                if(typeof useruserid === 'undefined') return null
-                // const array = [];
-                // for(const data of userul) {
-                //     array.push({
-                //         spreadidtwo: data.breadid,
-                //         spreadhref: `/guide/guideindex/` + data.breadid,
-                //         spreaddetail: `${data.breadtitle}`,
-                //         spreadrender: () => {
-                //             const ref = useruserid[0][data.breadid] === null
-                //             return contextRenderFive(ref, data.breadid, data.breadaction)
-                //         }
-                //     })
-                // }
-                // return array
-
-                return userul.map(data => (
-                    {
-                        spreadidtwo: data.breadid,
-                        spreadhref: `/guide/guideindex/` + data.breadid,
-                        spreaddetail: `${data.breadtitle}`,
-                        spreadrender: () => {
-                            const ref = useruserid[0][data.breadid] === null
-                            return contextRenderFive(ref, data.breadid, data.breadaction)
-                        }
-                    }
-                ))
-            }
-        },
-        {
-            spreadid: 'display',
-            spreadtitle: 'My display and accessibility',
-            spreadicon: `🌙`,
-            spreaddata: () => {
-                if(typeof parsetheme === 'undefined') return null
-                return themeul.map(data => (
-                    {
-                        spreadidtwo: data.breadid,
-                        spreadhref: `/guide/guideindex/` + data.breadid,
-                        spreaddetail: `Activate your ${data.breadtitle}`,
-                        spreadrender: () => {
-                            const ref = parsetheme[0][data.breadid] === undefined
-                            // console.log('ref', ref)
-                            return contextRenderFive(ref, data.breadid, data.breadaction)
-                        }
-                    })
-                )
-            }
-        },
+            spreadid: 'my',
+            spreadtitle: 'My search',
+            spreaddata: staruserid,
+        }
     ]
+
+    const guidedl = [
+      {
+        spreadid: "user",
+        spreadtitle: "My user",
+        spreadicon: `🪄`,
+        spreaddata: () => {
+          if (typeof useruserid === "undefined") return null;
+          // const array = [];
+          // for(const data of userul) {
+          //     array.push({
+          //         spreadidtwo: data.breadid,
+          //         spreadhref: `/guide/guideindex/` + data.breadid,
+          //         spreaddetail: `${data.breadtitle}`,
+          //         spreadrender: () => {
+          //             const ref = useruserid[0][data.breadid] === null
+          //             return contextRenderFive(ref, data.breadid, data.breadaction)
+          //         }
+          //     })
+          // }
+          // return array
+
+          return userul.map((data) => ({
+            spreadidtwo: data.breadid,
+            spreadhref: `/guide/guideindex/` + data.breadid,
+            spreaddetail: `${data.breadtitle}`,
+            spreadrender: () => {
+              const ref = useruserid[0][data.breadid] === null;
+              return contextRenderFive(ref, data.breadid, data.breadaction);
+            },
+          }));
+        },
+      },
+      {
+        spreadid: "display",
+        spreadtitle: "My display and accessibility",
+        spreadicon: `🌙`,
+        spreaddata: () => {
+          if (typeof parsetheme === "undefined") return null;
+          return themeul.map((data) => ({
+            spreadidtwo: data.breadid,
+            spreadhref: `/guide/guideindex/` + data.breadid,
+            spreaddetail: `Activate your ${data.breadtitle}`,
+            spreadrender: () => {
+              const ref = parsetheme[0][data.breadid] === undefined;
+              // console.log('ref', ref)
+              return contextRenderFive(ref, data.breadid, data.breadaction);
+            },
+          }));
+        },
+      },
+      {
+        spreadid: "feedback",
+        spreadtitle: "My feedbacks",
+        spreadicon: `⭐️`,
+        spreaddata: () => {
+          if (typeof staruserid === "undefined") return null;
+          return feedbackul.map((data) => ({
+            spreadidtwo: data.breadid,
+            spreadhref: `/guide/guideindex/` + data.breadid,
+            spreaddetail: `${data.breadtitle}`,
+            spreadrender: () => {
+              const ref = staruserid.length === 0;
+              // console.log('ref', ref)
+              return contextRenderFive(ref, data.breadid, data.breadaction);
+            },
+          }));
+        },
+      },
+    ];
 
     // console.log('if(typeof parsetheme ', typeof parsetheme[0][`themeid`] === 'undefined')
 
@@ -579,6 +622,7 @@ export const Provider = ({
         textdl,
         guidedl,
         questdl,
+        stardl,
         
         }} >
         {children}

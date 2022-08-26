@@ -108,6 +108,7 @@ export default function StaMain({
         const ref = Object.assign(...filter).stamaindata()
         const reftwo = Object.assign(...filter).stamainref
         // console.log('ref', ref, reftwo)
+        if(typeof ref === 'undefined') return null
         if(ref && ref.length !== 0){
             const filtertwo = reftwo.filter(data => reftwo.indexOf(data) === 1)
             setstamainrender(filtertwo)

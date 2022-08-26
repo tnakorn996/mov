@@ -611,7 +611,7 @@ export default function StatMain({
                 <CardMain>
                 <section className="flex flex-row justify-between">
                     <p className="m-h5">Started date</p>
-                    <p className="l-h5">{postMainFunction(data?.created_at)}</p>
+                    <p className="l-h5">{postMainFunction(data?.created_at)} ago</p>
                 </section>
                 </CardMain>
                 <section className="">

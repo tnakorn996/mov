@@ -16,6 +16,7 @@ import SheetMain from '../sheet/SheetMain'
 import SearchMain from '../../page/search/SearchMain.tsx'
 import WeightIndex from '../../page/weight/WeightIndex.tsx'
 import ImageIndex from '../../page/image/ImageIndex.tsx'
+import QualityIndex from '../../page/quality/QualityIndex.tsx'
 import ContractForm from '../../page/contract/ContractForm'
 import { RiCloseCircleFill, RiCloseCircleLine, RiCloseFill, RiCloseLine } from 'react-icons/ri'
 
@@ -91,6 +92,16 @@ export default function ModalMain() {
     }
   ]
 
+  const qualitydialog = [
+    {
+      modalmainrender: () => {
+        return appDialogRender({
+          component: <QualityIndex />
+        })
+      }
+    }
+  ]
+
   const modalmain = [
     {
       modalmainid: 'appdialog',
@@ -116,47 +127,52 @@ export default function ModalMain() {
       previewmainid: 'weightdialog',
       previewmainref: weightdialog,
     },
+    {
+      previewmainid: 'qualitydialog',
+      previewmainref: qualitydialog,
+    },
 
   ]
 
   const [appstatic, setappstatic] = useApp(modalmain, appstate.appidthree, appstate.appindex)
-// console.log('appstatic', appstatic)
-if(appstate.appidtwo !== 'modalmain') return null
-if(typeof appstate === 'undefined') return null
+  // console.log('appstatic', appstatic)
+  if (appstate.appidtwo !== 'modalmain') return null
+  if (typeof appstate === 'undefined') return null
 
   return (
     <div>
-        <main className="w-full fixed bottom-0 left-0  rounded-t-3xl overflow-hidden duration-100">
+      <main className="w-full fixed bottom-0 left-0  rounded-t-3xl overflow-hidden duration-100">
         <ThemeMain>
-            <section className="">
-              <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
-                {appstatic?.map((data) => (
-                  data?.modalmainrender()
-                ))}
-              </motion.figcaption>
-              </section>
-              <section className="flex justify-center">
-                <div onClick={() => {
-                  setappstate()
-                  window.history.replaceState(null, "", location?.pathname)}} className="">
-                  <CardMain>
-                  <ChipMain>
-                    <figure className="">
+          <section className="">
+            <motion.figcaption className={` overflow-y-scroll no-scrollbar duration-100`}>
+              {appstatic?.map((data) => (
+                data?.modalmainrender()
+              ))}
+            </motion.figcaption>
+          </section>
+          <section className="flex justify-center">
+            <div onClick={() => {
+              setappstate()
+              window.history.replaceState(null, "", location?.pathname)
+            }} className="">
+              <CardMain>
+                <ChipMain>
+                  <figure className="">
                     <CardMain>
-                    <RiCloseLine className="text-2xl" />
+                      <RiCloseLine className="text-2xl" />
                     </CardMain>
-                    </figure>
-                  </ChipMain>
-                  </CardMain>
-                </div>
-            </section>
+                  </figure>
+                </ChipMain>
+              </CardMain>
+            </div>
+          </section>
         </ThemeMain>
-        </main>
+      </main>
     </div>
   )
 }
 
-export function appDialogRender({component}) {
+export function appDialogRender({ component }) {
   return (
     <div>
       <section className="">

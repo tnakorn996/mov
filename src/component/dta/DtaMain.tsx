@@ -23,44 +23,44 @@ export default function AtaMain({
     // const navigate = useNavigate()
     const location = useLocation()
 
-    function dtaMainAction(first: { 
-        appid: string; 
-        appidtwo: string; 
-        appidthree: string; 
-        appindex: number 
+    function dtaMainAction(first: {
+        appid: string;
+        appidtwo: string;
+        appidthree: string;
+        appindex: number
     }) {
-            // console.log('dtamaindata', dtamaindata)
-            // console.log('first', first)
-            setappstate(first)
-            // setdtamainstate(!dtamainstate)
-            
-            // document.location.href = dtamaindata.spreadhref;
-            // window.location.replace(dtamaindata.spreadhref)
-            // window.location.href = dtamaindata.spreadhref
-            if(dtamaindata.spreadhref) return  window.history.replaceState(null, "", dtamaindata.spreadhref)
-            return null
+        // console.log('dtamaindata', dtamaindata)
+        // console.log('first', first)
+        setappstate(first)
+        // setdtamainstate(!dtamainstate)
+
+        // document.location.href = dtamaindata.spreadhref;
+        // window.location.replace(dtamaindata.spreadhref)
+        // window.location.href = dtamaindata.spreadhref
+        if (dtamaindata.spreadhref) return window.history.replaceState(null, "", dtamaindata.spreadhref)
+        return null
     }
 
     const appiframe = [
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'appdialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'appdialog',
+                    appindex: 0,
                 }
-            } 
+            }
         },
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'previewmain',
-                            appidthree: 'apparticle',
-                            appindex: 1,
+                    appid: 'backdropmain',
+                    appidtwo: 'previewmain',
+                    appidthree: 'apparticle',
+                    appindex: 1,
                 }
-            } 
+            }
         },
     ]
 
@@ -68,12 +68,12 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'previewmain',
-                            appidthree: 'userarticle',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'previewmain',
+                    appidthree: 'userarticle',
+                    appindex: 0,
                 }
-            } 
+            }
         },
     ]
 
@@ -81,12 +81,12 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'contractdialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'contractdialog',
+                    appindex: 0,
                 }
-            } 
+            }
         },
     ]
 
@@ -94,12 +94,12 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'previewmain',
-                            appidthree: 'imagearticle',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'previewmain',
+                    appidthree: 'imagearticle',
+                    appindex: 0,
                 }
-            } 
+            }
         },
     ]
 
@@ -107,25 +107,25 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'searchdialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'searchdialog',
+                    appindex: 0,
                 }
-            } 
+            }
         }
     ]
-        
+
     const messageiframe = [
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'messagedialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'messagedialog',
+                    appindex: 0,
                 }
-            } 
+            }
         }
     ]
 
@@ -133,12 +133,12 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'guidedialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'guidedialog',
+                    appindex: 0,
                 }
-            } 
+            }
         }
     ]
 
@@ -146,12 +146,25 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'modalmain',
-                            appidthree: 'weightdialog',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'weightdialog',
+                    appindex: 0,
                 }
-            } 
+            }
+        }
+    ]
+
+    const qualityiframe = [
+        {
+            dtamainrender: () => {
+                return {
+                    appid: 'backdropmain',
+                    appidtwo: 'modalmain',
+                    appidthree: 'qualitydialog',
+                    appindex: 0,
+                }
+            }
         }
     ]
 
@@ -159,12 +172,12 @@ export default function AtaMain({
         {
             dtamainrender: () => {
                 return {
-                            appid: 'backdropmain',
-                            appidtwo: 'previewmain',
-                            appidthree: 'achievementarticle',
-                            appindex: 0,
+                    appid: 'backdropmain',
+                    appidtwo: 'previewmain',
+                    appidthree: 'achievementarticle',
+                    appindex: 0,
                 }
-            } 
+            }
         }
     ]
 
@@ -202,28 +215,33 @@ export default function AtaMain({
             dtamainref: weightiframe
         },
         {
+            dtamainid: 'qualityiframe',
+            dtamainref: qualityiframe
+        },
+        {
             dtamainid: 'achievementiframe',
             dtamainref: achievementiframe
         },
     ]
 
     const [appstatic, setappstatic] = useApp(dtamain, dtamainstatic.dtamainid, dtamainstatic.dtamainindex, splitstaticthree)
-// console.log('appstatic', appstatic)
-  return (
-    <div>
-        <main className="">
-            <section onClick={() => {
-                setdtamainstate(!dtamainstate)
-            }} className="">
-                {appstatic && appstatic?.map((data: { dtamainrender: () => any }) => (<>
-                    <section onClick={() => {
-                        dtaMainAction(data?.dtamainrender())}
+    // console.log('appstatic', appstatic)
+    return (
+        <div>
+            <main className="">
+                <section onClick={() => {
+                    setdtamainstate(!dtamainstate)
+                }} className="">
+                    {appstatic && appstatic?.map((data: { dtamainrender: () => any }) => (<>
+                        <section onClick={() => {
+                            dtaMainAction(data?.dtamainrender())
+                        }
                         } className="">
-                        {children}
-                    </section>
-                </>))}
-            </section>
-        </main>
-    </div>
-  )
+                            {children}
+                        </section>
+                    </>))}
+                </section>
+            </main>
+        </div>
+    )
 }

@@ -45,6 +45,9 @@ import SettingIndex from './page/setting/SettingIndex.tsx';
 import ThemeForm from './page/theme/ThemeForm.tsx';
 import ImageForm from './page/image/ImageForm.tsx';
 import ImageIndex from './page/image/ImageIndex.tsx';
+import FeedbackIndex from './page/feedback/FeedbackIndex.tsx';
+import QualityIndex from './page/quality/QualityIndex.tsx';
+import FeedbackMain from './page/feedback/FeedbackMain.tsx';
 
 export default function App() {
   const {
@@ -110,6 +113,8 @@ export default function App() {
 
               <Route path='/weight/weightindex/:id' element={<SearchMain />} /> 
 
+              <Route path='/quality/qualityindex/:id' element={<QualityIndex />} /> 
+
               <Route path='/favourite/favouritemain' element={<FavouriteMain />} /> 
 
               <Route path='/article/articleindex/:articleid' element={<ArticleIndex />} /> 
@@ -131,7 +136,8 @@ export default function App() {
               <Route path='/guide/guidemain' element={<GuideMain />} /> 
               <Route path='/guide/guideindex/:guideid' element={<GuideIndex />} /> 
 
-              
+              <Route path='/feedback/feedbackmain' element={<FeedbackMain />} /> 
+              <Route path='/feedback/feedbackindex/:id' element={<FeedbackIndex />} /> 
 
             </Routes> 
             {/* </AnimatePresence> */}

@@ -46,6 +46,8 @@ export default function FieldMain({
   const refsix = useRef(null)
   const refseven = useRef(null)
   const refuserbio = useRef(null)
+  const reffeedbackid = useRef(null)
+  const refstartitle = useRef(null)
 
   function fieldMainAction(first, second) {
     for(const data of first) {
@@ -152,18 +154,14 @@ export default function FieldMain({
           // return `handleselect${ref.fieldmainid}`
   }
 
-  // console.log('split', splitstaticthree || split[3] || param?.userid)
-
-  const ss = async () => {
-      // console.log('fieldmaindata', fieldmaindata)
-        const user = supabase.auth.user()
-        const refvaluefour = reffour?.current?.value
-        const refvaluefive = reffive?.current?.value
-        const refuserbiovalue = refuserbio?.current?.value
-        // console.log('user', user)
-        const query = [       
-            {
-                fieldmainid: 'userinput',
+  function fieldMainQuery() {
+    const user = supabase.auth.user()
+    const refvaluefour = reffour?.current?.value
+    const refvaluefive = reffive?.current?.value
+    const refuserbiovalue = refuserbio?.current?.value
+    const refstartitlevalue = refstartitle?.current?.value
+    if(fieldmainstatic.fieldmainid === 'userinput') {
+      return {
                 fieldmainidtwo: 'user',
                 fieldmainhref: `/user/userindex/`,
                 fieldmaindetail: 'Successfully updated your profile',
@@ -177,9 +175,10 @@ export default function FieldMain({
                   userbio: refuserbiovalue,
                 },
                 fieldmaindatatwo: {userid: split[3]}
-            },     
-            {
-                fieldmainid: 'contractinput',
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'contractinput') {
+      return {
                 fieldmainidtwo: 'contract',
                 // fieldmainhref: `/user/userindex/`,
                 // fieldmaindetail: 'Successfully following this user',
@@ -192,9 +191,10 @@ export default function FieldMain({
                     receiverid: splitstaticthree || split[3] || param?.userid,
                 },
                 fieldmaindatatwo: {contractid: undefined}
-            },
-            {
-                fieldmainid: 'taskinput',
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'taskinput') {
+      return {
                 fieldmainidtwo: 'task',
                 fieldmainhref: `/task/taskindex/`,
                 fieldmaindetail: 'Successfully added your personal best.',
@@ -208,8 +208,10 @@ export default function FieldMain({
                     userid: user?.id,
                 },
                 fieldmaindatatwo: {userid: undefined}
-            },
-            {
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'ticketinput') {
+      return {
                 fieldmainid: 'ticketinput',
                 fieldmainidtwo: 'ticket',
                 fieldmainhref: `/ticket/ticketindex/`,
@@ -223,9 +225,10 @@ export default function FieldMain({
                     userid: user?.id,
                 },
                 fieldmaindatatwo: {userid: undefined}
-            },
-            {
-                fieldmainid: 'awardinput',
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'awardinput') {
+      return {
                 fieldmainidtwo: 'award',
                 fieldmainhref: `/award/awardindex/`,
                 fieldmaindetail: 'Successfully claimed your reward',
@@ -237,9 +240,10 @@ export default function FieldMain({
                     achievementid: split[3],
                 },
                 fieldmaindatatwo: {userid: undefined}
-            },
-            {
-                fieldmainid: 'textinput',
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'textinput') {
+      return {
                 fieldmainidtwo: 'text',
                 // fieldmainhref: `//awardindex/`,
                 // fieldmaindetail: 'Successfully claim your reward',
@@ -251,9 +255,10 @@ export default function FieldMain({
                     spreadidtwo: url,
                 },
                 fieldmaindatatwo: {userid: undefined}
-            },
-            {
-                fieldmainid: 'questinput',
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'questinput') {
+      return {
                 fieldmainidtwo: 'quest',
                 // fieldmainhref: `//awardindex/`,
                 // fieldmaindetail: 'Successfully claim your reward',
@@ -265,18 +270,36 @@ export default function FieldMain({
                     spreadidtwo: url,
                 },
                 fieldmaindatatwo: {userid: undefined}
-            },
-        ]
-        const filter = query.filter(data => data.fieldmainid === fieldmainstatic.fieldmainid)
-        const ref = Object.assign(...filter)
+            }
+    }
+    if(fieldmainstatic.fieldmainid === 'starinput') {
+      return {
+                fieldmainidtwo: 'star',
+                fieldmainhref: `/star/awardindex/`,
+                fieldmaindetail: 'Successfully sent your feedbacks',
+                fieldmainaction: `/guide/guidemain`,
+                fieldmaindata: {
+                    starid: fieldmainid,
+                    startitle: refstartitlevalue,
+                  
+                    userid: user?.id,
+                    qualityid: choicemainstate,
+                },
+                fieldmaindatatwo: {userid: undefined}
+            }
+    }
+  }
+
+  const ss = async () => {
+        const ref = fieldMainQuery()
         // console.log('ref', ref)
         try {
-            if(user && filter && Object.values(ref.fieldmaindatatwo)[0] === undefined){
+            if(ref && Object.values(ref.fieldmaindatatwo)[0] === undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).upsert(ref.fieldmaindata, {returning: 'minimal'})
                 // alert(error)
 
             }
-            if(user && filter && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
+            if(ref && Object.values(ref.fieldmaindatatwo)[0] !== undefined){
                 const { error } = await supabase.from(ref.fieldmainidtwo).update(ref.fieldmaindata).match(ref.fieldmaindatatwo)
                 // alert(error)
 
@@ -678,6 +701,38 @@ export default function FieldMain({
     },
   ]
 
+  const starinput = [
+    {
+      fieldmainindex: 0,
+      fieldmaintitle: null,
+      fieldmainentitle: 'submit',
+      fieldmainaction: ss,
+      fieldmaindata: [
+        {
+          fieldmainsubtitle: `Other feedbacks`,
+          fieldmainrender:() => {
+            return <textarea ref={refstartitle} className="l-input" placeholder="What are your thoughts?" />
+          }
+        },
+      ],
+      fieldmaindatatwo: [
+        {
+          fieldmainsubtitle: null,
+          fieldmainrender:() => {
+            return <ChoiceMain choicemainref={reffeedbackid} choicemainstatic={{choicemainid: 'feedbacklabel', choicemainindex: 0}} />
+          }
+        },
+      ],
+    },
+    // {
+    //   fieldmainindex: 1,
+    //   fieldmaintitle: null,
+    //   fieldmainentitle: 'Mark as un-done',
+    //   fieldmainaction: fieldMainDelete,
+    //   fieldmaindata: [],
+    // },
+  ]
+
   const fieldmain = [
     {
       fieldmainid: 'authinput',
@@ -714,6 +769,10 @@ export default function FieldMain({
     {
       fieldmainid: 'searchinput',
       fieldmainref: searchinput,
+    },
+     {
+      fieldmainid: 'starinput',
+      fieldmainref: starinput,
     },
   ]
 

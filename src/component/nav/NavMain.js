@@ -23,6 +23,7 @@ export default function NavbarMain({
     ticketdl,
     awarddl,
     messagedl,
+    stardl,
 
   } = useContext(Context)
   const location = useLocation()
@@ -55,7 +56,7 @@ export default function NavbarMain({
     // console.log('first', first)
       if (first) {
         return <CardMain>
-         <motion.div initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="duration-100">
+         <motion.div initial={{y: 100}} animate={{ y:0}} exit={{y: 100}} className="duration-300">
           {component}
           </motion.div>
         </CardMain>
@@ -119,9 +120,22 @@ export default function NavbarMain({
       navmainindex: 0,
       navmainrender: () => {
         if(typeof awarddl[0]?.spreaddata === 'undefined') return null
-        // const filter = awarddl[0]?.spreaddata?.filter(data => data?.achievementid === split[3])
         const filter = messagedl[1]?.spreaddata()?.filter(data => data.spreadrender().id === split[3])
         return navMainAction(filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'awardinput', fieldmainindex: 0}} />)
+
+      }
+    },
+  ]
+
+  const feedbacktbody = [
+    {
+      navmainindex: 0,
+      navmainrender: () => {
+        if(typeof stardl[0]?.spreaddata === 'undefined') return null
+        // const filter = guiddl[2]?.spreaddata()?.filter(data => data.spreadrender().id === split[3])
+        // const filter = stardl[0]?.spreaddata
+        // return navMainAction(filter.length === 0, <FieldMain fieldmainstatic={{fieldmainid: 'starinput', fieldmainindex: 0}} />)
+        return navMainAction(true, <FieldMain fieldmainstatic={{fieldmainid: 'starinput', fieldmainindex: 0}} />)
 
       }
     },
@@ -159,6 +173,10 @@ export default function NavbarMain({
     {
       navmainid: 'guidetbody',
       navmainref: usertbody,
+    },
+    {
+      navmainid: 'feedbacktbody',
+      navmainref: feedbacktbody,
     },
   ]
 

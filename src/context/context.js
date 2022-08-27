@@ -388,7 +388,7 @@ export const Provider = ({
       {
         spreadid: "display",
         spreadtitle: "My display and accessibility",
-        spreadicon: `🌙`,
+        spreadicon: `📺`,
         spreaddata: () => {
           if (typeof parsetheme === "undefined") return null;
           return themeul.map((data) => ({

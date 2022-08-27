@@ -250,7 +250,6 @@ export default function PostMain({ postmainstatic, postmaindata, postmainstyle }
     },
     {
       postmainrender: () => {
-        console.log("this", this);
         const ref = clubul.filter((data) => data.breadid === splitstaticthree);
         // if(!Array.isArray(ref)) return null
         if (typeof ref === "undefined") return null;
@@ -279,14 +278,13 @@ export default function PostMain({ postmainstatic, postmaindata, postmainstyle }
     {
       postmainrender: () => {
         const ref = ticketdl[0]?.spreaddata?.filter((data) => data.breadid === splitstaticthree);
-        const reftwo = [Object.assign(ref, clubul.filter((data) => ref.some((dat) => dat.clubid === data.breadid))[0])];
-        if (typeof reftwo === "undefined") return null;
-        return reftwo.map((data) =>
-          ticketAddressRenderTwo({
-            data: data,
+        // const reftwo = clubul.filter((data) => ref.some((dat) => dat.clubid === data.breadid))
+        if (ref === undefined && Array.isArray(ref)) return null;
+        return ticketAddressRenderTwo({
+            data: ref[0],
+            // datatwo: reftwo && Object.assign(...reftwo),
           })
-        );
-      },
+      }
     },
     {
       postmainrender: () => {
@@ -950,7 +948,7 @@ export function clubAddressRenderTwo({ data }) {
     <div className="">
       <section className="">
         <ChipMain chipmainstyle={{section: `!rounded-t-none`}}>
-        <figure className="h-[65vh] flex justify-center overflow-hidden">
+        <figure className="h-[55vh] flex justify-center overflow-hidden">
         <ScrollMain scrollmainstatic={{scrollmaintransform: 0.3}}>
           <img src={data?.breadimage} alt="" className="max-w-[100ch] min-h-full" />
         </ScrollMain>
@@ -973,7 +971,8 @@ export function ticketAddressRender({ data, navigate }) {
   return <div className="">{clubAddressRender({ data, navigate })}</div>;
 }
 
-export function ticketAddressRenderTwo({ data }) {
+export function ticketAddressRenderTwo({ data, datatwo }) {
+  // console.log('data, datatwo', data, datatwo)
   return (
     <div className="">
       {clubAddressRenderTwo({ data })}

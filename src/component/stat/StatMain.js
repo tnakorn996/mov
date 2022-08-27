@@ -152,14 +152,14 @@ export default function StatMain({
     const clubtable = [
         {
             statmainrender: () => {
-                return  statMainAction('clubid',  clubTableRender())
+                return statMainAction('clubid',  clubTableRender())
             }
         },
         {
             statmainrender: () => {
-                return  statMainAction('clubid',  clubTableRenderTwo({
+                return clubTableRenderTwo({
                     data: statmaindata && statmaindata
-                }))
+                })
             }
         },
     ]
@@ -167,33 +167,25 @@ export default function StatMain({
     const tickettable = [
         {
             statmainrender: () => {
-                // const sort =  statmaindata && statmaindata?.sort((a, b) => b.weightid.length - a.weightid.length)
                 const sort =  clientstatic && clientstatic?.sort((a, b) => b.weightid.length - a.weightid.length)
-                return  ticketTableRender({data: sort && sort})
+                return  ticketTableRender(
+                    {
+                        data: sort && sort
+                    })
             }
         },
         {
             statmainrender: () => {
-                const filter = clientstatic?.filter(data => data.userid?.userid === authstate?.user?.id)
-                const filtertwo = clubul?.filter(data => data.breadid === splitstaticthree)
-                if(Array.isArray(filter) && Array.isArray(filtertwo)
-                && filter.length > 0 && filtertwo.length > 0) {
-                    // console.log('filter, filtertwo', filter, filtertwo)
-                    const assign = [Object.assign(Object.assign(...filter), Object.assign(...filtertwo))]
-                    return assign?.map((data) => (
-                        ticketTableRenderTwo({
-                            data: data
+                if(typeof clientstatic === 'undefined') return null
+                for(const data of clientstatic){
+                    if(data.userid.userid === authstate.user.id){
+                        const filter = clubul?.filter(data => data.breadid === splitstaticthree)
+                        return ticketTableRenderTwo({
+                            data: data,
+                            datatwo: Object.assign(...filter)
                         })
-                    ))
+                    }
                 }
-
-                // console.log('statmaindata', statmaindata)
-                // statmaindata?.map((data) => (
-                //     ticketTableRenderTwo({
-                //         data: data
-                //     })
-                // ))
-
             }
         }
     ]
@@ -507,21 +499,20 @@ export default function StatMain({
         )
     }
 
-    export function clubTableRenderTwo({data, navigate}) {
-        // console.log('data', data)
+    export function clubTableRenderTwo({data}) {
+        // console.log('datallllll', data)
         return (
             <div>
             <section className="w-full">
             <CardMain>
                 <div className="flex flex-row justify-center">
                     {data?.map((data, index) => (<>
-                    <Link key={index} to={`/user/userindex/${data?.userid?.userid}`} >
-                        <ChipMain chipmainstyle={{section: `!rounded-full`}}>
-                        <figure className="relative w-[50px] h-[50px] flex justify-center items-center bg-slate-300 text-white">
-                            <img src={data?.userid?.userimage} alt="" className="absolute z-10" />
-                            <p className="absolute  uppercase m-h6">{data?.userid?.username?.slice(0, 1)}</p>
+                    <Link key={index} to={`/user/userindex/${data?.userid?.userid}`} className="-mr-4  " >
+                        <figure className="relative w-[70px] h-[70px] flex justify-center items-center bg-slate-300 text-white  rounded-full border-4 border-white dark:border-slate-800 overflow-hidden">
+                            <img src={data?.userid?.userimage} alt="" className="absolute" /> 
+                            <p className="absolute z-0  uppercase m-h6">{!data?.userid?.userimage && data?.userid?.username?.slice(0, 1)}</p>
                         </figure>
-                        </ChipMain>
+                     
                     </Link>
                     </>)
                     )}
@@ -563,8 +554,8 @@ export default function StatMain({
         )
     }
 
-    export function ticketTableRenderTwo({data}) {
-        // console.log('datassx', data)
+    export function ticketTableRenderTwo({data, datatwo}) {
+        // console.log('datassx', data, datatwo)
         return (
         <div>
             <section className="">
@@ -576,7 +567,7 @@ export default function StatMain({
                 <CardMain>
                 <figcaption className="flex flex-row gap-2  uppercase">
                         <p className="text-2xl l-h6 font-medium">{data?.weightid}</p>
-                        <p className="text-2xl m-h6 font-medium">/ {data?.breadnumber}</p>
+                        <p className="text-2xl m-h6 font-medium">/ {datatwo?.breadnumber}</p>
                 </figcaption>
                 </CardMain>
             </section>

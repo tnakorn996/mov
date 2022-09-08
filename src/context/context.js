@@ -51,7 +51,9 @@ export const Provider = ({
     if(!parsetheme) {window.localStorage.setItem("mov.themetframe", JSON.stringify([{themeid: undefined}]))}
     if(!parseautoplay) {window.localStorage.setItem("mov.autoplaytframe", JSON.stringify([{autoplayid: true}]))}
     
-    useEffect(() => {navigate(`/auth/authmain`)}, [])
+    useEffect(() => {
+        navigate(`/auth/authmain`)
+    }, [])
 
     useEffect(() => {
         setauthstate(supabase.auth.session())

@@ -1332,11 +1332,14 @@ export function themeAddressRender({ data }) {
 
 export function postMainFunction(date) {
   if(typeof date === "undefined" ) return null;
-  var aDay = 24*60*60*1000;
+//   var aDay = 24*60*60*1000;
   const ref=   new Date(date);
-  const ios = ref.toLocaleString('zh-TW')
+// const ref = date.slice(0, 19)
+// const ref = date.toISOString()
+// const ref = date.replace('T', ' ')
+// const ref = date.toLocaleString()
 
-  var seconds = Math.floor((new Date() - ios) / 1000);
+  var seconds = Math.floor((new Date() - ref) / 1000);
   var interval = seconds / 31536000;
 
   if (interval > 1) {
@@ -1360,6 +1363,3 @@ export function postMainFunction(date) {
   }
   return Math.floor(seconds) + " seconds";
 }
-// var aDay = 24*60*60*1000;
-// console.log(timeSince(new Date(Date.now()-aDay)));
-// console.log(timeSince(new Date(Date.now()-aDay*2)));
